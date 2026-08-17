@@ -1,0 +1,5 @@
+repositories:
+  m-explore-ros2:
+    type: git
+    url: https://github.com/robo-friends/m-explore-ros2.git
+    version: 326cf8a0b487c34246bb8f3326afbcd69576dc60

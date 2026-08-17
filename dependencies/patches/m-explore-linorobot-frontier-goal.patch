@@ -1,0 +1,116 @@
+diff --git a/explore/include/explore/explore.h b/explore/include/explore/explore.h
+index 8799783..cf34bc0 100644
+--- a/explore/include/explore/explore.h
++++ b/explore/include/explore/explore.h
+@@ -97,6 +97,9 @@ private:
+       const std::vector<frontier_exploration::Frontier>& frontiers);
+ 
+   bool goalOnBlacklist(const geometry_msgs::msg::Point& goal);
++  geometry_msgs::msg::Point selectGoal(
++      const frontier_exploration::Frontier& frontier,
++      const geometry_msgs::msg::Point& robot_position) const;
+ 
+   NavigationGoalHandle::SharedPtr navigation_goal_handle_;
+   // void
+@@ -140,6 +143,8 @@ private:
+   double planner_frequency_;
+   double potential_scale_, orientation_scale_, gain_scale_;
+   double progress_timeout_;
++  double minimum_goal_distance_;
++  double preferred_goal_distance_;
+   bool visualize_;
+   bool return_to_init_;
+   std::string robot_base_frame_;
+diff --git a/explore/src/explore.cpp b/explore/src/explore.cpp
+index d72fb18..a728551 100644
+--- a/explore/src/explore.cpp
++++ b/explore/src/explore.cpp
+@@ -38,6 +38,7 @@
+ 
+ #include <explore/explore.h>
+ 
++#include <limits>
+ #include <thread>
+ 
+ inline static bool same_point(const geometry_msgs::msg::Point& one,
+@@ -69,6 +70,8 @@ Explore::Explore()
+   this->declare_parameter<float>("orientation_scale", 0.0);
+   this->declare_parameter<float>("gain_scale", 1.0);
+   this->declare_parameter<float>("min_frontier_size", 0.5);
++  this->declare_parameter<float>("minimum_goal_distance", 0.75);
++  this->declare_parameter<float>("preferred_goal_distance", 2.0);
+   this->declare_parameter<bool>("return_to_init", false);
+ 
+   this->get_parameter("planner_frequency", planner_frequency_);
+@@ -78,6 +81,8 @@ Explore::Explore()
+   this->get_parameter("orientation_scale", orientation_scale_);
+   this->get_parameter("gain_scale", gain_scale_);
+   this->get_parameter("min_frontier_size", min_frontier_size);
++  this->get_parameter("minimum_goal_distance", minimum_goal_distance_);
++  this->get_parameter("preferred_goal_distance", preferred_goal_distance_);
+   this->get_parameter("return_to_init", return_to_init_);
+   this->get_parameter("robot_base_frame", robot_base_frame_);
+ 
+@@ -254,8 +259,8 @@ void Explore::makePlan()
+   // find non blacklisted frontier
+   auto frontier =
+       std::find_if_not(frontiers.begin(), frontiers.end(),
+-                       [this](const frontier_exploration::Frontier& f) {
+-                         return goalOnBlacklist(f.centroid);
++                       [this, &pose](const frontier_exploration::Frontier& f) {
++                         return goalOnBlacklist(selectGoal(f, pose.position));
+                        });
+   if (frontier == frontiers.end()) {
+     RCLCPP_WARN(logger_, "All frontiers traversed/tried out, stopping.");
+@@ -265,7 +270,8 @@ void Explore::makePlan()
+     stop(true);
+     return;
+   }
+-  geometry_msgs::msg::Point target_position = frontier->centroid;
++  geometry_msgs::msg::Point target_position =
++      selectGoal(*frontier, pose.position);
+ 
+   // time out if we are not making any progress
+   bool same_goal = same_point(prev_goal_, target_position);
+@@ -373,6 +379,41 @@ bool Explore::goalOnBlacklist(const geometry_msgs::msg::Point& goal)
+   return false;
+ }
+ 
++geometry_msgs::msg::Point Explore::selectGoal(
++    const frontier_exploration::Frontier& frontier,
++    const geometry_msgs::msg::Point& robot_position) const
++{
++  auto distance_from_robot = [&robot_position](
++                                 const geometry_msgs::msg::Point& point) {
++    return std::hypot(point.x - robot_position.x,
++                      point.y - robot_position.y);
++  };
++
++  // For ordinary frontier shapes the centroid is stable and remains the best
++  // information-gain target. A frontier that wraps around the robot, however,
++  // can have a centroid inside Nav2's goal tolerance and cause a tight loop of
++  // immediately-successful goals.
++  if (distance_from_robot(frontier.centroid) >= minimum_goal_distance_) {
++    return frontier.centroid;
++  }
++
++  geometry_msgs::msg::Point fallback = frontier.centroid;
++  double best_error = std::numeric_limits<double>::max();
++  for (const auto& point : frontier.points) {
++    const double distance = distance_from_robot(point);
++    if (distance < minimum_goal_distance_) {
++      continue;
++    }
++    const double error = std::abs(distance - preferred_goal_distance_);
++    if (error < best_error) {
++      best_error = error;
++      fallback = point;
++    }
++  }
++
++  return fallback;
++}
++
+ void Explore::reachedGoal(const NavigationGoalHandle::WrappedResult& result,
+                           const geometry_msgs::msg::Point& frontier_goal) {
+   // discard stale callbacks from previously preempted goals

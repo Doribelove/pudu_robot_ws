@@ -1,0 +1,26 @@
+explore_node:
+  ros__parameters:
+    # Linorobot2/SLAM Toolbox frames and live occupancy grid.
+    robot_base_frame: base_footprint
+    costmap_topic: /map
+    costmap_updates_topic: /map_updates
+
+    # Replan every five seconds. A slower rate avoids repeatedly preempting
+    # Nav2 while SLAM is still changing the frontier geometry.
+    planner_frequency: 0.2
+    progress_timeout: 45.0
+    transform_tolerance: 0.5
+
+    # Frontier cost = distance cost - information-gain reward.
+    potential_scale: 3.0
+    gain_scale: 1.0
+    orientation_scale: 0.0
+    min_frontier_size: 0.5
+
+    # If a frontier wraps around the robot, its centroid can fall inside
+    # Nav2's arrival tolerance. Select a point near this radial distance.
+    minimum_goal_distance: 0.75
+    preferred_goal_distance: 2.0
+
+    visualize: true
+    return_to_init: false
