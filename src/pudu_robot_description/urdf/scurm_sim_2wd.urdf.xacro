@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot name="pudu_scurm_sim_2wd" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="lidar_horizontal_samples" default="360"/>
+  <!-- Keep the established Linorobot2 mechanics, replacing its simulated
+       sensors and TF ownership for the optional SCURM mode. -->
+  <xacro:include filename="$(find linorobot2_description)/urdf/2wd_properties.urdf.xacro"/>
+  <xacro:include filename="$(find linorobot2_description)/urdf/mech/base.urdf.xacro"/>
+  <xacro:include filename="$(find linorobot2_description)/urdf/mech/wheel.urdf.xacro"/>
+  <xacro:include filename="$(find linorobot2_description)/urdf/mech/caster_wheel.urdf.xacro"/>
+  <xacro:include filename="$(find linorobot2_description)/urdf/sensors/generic_laser.urdf.xacro"/>
+  <xacro:include filename="$(find pudu_robot_description)/urdf/scurm_sim_drive.urdf.xacro"/>
+  <xacro:include filename="$(find pudu_robot_description)/urdf/scurm_sim_sensors.urdf.xacro"/>
+
+  <xacro:base
+    length="${base_length}"
+    width="${base_width}"
+    height="${base_height}"
+    mass="${base_mass}"
+    wheel_radius="${wheel_radius}"
+    wheel_pos_z="${wheel_pos_z}"/>
+
+  <xacro:wheel side="left" radius="${wheel_radius}" width="${wheel_width}"
+    pos_x="${wheel_pos_x}" pos_y="${wheel_pos_y}" pos_z="${wheel_pos_z}"
+    mass="${wheel_mass}"/>
+  <xacro:wheel side="right" radius="${wheel_radius}" width="${wheel_width}"
+    pos_x="${wheel_pos_x}" pos_y="${-wheel_pos_y}" pos_z="${wheel_pos_z}"
+    mass="${wheel_mass}"/>
+
+  <xacro:if value="${front_caster_wheel}">
+    <xacro:caster_wheel side="front" mass="0.01" base_length="${base_length}"
+      wheel_radius="${wheel_radius}" wheel_pos_z="${wheel_pos_z}"/>
+  </xacro:if>
+  <xacro:if value="${rear_caster_wheel}">
+    <xacro:caster_wheel side="rear" mass="0.01" base_length="${base_length}"
+      wheel_radius="${wheel_radius}" wheel_pos_z="${wheel_pos_z}"/>
+  </xacro:if>
+
+  <xacro:scurm_sim_imu/>
+  <xacro:generic_laser>
+    <xacro:insert_block name="laser_pose"/>
+  </xacro:generic_laser>
+  <xacro:scurm_sim_lidar
+    horizontal_samples="$(arg lidar_horizontal_samples)"/>
+  <xacro:scurm_ground_truth/>
+
+  <xacro:scurm_sim_drive_controller
+    wheel_separation="${wheel_pos_y * 2}"
+    wheel_radius="${wheel_radius}"
+    wheel_torque="${wheel_torque}"/>
+</robot>

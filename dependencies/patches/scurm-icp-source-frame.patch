@@ -1,0 +1,127 @@
+diff --git a/icp_relocalization/src/icp_node.cpp b/icp_relocalization/src/icp_node.cpp
+index 787014b..2b5e3f2 100644
+--- a/icp_relocalization/src/icp_node.cpp
++++ b/icp_relocalization/src/icp_node.cpp
+@@ -1,4 +1,6 @@
+ #include <rclcpp/rclcpp.hpp>
++#include <chrono>
++#include <thread>
+ #include <sensor_msgs/msg/point_cloud2.hpp>
+ #include <geometry_msgs/msg/pose_stamped.hpp>
+ #include <pcl_conversions/pcl_conversions.h>
+@@ -37,6 +39,15 @@ public:
+         this->declare_parameter("cloud_voxel_leaf_size", 0.1);
+         this->declare_parameter("converged_count_thre", 20);
+         this->declare_parameter("pcl_type","livox");
++        // Transform incoming sensor-frame points into the robot base frame
++        // before registration. Defaults preserve the upstream upside-down
++        // Livox mounting assumption (180 degrees around X).
++        this->declare_parameter("source_to_base_x", 0.0);
++        this->declare_parameter("source_to_base_y", 0.0);
++        this->declare_parameter("source_to_base_z", 0.0);
++        this->declare_parameter("source_to_base_roll", 3.141592653589793);
++        this->declare_parameter("source_to_base_pitch", 0.0);
++        this->declare_parameter("source_to_base_yaw", 0.0);
+ 
+         this->get_parameter("initial_x", initial_x);
+         this->get_parameter("initial_y", initial_y);
+@@ -53,6 +64,35 @@ public:
+         this->get_parameter("converged_count_thre", converged_count_thre);
+         this->get_parameter("pcl_type", pcl_type);
+ 
++        double source_to_base_x;
++        double source_to_base_y;
++        double source_to_base_z;
++        double source_to_base_roll;
++        double source_to_base_pitch;
++        double source_to_base_yaw;
++        this->get_parameter("source_to_base_x", source_to_base_x);
++        this->get_parameter("source_to_base_y", source_to_base_y);
++        this->get_parameter("source_to_base_z", source_to_base_z);
++        this->get_parameter("source_to_base_roll", source_to_base_roll);
++        this->get_parameter("source_to_base_pitch", source_to_base_pitch);
++        this->get_parameter("source_to_base_yaw", source_to_base_yaw);
++
++        source_to_base_ = Eigen::Matrix4f::Identity();
++        tf2::Quaternion source_rotation;
++        source_rotation.setRPY(
++            source_to_base_roll, source_to_base_pitch, source_to_base_yaw);
++        tf2::Matrix3x3 source_rotation_matrix(source_rotation);
++        for (int row = 0; row < 3; ++row)
++        {
++            for (int col = 0; col < 3; ++col)
++            {
++                source_to_base_(row, col) = source_rotation_matrix[row][col];
++            }
++        }
++        source_to_base_(0, 3) = source_to_base_x;
++        source_to_base_(1, 3) = source_to_base_y;
++        source_to_base_(2, 3) = source_to_base_z;
++
+         publisher_ = this->create_publisher<geometry_msgs::msg::PoseWithCovarianceStamped>("icp_result", 10);
+ #ifdef USE_LIVOX
+         if(pcl_type == "livox")
+@@ -126,11 +166,10 @@ private:
+         sor_scan.filter(*input_cloud);
+         RCLCPP_INFO(this->get_logger(), "Downsampled input cloud to %d data points", input_cloud->width * input_cloud->height);
+ 
+-        // Rotate pcl alone x axis for 180 degree
+-        Eigen::Matrix4f rotation = Eigen::Matrix4f::Identity();
+-        rotation(1, 1) = -1;
+-        rotation(2, 2) = -1;
+-        pcl::transformPointCloud(*input_cloud, *input_cloud, rotation);
++        // Register a base-frame cloud so the resulting pose can be used as
++        // map -> odom when FAST-LIO starts at the robot base origin.
++        pcl::transformPointCloud(
++            *input_cloud, *input_cloud, source_to_base_);
+ 
+         // Perform ICP alignment
+         pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+@@ -173,6 +212,10 @@ private:
+             pose_msg.pose.pose.orientation.z = q.z();
+             pose_msg.pose.pose.orientation.w = q.w();
+             publisher_->publish(pose_msg);
++            // Give DDS time to deliver the one-shot result before destroying
++            // this publisher. Immediate shutdown makes FAST-LIO startup race
++            // the middleware send queue on fast simulation hosts.
++            std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+ 
+             // Transform the input cloud using the ICP result
+             pcl::transformPointCloud(*input_cloud, *input_cloud, transformation_result);
+@@ -224,11 +267,8 @@ private:
+         sor_scan.filter(*input_cloud);
+         RCLCPP_INFO(this->get_logger(), "Downsampled input cloud to %d data points", input_cloud->width * input_cloud->height);
+ 
+-        // Rotate pcl alone x axis for 180 degree
+-        Eigen::Matrix4f rotation = Eigen::Matrix4f::Identity();
+-        rotation(1, 1) = -1;
+-        rotation(2, 2) = -1;
+-        pcl::transformPointCloud(*input_cloud, *input_cloud, rotation);
++        pcl::transformPointCloud(
++            *input_cloud, *input_cloud, source_to_base_);
+ 
+         // Perform ICP alignment
+         pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+@@ -265,6 +305,7 @@ private:
+             pose_msg.pose.pose.orientation.z = q.z();
+             pose_msg.pose.pose.orientation.w = q.w();
+             publisher_->publish(pose_msg);
++            std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+ 
+             // Transform the input cloud using ICP result
+             pcl::transformPointCloud(*input_cloud, *input_cloud, transformation_result);
+@@ -352,6 +393,7 @@ private:
+     int converged_count = 0;
+     int converged_count_thre;
+     std::string pcl_type;
++    Eigen::Matrix4f source_to_base_{Eigen::Matrix4f::Identity()};
+ };
+ 
+ int main(int argc, char *argv[])
+@@ -360,4 +402,4 @@ int main(int argc, char *argv[])
+     rclcpp::spin(std::make_shared<ICPNode>());
+     rclcpp::shutdown();
+     return 0;
+-}
+\ No newline at end of file
++}

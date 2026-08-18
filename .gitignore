@@ -2,6 +2,9 @@
 build/
 install/
 log/
+external/*
+!external/README.md
+!external/COLCON_IGNORE
 
 # IDE and editor files
 .vscode/
@@ -18,4 +21,3 @@ __pycache__/
 *.bag.active
 *.db3
 *.mcap
-

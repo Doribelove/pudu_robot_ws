@@ -1,0 +1,26 @@
+diff --git a/icp_relocalization/package.xml b/icp_relocalization/package.xml
+index a0f8158..291c7b9 100644
+--- a/icp_relocalization/package.xml
++++ b/icp_relocalization/package.xml
+@@ -13,10 +13,21 @@
+   <build_depend>nav_msgs</build_depend>
+   <build_depend>geometry_msgs</build_depend>
+   <build_depend>tf2</build_depend>
++  <build_depend>tf2_ros</build_depend>
++  <build_depend>tf2_eigen</build_depend>
++  <build_depend>tf2_geometry_msgs</build_depend>
+   <build_depend>pcl_ros</build_depend>
++  <build_depend>octomap_ros</build_depend>
++  <build_depend>livox_ros_driver2</build_depend>
+   <exec_depend>std_msgs</exec_depend>
+   <exec_depend>nav_msgs</exec_depend>
+   <exec_depend>tf2</exec_depend>
++  <exec_depend>tf2_ros</exec_depend>
++  <exec_depend>tf2_eigen</exec_depend>
++  <exec_depend>tf2_geometry_msgs</exec_depend>
++  <exec_depend>pcl_ros</exec_depend>
++  <exec_depend>octomap_ros</exec_depend>
++  <exec_depend>livox_ros_driver2</exec_depend>
+ 
+   <export>
+     <build_type>ament_cmake</build_type>

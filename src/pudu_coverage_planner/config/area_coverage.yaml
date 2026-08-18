@@ -1,0 +1,43 @@
+area_coverage:
+  ros__parameters:
+    use_sim_time: true
+    map_topic: /map
+    area_topic: /coverage/area
+    clicked_point_topic: /clicked_point
+    global_frame: map
+    robot_base_frame: base_link
+    occupied_threshold: 50
+    unknown_is_obstacle: true
+    # Collision clearance and effective scan/tool footprint are deliberately
+    # distinct. Coverage radius also absorbs tracking and grid quantization.
+    robot_radius: 0.22
+    coverage_radius: 0.38
+    lane_spacing: 0.38
+    path_point_spacing: 0.08
+    turn_split_angle: 0.60
+    min_sweep_segment_length: 0.45
+    min_cell_area: 0.10
+    min_repair_area: 0.04
+    completion_threshold: 0.98
+    max_repair_passes: 2
+    controller_id: FollowPath
+    # Portable default for a generic Nav2 stack. SCURM startup overrides this
+    # with its tighter coverage_goal_checker.
+    goal_checker_id: general_goal_checker
+    auto_plan_on_area: true
+    # Plan the robot-reachable known-free component of /map by default.
+    # A manually published polygon still replaces this full-map plan.
+    auto_plan_full_map: true
+    auto_execute_on_area: false
+    # Actual TF trail sampling. A sample is added after either threshold is met.
+    trail_sample_distance: 0.03
+    trail_sample_period: 0.25
+    max_trail_points: 20000
+    # Coarsen only RViz color cells; planning and coverage accounting retain
+    # the original map resolution.
+    visualization_cell_size: 0.15
+    # Pose breadcrumbs: distance, time, or either.
+    pose_arrow_trigger: distance
+    pose_arrow_distance: 0.50
+    pose_arrow_period: 5.0
+    max_pose_arrows: 1000

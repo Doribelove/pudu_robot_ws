@@ -8,10 +8,22 @@
   <license>Proprietary</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>ament_index_python</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
+  <exec_depend>fast_lio</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>icp_relocalization</exec_depend>
+  <exec_depend>linorobot2_gazebo</exec_depend>
+  <exec_depend>linorobot2_navigation</exec_depend>
   <exec_depend>nav2_bringup</exec_depend>
+  <exec_depend>nav2_common</exec_depend>
+  <exec_depend>nav2_lifecycle_manager</exec_depend>
+  <exec_depend>nav2_map_server</exec_depend>
+  <exec_depend>pudu_nav2_plugins</exec_depend>
+  <exec_depend>pudu_scurm_sim</exec_depend>
   <exec_depend>pudu_robot_description</exec_depend>
+  <exec_depend>rviz2</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

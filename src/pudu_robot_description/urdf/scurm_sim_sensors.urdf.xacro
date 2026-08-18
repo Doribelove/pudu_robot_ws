@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!--
+    Simulation-only sensor suite for the optional SCURM FAST-LIO profile.
+    The lidar publishes a regular PointCloud2; the pinned FAST-LIO fork already
+    supports this format when preprocess.lidar_type is set to 4.
+  -->
+
+  <xacro:macro name="scurm_sim_imu" params="parent:=base_link">
+    <link name="imu_link"/>
+    <joint name="imu_to_base_link" type="fixed">
+      <parent link="${parent}"/>
+      <child link="imu_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <gazebo reference="imu_link">
+      <gravity>true</gravity>
+      <sensor name="scurm_imu_sensor" type="imu">
+        <always_on>true</always_on>
+        <update_rate>200</update_rate>
+        <visualize>false</visualize>
+        <imu>
+          <angular_velocity>
+            <x><noise type="gaussian"><mean>0</mean><stddev>0.0002</stddev></noise></x>
+            <y><noise type="gaussian"><mean>0</mean><stddev>0.0002</stddev></noise></y>
+            <z><noise type="gaussian"><mean>0</mean><stddev>0.0002</stddev></noise></z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x><noise type="gaussian"><mean>0</mean><stddev>0.002</stddev></noise></x>
+            <y><noise type="gaussian"><mean>0</mean><stddev>0.002</stddev></noise></y>
+            <z><noise type="gaussian"><mean>0</mean><stddev>0.002</stddev></noise></z>
+          </linear_acceleration>
+        </imu>
+        <plugin filename="libgazebo_ros_imu_sensor.so" name="scurm_imu_plugin">
+          <ros>
+            <remapping>~/out:=/imu/data</remapping>
+          </ros>
+          <initial_orientation_as_reference>false</initial_orientation_as_reference>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="scurm_sim_lidar"
+               params="parent:=base_link horizontal_samples:=360">
+    <link name="scurm_lidar">
+      <visual>
+        <geometry><cylinder radius="0.04" length="0.055"/></geometry>
+        <material name="scurm_lidar_blue"><color rgba="0.05 0.25 0.85 1"/></material>
+      </visual>
+      <collision>
+        <geometry><cylinder radius="0.04" length="0.055"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="0.12"/>
+        <inertia ixx="0.00008" ixy="0" ixz="0"
+                 iyy="0.00008" iyz="0" izz="0.0001"/>
+      </inertial>
+    </link>
+    <joint name="scurm_lidar_to_base_link" type="fixed">
+      <parent link="${parent}"/>
+      <child link="scurm_lidar"/>
+      <origin xyz="0.12 0 0.33" rpy="0 0 0"/>
+    </joint>
+
+    <gazebo reference="scurm_lidar">
+      <sensor type="ray" name="scurm_3d_lidar">
+        <always_on>true</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>${horizontal_samples}</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.14159265</min_angle>
+              <max_angle>3.14159265</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>16</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.261799</min_angle>
+              <max_angle>0.261799</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.20</min>
+            <max>15.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.002</stddev>
+          </noise>
+        </ray>
+        <plugin name="scurm_3d_lidar_controller" filename="libgazebo_ros_ray_sensor.so">
+          <ros>
+            <remapping>~/out:=/scurm/lidar_points</remapping>
+          </ros>
+          <output_type>sensor_msgs/PointCloud2</output_type>
+          <frame_name>scurm_lidar</frame_name>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
+  <!-- Fixed-joint reduction keeps base_footprint as the Gazebo body. -->
+  <xacro:macro name="scurm_ground_truth" params="body:=base_footprint">
+    <gazebo>
+      <plugin name="scurm_ground_truth" filename="libgazebo_ros_p3d.so">
+        <ros>
+          <remapping>odom:=/ground_truth/odom</remapping>
+        </ros>
+        <body_name>${body}</body_name>
+        <frame_name>world</frame_name>
+        <update_rate>50</update_rate>
+        <gaussian_noise>0.0</gaussian_noise>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>

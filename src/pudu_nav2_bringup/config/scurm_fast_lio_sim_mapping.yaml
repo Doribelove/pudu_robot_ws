@@ -1,0 +1,61 @@
+/**:
+  ros__parameters:
+    use_sim_time: true
+    locate_in_prior_map: false
+    feature_extract_enable: false
+    point_filter_num: 1
+    max_iteration: 4
+    filter_size_surf: 0.15
+    filter_size_map: 0.20
+    cube_side_length: 40.0
+    runtime_pos_log_enable: false
+    map_file_path: "/tmp/scurm_playground_map.pcd"
+
+    common:
+      odom_frame_id: "odom"
+      sensor_frame_id: "imu_link"
+      # Keep base_link below base_footprint in the URDF. FAST-LIO is the sole
+      # dynamic publisher of odom -> base_footprint.
+      base_frame_id: "base_footprint"
+      send_odom_base_tf: true
+      lid_topic: "/scurm/lidar_points"
+      imu_topic: "/imu/data"
+      time_sync_en: false
+      time_offset_lidar_to_imu: 0.0
+
+    # The Gazebo ray plugin publishes PointCloud2. The pinned FAST-LIO fork
+    # uses an out-of-enum value for its generic PointXYZI PointCloud2 path;
+    # value 4 is MID360 in this pinned fork.
+    preprocess:
+      lidar_type: 5
+      scan_line: 16
+      blind: 0.20
+      timestamp_unit: 3
+      scan_rate: 10
+
+    mapping:
+      acc_cov: 0.01
+      gyr_cov: 0.01
+      b_acc_cov: 0.00001
+      b_gyr_cov: 0.00001
+      fov_degree: 360.0
+      det_range: 15.0
+      extrinsic_est_en: false
+      # scurm_lidar is mounted 12 cm forward and 33 cm above imu_link.
+      extrinsic_T: [0.12, 0.0, 0.33]
+      extrinsic_R: [1.0, 0.0, 0.0,
+                    0.0, 1.0, 0.0,
+                    0.0, 0.0, 1.0]
+
+    publish:
+      path_en: true
+      effect_map_en: false
+      map_en: true
+      ikd_tree_en: false
+      scan_publish_en: true
+      dense_publish_en: true
+      scan_bodyframe_pub_en: true
+
+    pcd_save:
+      pcd_save_en: true
+      interval: -1

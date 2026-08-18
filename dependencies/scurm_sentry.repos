@@ -1,0 +1,21 @@
+repositories:
+  SCURM_SentryNavigation:
+    type: git
+    url: https://github.com/PolarisXQ/SCURM_SentryNavigation.git
+    version: 46e6425c692ec98f8e65446fb6fdd360f44ef8e5
+  perception_pcl:
+    type: git
+    url: https://github.com/ros-perception/perception_pcl.git
+    version: ca66aa21f28b7e2848870f08faace81554e78437
+  octomap_ros:
+    type: git
+    url: https://github.com/OctoMap/octomap_ros.git
+    version: 183818443db9ac7478816318d7f0352278f8a7c2
+  octomap_mapping:
+    type: git
+    url: https://github.com/OctoMap/octomap_mapping.git
+    version: f79da9a9a1fcdf82e72dab4df288d6cc27c6e163
+  octomap_msgs:
+    type: git
+    url: https://github.com/OctoMap/octomap_msgs.git
+    version: 50eece2bfc2f3163b2fb70b9157356e12d375dff

@@ -1,0 +1,22 @@
+diff --git a/rm_decision_cpp/CMakeLists.txt b/rm_decision_cpp/CMakeLists.txt
+index b99eb89..ccb7959 100644
+--- a/rm_decision_cpp/CMakeLists.txt
++++ b/rm_decision_cpp/CMakeLists.txt
+@@ -58,6 +58,8 @@ add_library(${PROJECT_NAME} SHARED
+   src/behaviors/sentry_cmd.cpp
+   src/behaviors/control_gimbal.cpp
+   src/behaviors/align_chassis.cpp
++  src/behaviors/chassis_type.cpp
++  src/behaviors/is_in_position.cpp
+ )
+ 
+ target_include_directories(${PROJECT_NAME} PUBLIC
+@@ -77,6 +79,8 @@ add_executable(tree_exec_node src/tree_exec_node.cpp
+   src/behaviors/sentry_cmd.cpp
+   src/behaviors/control_gimbal.cpp
+   src/behaviors/align_chassis.cpp
++  src/behaviors/chassis_type.cpp
++  src/behaviors/is_in_position.cpp
+ )
+ ament_target_dependencies(tree_exec_node ${ros_dependencies})
+ 

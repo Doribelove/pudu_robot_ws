@@ -73,7 +73,7 @@ register_session "${GAZEBO_PID_FILE}" \
 register_session "${NAV_PID_FILE}" \
   "linorobot2_navigation|nav2|slam_toolbox|rviz2" "Nav2/SLAM"
 register_session "${EXPLORE_PID_FILE}" \
-  "pudu_coverage_planner|explore_lite|autonomous_mapping|/explore" "自动探索"
+  "pudu_coverage_planner|area_coverage|explore_lite|autonomous_mapping|/explore" "自动探索/区域覆盖"
 
 if (( ${#session_ids[@]} == 0 )); then
   if [[ "${invalid_session_found}" == true ]]; then
@@ -83,7 +83,7 @@ if (( ${#session_ids[@]} == 0 )); then
   exit 0
 fi
 
-echo "正在终止 Linorobot2 Gazebo、Nav2/SLAM、自动探索和 RViz……"
+echo "正在终止 Linorobot2 Gazebo、Nav2/SLAM、自动探索/区域覆盖和 RViz……"
 
 # 先只通知 ros2 launch 会话首进程，让 launch 正常关闭其节点。
 for session_id in "${session_ids[@]}"; do

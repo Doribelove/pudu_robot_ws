@@ -1,0 +1,11 @@
+<library path="pudu_back_up_to_free_space">
+  <class
+    name="pudu_nav2_plugins/BackUpToFreeSpace"
+    type="pudu_nav2_plugins::BackUpToFreeSpace"
+    base_class_type="nav2_core::Behavior">
+    <description>
+      Differential-drive recovery that selects a collision-free forward or
+      reverse arc from the local Nav2 costmap.
+    </description>
+  </class>
+</library>
