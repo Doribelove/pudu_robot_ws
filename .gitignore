@@ -21,3 +21,6 @@ __pycache__/
 *.bag.active
 *.db3
 *.mcap
+
+# Arena4 evaluation outputs
+experiments/

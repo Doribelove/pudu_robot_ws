@@ -1,6 +1,8 @@
 # PUDU Robot Workspace
 
 中文启动、停止和功能说明见 [USAGE.md](USAGE.md)。
+Arena4 单次录制、指标计算和绘图见
+[docs/ARENA4_EVALUATION_USAGE.md](docs/ARENA4_EVALUATION_USAGE.md)。
 超大地图 A2B 课题的 P0 冻结口径见
 [docs/P0_EVALUATION_DEFINITION.md](docs/P0_EVALUATION_DEFINITION.md)。
 
