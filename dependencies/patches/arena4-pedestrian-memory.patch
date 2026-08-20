@@ -1,0 +1,14 @@
+diff --git a/src/arena/arena-rosnav/task_generator/task_generator/simulators/human/hunav/hunav.py b/src/arena/arena-rosnav/task_generator/task_generator/simulators/human/hunav/hunav.py
+--- a/src/arena/arena-rosnav/task_generator/task_generator/simulators/human/hunav/hunav.py
++++ b/src/arena/arena-rosnav/task_generator/task_generator/simulators/human/hunav/hunav.py
+@@ -84,6 +84,9 @@ class _PedestrianHelper:
+                         </visual>
+                     </link>
+                     <plugin name="HuNavSystemPluginIGN" filename="libHuNavSystemPluginIGN.so">
+-                        <update_rate>1000.0</update_rate>
++                        <!-- Lower update rate keeps detailed scenes responsive
++                             without running social-force integration every
++                             physics step. -->
++                        <update_rate>10.0</update_rate>
+                         <namespace>{namespace}</namespace>
+                         <!-- <robot_name>jackal</robot_name> -->

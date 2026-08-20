@@ -1,0 +1,443 @@
+diff --git a/src/arena/simulation-setup/configs/nav2/controllers/mppi/controller_config.yaml b/src/arena/simulation-setup/configs/nav2/controllers/mppi/controller_config.yaml
+--- a/src/arena/simulation-setup/configs/nav2/controllers/mppi/controller_config.yaml
++++ b/src/arena/simulation-setup/configs/nav2/controllers/mppi/controller_config.yaml
+@@ -1,10 +1,12 @@
++controller_frequency: 20.0  # Must match the 0.05 s MPPI model step.
++
+ controller_plugins:
+  - FollowPath
+ controller_plugins_dict:
+  FollowPath:
+    plugin: "nav2_mppi_controller::MPPIController"
+    time_steps: 56
+-   model_dt: 0.25
++   model_dt: 0.05
+    batch_size: 2000
+    vx_std: 0.2
+    vy_std: 0.2
+diff --git a/src/arena/simulation-setup/configs/nav2/nav2.yaml b/src/arena/simulation-setup/configs/nav2/nav2.yaml
+--- a/src/arena/simulation-setup/configs/nav2/nav2.yaml
++++ b/src/arena/simulation-setup/configs/nav2/nav2.yaml
+@@ -64,7 +64,7 @@ bt_navigator_rclcpp_node:
+ controller_server:
+   ros__parameters:
+     use_sim_time: True
+-    controller_frequency: 1.0
++    controller_frequency: ${controller_frequency}
+     min_x_velocity_threshold: 0.001
+     min_y_velocity_threshold: 0.5
+     min_theta_velocity_threshold: 0.001
+@@ -186,7 +186,7 @@ global_costmap:
+       robot_base_frame: ${frame:-}${robot_base_frame:-base_link}
+       use_sim_time: True
+       footprint: ${footprint}
+-      resolution: 0.05
++      resolution: 0.1
+       width: 20
+       height: 20
+       origin_x: -10.0
+@@ -213,7 +213,7 @@ global_costmap:
+       inflation_layer:
+         plugin: "nav2_costmap_2d::InflationLayer"
+         cost_scaling_factor: 3.0
+-        inflation_radius: 0.25
++        inflation_radius: 0.55
+       always_send_full_costmap: True
+   global_costmap_client:
+     ros__parameters:
+@@ -245,6 +245,21 @@ recoveries_server:
+     min_rotational_vel: 0.4
+     rotational_acc_lim: 3.2
+
++velocity_smoother:
++  ros__parameters:
++    use_sim_time: True
++    smoothing_frequency: 20.0
++    scale_velocities: false
++    feedback: "CLOSED_LOOP"
++    max_velocity: [0.5, 0.0, 1.9]
++    min_velocity: [-0.35, 0.0, -1.9]
++    max_accel: [3.0, 0.0, 3.5]
++    max_decel: [-3.0, 0.0, -3.5]
++    odom_topic: "odom"
++    odom_duration: 0.1
++    deadband_velocity: [0.0, 0.0, 0.0]
++    velocity_timeout: 0.5
++
+ collision_monitor:
+   ros__parameters:
+     base_frame_id: ${frame:-}${robot_base_frame:-base_link}
+diff --git a/src/arena/simulation-setup/configs/nav2/planners/smac_2d/planner_config.yaml b/src/arena/simulation-setup/configs/nav2/planners/smac_2d/planner_config.yaml
+--- a/src/arena/simulation-setup/configs/nav2/planners/smac_2d/planner_config.yaml
++++ b/src/arena/simulation-setup/configs/nav2/planners/smac_2d/planner_config.yaml
+@@ -5,7 +5,7 @@ planner_plugins_dict:
+     tolerance: 0.125
+     downsample_costmap: false
+     downsampling_factor: 1
+-    allow_unknown: true
++    allow_unknown: false
+     max_iterations: 1000000
+     max_on_approach_iterations: 1000
+     max_planning_time: 2.0
+diff --git a/src/arena/simulation-setup/entities/robots/jackal/urdf/jackal.gazebo b/src/arena/simulation-setup/entities/robots/jackal/urdf/jackal.gazebo
+--- a/src/arena/simulation-setup/entities/robots/jackal/urdf/jackal.gazebo
++++ b/src/arena/simulation-setup/entities/robots/jackal/urdf/jackal.gazebo
+@@ -94,6 +94,22 @@
+       <wheel_separation>${track}</wheel_separation>
+       <wheel_radius>${wheel_radius}</wheel_radius>
+       <odom_publish_frequency>50</odom_publish_frequency>
++      <odom_topic>wheel_odometry</odom_topic>
++      <tf_topic>wheel_tf</tf_topic>
++    </plugin>
++
++    <!-- Publish the simulated world pose as odometry. Wheel integration on a
++         skid-steer Jackal diverges substantially during turns, while this
++         project explicitly evaluates planning rather than localization. -->
++    <plugin
++      filename="gz-sim-odometry-publisher-system"
++      name="gz::sim::systems::OdometryPublisher">
++      <odom_frame>$(arg name)/odom</odom_frame>
++      <robot_base_frame>$(arg name)/base_link</robot_base_frame>
++      <dimensions>2</dimensions>
++      <odom_publish_frequency>50</odom_publish_frequency>
++      <odom_topic>/model/$(arg name)/odometry</odom_topic>
++      <tf_topic>/model/$(arg name)/tf</tf_topic>
+     </plugin>
+   </gazebo>
+
+diff --git a/src/arena/simulation-setup/launch/nav2.launch.py b/src/arena/simulation-setup/launch/nav2.launch.py
+--- a/src/arena/simulation-setup/launch/nav2.launch.py
++++ b/src/arena/simulation-setup/launch/nav2.launch.py
+@@ -11,6 +11,7 @@
+ from launch.conditions import IfCondition
+ from launch.launch_description_sources import PythonLaunchDescriptionSource
+ from launch.substitutions import PathJoinSubstitution
+ from launch_ros.actions import Node, SetRemap
++from launch_ros.parameter_descriptions import ParameterValue
+ from launch_ros.substitutions import FindPackageShare
+
+
+@@ -192,6 +193,18 @@ def generate_launch_description():
+         #     arguments=['0', '0', '0', '0', '0', '0', 'world', 'map'],
+         #     parameters=[{'use_sim_time': use_sim_time.substitution}]
+         # ),
++        Node(
++            package='tf2_ros',
++            executable='static_transform_publisher',
++            name='map_to_odom_truth',
++            namespace=namespace.substitution,
++            arguments=[
++                '0', '0', '0', '0', '0', '0',
++                'map', PathJoinSubstitution([frame.substitution, robot_odom_frame]),
++            ],
++            parameters=[{'use_sim_time': True}],
++            condition=IfCondition(PythonExpression(["'", robot.substitution, "' == 'jackal'"])),
++        ),
+         # TF publishers
+         # Node(
+             #     package="tf2_ros",
+@@ -238,30 +251,42 @@ def generate_launch_description():
+                     'odom_frame_id': PathJoinSubstitution([frame.substitution, robot_odom_frame]),
+                     'base_frame_id': PathJoinSubstitution([frame.substitution, robot_base_frame]),
+                     'scan_topic': first_observation_source_topic,
+-                    'set_initial_pose': True,
+-                    'always_reset_on_initial_pose': True,
+-                    'initial_pose_x': 0.0,
+-                    'initial_pose_y': 0.0,
+-                    'initial_pose_a': 0.0,
+-                    'odom_model_type': 'diff',
+-                    'alpha1': 0.2,
+-                    'alpha2': 0.2,
+-                    'alpha3': 0.2,
+-                    'alpha4': 0.2,
+-                    'min_particles': 200,
++                    'set_initial_pose': False,
++                    'always_reset_initial_pose': True,
++                    'robot_model_type': 'nav2_amcl::DifferentialMotionModel',
++                    # Gazebo provides deterministic ground-truth odometry. The
++                    # factory occupancy image is only an approximation of the
++                    # SDF collision geometry, so injecting synthetic odometry
++                    # noise lets scan matching pull RViz away from Gazebo.
++                    'alpha1': 0.0,
++                    'alpha2': 0.0,
++                    'alpha3': 0.0,
++                    'alpha4': 0.0,
++                    'alpha5': 0.0,
++                    'min_particles': 500,
+                     'max_particles': 2000,
+-                    'pf_err': 0.05,
++                    'pf_err': 0.02,
+                     'pf_z': 0.99,
+-                    'update_min_d': 0.1,
+-                    'update_min_a': 0.2,
+-                    'laser_max_beams': 640,
+-                    'laser_z_hit': 0.95,
+-                    'laser_z_rand': 0.05,
+-                    'laser_sigma_hit': 0.2,
++                    'update_min_d': 0.05,
++                    'update_min_a': 0.05,
++                    'max_beams': 120,
++                    'laser_model_type': 'likelihood_field_prob',
++                    'laser_max_range': 20.0,
++                    'z_hit': 0.95,
++                    'z_rand': 0.05,
++                    'sigma_hit': 0.2,
+                     'laser_likelihood_max_dist': 2.0,
+-                    'recovery_alpha_slow': 0.001,
+-                    'recovery_alpha_fast': 0.1,
+-                    'transform_tolerance': 0.2,
++                    'do_beamskip': True,
++                    'beam_skip_distance': 0.5,
++                    'beam_skip_threshold': 0.3,
++                    'beam_skip_error_threshold': 0.9,
++                    'recovery_alpha_slow': 0.0,
++                    'recovery_alpha_fast': 0.0,
++                    'transform_tolerance': 0.1,
+                     'tf_broadcast': ParameterValue(
+                         PythonExpression(["'", robot.substitution, "' != 'jackal'"]),
+                         value_type=bool,
+                     ),
+                 }],
+                 remappings=[
+@@ -274,7 +298,7 @@ def generate_launch_description():
+             Node(
+                 package='nav2_lifecycle_manager',
+                 executable='lifecycle_manager',
+-                name='lifecycle_manager_navigation',
++                name='lifecycle_manager_localization',
+                 output='screen',
+                 parameters=[
+                     {'use_sim_time': True},
+diff --git a/src/arena/arena-rosnav/task_generator/task_generator/manager/robot_manager/robot_manager.py b/src/arena/arena-rosnav/task_generator/task_generator/manager/robot_manager/robot_manager.py
+--- a/src/arena/arena-rosnav/task_generator/task_generator/manager/robot_manager/robot_manager.py
++++ b/src/arena/arena-rosnav/task_generator/task_generator/manager/robot_manager/robot_manager.py
+@@ -153,9 +153,13 @@ class RobotManager(NodeInterface):
+         )
+
+         self._launch_robot()
++        # Gazebo publishes the moving odom -> base transform. Publishing the
++        # same edge as static for these models leaves TF with two authorities
++        # and can make Nav2 observe a stationary base.
++        gazebo_tf_models = {'jackal', 'turtlebot'}
+         if not (
+             self.node.conf.Arena.SIM.value == Constants.SimSimulator.GAZEBO
+-            and self.model_name == 'turtlebot'
++            and self.model_name in gazebo_tf_models
+         ):
+             self._odom_base_transform()
+
+diff --git a/src/arena/arena-rosnav/task_generator/package.xml b/src/arena/arena-rosnav/task_generator/package.xml
+--- a/src/arena/arena-rosnav/task_generator/package.xml
++++ b/src/arena/arena-rosnav/task_generator/package.xml
+@@ -10,6 +10,7 @@
+
+   <depend>ros_gz_sim</depend>
+   <depend>geometry_msgs</depend>
++  <depend>nav2_msgs</depend>
+   <depend>rclcpp</depend>
+   <depend>rclpy</depend>
+   <depend>sensor_msgs</depend>
+diff --git a/src/arena/arena-rosnav/task_generator/task_generator/simulators/sim/gazebo_simulator/gazebo_simulator.py b/src/arena/arena-rosnav/task_generator/task_generator/simulators/sim/gazebo_simulator/gazebo_simulator.py
+--- a/src/arena/arena-rosnav/task_generator/task_generator/simulators/sim/gazebo_simulator/gazebo_simulator.py
++++ b/src/arena/arena-rosnav/task_generator/task_generator/simulators/sim/gazebo_simulator/gazebo_simulator.py
+@@ -8,6 +8,7 @@ import arena_simulation_setup.entities.robot
+ import launch
+ import launch_ros
+ from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
++from nav2_msgs.srv import SetInitialPose
+ from ros_gz_interfaces.msg import Entity as EntityMsg
+ from ros_gz_interfaces.msg import EntityFactory, WorldControl
+ from ros_gz_interfaces.srv import (ControlWorld, DeleteEntity, SetEntityPose,
+@@ -97,6 +98,8 @@ class GazeboSimulator(BaseSim):
+         self.entities = {}
+         self._walls_entities = []
+         self._wall_counter = itertools.count()
++        self._initial_pose_publishers = {}
++        self._initial_pose_clients = {}
+
+     def before_reset_task(self):
+         self._logger.info("Pausing simulation before reset")
+@@ -137,60 +140,11 @@ class GazeboSimulator(BaseSim):
+             if result.success and isinstance((entity := self.entities.get(name, None)), Robot):
+                 entity.pose = pose
+                 self.entities[name] = entity
+-                self._robot_initialpose(entity)
+-
+-                max_attempts = 3
+-                attempt = 1
+-                initial_pose_triggered = False
+-
+-                while attempt <= max_attempts and not initial_pose_triggered:
+-                    self._logger.info(
+-                        f"Attempt {attempt}/{max_attempts}: Triggering initial pose update for robot {name}"
+-                    )
+-                    try:
+-                        self._robot_initialpose(entity)
+-                        initial_pose_triggered = True
+-                        self._logger.info(
+-                            f"Initial pose update for {name} succeeded on attempt {attempt}"
+-                        )
+-                    except Exception as e:
+-                        self._logger.error(
+-                            f"Attempt {attempt}/{max_attempts} failed for {name}: {str(e)}"
+-                        )
+-                        traceback.print_exc()
+-                        if attempt < max_attempts:
+-                            self._logger.info("Waiting 1 second before retrying...")
+-                            time.sleep(1)
+-                        attempt += 1
+-
+-                if not initial_pose_triggered:
++                if not self._robot_initialpose(entity, require_delivery=True):
+                     self._logger.error(
+-                        f"Failed to set initial pose for {name} after {max_attempts} attempts"
++                        f"Failed to deliver the initial pose for {name} to AMCL"
+                     )
+
+-                odom_frame = 'odom'
+-
+-                if isinstance(entity, Robot):
+-                    odom_frame = arena_simulation_setup.entities.robot.Robot(entity.model.name).model_params.odom_frame
+-
+-                qx, qy, qz, qw = entity.pose.orientation.x, entity.pose.orientation.y, entity.pose.orientation.z, entity.pose.orientation.w
+-                transform_pub_node = launch_ros.actions.Node(
+-                    package="tf2_ros",
+-                    executable="static_transform_publisher",
+-                    name="map_to_odomframe_publisher",
+-                    arguments=[
+-                        str(entity.pose.position.x), str(entity.pose.position.y), str(entity.pose.position.z),
+-                        str(qx), str(qy), str(qz), str(qw),
+-                        "map",
+-                        entity.frame(odom_frame),
+-                    ],
+-                    parameters=[{'use_sim_time': True}],
+-                )
+-                self.node.do_launch(transform_pub_node)
+-                # time.sleep(1)
+-                # self.node.get_logger().info("Destroying the static_transform_publisher node after 3 seconds.")
+-                # transform_pub_node.destroy_node() # won't work like this, a topic/service to trigger self-destruction
+-
+             return result.success
+
+         except Exception as e:
+@@ -550,13 +504,63 @@ class GazeboSimulator(BaseSim):
+         # )
+         self.node.do_launch(launch_description)
+
+-    def _robot_initialpose(self, robot: Robot):
++    def _robot_initialpose(self, robot: Robot, require_delivery: bool = False) -> bool:
+         pose = PoseWithCovarianceStamped()
+         pose.pose.pose = robot.pose.to_msg()
+         pose.header.frame_id = "map"
+-
+-        self.node.create_publisher(
+-            PoseWithCovarianceStamped,
+-            self.node.service_namespace(robot.name, "initialpose"),
+-            qos_profile=1,
+-        ).publish(pose)
++        # This pose is simulator ground truth, not a noisy RViz estimate.  A
++        # large covariance makes AMCL re-localize against scan matching and
++        # can move the reported pose by tens of centimetres immediately after
++        # reset.  Keep a tiny non-zero covariance so the message remains a
++        # valid probabilistic estimate while preserving the exact reset pose.
++        pose.pose.covariance[0] = 1e-6
++        pose.pose.covariance[7] = 1e-6
++        pose.pose.covariance[35] = math.radians(0.1) ** 2
++
++        topic = self.node.service_namespace(robot.name, "initialpose")
++        publisher = self._initial_pose_publishers.get(robot.name)
++        if publisher is None:
++            publisher = self.node.create_publisher(
++                PoseWithCovarianceStamped,
++                topic,
++                qos_profile=1,
++            )
++            self._initial_pose_publishers[robot.name] = publisher
++
++        if not require_delivery:
++            # The spawn-time publication happens before Nav2 exists. Keep the
++            # publisher alive so discovery is already complete at the task
++            # reset.
++            publisher.publish(pose)
++            return publisher.get_subscription_count() > 0
++
++        service = self.node.service_namespace(robot.name, "set_initial_pose")
++        client = self._initial_pose_clients.get(robot.name)
++        if client is None:
++            client = self.node.create_client(SetInitialPose, service)
++            self._initial_pose_clients[robot.name] = client
++
++        if client.wait_for_service(timeout_sec=5.0):
++            request = SetInitialPose.Request()
++            request.pose = pose
++            response = client.call(request)
++            if response is not None:
++                self._logger.info(
++                    f"AMCL initial pose set for {robot.name}: "
++                    f"x={robot.pose.position.x:.3f}, y={robot.pose.position.y:.3f}, "
++                    f"yaw={robot.pose.orientation.to_yaw():.3f}"
++                )
++                return True
++
++        # Compatibility fallback for AMCL variants without the service. Wait
++        # for topic discovery and repeat the reset pose instead of creating a
++        # one-shot publisher which may be destroyed before delivery.
++        deadline = time.monotonic() + 5.0
++        while publisher.get_subscription_count() == 0 and time.monotonic() < deadline:
++            time.sleep(0.05)
++        if publisher.get_subscription_count() == 0:
++            return False
++        for _ in range(3):
++            publisher.publish(pose)
++            time.sleep(0.1)
++        return True
+diff --git a/src/arena/simulation-setup/entities/robots/jackal/mappings.yaml b/src/arena/simulation-setup/entities/robots/jackal/mappings.yaml
+--- a/src/arena/simulation-setup/entities/robots/jackal/mappings.yaml
++++ b/src/arena/simulation-setup/entities/robots/jackal/mappings.yaml
+@@ -46,13 +46,6 @@
+     "gz_type": "gz.msgs.Pose_V",
+     "direction": "[",
+   },
+-  {
+-    "gz_topic": "/model/{robot_name}/tf_static",
+-    "ros_topic": "/tf_static",
+-    "ros_type": "tf2_msgs/msg/TFMessage",
+-    "gz_type": "gz.msgs.Pose_V",
+-    "direction": "[",
+-  },
+     # joint states
+   {
+     "gz_topic": "/model/{robot_name}/joint_states",
+diff --git a/src/deps/nav2/navigation2/nav2_bringup/launch/navigation_launch.py b/src/deps/nav2/navigation2/nav2_bringup/launch/navigation_launch.py
+--- a/src/deps/nav2/navigation2/nav2_bringup/launch/navigation_launch.py
++++ b/src/deps/nav2/navigation2/nav2_bringup/launch/navigation_launch.py
+@@ -184,14 +184,6 @@ def generate_launch_description():
+                 arguments=['--ros-args', '--log-level', log_level],
+                 remappings=remappings +
+                         [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
+-            Node(
+-                package='nav2_collision_monitor',
+-                executable='collision_monitor',
+-                name='collision_monitor',
+-                output='screen',
+-                emulate_tty=True,  # https://github.com/ros2/launch/issues/188
+-                # hard code parameter state_topic to collision_monitor_state
+-                parameters=[configured_params],),
+             Node(
+                 package='nav2_lifecycle_manager',
+                 executable='lifecycle_manager',
+@@ -261,16 +253,6 @@ def generate_launch_description():
+                              'autostart': autostart,
+                              'node_names': lifecycle_nodes}]),
+-            ComposableNode(
+-                package='nav2_collision_monitor',
+-                plugin='nav2_collision_monitor::CollisionMonitorNode',
+-                name='collision_monitor',
+-                parameters=[configured_params],
+-                remappings=remappings + [
+-                    ('/cmd_vel', '/cmd_vel_nav'),
+-                    # ('/scan', '/your/scan/topic')
+-                ],
+-            ),
+        ],
+    )

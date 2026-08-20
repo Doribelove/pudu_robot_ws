@@ -19,6 +19,9 @@ Third-party repositories must not be copied directly into `src/`.
 - Keep `external/arena4_ws` isolated from the PUDU overlay. It carries its own
   large ROS/Arena environment and is exposed only through the independent
   `build_arena4.bash`, `start_arena4.sh`, and `stop_arena4.sh` entry points.
+  `build_arena4.bash` applies the reviewed
+  `dependencies/patches/arena4-jackal-baseline.patch`, which removes duplicate
+  TF/lifecycle publishers and the disabled collision-monitor process.
 - Add future source dependencies to a reviewed `.repos` manifest and import
   them into a separate underlay workspace.
 - Pin manifests to reviewed commit SHAs, record licenses, and update them

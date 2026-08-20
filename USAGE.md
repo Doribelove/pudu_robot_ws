@@ -191,7 +191,7 @@ cd /home/robot/pudu_robot_ws
 
 ## 9. Arena4 可选仿真评测
 
-Arena4 已保存在 `external/arena4_ws`，包含 498 个 ROS 源码包和自己的 install/Python 环境。它固定使用 ROS Domain `1`、Fast DDS 和 Gazebo Harmonic，与 PUDU/Linorobot 的 Domain `42` 隔离。
+Arena4 已保存在 `external/arena4_ws`，包含 498 个 ROS 源码包和自己的 install/Python 环境。统一入口每次选择独立 ROS Domain，并使用 Fast DDS 和 Gazebo Harmonic，与 PUDU/Linorobot 的 Domain `42` 以及上次异常退出遗留的 DDS 服务隔离；在新终端 `source setup_arena4_runtime.bash` 会自动加入当前 Arena 实例的 Domain。
 
 ```bash
 cd /home/robot/pudu_robot_ws
@@ -200,13 +200,38 @@ cd /home/robot/pudu_robot_ws
 ./start_arena4.sh --check
 ./start_arena4.sh --status
 
-# 标准 GUI、固定场景、完全无界面
+# 默认 Jackal + TEB，只显示 RViz；Gazebo 作为后台仿真器运行
 ./start_arena4.sh
 ./start_arena4.sh --scenario
 ./start_arena4.sh --headless --scenario
 
-# 选择机器人和世界
-./start_arena4.sh robot:=turtlebot world:=hospital
+# hospital + TurtleBot + DWB + NavFn，并自动连续探索
+./start_arena4.sh \
+  robot:=turtlebot \
+  world:=hospital \
+  local_planner:=dwb \
+  global_planner:=navfn \
+  tm_robots:=explore
+
+# 同时指定 Nav2 控制器、全局规划器和行为树配置
+./start_arena4.sh robot:=turtlebot world:=hospital \
+  local_planner:=mppi \
+  global_planner:=smac_2d \
+  inter_planner:=navigate_w_replanning_time
+
+# Jackal 差速底盘 + TEB + NavFn（TEB 使用 Nav2 Costmap2D，不依赖旧 converter）
+./start_arena4.sh --scenario robot:=jackal world:=hospital \
+  local_planner:=teb global_planner:=navfn \
+  inter_planner:=navigate_w_replanning_time tm_robots:=guided
+
+# 固定场景、无界面运行；等价的任务参数见下文
+./start_arena4.sh --headless --scenario robot:=jackal world:=factory
+
+# 启动完成后的只读基线检查
+./verify_arena4_baseline.sh --robot jackal
+
+# guided 空闲状态下做短距离底盘运动检查（会实际移动车辆）
+./verify_arena4_baseline.sh --robot jackal --move
 
 # 只停止由 start_arena4.sh 启动的实例
 ./stop_arena4.sh
@@ -219,6 +244,60 @@ source /home/robot/pudu_robot_ws/setup_arena4_runtime.bash
 ros2 node list
 ros2 launch arena_bringup arena.launch.py --show-args
 ```
+
+Arena4 参数采用 ROS 2 launch 的 `名称:=值` 语法，可以按需组合：
+
+| 参数 | 含义 | 默认值 | 当前可选值 |
+| --- | --- | --- | --- |
+| `world` | 地图/仿真环境 | `map_empty` | `factory`、`hospital`、`ignc`、`map_empty`、`house17`、`generated`、`.generated` |
+| `robot` | 机器人模型 | `jackal` | `WLP311D`、`WLP311E`、`boxer`、`dingo`、`husky`、`jackal`、`rbkairos`、`rbrobout`、`rbsummit`、`rbtheron`、`rbvogui`、`ridgeback`、`rskomnidirectional`、`turtlebot` |
+| `local_planner` | Nav2 控制器/局部规划配置 | `teb` | `crowdnav`、`crowdnav_attngraph`、`drlvo`、`dwb`、`graceful`、`mppi`、`regulated_pure_pursuit`、`rotation_shim`、`sicnav`、`teb` |
+| `global_planner` | Nav2 全局规划配置 | `navfn` | `navfn`、`smac_2d`、`smac_hybrid`、`smac_state_lattice`、`theta_star` |
+| `inter_planner` | Nav2 行为树配置 | `navigate_w_replanning_time` | 用下面的 `--show-args` 查询完整列表 |
+| `tm_robots` | 机器人任务生成模式 | `explore` | `guided`、`explore`、`random`、`scenario` |
+| `tm_obstacles` | 障碍物/行人生成模式 | 见下文 | `parametrized`、`random`、`scenario`、`environment` |
+| `headless` | 界面模式 | 统一入口默认 `1` | `-1`、`0`、`1`、`2`；`1` 仅 RViz，`2` 为完全无界面，`0` 显示 Gazebo 和 RViz |
+| `env_n` / `env_d` | 并行环境数/间距 | `1` / `50` | 正整数 / 距离值 |
+
+其中 `local_planner` 是跟踪路径并输出速度的控制器，`global_planner` 负责生成全局路径，`inter_planner` 选择 Nav2 的行为树/重规划策略。参数名虽然保留了 Arena 的旧称，但这里加载的是 `configs/nav2` 下的配置；`teb` 是当前工作区新增的可选 Nav2 Controller，`dwa` 仍不是有效选项。
+
+TEB 的依赖和运行方式：g2o 安装在 `external/arena4_ws/third_party/g2o-install`，由
+`setup_arena4_runtime.bash` 和 `start_arena4.sh` 自动加入运行库路径。控制器直接从
+Nav2 的实时 `Costmap2D` 提取致命占据栅格，未加载 ROS1 风格的 `costmap_converter` 插件；
+Jackal 按四轮滑移转向（skid-steer）建模，使用两圆 footprint；TEB 与 velocity smoother 统一为前进 1.2 m/s、后退 0.4 m/s、角速度 1.8 rad/s，线/角加速度 2.5 m/s² 和 2.0 rad/s²。全局路径前视和碰撞硬检查均为 2.5 m（最高速度下约 2.1 s）。TEB 用 via-point 遵循 NavFn 路线，同时允许障碍代价局部胜出并在绕障后回线；首段路径向后时可直接生成受控倒车轨迹。
+
+`smac_hybrid` 和 `smac_state_lattice` 带运动学/转弯半径约束，在医院狭窄区域或随机起点紧邻障碍时可能拒绝路径；栅格地图优先从 `navfn` 或 `smac_2d` 开始。仅想启动环境后手动在 RViz 下发目标时，可加 `tm_robots:=guided`；此模式会等待目标，启动后不自动运动。默认 `explore` 会自动采样起点和目标。统一入口会让 Gazebo 相机持续跟随机器人，并且只有在模型已生成且 Nav2 的 controller、planner、bt_navigator 全部进入 `active` 后才报告成功。
+
+`scenario` 不是第二个 Gazebo 世界，而是当前 `world` 对应的机器人起终点、静态障碍和行人任务层。`factory`、`hospital`、`ignc` 已自带完整 SDF 家具，因此未显式指定 `tm_obstacles` 时会自动使用各自的 `scenarios/default.json`，不会再在医院里随机叠加通用货架。需要压力测试时仍可明确写 `tm_obstacles:=random`；需要完全复现固定起点、目标和行人时使用：
+
+```bash
+./start_arena4.sh \
+  robot:=turtlebot world:=hospital \
+  local_planner:=dwb global_planner:=navfn \
+  tm_robots:=scenario tm_obstacles:=scenario
+```
+
+hospital 没有单独维护 `walls.yaml`，运行时会从占据栅格提取并简化墙体轮廓交给 HuNav，Gazebo 则继续使用原 SDF 的物理墙；这样行人会避开医院墙和障碍，同时不会复制出第二套可视/碰撞墙。每次 launch 还会生成独立的 `GZ_PARTITION`，旧的或其他终端启动的 Gazebo 世界不会混入当前实例。
+
+随源码安装的完整、实时选项由启动文件从配置目录自动发现，并会校验拼写：
+
+```bash
+source /home/robot/pudu_robot_ws/setup_arena4_runtime.bash
+ros2 launch arena_bringup arena.launch.py --show-args
+```
+
+若使用 Arena 原生命令，写法与统一入口一致，但要先加载隔离环境：
+
+```bash
+cd /home/robot/arena4_ws
+source arena.bash
+ros2 launch arena_bringup arena.launch.py \
+  sim:=gazebo robot:=turtlebot world:=hospital \
+  local_planner:=mppi global_planner:=smac_2d \
+  inter_planner:=navigate_w_replanning_time
+```
+
+`factory`、`hospital`、`ignc` 带独立 Gazebo 世界模型；`map_empty`、`house17`、`generated` 目前使用 Arena 的空白 Gazebo 世界，再加载各自地图与任务数据。hospital 有数百个碰撞网格，ODE 物理频率已从原来的 1 kHz 调整到 20 Hz，让仿真时间接近真实时间；Nav2、激光和 HuNav 仍按各自更新率工作。统一入口会等待首次 `Task Reset!`、Gazebo 机器人实体和 Nav2 核心节点全部就绪后才报告启动成功，最长约 90 秒。
 
 修改 Arena4 源码后独立增量编译：
 

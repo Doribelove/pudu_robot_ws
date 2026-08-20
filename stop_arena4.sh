@@ -2,8 +2,13 @@
 
 set -euo pipefail
 
+readonly PUDU_WS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${PUDU_WS}/stack_paths.bash"
+
 readonly RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp}/arena4-${UID}"
 readonly PID_FILE="${RUNTIME_DIR}/arena.pid"
+readonly DOMAIN_FILE="${RUNTIME_DIR}/ros_domain_id"
+readonly PARTITION_FILE="${RUNTIME_DIR}/gazebo_partition"
 
 session_pids() {
   local session_id="$1"
@@ -24,6 +29,44 @@ signal_session_members() {
   done < <(session_pids "${session_id}")
 }
 
+stale_arena_sessions() {
+  local task_generator_executable="${ARENA4_WS}/install/task_generator/lib/task_generator/task_generator_node"
+  local session_id
+
+  while read -r session_id; do
+    [[ "${session_id}" =~ ^[0-9]+$ ]] || continue
+    if ! grep -Eq '[r]os2 launch arena_bringup arena.launch.py|gz sim ' <<< "$(ps -s "${session_id}" -o args= 2>/dev/null || true)"; then
+      echo "${session_id}"
+    fi
+  done < <(
+    ps -eo sid=,comm=,args= | awk -v target="${task_generator_executable}" \
+      '($2 ~ /python|task_generator/) && index($0, target) {print $1}' | sort -nu
+  )
+}
+
+terminate_session() {
+  local session_id="$1"
+
+  signal_session_members TERM "${session_id}"
+  for _ in {1..50}; do
+    session_is_alive "${session_id}" || return 0
+    sleep 0.1
+  done
+  signal_session_members KILL "${session_id}"
+}
+
+cleanup_stale_arena_sessions() {
+  local found=false
+  local stale_session
+  while read -r stale_session; do
+    [[ -n "${stale_session}" ]] || continue
+    found=true
+    echo "清理失去 launch/Gazebo 父进程的 Arena4 残留会话：${stale_session}"
+    terminate_session "${stale_session}"
+  done < <(stale_arena_sessions)
+  [[ "${found}" == true ]]
+}
+
 if [[ ! -f "${PID_FILE}" ]]; then
   mapfile -t unmanaged_launches < <(pgrep -f '[r]os2 launch arena_bringup arena.launch.py' 2>/dev/null || true)
   if (( ${#unmanaged_launches[@]} > 0 )); then
@@ -31,20 +74,23 @@ if [[ ! -f "${PID_FILE}" ]]; then
     ps -o pid=,ppid=,sid=,stat=,etime=,args= -p "$(IFS=,; echo "${unmanaged_launches[*]}")"
     echo "为避免误杀，请在原终端按 Ctrl+C 停止。"
   else
-    echo "Arena4 未运行。"
+    if ! cleanup_stale_arena_sessions; then
+      echo "Arena4 未运行。"
+    fi
+    rm -f "${DOMAIN_FILE}" "${PARTITION_FILE}"
   fi
   exit 0
 fi
 
 read -r session_id < "${PID_FILE}" || true
 if [[ ! "${session_id:-}" =~ ^[0-9]+$ ]]; then
-  rm -f "${PID_FILE}"
+  rm -f "${PID_FILE}" "${DOMAIN_FILE}" "${PARTITION_FILE}"
   echo "Arena4 PID 文件无效，已清理。" >&2
   exit 1
 fi
 
 if ! session_is_alive "${session_id}"; then
-  rm -f "${PID_FILE}"
+  rm -f "${PID_FILE}" "${DOMAIN_FILE}" "${PARTITION_FILE}"
   echo "Arena4 已停止，残留 PID 文件已清理。"
   exit 0
 fi
@@ -79,5 +125,6 @@ if session_is_alive "${session_id}"; then
   signal_session_members KILL "${session_id}"
 fi
 
-rm -f "${PID_FILE}"
+rm -f "${PID_FILE}" "${DOMAIN_FILE}" "${PARTITION_FILE}"
+cleanup_stale_arena_sessions || true
 echo "Arena4 已终止。"

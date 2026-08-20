@@ -1,6 +1,8 @@
 # PUDU Robot Workspace
 
 中文启动、停止和功能说明见 [USAGE.md](USAGE.md)。
+超大地图 A2B 课题的 P0 冻结口径见
+[docs/P0_EVALUATION_DEFINITION.md](docs/P0_EVALUATION_DEFINITION.md)。
 
 Product workspace for PUDU-specific robot description, Nav2 integration,
 plugins, coverage planning, cleaning behavior trees and navigation tests.
