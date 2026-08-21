@@ -40,6 +40,11 @@ This creates `metrics.csv` in the same directory. The main columns are
 `result`, `path_length`, `time_diff`, `collision_amount`, `velocity`,
 `acceleration`, `jerk`, `curvature`, and `path`.
 
+The evaluator treats a position change above 2 m between adjacent 50 ms
+samples as a simulator teleport. Spawn/reset fragments and the associated
+Gazebo odometry velocity transient are excluded from path length, velocity,
+acceleration, and jerk statistics.
+
 ## Plot
 
 The workspace helper creates a path plot, one velocity plot per episode, and a

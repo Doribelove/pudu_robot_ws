@@ -4,7 +4,10 @@ set -euo pipefail
 
 readonly PUDU_WS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${PUDU_WS}/stack_paths.bash"
-readonly ARENA_PATCH="${PUDU_WS}/dependencies/patches/arena4-jackal-baseline.patch"
+readonly ARENA_PATCHES=(
+  "${PUDU_WS}/dependencies/patches/arena4-jackal-baseline.patch"
+  "${PUDU_WS}/dependencies/patches/arena4-evaluation.patch"
+)
 
 if [[ ! -d "${ARENA4_WS}/src" || ! -x "${ARENA4_WS}/colcon_build" ]]; then
   echo "错误：Arena4 工作区不完整：${ARENA4_WS}" >&2
@@ -19,16 +22,34 @@ if (( ${#arena_launches[@]} > 0 )); then
   exit 1
 fi
 
-if patch --directory="${ARENA4_WS}" --strip=1 --reverse --dry-run --silent \
-    < "${ARENA_PATCH}"; then
-  echo "Arena4 baseline patch is already applied: ${ARENA_PATCH##*/}"
-elif patch --directory="${ARENA4_WS}" --strip=1 --dry-run --silent \
-    < "${ARENA_PATCH}"; then
-  patch --directory="${ARENA4_WS}" --strip=1 < "${ARENA_PATCH}"
-else
-  echo "错误：Arena4 基线补丁无法干净应用：${ARENA_PATCH}" >&2
-  exit 1
-fi
+# Apply the patch idempotently.  Arena4 is intentionally kept outside the
+# parent repository, so its files may contain compatible local edits that make
+# `patch` return 1 after skipping already-applied hunks.  Never let patch enter
+# its interactive "Assume -R?" prompt during a build.
+for arena_patch in "${ARENA_PATCHES[@]}"; do
+  patch_output=""
+  patch_rc=0
+  patch_output=$(patch --directory="${ARENA4_WS}" --strip=1 --forward --batch --dry-run -N \
+    < "${arena_patch}" 2>&1) || patch_rc=$?
+  if grep -qE "FAILED|malformed|can.t find file|Only garbage" <<<"${patch_output}"; then
+    printf '%s\n' "${patch_output}" >&2
+    echo "错误：Arena4 补丁与当前源码存在未解决冲突：${arena_patch}" >&2
+    exit 1
+  fi
+
+  if (( patch_rc == 0 )); then
+    apply_output=$(patch --directory="${ARENA4_WS}" --strip=1 --forward --batch -N \
+      < "${arena_patch}" 2>&1) || {
+      printf '%s\n' "${apply_output}" >&2
+      echo "错误：Arena4 补丁应用失败：${arena_patch}" >&2
+      exit 1
+    }
+    printf '%s\n' "${apply_output}"
+    echo "Arena4 patch applied: ${arena_patch##*/}"
+  else
+    echo "Arena4 patch already applied (or compatible hunks skipped): ${arena_patch##*/}"
+  fi
+done
 
 echo "==> 独立增量编译 Arena4: ${ARENA4_WS}"
 (

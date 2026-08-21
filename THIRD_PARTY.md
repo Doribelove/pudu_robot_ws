@@ -21,7 +21,9 @@ Third-party repositories must not be copied directly into `src/`.
   `build_arena4.bash`, `start_arena4.sh`, and `stop_arena4.sh` entry points.
   `build_arena4.bash` applies the reviewed
   `dependencies/patches/arena4-jackal-baseline.patch`, which removes duplicate
-  TF/lifecycle publishers and the disabled collision-monitor process.
+  TF/lifecycle publishers and the disabled collision-monitor process, plus
+  `dependencies/patches/arena4-evaluation.patch`, which fixes CSV recording,
+  episode boundaries, metrics calculation, and evaluation dependencies.
 - Add future source dependencies to a reviewed `.repos` manifest and import
   them into a separate underlay workspace.
 - Pin manifests to reviewed commit SHAs, record licenses, and update them

@@ -4,6 +4,7 @@
 import argparse
 import ast
 import csv
+import math
 import os
 
 import matplotlib.pyplot as plt
@@ -50,11 +51,26 @@ def plot_paths(rows, output):
         path = as_path(row.get("path", "[]"))
         if not path:
             continue
-        x = [point[0] for point in path]
-        y = [point[1] for point in path]
-        axis.plot(x, y, color=result_color(row.get("result", "")),
-                  linewidth=1.0, alpha=0.8,
-                  label=f"episode {row.get('episode')} ({row.get('result')})")
+        segments = [[]]
+        for point in path:
+            if segments[-1]:
+                previous = segments[-1][-1]
+                if math.hypot(point[0] - previous[0], point[1] - previous[1]) > 2.0:
+                    segments.append([])
+            segments[-1].append(point)
+        label = f"episode {row.get('episode')} ({row.get('result')})"
+        for segment in segments:
+            if len(segment) < 2:
+                continue
+            axis.plot(
+                [point[0] for point in segment],
+                [point[1] for point in segment],
+                color=result_color(row.get("result", "")),
+                linewidth=1.0,
+                alpha=0.8,
+                label=label,
+            )
+            label = None
     axis.set_title("Arena4 paths")
     axis.set_xlabel("x [m]")
     axis.set_ylabel("y [m]")

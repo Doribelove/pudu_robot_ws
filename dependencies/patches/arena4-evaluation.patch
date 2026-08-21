@@ -1,0 +1,727 @@
+diff --git a/src/arena/evaluation/arena_evaluation/arena_evaluation/data_recorder_node.py b/src/arena/evaluation/arena_evaluation/arena_evaluation/data_recorder_node.py
+index 47c0a24..cfa86cd 100755
+--- a/src/arena/evaluation/arena_evaluation/arena_evaluation/data_recorder_node.py
++++ b/src/arena/evaluation/arena_evaluation/arena_evaluation/data_recorder_node.py
+@@ -5,6 +5,7 @@ import csv
+ import math
+ import os
+ import re
++import time
+ import traceback
+ from datetime import datetime
+ 
+@@ -12,6 +13,7 @@ import rclpy
+ import yaml
+ from ament_index_python.packages import get_package_share_directory
+ from geometry_msgs.msg import Twist
++from geometry_msgs.msg import PoseStamped
+ from hunav_msgs.msg import Agents
+ from nav_msgs.msg import Odometry
+ from rclpy.executors import MultiThreadedExecutor
+@@ -24,6 +26,7 @@ from rosbag2_py import (ConverterOptions, SequentialWriter, StorageOptions,
+ from rosgraph_msgs.msg import Clock
+ from sensor_msgs.msg import LaserScan
+ from std_msgs.msg import Int16
++from action_msgs.msg import GoalStatusArray
+ # for transformations
+ from tf_transformations import euler_from_quaternion
+ 
+@@ -59,7 +62,8 @@ class DataCollector(Node):
+             traceback.print_exc()
+             return
+ 
+-        self.full_topic_name = topic[1]
++        self.full_topic_name = topic[0]
++        self.data_name = topic[1]
+         self.msg = None
+         self.data = None
+ 
+@@ -115,7 +119,7 @@ class DataCollector(Node):
+ 
+     def get_data(self):
+         return (
+-            self.full_topic_name,
++            self.data_name,
+             self.data
+         )
+ 
+@@ -142,6 +146,9 @@ class DataCollector(Node):
+ 
+ class Recorder(Node):
+ 
++    TELEPORT_DISTANCE = 2.0
++    MAX_RESET_LINEAR_SPEED = 2.5
++
+     def __init__(self, result_dir):
+ 
+         super().__init__("data_recorder_node")
+@@ -162,7 +169,20 @@ class Recorder(Node):
+         self.write_params()
+ 
+         topics_to_monitor = self.get_topics_to_monitor()
+-        published_topics = [topic[0] for topic in self.get_topic_names_and_types()]  # self.get_topic_names_and_types() is a list of tuples each tuple contain the topic name and a list of types
++        # The robot launch is composed dynamically after Nav2 becomes active;
++        # DDS topic discovery can therefore lag behind the recorder process.
++        # Wait briefly and rescan so a valid run does not contain only the
++        # episode/start_goal metadata files.
++        topic_names = []
++        deadline = time.monotonic() + 5.0
++        while time.monotonic() < deadline:
++            topic_names = self.get_topic_names_and_types()
++            published_topics = [topic[0] for topic in topic_names]
++            expected = [topic[0] for topic in topics_to_monitor]
++            if all(topic in published_topics for topic in expected):
++                break
++            time.sleep(0.1)
++        published_topics = [topic[0] for topic in topic_names]
+ 
+         topic_matcher = re.compile(f"({'|'.join([t[0] for t in topics_to_monitor])})$")
+ 
+@@ -182,6 +202,8 @@ class Recorder(Node):
+ 
+         self.declare_parameter('start', [0.0, 0.0, 0.0])
+         self.declare_parameter('goal', [0.0, 0.0, 0.0])
++        self.start_position = None
++        self.current_goal = list(self.get_parameter('goal').value)
+ 
+         for topic in topics_to_sub:
+             topic_name = topic[0]
+@@ -196,6 +218,7 @@ class Recorder(Node):
+ 
+         self.write_data("episode", ["time", "episode"], mode="w")
+         self.write_data("start_goal", ["episode", "start", "goal"], mode="w")
++        self.write_data("nav_status", ["time", "episode", "status", "goal_id"], mode="w")
+ 
+         self.config = self.read_config()
+ 
+@@ -215,13 +238,35 @@ class Recorder(Node):
+             self.qos
+         )
+ 
++        namespace = self.get_namespace().strip("/")
++        parent_namespace = namespace.rsplit("/", 1)[0] if "/" in namespace else ""
++        task_reset_topic = f"/{parent_namespace}/task_reset" if parent_namespace else "/task_reset"
+         self.scenario_reset_sub = self.create_subscription(
+             Int16,
+-            "/scenario_reset",
++            task_reset_topic,
+             self.scenario_reset_callback,
+             self.qos
+         )
+ 
++        self.goal_sub = self.create_subscription(
++            PoseStamped,
++            f"/{namespace}/goal_pose",
++            self.goal_callback,
++            self.qos,
++        )
++        self.nav_status_sub = self.create_subscription(
++            GoalStatusArray,
++            f"/{namespace}/navigate_to_pose/_action/status",
++            self.nav_status_callback,
++            self.qos,
++        )
++        self.latest_nav_status = None
++        self.latest_goal_id = ""
++        self.known_goal_ids = set()
++        self.ignored_goal_ids = set()
++        self.last_odom_position = None
++        self.discarding_teleport_transient = False
++
+         # Define the service for changing directory
+         self.change_directory_service = self.create_service(
+             arena_evaluation_srvs.ChangeDirectory,
+@@ -257,6 +302,7 @@ class Recorder(Node):
+             self.declare_parameter("scenario_file", "")
+             self.declare_parameter("inter_planner", "")
+             self.declare_parameter("local_planner", "")
++            self.declare_parameter("global_planner", "")
+             self.declare_parameter("agent_name", "")
+ 
+             # Get the parameter values
+@@ -264,6 +310,7 @@ class Recorder(Node):
+             scenario_file = self.get_parameter("scenario_file").value
+             inter_planner = self.get_parameter("inter_planner").value
+             local_planner = self.get_parameter("local_planner").value
++            global_planner = self.get_parameter("global_planner").value
+             agent_name = self.get_parameter("agent_name").value
+             namespace = self.get_namespace().strip('/')
+ 
+@@ -273,6 +320,7 @@ class Recorder(Node):
+                 "scenario_file": scenario_file,
+                 "inter_planner": inter_planner,
+                 "local_planner": local_planner,
++                "global_planner": global_planner,
+                 "agent_name": agent_name,
+                 "namespace": namespace
+             }, file)
+@@ -282,15 +330,16 @@ class Recorder(Node):
+         namespace = self.get_namespace().strip("/")
+ 
+         return [
+-            (f"{namespace}/scan", LaserScan),
+-            (f"{namespace}/scenario_reset", Int16),
++            # Arena4 Jackal publishes LaserScan on "lidar" (older robots used
++            # "scan"). Store it under the canonical scan.csv metric input.
++            (f"{namespace}/lidar", LaserScan),
+             (f"{namespace}/odom", Odometry),
+             (f"{namespace}/cmd_vel", Twist),
+             # ("/pedsim_simulator/pedsim_agents_data", pedsim_msgs.PedsimAgentsDataframe)
+         ]
+ 
+     def get_class_for_topic_name(self, topic_name):
+-        if "/scan" in topic_name:
++        if "/scan" in topic_name or "/lidar" in topic_name:
+             return ["scan", LaserScan]
+         if "/odom" in topic_name:
+             return ["odom", Odometry]
+@@ -311,7 +360,7 @@ class Recorder(Node):
+ 
+     def clock_callback(self, clock: Clock):
+ 
+-        current_simulation_action_time = clock.clock.sec * 10e9 + clock.clock.nanosec
++        current_simulation_action_time = clock.clock.sec * int(1e9) + clock.clock.nanosec
+ 
+         if not self.current_time:
+             self.current_time = current_simulation_action_time
+@@ -323,21 +372,75 @@ class Recorder(Node):
+ 
+         self.current_time = current_simulation_action_time
+ 
+-        for collector in self.data_collectors:
+-
+-            topic_name, data = collector.get_data()
++        samples = dict(collector.get_data() for collector in self.data_collectors)
++        # Episode rows are positional inputs to the offline evaluator. Wait
++        # until the synchronized odom and lidar samples exist so files cannot
++        # drift apart during node startup.
++        if samples.get("odom") is None or samples.get("scan") is None:
++            return
+ 
+-            self.write_data(topic_name, [self.current_time, data])
++        odom = samples["odom"]
++        position = odom["position"][:2]
++        if self.last_odom_position is not None:
++            displacement = math.hypot(
++                position[0] - self.last_odom_position[0],
++                position[1] - self.last_odom_position[1],
++            )
++            if displacement > self.TELEPORT_DISTANCE:
++                self.discarding_teleport_transient = True
++                self.start_position = None
++        self.last_odom_position = position
++
++        if self.discarding_teleport_transient:
++            linear_velocity = math.hypot(*odom["velocity"][:2])
++            if linear_velocity > self.MAX_RESET_LINEAR_SPEED:
++                return
++            self.discarding_teleport_transient = False
++
++        for topic_name, data in samples.items():
++            if data is not None:
++                self.write_data(topic_name, [self.current_time, data])
++                if topic_name == "odom" and self.start_position is None:
++                    self.start_position = list(data["position"])
+ 
+         self.write_data("episode", [self.current_time, self.current_episode])
+         self.write_data("start_goal", [
+             self.current_episode,
+-            self.get_parameter('start').value,
+-            self.get_parameter('goal').value
++            self.start_position if self.start_position is not None else self.get_parameter('start').value,
++            self.current_goal
++        ])
++        self.write_data("nav_status", [
++            self.current_time,
++            self.current_episode,
++            self.latest_nav_status if self.latest_nav_status is not None else 0,
++            self.latest_goal_id,
+         ])
+ 
+     def scenario_reset_callback(self, data: Int16):
+         self.current_episode = data.data
++        self.start_position = None
++        # Status arrays are latched and may contain the previous goal.
++        self.ignored_goal_ids.update(self.known_goal_ids)
++        self.latest_nav_status = None
++
++    def goal_callback(self, msg: PoseStamped):
++        q = msg.pose.orientation
++        _, _, yaw = euler_from_quaternion([q.x, q.y, q.z, q.w])
++        self.current_goal = [round(msg.pose.position.x, 3), round(msg.pose.position.y, 3), round(yaw, 3)]
++
++    def nav_status_callback(self, msg: GoalStatusArray):
++        # Keep the most recent non-stale NavigateToPose goal status.
++        for status in msg.status_list:
++            goal_info = getattr(status, "goal_info", None)
++            goal_uuid = getattr(goal_info, "goal_id", goal_info)
++            uuid_bytes = getattr(goal_uuid, "uuid", b"")
++            goal_id = bytes(uuid_bytes).hex()
++            if goal_id:
++                self.known_goal_ids.add(goal_id)
++            if goal_id in self.ignored_goal_ids:
++                continue
++            self.latest_goal_id = goal_id
++            self.latest_nav_status = int(status.status)
+ 
+     def change_directory_callback(self, request, response):  # ROS2: Change parameters and update configurations on the fly without needing to restart the node
+         new_directory = request.data
+@@ -434,9 +537,12 @@ class BagRecorder(Node):
+             self.qos
+         )
+ 
++        namespace = self.get_namespace().strip("/")
++        parent_namespace = namespace.rsplit("/", 1)[0] if "/" in namespace else ""
++        task_reset_topic = f"/{parent_namespace}/task_reset" if parent_namespace else "/task_reset"
+         self.scenario_reset_sub = self.create_subscription(
+             Int16,
+-            "/scenario_reset",
++            task_reset_topic,
+             self.scenario_reset_callback,
+             self.qos
+         )
+@@ -568,7 +674,10 @@ def main(args=None):
+     arguments, extra_args = parser.parse_known_args()  # Parse the known arguments and ignore the extra_args
+ 
+     try:
+-        recorder = BagRecorder(arguments.dir)
++        # The metrics executable consumes the CSV files produced by Recorder.
++        # BagRecorder remains available for future rosbag workflows, but was
++        # previously selected here even though no bag-to-metrics path exists.
++        recorder = Recorder(arguments.dir)
+ 
+         executor = MultiThreadedExecutor()
+         executor.add_node(recorder)
+diff --git a/src/arena/evaluation/arena_evaluation/arena_evaluation/get_metrics.py b/src/arena/evaluation/arena_evaluation/arena_evaluation/get_metrics.py
+index dfe625a..7420163 100755
+--- a/src/arena/evaluation/arena_evaluation/arena_evaluation/get_metrics.py
++++ b/src/arena/evaluation/arena_evaluation/arena_evaluation/get_metrics.py
+@@ -13,12 +13,13 @@ def main():
+     parser.add_argument("--pedsim", action="store_const", const=True, default=False, help="Flag to enable Pedsim metrics")
+     arguments = parser.parse_args()
+ 
+-    dir_arg = os.path.join(
+-        get_package_share_directory(
+-            "arena_evaluation"),
+-            "data",
+-            arguments.dir
+-    ) 
++    if not arguments.dir:
++        parser.error("--dir is required")
++    dir_arg = os.path.abspath(arguments.dir)
++    if not os.path.isabs(arguments.dir):
++        dir_arg = os.path.join(
++            get_package_share_directory("arena_evaluation"), "data", arguments.dir
++        )
+ 
+     if arguments.pedsim:
+         metrics = Metrics.PedsimMetrics(dir=dir_arg)
+@@ -29,4 +30,4 @@ def main():
+     metrics.data.to_csv(os.path.join(dir_arg, "metrics.csv"))
+ 
+ if __name__ == "__main__":
+-    main()
+\ No newline at end of file
++    main()
+diff --git a/src/arena/evaluation/arena_evaluation/arena_evaluation/scripts/metrics.py b/src/arena/evaluation/arena_evaluation/arena_evaluation/scripts/metrics.py
+index b047818..d8e6462 100644
+--- a/src/arena/evaluation/arena_evaluation/arena_evaluation/scripts/metrics.py
++++ b/src/arena/evaluation/arena_evaluation/arena_evaluation/scripts/metrics.py
+@@ -30,12 +30,14 @@ class DoneReason(str, enum.Enum):
+     TIMEOUT = "TIMEOUT"
+     GOAL_REACHED = "GOAL_REACHED"
+     COLLISION = "COLLISION"
++    NAVIGATION_FAILED = "NAVIGATION_FAILED"
++    UNKNOWN = "UNKNOWN"
+ 
+ 
+ class Metric(typing.TypedDict):
+ 
+-    time: typing.List[int]
+-    time_diff: int
++    time: typing.List[float]
++    time_diff: float
+     episode: int
+     goal: typing.List
+     start: typing.List
+@@ -48,8 +50,11 @@ class Metric(typing.TypedDict):
+     normalized_curvature: typing.List
+     roughness: typing.List
+ 
+-#    cmd_vel: typing.List
++    cmd_vel: typing.List
++    cmd_linear_velocity: typing.List
++    cmd_angular_velocity: typing.List
+     velocity: typing.List
++    angular_velocity: typing.List
+     acceleration: typing.List
+     jerk: typing.List
+ 
+@@ -62,9 +67,11 @@ class Metric(typing.TypedDict):
+ 
+ class Config:
+ 
+-    TIMEOUT_TRESHOLD = 180e9
++    TIMEOUT_TRESHOLD = 180.0
+     MAX_COLLISIONS = 3
+     MIN_EPISODE_LENGTH = 5
++    TELEPORT_DISTANCE = 2.0
++    MAX_RESET_LINEAR_SPEED = 2.5
+ 
+     PERSONAL_SPACE_RADIUS = 1  # personal space is estimated at around 1'-4'
+     ROBOT_GAZE_ANGLE = np.radians(5)  # size of (one half of) direct robot gaze cone
+@@ -95,14 +102,12 @@ class Math:
+ 
+     @classmethod
+     def triangle_area(cls, vertices: np.ndarray) -> np.ndarray:
+-        return np.linalg.norm(
+-            np.cross(
+-                vertices[:, 1] - vertices[:, 0],
+-                vertices[:, 2] - vertices[:, 0],
+-                axis=1
+-            ),
+-            axis=1
+-        ) / 2
++        cross = np.cross(
++            vertices[:, 1] - vertices[:, 0],
++            vertices[:, 2] - vertices[:, 0],
++            axis=1,
++        )
++        return np.abs(cross) / 2 if cross.ndim == 1 else np.linalg.norm(cross, axis=1) / 2
+ 
+     @classmethod
+     def path_length(cls, position: np.ndarray) -> np.ndarray:
+@@ -138,7 +143,10 @@ class Math:
+         triangles = cls.triangles(position)
+ 
+         triangle_area = cls.triangle_area(triangles)
+-        length = np.linalg.norm(triangles[:, :, 0] - triangles[:, :, 2], axis=1)
++        # ``triangles`` is shaped (N, 3, dimensions).  The recorder stores
++        # planar [x, y] positions, so select the first and third vertices
++        # rather than indexing a nonexistent third coordinate axis.
++        length = np.linalg.norm(triangles[:, 0, :] - triangles[:, 2, :], axis=1)
+         length[length == 0] = np.nan
+ 
+         roughness = 2 * triangle_area / np.square(length)
+@@ -147,12 +155,18 @@ class Math:
+         return roughness
+ 
+     @classmethod
+-    def acceleration(cls, speed: np.ndarray) -> np.ndarray:
+-        return np.diff(speed)
++    def acceleration(cls, speed: np.ndarray, time: np.ndarray) -> np.ndarray:
++        if len(speed) < 2:
++            return np.array([])
++        dt = np.maximum(np.diff(time), np.finfo(float).eps)
++        return np.diff(speed) / dt
+ 
+     @classmethod
+-    def jerk(cls, speed: np.ndarray) -> np.ndarray:
+-        return np.diff(np.diff(speed))
++    def jerk(cls, acceleration: np.ndarray, time: np.ndarray) -> np.ndarray:
++        if len(acceleration) < 2:
++            return np.array([])
++        dt = np.maximum(np.diff(time[1:]), np.finfo(float).eps)
++        return np.diff(acceleration) / dt
+ 
+     @classmethod
+     def turn(cls, yaw: np.ndarray) -> np.ndarray:
+@@ -180,7 +194,7 @@ class Metrics:
+         }).rename(columns={"data": "laserscan"})
+ 
+         episode = pd.read_csv(os.path.join(self.dir, "episode.csv"), converters={
+-            "data": lambda val: 0 if len(val) <= 0 else int(val)
++            "episode": lambda val: 0 if len(val) <= 0 else int(val)
+         })
+ 
+         start_goal = pd.read_csv(os.path.join(self.dir, "start_goal.csv"), converters={
+@@ -188,17 +202,25 @@ class Metrics:
+             "goal": Utils.string_to_float_list
+         })
+ 
+-#        cmd_vel = pd.read_csv(os.path.join(self.dir, "cmd_vel.csv"), converters={
+-#            "data": Utils.string_to_float_list
+-#        }).rename(columns={"data": "cmd_vel"})
++        cmd_vel_path = os.path.join(self.dir, "cmd_vel.csv")
++        cmd_vel = pd.read_csv(cmd_vel_path, converters={
++            "data": Utils.string_to_float_list
++        }).rename(columns={"data": "cmd_vel"}) if os.path.exists(cmd_vel_path) else None
++
++        nav_status_path = os.path.join(self.dir, "nav_status.csv")
++        nav_status = pd.read_csv(nav_status_path) if os.path.exists(nav_status_path) else None
+ 
+-        return [
++        result = [
+             episode,
+             laserscan,
+             odom,
+-            #            cmd_vel,
+             start_goal
+         ]
++        if cmd_vel is not None:
++            result.append(cmd_vel)
++        if nav_status is not None:
++            result.append(nav_status)
++        return result
+ 
+     def __init__(self, dir: str):
+ 
+@@ -209,18 +231,12 @@ class Metrics:
+         data = pd.concat(self._load_data(), axis=1, join="inner")
+         data = data.loc[:, ~data.columns.duplicated()].copy()
+ 
+-        i = 0
+-
+         episode_data = self._episode_data = {}
+-
+-        while True:
+-            current_episode = data[data["episode"] == i]
+-
++        for episode_id in sorted(data["episode"].dropna().unique()):
++            current_episode = data[data["episode"] == episode_id].copy()
+             if len(current_episode) < Config.MIN_EPISODE_LENGTH:
+-                break
+-
+-            episode_data[i] = self._analyze_episode(current_episode, i)
+-            i = i + 1
++                continue
++            episode_data[int(episode_id)] = self._analyze_episode(current_episode, int(episode_id))
+ 
+     @property
+     def data(self) -> pd.DataFrame:
+@@ -228,27 +244,31 @@ class Metrics:
+ 
+     def _analyze_episode(self, episode: pd.DataFrame, index) -> Metric:
+ 
+-        episode["time"] /= 10**10
++        episode = self._select_continuous_navigation_segment(episode)
++        episode["time"] = episode["time"].astype(float) / 10**9
++        times = episode["time"].to_numpy(dtype=float)
+ 
+         positions = np.array([frame["position"] for frame in episode["odom"]])
+-        velocities = np.array([frame["position"] for frame in episode["odom"]])
++        velocities = np.array([frame["velocity"] for frame in episode["odom"]])
+ 
+-        curvature, normalized_curvature = Math.curvature(positions)
+-        roughness = Math.roughness(positions)
++        positions_xy = positions[:, :2]
++        curvature, normalized_curvature = Math.curvature(positions_xy)
++        roughness = Math.roughness(positions_xy)
+ 
+-        vel_absolute = np.linalg.norm(velocities, axis=1)
+-        acceleration = Math.acceleration(vel_absolute)
+-        jerk = Math.jerk(vel_absolute)
++        linear_velocity = np.linalg.norm(velocities[:, :2], axis=1)
++        angular_velocity = velocities[:, 2]
++        acceleration = Math.acceleration(linear_velocity, times)
++        jerk = Math.jerk(acceleration, times)
+ 
+         collisions, collision_amount = self._get_collisions(
+             episode["laserscan"],
+             self.robot_params["robot_radius"]
+         )
+ 
+-        path_length = Math.path_length(positions)
++        path_length = Math.path_length(positions_xy)
+         turn = Math.turn(positions[:, 2])
+ 
+-        time = list(episode["time"])[-1] - list(episode["time"])[0]
++        time = float(times[-1] - times[0]) if len(times) else 0.0
+ 
+         start_position = self._get_mean_position(episode, "start")
+         goal_position = self._get_mean_position(episode, "goal")
+@@ -263,21 +283,48 @@ class Metrics:
+             path_length=path_length.sum(),
+             acceleration=Math.round_values(acceleration),
+             jerk=Math.round_values(jerk),
+-            velocity=Math.round_values(vel_absolute),
++            velocity=Math.round_values(linear_velocity),
++            angular_velocity=Math.round_values(angular_velocity),
+             collision_amount=collision_amount,
+             collisions=list(collisions),
+-            path=[list(p) for p in positions],
+-            angle_over_length=np.abs(turn.sum() / path_length.sum()),
+-            #            action_type = list(self._get_action_type(episode["cmd_vel"])),
+-            time_diff=time,  # Ros time in ns
+-            time=list(map(int, episode["time"].tolist())),
++            path=[list(p) for p in positions_xy],
++            angle_over_length=np.abs(turn.sum() / path_length.sum()) if path_length.sum() > 0 else 0.0,
++            time_diff=time,
++            time=list(episode["time"].tolist()),
+             episode=index,
+-            result=self._get_success(time, collision_amount),
+-            #            cmd_vel = list(map(list, episode["cmd_vel"].to_list())),
++            result=self._get_success(time, collision_amount, episode),
++            cmd_vel=list(episode["cmd_vel"].to_list()) if "cmd_vel" in episode else [],
++            cmd_linear_velocity=Math.round_values(np.linalg.norm(np.array(episode["cmd_vel"].to_list())[:, :2], axis=1)) if "cmd_vel" in episode else [],
++            cmd_angular_velocity=Math.round_values(np.array(episode["cmd_vel"].to_list())[:, 2]) if "cmd_vel" in episode else [],
+             goal=goal_position,
+             start=start_position
+         )
+ 
++    def _select_continuous_navigation_segment(self, episode: pd.DataFrame) -> pd.DataFrame:
++        """Remove simulator teleports and their odometry velocity transient."""
++        episode = episode.copy().reset_index(drop=True)
++        positions = np.array([frame["position"][:2] for frame in episode["odom"]])
++        if len(positions) < 2:
++            return episode
++
++        step_distance = np.linalg.norm(np.diff(positions, axis=0), axis=1)
++        split_after = np.flatnonzero(step_distance > Config.TELEPORT_DISTANCE) + 1
++        segments = np.split(np.arange(len(episode)), split_after)
++        segments = [segment for segment in segments if len(segment) >= Config.MIN_EPISODE_LENGTH]
++        if segments:
++            # A reset can arrive one recorder tick after Gazebo SetPose. The
++            # real navigation portion is the longest continuous section; tiny
++            # sections before/after it are spawn/reset artifacts.
++            episode = episode.iloc[max(segments, key=len)].copy().reset_index(drop=True)
++
++        velocities = np.array([frame["velocity"][:2] for frame in episode["odom"]])
++        linear_speed = np.linalg.norm(velocities, axis=1)
++        sane = np.flatnonzero(linear_speed <= Config.MAX_RESET_LINEAR_SPEED)
++        if len(sane):
++            episode = episode.iloc[int(sane[0]):].copy().reset_index(drop=True)
++
++        return episode
++
+     def _get_robot_params(self):
+ 
+         # print("Current working directory:", os.getcwd())
+@@ -298,34 +345,29 @@ class Metrics:
+         # )
+ 
+         robot_model_params_file = os.path.join(
+-            get_package_share_directory(
+-                "arena_simulation_setup"),
+-            "entities",
+-            "robots",
+-            "waffle",
+-            "model_params.yaml"
++            get_package_share_directory("arena_simulation_setup"),
++            "entities", "robots", model, "model_params.yaml"
+         )
+ 
+         with open(robot_model_params_file, "r") as file:
+             robot_model_param = yaml.safe_load(file)
+-            nested = robot_model_param['/**']['ros__parameters']
+-            return nested
++            if '/**' in robot_model_param:
++                return robot_model_param['/**']['ros__parameters']
++            return robot_model_param
+ 
+     def _get_mean_position(self, episode, key):
+-
+-        positions = episode[key].to_list()
+-        counter = {}
+-
+-        for p in positions:
+-            hash = ":".join([str(pos) for pos in p])
+-
+-            counter[hash] = counter.get(hash, 0) + 1
+-
+-        sorted_positions = dict(sorted(counter.items(), key=lambda x: x))
+-
+-        return [float(r) for r in list(sorted_positions.keys())[0].split(":")]
+-
+-    def _get_success(self, time, collisions):
++        positions = [p for p in episode[key].to_list() if isinstance(p, list) and len(p) >= 3]
++        return list(map(float, positions[-1])) if positions else [0.0, 0.0, 0.0]
++
++    def _get_success(self, time, collisions, episode=None):
++        if episode is not None and "status" in episode:
++            statuses = pd.to_numeric(episode["status"], errors="coerce").dropna().astype(int)
++            if len(statuses):
++                final_status = int(statuses.iloc[-1])
++                if final_status == 4:
++                    return DoneReason.GOAL_REACHED
++                if final_status in (5, 6):
++                    return DoneReason.NAVIGATION_FAILED
+ 
+         if time >= Config.TIMEOUT_TRESHOLD:
+             return DoneReason.TIMEOUT
+@@ -333,7 +375,7 @@ class Metrics:
+         if collisions >= Config.MAX_COLLISIONS:
+             return DoneReason.COLLISION
+ 
+-        return DoneReason.GOAL_REACHED
++        return DoneReason.UNKNOWN
+ 
+     def _get_collisions(self, laser_scans, lower_bound):
+         """
+@@ -436,7 +478,8 @@ class PedsimMetrics(Metrics):
+         is_personal_space = personal_space_frames.max(axis=1)
+ 
+         # time in personal space
+-        time = np.diff(np.array(episode["time"]), prepend=0)
++        episode_times = np.asarray(episode["time"], dtype=float)
++        time = np.diff(episode_times, prepend=episode_times[0] if len(episode_times) else 0.0)
+         total_time_in_personal_space = time[is_personal_space].sum()
+         time_in_personal_space = [time[frames].sum(axis=0).astype(np.integer) for frames in personal_space_frames.T]
+ 
+diff --git a/src/arena/evaluation/arena_evaluation/config/data_recorder_config.yaml b/src/arena/evaluation/arena_evaluation/config/data_recorder_config.yaml
+index 90ece55..cb60145 100644
+--- a/src/arena/evaluation/arena_evaluation/config/data_recorder_config.yaml
++++ b/src/arena/evaluation/arena_evaluation/config/data_recorder_config.yaml
+@@ -1,3 +1,3 @@
+ max_episodes: 15 # terminates simulation upon reaching xth episode
+ max_time: 1200 # terminates simulation after x seconds
+-record_frequency: 400 # time interval in which data is stored in ms
++record_frequency: 50 # time interval in which data is stored in ms (20 Hz)
+diff --git a/src/arena/evaluation/arena_evaluation/package.xml b/src/arena/evaluation/arena_evaluation/package.xml
+index 7af8499..24dafbf 100644
+--- a/src/arena/evaluation/arena_evaluation/package.xml
++++ b/src/arena/evaluation/arena_evaluation/package.xml
+@@ -19,6 +19,14 @@
+   <depend>geometry_msgs</depend>
+   <depend>arena_evaluation_msgs</depend>
+   <depend>hunav_msgs</depend>
++  <exec_depend>action_msgs</exec_depend>
++  <exec_depend>ament_index_python</exec_depend>
++  <exec_depend>rosgraph_msgs</exec_depend>
++  <exec_depend>rosbag2_py</exec_depend>
++  <exec_depend>tf_transformations</exec_depend>
++  <exec_depend>python3-numpy</exec_depend>
++  <exec_depend>python3-pandas</exec_depend>
++  <exec_depend>python3-pyyaml</exec_depend>
+ 
+ 
+   <test_depend>ament_lint_auto</test_depend>
+diff --git a/src/arena/evaluation/arena_evaluation/setup.py b/src/arena/evaluation/arena_evaluation/setup.py
+index fe2c845..a869dbe 100644
+--- a/src/arena/evaluation/arena_evaluation/setup.py
++++ b/src/arena/evaluation/arena_evaluation/setup.py
+@@ -15,7 +15,7 @@ setup(
+         (os.path.join('share', package_name, 'config'), glob('config/*.yaml')), # Include non-Python files (like launch files, configuration files, or other resources) in the package's installation
+                                                                                 # Include the configuration file in the install directory
+     ],                                                                          
+-    install_requires=['setuptools'],
++    install_requires=['setuptools', 'numpy', 'pandas', 'pyyaml'],
+     zip_safe=True,
+     maintainer='NamTruongTran',
+     maintainer_email='trannamtruong98@gmail.com',
+diff --git a/src/arena/simulation-setup/launch/robot.launch.py b/src/arena/simulation-setup/launch/robot.launch.py
+index 12b36f7..b394dc9 100644
+--- a/src/arena/simulation-setup/launch/robot.launch.py
++++ b/src/arena/simulation-setup/launch/robot.launch.py
+@@ -76,9 +76,18 @@ def generate_launch_description():
+         package='arena_evaluation',
+         executable='record',
+         name=PythonExpression(['"data_recorder" + "', namespace.substitution, '".replace("/","_")']),
+-        arguments={
+-            '--dir': record_data_dir.substitution,
+-        }.items(),
++        # Launch arguments are positional for Node; passing a dict's items
++        # produces the invalid token ``--dir<path>`` and makes the recorder
++        # silently fall back to its timestamp directory.
++        arguments=['--dir', record_data_dir.substitution],
++        parameters=[{
++            'use_sim_time': True,
++            'model': robot.substitution,
++            'local_planner': local_planner.substitution,
++            'global_planner': global_planner.substitution,
++            'inter_planner': inter_planner.substitution,
++            'agent_name': robot.substitution,
++        }],
+         condition=launch.conditions.IfCondition(PythonExpression(['bool("', record_data_dir.substitution, '")'])),
+     )
+
