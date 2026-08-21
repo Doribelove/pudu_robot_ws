@@ -1,0 +1,3 @@
+mode,paired_valid_count,online_speedup_vs_full_grid,online_time_ratio_vs_full_grid,expanded_node_reduction_ratio,expanded_node_reduction_P95,path_length_ratio_mean,path_length_ratio_P95,fallback_count,non_fallback_count
+topology_guided_grid,30,1.255047056985101,0.7967828731475772,0.425528307818302,0.2614668568425794,1.0042286316908147,1.014453197787413,0,50
+topology_guided_grid_fallback,45,0.6082591007437439,1.6440362318907487,0.03843340028069786,-2.0228797316722567,1.0174931145227037,1.1320662405594426,10,40

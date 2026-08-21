@@ -1,0 +1,4 @@
+query_count,topology_build_wall_time_ms,amortized_topology_cost_ms
+10,7763.683896,776.3683896
+100,7763.683896,77.63683895999999
+1000,7763.683896,7.763683896

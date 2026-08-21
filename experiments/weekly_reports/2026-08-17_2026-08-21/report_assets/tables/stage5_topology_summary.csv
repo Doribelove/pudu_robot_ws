@@ -1,0 +1,5 @@
+mode,count,success_count,success_rate,collision_path_count,fallback_count,corridor_expanded_count,P50_total_query_time_ms,P95_total_query_time_ms,P99_total_query_time_ms
+full_grid,20,18,0.9,0,0,0,246.2622755,1366.942015,1399.7844573999998
+topology_guided_grid,20,12,0.6,0,0,0,146.792474,249.9557074,255.72602867999998
+topology_guided_grid_fallback,20,18,0.9,0,4,4,227.72367450000002,1417.6196602,1429.41895204
+topology_only,20,18,0.9,0,0,0,1.228995,1.9013881500000003,2.0712656299999996

@@ -1,0 +1,4 @@
+mode,query_count,all_query_success_count,all_query_success_rate,reachable_query_count,reachable_query_success_count,reachable_query_success_rate,static_footprint_valid_rate,direct_corridor_success_count,expanded_success_count,full_grid_fallback_count
+full_grid,10,9,0.9,9,9,1.0,0.9,0,0,0
+topology_guided_grid,10,6,0.6,9,6,0.6666666666666666,0.6,30,0,0
+topology_guided_grid_fallback,10,9,0.9,9,9,1.0,0.9,40,10,10

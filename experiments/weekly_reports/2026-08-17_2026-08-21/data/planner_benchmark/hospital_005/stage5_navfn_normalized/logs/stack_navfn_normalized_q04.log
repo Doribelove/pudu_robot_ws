@@ -1,0 +1,109 @@
+[INFO] [launch]: All log files can be found below /home/robot/.ros/log/2026-08-21-13-43-31-155726-robot-2215793
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [map_server-1]: process started with pid [2215794]
+[INFO] [planner_server-2]: process started with pid [2215796]
+[INFO] [static_transform_publisher-3]: process started with pid [2215798]
+[INFO] [static_transform_publisher-4]: process started with pid [2215800]
+[INFO] [lifecycle_manager-5]: process started with pid [2215802]
+[static_transform_publisher-3] [WARN] [1787291011.227099755] []: Old-style arguments are deprecated; see --help for new-style arguments
+[static_transform_publisher-4] [WARN] [1787291011.227100755] []: Old-style arguments are deprecated; see --help for new-style arguments
+[static_transform_publisher-4] [INFO] [1787291011.247910346] [benchmark_odom_to_base_link]: Spinning until stopped - publishing transform
+[static_transform_publisher-4] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-4] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-4] from 'odom' to 'base_link'
+[lifecycle_manager-5] [INFO] [1787291011.248898376] [lifecycle_manager_planner]: Creating
+[planner_server-2] [INFO] [1787291011.249303834] [planner_server]: 
+[planner_server-2] 	planner_server lifecycle node launched. 
+[planner_server-2] 	Waiting on external lifecycle transitions to activate
+[planner_server-2] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[static_transform_publisher-3] [INFO] [1787291011.250225950] [benchmark_map_to_odom]: Spinning until stopped - publishing transform
+[static_transform_publisher-3] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-3] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-3] from 'map' to 'odom'
+[lifecycle_manager-5] [INFO] [1787291011.251036692] [lifecycle_manager_planner]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[lifecycle_manager-5] [INFO] [1787291011.256640916] [lifecycle_manager_planner]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-5] [INFO] [1787291011.256683358] [lifecycle_manager_planner]: [34m[1mConfiguring map_server[0m[0m
+[map_server-1] [INFO] [1787291011.256964039] [map_server]: 
+[map_server-1] 	map_server lifecycle node launched. 
+[map_server-1] 	Waiting on external lifecycle transitions to activate
+[map_server-1] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-1] [INFO] [1787291011.257075712] [map_server]: Creating
+[planner_server-2] [INFO] [1787291011.257761570] [planner_server]: Creating
+[map_server-1] [INFO] [1787291011.257935428] [map_server]: Configuring
+[map_server-1] [INFO] [1787291011.257986923] [map_io]: Loading yaml file: /home/robot/pudu_robot_ws/experiments/maps/hospital_005/map.yaml
+[map_server-1] [INFO] [1787291011.258163978] [map_io]: resolution: 0.05
+[map_server-1] [INFO] [1787291011.258170321] [map_io]: origin[0]: -40
+[map_server-1] [INFO] [1787291011.258173394] [map_io]: origin[1]: -40
+[map_server-1] [INFO] [1787291011.258175992] [map_io]: origin[2]: 0
+[map_server-1] [INFO] [1787291011.258178757] [map_io]: free_thresh: 0.196
+[map_server-1] [INFO] [1787291011.258181267] [map_io]: occupied_thresh: 0.65
+[map_server-1] [INFO] [1787291011.258184108] [map_io]: mode: trinary
+[map_server-1] [INFO] [1787291011.258187431] [map_io]: negate: 0
+[map_server-1] [INFO] [1787291011.258313760] [map_io]: Loading image_file: /home/robot/pudu_robot_ws/experiments/maps/hospital_005/map.pgm
+[planner_server-2] [INFO] [1787291011.261473395] [global_costmap.global_costmap]: 
+[planner_server-2] 	global_costmap lifecycle node launched. 
+[planner_server-2] 	Waiting on external lifecycle transitions to activate
+[planner_server-2] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-2] [INFO] [1787291011.263663839] [global_costmap.global_costmap]: Creating Costmap
+[map_server-1] [INFO] [1787291011.384401070] [map_io]: Read map /home/robot/pudu_robot_ws/experiments/maps/hospital_005/map.pgm: 1600 X 1600 map @ 0.05 m/cell
+[lifecycle_manager-5] [INFO] [1787291011.390695742] [lifecycle_manager_planner]: [34m[1mConfiguring planner_server[0m[0m
+[planner_server-2] [INFO] [1787291011.391106784] [planner_server]: Configuring
+[planner_server-2] [INFO] [1787291011.391144914] [global_costmap.global_costmap]: Configuring
+[planner_server-2] [INFO] [1787291011.397016884] [global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-2] [INFO] [1787291011.400713300] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[planner_server-2] [INFO] [1787291011.401654703] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-2] [INFO] [1787291011.401673273] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-2] [INFO] [1787291011.402076482] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[planner_server-2] [INFO] [1787291011.406824298] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner/NavfnPlanner
+[planner_server-2] [INFO] [1787291011.406848214] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[planner_server-2] [INFO] [1787291011.408469711] [planner_server]: Planner Server has GridBased  planners available.
+[lifecycle_manager-5] [INFO] [1787291011.412191960] [lifecycle_manager_planner]: [34m[1mActivating map_server[0m[0m
+[map_server-1] [INFO] [1787291011.412370763] [map_server]: Activating
+[map_server-1] [INFO] [1787291011.413818373] [map_server]: Creating bond (map_server) to lifecycle manager.
+[lifecycle_manager-5] [INFO] [1787291011.416097495] [lifecycle_manager_planner]: [34m[1mActivating planner_server[0m[0m
+[planner_server-2] [INFO] [1787291011.416266688] [planner_server]: Activating
+[planner_server-2] [INFO] [1787291011.416297173] [global_costmap.global_costmap]: Activating
+[planner_server-2] [INFO] [1787291011.416304207] [global_costmap.global_costmap]: Checking transform
+[planner_server-2] [INFO] [1787291011.416427475] [global_costmap.global_costmap]: start
+[planner_server-2] [INFO] [1787291011.427000811] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 1600 X 1600 at 0.050000 m/pix
+[planner_server-2] [INFO] [1787291011.466589275] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+[planner_server-2] [INFO] [1787291011.467135032] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[lifecycle_manager-5] [INFO] [1787291011.469597127] [lifecycle_manager_planner]: [34m[1mManaged nodes are active[0m[0m
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [lifecycle_manager-5]: sending signal 'SIGINT' to process[lifecycle_manager-5]
+[INFO] [static_transform_publisher-4]: sending signal 'SIGINT' to process[static_transform_publisher-4]
+[INFO] [static_transform_publisher-3]: sending signal 'SIGINT' to process[static_transform_publisher-3]
+[INFO] [planner_server-2]: sending signal 'SIGINT' to process[planner_server-2]
+[INFO] [map_server-1]: sending signal 'SIGINT' to process[map_server-1]
+[static_transform_publisher-3] [INFO] [1787291014.174075060] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[map_server-1] [INFO] [1787291014.174062672] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[map_server-1] [INFO] [1787291014.174233005] [map_server]: Running Nav2 LifecycleNode rcl preshutdown (map_server)
+[map_server-1] [INFO] [1787291014.174316672] [map_server]: Deactivating
+[map_server-1] [INFO] [1787291014.174339985] [map_server]: Destroying bond (map_server) to lifecycle manager.
+[static_transform_publisher-4] [INFO] [1787291014.174075401] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-2] [INFO] [1787291014.174130332] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-2] [INFO] [1787291014.174233128] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[planner_server-2] [INFO] [1787291014.174315962] [planner_server]: Deactivating
+[planner_server-2] [INFO] [1787291014.174363716] [global_costmap.global_costmap]: Deactivating
+[lifecycle_manager-5] [INFO] [1787291014.174130339] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-5] [INFO] [1787291014.174272056] [lifecycle_manager_planner]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_planner)
+[lifecycle_manager-5] [INFO] [1787291014.176411751] [lifecycle_manager_planner]: Destroying lifecycle_manager_planner
+[ERROR] [static_transform_publisher-3]: process has died [pid 2215798, exit code -2, cmd '/home/robot/pudu_robot_ws/external/arena4_ws/install/tf2_ros/lib/tf2_ros/static_transform_publisher 0 0 0 0 0 0 map odom --ros-args -r __node:=benchmark_map_to_odom --params-file /tmp/launch_params_cx1nlf2o'].
+[ERROR] [static_transform_publisher-4]: process has died [pid 2215800, exit code -2, cmd '/home/robot/pudu_robot_ws/external/arena4_ws/install/tf2_ros/lib/tf2_ros/static_transform_publisher 0 0 0 0 0 0 odom base_link --ros-args -r __node:=benchmark_odom_to_base_link --params-file /tmp/launch_params_ay89k8uy'].
+[map_server-1] [INFO] [1787291014.185014063] [map_server]: Cleaning up
+[map_server-1] [INFO] [1787291014.185300208] [map_server]: Destroying bond (map_server) to lifecycle manager.
+[map_server-1] [INFO] [1787291014.186002322] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[map_server-1] [INFO] [1787291014.186480673] [map_server]: Destroying
+[INFO] [lifecycle_manager-5]: process has finished cleanly [pid 2215802]
+[INFO] [map_server-1]: process has finished cleanly [pid 2215794]
+[planner_server-2] [INFO] [1787291014.416690912] [planner_server]: Deactivating plugin GridBased of type NavfnPlanner
+[planner_server-2] [INFO] [1787291014.416751905] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-2] [INFO] [1787291014.427520168] [planner_server]: Cleaning up
+[planner_server-2] [INFO] [1787291014.429731754] [global_costmap.global_costmap]: Cleaning up
+[planner_server-2] [INFO] [1787291014.431019631] [planner_server]: Cleaning up plugin GridBased of type NavfnPlanner
+[planner_server-2] [INFO] [1787291014.431076702] [planner_server]: Destroying plugin GridBased of type NavfnPlanner
+[planner_server-2] [INFO] [1787291014.432403333] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-2] [INFO] [1787291014.432845424] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-2] [INFO] [1787291014.433462518] [global_costmap.global_costmap]: Destroying
+[planner_server-2] [INFO] [1787291014.436307909] [planner_server]: Destroying
+[INFO] [planner_server-2]: process has finished cleanly [pid 2215796]

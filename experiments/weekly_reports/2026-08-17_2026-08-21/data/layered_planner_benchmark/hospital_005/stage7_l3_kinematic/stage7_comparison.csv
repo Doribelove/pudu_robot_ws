@@ -1,0 +1,3 @@
+mode,paired_valid_count,composed_time_ratio_vs_full_smac_mean,composed_time_ratio_vs_full_smac_P95,path_length_ratio_vs_full_smac_mean,path_length_ratio_vs_full_smac_P95,comparison_time_is_composed_estimate
+grid_with_rotation,35,11.068380892647774,30.38365578887332,1.028625566838121,1.1400549821270503,True
+layered_on_demand_l3,35,11.647614304434857,31.182519515264815,1.028625566838121,1.1400549821270503,True

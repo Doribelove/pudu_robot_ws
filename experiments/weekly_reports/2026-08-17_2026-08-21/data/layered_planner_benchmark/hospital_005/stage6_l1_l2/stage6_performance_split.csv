@@ -1,0 +1,7 @@
+mode,bucket,count,online_time_P50_ms,online_time_P95_ms,expanded_nodes_P50,expanded_nodes_P95
+full_grid,non_fallback,50,245.091993,670.1329481999999,27503.0,83098.0
+full_grid,fallback,0,,,,
+topology_guided_grid,non_fallback,50,231.7637085,327.89823745,18475.5,30090.0
+topology_guided_grid,fallback,0,,,,
+topology_guided_grid_fallback,non_fallback,40,253.4925915,1184.59580275,18475.5,75705.0
+topology_guided_grid_fallback,fallback,10,1446.269782,1649.3132125999998,92512.0,92512.0

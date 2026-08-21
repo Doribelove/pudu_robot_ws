@@ -1,0 +1,9 @@
+bundle_version=stage8-v1-20260821
+created_date=2026-08-21
+project_git_commit=21dcaeeef93443276789796e3ac61d4d98e6be19
+arena_evaluation_upstream_commit=94762429bea19b84cab50a3d0910a736184738a0
+arena_evaluation_setup_version=1.0.0
+arena_evaluation_package_xml_version=0.0.0
+dynamic_obstacles=false
+map_standard_resolution_m=0.05
+

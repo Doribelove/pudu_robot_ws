@@ -1,0 +1,3 @@
+mode,fallback_reason,count
+topology_guided_grid_fallback,TOPOLOGY_COMPONENT_MISMATCH,5
+topology_guided_grid_fallback,corridor_no_path,15

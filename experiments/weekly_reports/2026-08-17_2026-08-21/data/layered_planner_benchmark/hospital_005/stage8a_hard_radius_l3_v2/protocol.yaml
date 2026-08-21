@@ -1,0 +1,50 @@
+schema_version: 8
+experiment: hospital_stage8_hard_radius_l3
+robot: jackal
+map: hospital_005
+map_yaml: experiments/maps/hospital_005/map.yaml
+map_cells: 2560000
+grid_cells: 2560000
+width_cells: 1600
+height_cells: 1600
+resolution: 0.05
+origin:
+- -40.0
+- -40.0
+- 0.0
+random_seed: 20260821
+query_set_id: hospital_005_queries_v2
+dynamic_obstacles: false
+allow_unknown: false
+footprint_padding_m: 0.05
+additional_safety_margin_m: 0.05
+corridor_padding_m: 1.0
+attach_radius_m: 5.0
+footprint:
+- - 0.255
+  - 0.215
+- - 0.255
+  - -0.215
+- - -0.255
+  - -0.215
+- - -0.255
+  - 0.215
+map_sha256: 794ec9bf39d0da34358fa4d9b0762d7e8e021874fc7ef4d5971efc5e846f9820
+allow_in_place_rotation: false
+minimum_turning_radius: 0.4
+maximum_curvature: 2.5
+allow_reverse: true
+reverse_penalty: 2.0
+motion_model: REEDS_SHEPP
+curvature_sample_spacing_m: 0.05
+curvature_evaluation_window_m: 0.8
+collision_sample_spacing_m: 0.025
+numerical_tolerance: 0.001
+stitch_position_tolerance_m: 0.05
+stitch_yaw_tolerance_deg: 10.0
+initial_repair_window_m: 1.0
+expanded_repair_window_m: 2.0
+protocol_file: /home/robot/pudu_robot_ws/experiments/planner_benchmark/hospital_005/topology_protocol_v2.yaml
+local_smac_angle_quantization_bins: 360
+local_smac_smooth_path: false
+local_smac_footprint_padding_m: 0.1

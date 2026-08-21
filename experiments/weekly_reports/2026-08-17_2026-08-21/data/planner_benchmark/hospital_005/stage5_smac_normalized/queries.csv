@@ -1,0 +1,11 @@
+query_id,start,goal,category,seed,validation_status
+q00,"[1.05, 1.35, -2.658]","[-11.15, -5.15, 0.483]",forward_heading,20260821,UNVALIDATED
+q01,"[8.65, -18.15, 2.405]","[-9.45, -1.75, -0.736]",forward_heading,20260821,UNVALIDATED
+q02,"[-4.55, -7.55, -0.633]","[7.85, -16.65, 2.508]",forward_heading,20260821,UNVALIDATED
+q03,"[7.55, -32.75, 1.477]","[10.85, 2.15, -1.665]",forward_heading,20260821,UNVALIDATED
+q04,"[9.35, -7.85, 1.722]","[5.35, 18.45, -1.42]",forward_heading,20260821,UNVALIDATED
+q05,"[-2.85, -27.25, 2.91]","[11.15, -30.55, 2.91]",reverse_heading,20260821,UNVALIDATED
+q06,"[-1.45, -33.55, -1.398]","[-5.65, -9.55, -1.398]",reverse_heading,20260821,UNVALIDATED
+q07,"[7.55, -1.85, 0.892]","[-7.95, -21.05, 0.892]",reverse_heading,20260821,UNVALIDATED
+q08,"[-6.05, -23.15, -2.33]","[6.95, -9.45, -2.33]",reverse_heading,20260821,UNVALIDATED
+q09,"[-5.65, -28.95, -2.678]","[5.95, -23.15, -2.678]",reverse_heading,20260821,UNVALIDATED

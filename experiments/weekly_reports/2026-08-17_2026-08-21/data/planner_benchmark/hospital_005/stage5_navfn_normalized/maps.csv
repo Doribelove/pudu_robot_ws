@@ -1,0 +1,2 @@
+map_id,map_yaml,map_sha256,width,height,resolution,origin
+hospital_005,/home/robot/pudu_robot_ws/experiments/maps/hospital_005/map.yaml,794ec9bf39d0da34358fa4d9b0762d7e8e021874fc7ef4d5971efc5e846f9820,1600,1600,0.05,"[-40.0, -40.0, 0.0]"

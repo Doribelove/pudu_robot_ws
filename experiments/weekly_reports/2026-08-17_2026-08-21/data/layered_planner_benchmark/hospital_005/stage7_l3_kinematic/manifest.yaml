@@ -1,0 +1,15 @@
+schema_version: 1
+experiment: hospital_stage7_on_demand_l3
+stage6_input: /home/robot/pudu_robot_ws/experiments/layered_planner_benchmark/hospital_005/stage6_l1_l2
+smac_reference: /home/robot/pudu_robot_ws/experiments/planner_benchmark/hospital_005/stage5_smac_normalized
+map_yaml: /home/robot/pudu_robot_ws/experiments/maps/hospital_005/map.yaml
+queries_yaml: /home/robot/pudu_robot_ws/experiments/planner_benchmark/hospital_005/queries_v2.yaml
+map_sha256: 7cc20065986ac1cd55cb5c110554e65593cc657d7e866c40cd931d94fa035084
+dynamic_obstacles: false
+modes:
+- grid_raw
+- grid_with_rotation
+- layered_on_demand_l3
+- full_smac_normalized
+input_rows: 50
+reference_is_frozen: true

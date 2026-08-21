@@ -1,0 +1,6 @@
+planner,config_variant,query_id,result_code,action_success,static_footprint_valid,count
+smac_hybrid,normalized,q00,SUCCEEDED,True,False,5
+smac_hybrid,normalized,q01,SUCCEEDED,True,False,5
+smac_hybrid,product,q00,ACTION_ABORTED,False,False,5
+smac_hybrid,product,q03,SUCCEEDED,True,False,5
+smac_hybrid,product,q05,ACTION_ABORTED,False,False,5

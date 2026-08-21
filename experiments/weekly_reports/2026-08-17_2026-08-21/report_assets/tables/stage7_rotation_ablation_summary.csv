@@ -1,0 +1,5 @@
+mode,query_count,action_success_rate,static_footprint_valid_rate,final_valid_success_rate,all_query_success_rate,reachable_query_count,reachable_query_success_rate,l3_triggered_paths,rotation_segments,hybrid_calls,repair_success_rate,static_footprint_collision_max
+full_smac_normalized,10,1.0,0.8,0.7,0.7,9,0.7777777777777778,0,0,0,,1
+grid_raw,10,0.9,0.9,0.0,0.0,9,0.0,9,0,0,0.0,0
+grid_with_rotation,10,0.9,0.9,0.9,0.9,9,1.0,9,90,0,1.0,0
+layered_on_demand_l3,10,0.9,0.9,0.9,0.9,9,1.0,9,90,0,1.0,0

@@ -1,0 +1,14 @@
+schema_version: 8
+experiment: hospital_stage8b_lateral_preference
+map_yaml: /home/robot/pudu_robot_ws/experiments/maps/hospital_005/map.yaml
+protocol: /home/robot/pudu_robot_ws/experiments/planner_benchmark/hospital_005/topology_protocol_v2.yaml
+queries: /home/robot/pudu_robot_ws/experiments/planner_benchmark/hospital_005/queries_v2.yaml
+topology: /home/robot/pudu_robot_ws/experiments/topology_benchmark/hospital_005/stage5_full_v2/topology
+dynamic_obstacles: false
+preference_weights:
+- 0.0
+- 0.25
+- 0.5
+- 1.0
+right_wall_target_m: 0.4
+narrow_width_threshold_m: 1.23

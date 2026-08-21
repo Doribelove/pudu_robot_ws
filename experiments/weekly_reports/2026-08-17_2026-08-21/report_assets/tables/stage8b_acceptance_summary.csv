@@ -1,0 +1,3 @@
+preference_mode,selected_weight,count,success_count,all_query_success_rate,reachable_query_success_rate,successful_collision_count,successful_hard_radius_violation_count,hybrid_calls,hybrid_success
+center,1.0,50,35,0.7,0.7777777777777778,0,0,85,70
+right_edge,1.0,50,35,0.7,0.7777777777777778,0,0,125,90

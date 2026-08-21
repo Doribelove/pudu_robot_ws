@@ -1,0 +1,10 @@
+schema_version: 8
+experiment: hospital_stage8a_hard_radius_l3
+dynamic_obstacles: false
+source_stage6: experiments/layered_planner_benchmark/hospital_005/stage6_l1_l2
+queries: ''
+modes:
+- grid_raw
+- stage7_with_rotation
+- layered_hard_radius_l3
+- full_smac_normalized
