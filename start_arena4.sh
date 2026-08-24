@@ -229,7 +229,7 @@ if [[ "${show_help}" == true ]]; then
     local_planner:=mppi global_planner:=smac_2d
 
 常用可选项：
-  world:=factory|hospital|ignc|map_empty|house17|generated
+  world:=factory|hospital|ignc|map_empty|house17|generated|nav2_100by100_10|nav2_100by100_15|nav2_100by100_20|aws_small_warehouse_002
   robot:=jackal|turtlebot|boxer|dingo|husky|ridgeback|...
   local_planner:=dwb|mppi|teb|regulated_pure_pursuit|rotation_shim|...
   global_planner:=navfn|smac_2d|smac_hybrid|smac_state_lattice|theta_star
@@ -237,6 +237,9 @@ if [[ "${show_help}" == true ]]; then
   tm_obstacles:=parametrized|random|scenario|environment
 
 默认组合：robot:=jackal local_planner:=teb global_planner:=navfn
+
+map-only world（没有 Gazebo 物理 SDF）建议同时使用：
+  tm_robots:=explore tm_obstacles:=environment
 
 说明：factory/hospital/ignc 未指定 tm_obstacles 时，默认使用各自
       scenarios/default.json；显式传入 tm_obstacles:=random 可覆盖。
