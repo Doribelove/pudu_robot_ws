@@ -1,0 +1,7215 @@
+{
+  "schema": "arena_a2b_benchmark.v1",
+  "description": "Fixed 20 start-goal pairs per Arena map; 200 deterministic tasks total.",
+  "resolution_m": 0.05,
+  "endpoint_clearance_requirement_m": 0.6,
+  "endpoint_validation_threshold_m": 0.8,
+  "separation_policy": {
+    "small": 0.18,
+    "medium": 0.2,
+    "large": 0.22,
+    "xlarge": 0.25
+  },
+  "maps": {
+    "arena_small_080x100_2d_005": {
+      "band": "small",
+      "extent_m": [
+        80.0,
+        100.0
+      ],
+      "scenario": "external/arena4_ws/src/arena/simulation-setup/worlds/arena_small_080x100_2d_005/scenarios/a2b_benchmark_20.json",
+      "task_count": 20,
+      "task_layout": "generated_arena",
+      "tasks": [
+        {
+          "id": "A2B-01",
+          "label": "long_east_west",
+          "start": [
+            6.425,
+            50.025,
+            0.0
+          ],
+          "goal": [
+            73.625,
+            50.025,
+            0.0
+          ],
+          "start_norm": [
+            0.08,
+            0.5
+          ],
+          "goal_norm": [
+            0.92,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 6.25,
+          "goal_clearance_m": 6.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 67.2,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-02",
+          "label": "long_north_south",
+          "start": [
+            40.025,
+            8.025,
+            1.5708
+          ],
+          "goal": [
+            40.025,
+            92.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.08
+          ],
+          "goal_norm": [
+            0.5,
+            0.92
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 7.9,
+          "goal_clearance_m": 7.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 84.0,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-03",
+          "label": "long_diagonal_sw_ne",
+          "start": [
+            8.025,
+            12.075,
+            0.8686
+          ],
+          "goal": [
+            72.025,
+            87.725,
+            2.4394
+          ],
+          "start_norm": [
+            0.1,
+            0.12
+          ],
+          "goal_norm": [
+            0.9,
+            0.88
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.809,
+          "goal_clearance_m": 0.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 99.09,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.276,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-04",
+          "label": "long_diagonal_nw_se",
+          "start": [
+            8.025,
+            87.875,
+            -0.8696
+          ],
+          "goal": [
+            72.025,
+            12.075,
+            -2.4404
+          ],
+          "start_norm": [
+            0.1,
+            0.88
+          ],
+          "goal_norm": [
+            0.9,
+            0.12
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.809,
+          "goal_clearance_m": 0.809,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 99.205,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.127,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-05",
+          "label": "room_to_room_diagonal",
+          "start": [
+            12.825,
+            78.025,
+            -0.7999
+          ],
+          "goal": [
+            67.225,
+            22.025,
+            0.7709
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 6.6,
+          "goal_clearance_m": 6.7,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 78.073,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-06",
+          "label": "warehouse_to_room_diagonal",
+          "start": [
+            67.225,
+            78.025,
+            -2.3417
+          ],
+          "goal": [
+            12.825,
+            22.025,
+            2.3707
+          ],
+          "start_norm": [
+            0.84,
+            0.78
+          ],
+          "goal_norm": [
+            0.16,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 6.6,
+          "goal_clearance_m": 6.7,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 78.073,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-07",
+          "label": "room_to_warehouse_diagonal",
+          "start": [
+            12.825,
+            22.025,
+            0.7999
+          ],
+          "goal": [
+            67.225,
+            78.025,
+            -2.3417
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 6.7,
+          "goal_clearance_m": 6.6,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 78.073,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-08",
+          "label": "room_cross_diagonal",
+          "start": [
+            67.225,
+            22.025,
+            2.3417
+          ],
+          "goal": [
+            12.825,
+            78.025,
+            -0.7999
+          ],
+          "start_norm": [
+            0.84,
+            0.22
+          ],
+          "goal_norm": [
+            0.16,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 6.7,
+          "goal_clearance_m": 6.6,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 78.073,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-09",
+          "label": "west_corridor_to_plaza",
+          "start": [
+            8.025,
+            50.025,
+            0.0
+          ],
+          "goal": [
+            28.825,
+            50.025,
+            0.0
+          ],
+          "start_norm": [
+            0.1,
+            0.5
+          ],
+          "goal_norm": [
+            0.36,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 7.85,
+          "goal_clearance_m": 2.41,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 20.8,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-10",
+          "label": "east_corridor_to_plaza",
+          "start": [
+            72.025,
+            50.025,
+            3.1416
+          ],
+          "goal": [
+            51.225,
+            50.025,
+            -3.1416
+          ],
+          "start_norm": [
+            0.9,
+            0.5
+          ],
+          "goal_norm": [
+            0.64,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 7.85,
+          "goal_clearance_m": 2.41,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 20.8,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-11",
+          "label": "south_corridor_to_plaza",
+          "start": [
+            40.025,
+            10.025,
+            1.5708
+          ],
+          "goal": [
+            40.025,
+            36.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.1
+          ],
+          "goal_norm": [
+            0.5,
+            0.36
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 7.197,
+          "goal_clearance_m": 5.15,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 26.0,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-12",
+          "label": "north_corridor_to_plaza",
+          "start": [
+            40.025,
+            90.025,
+            -1.5708
+          ],
+          "goal": [
+            40.025,
+            64.025,
+            -1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.9
+          ],
+          "goal_norm": [
+            0.5,
+            0.64
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 7.297,
+          "goal_clearance_m": 5.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 26.0,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-13",
+          "label": "upper_block_cross",
+          "start": [
+            12.825,
+            78.025,
+            0.0
+          ],
+          "goal": [
+            67.225,
+            78.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "wide_hall"
+          ],
+          "start_clearance_m": 6.6,
+          "goal_clearance_m": 6.6,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 54.4,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-14",
+          "label": "lower_block_cross",
+          "start": [
+            12.825,
+            22.025,
+            0.0
+          ],
+          "goal": [
+            67.225,
+            22.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 6.7,
+          "goal_clearance_m": 6.7,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 54.4,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-15",
+          "label": "southwest_to_northeast",
+          "start": [
+            12.825,
+            24.025,
+            0.7628
+          ],
+          "goal": [
+            67.225,
+            76.025,
+            2.3336
+          ],
+          "start_norm": [
+            0.16,
+            0.24
+          ],
+          "goal_norm": [
+            0.84,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.8,
+          "goal_clearance_m": 5.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 75.255,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-16",
+          "label": "southeast_to_northwest",
+          "start": [
+            67.225,
+            24.025,
+            2.3787
+          ],
+          "goal": [
+            12.825,
+            76.025,
+            0.808
+          ],
+          "start_norm": [
+            0.84,
+            0.24
+          ],
+          "goal_norm": [
+            0.16,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.8,
+          "goal_clearance_m": 5.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 75.255,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-17",
+          "label": "plaza_east_west_local",
+          "start": [
+            28.025,
+            50.025,
+            0.0
+          ],
+          "goal": [
+            52.025,
+            50.025,
+            0.0
+          ],
+          "start_norm": [
+            0.35,
+            0.5
+          ],
+          "goal_norm": [
+            0.65,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 1.85,
+          "goal_clearance_m": 1.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 24.0,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-18",
+          "label": "plaza_north_south_local",
+          "start": [
+            40.025,
+            35.025,
+            1.5708
+          ],
+          "goal": [
+            40.025,
+            65.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.35
+          ],
+          "goal_norm": [
+            0.5,
+            0.65
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 4.9,
+          "goal_clearance_m": 4.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 30.0,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-19",
+          "label": "northwest_to_southeast",
+          "start": [
+            9.625,
+            76.025,
+            -0.7075
+          ],
+          "goal": [
+            70.425,
+            24.025,
+            0.8633
+          ],
+          "start_norm": [
+            0.12,
+            0.76
+          ],
+          "goal_norm": [
+            0.88,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.9,
+          "goal_clearance_m": 5.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 80.004,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-20",
+          "label": "northeast_to_southwest",
+          "start": [
+            70.425,
+            76.025,
+            -2.4341
+          ],
+          "goal": [
+            9.625,
+            24.025,
+            2.2783
+          ],
+          "start_norm": [
+            0.88,
+            0.76
+          ],
+          "goal_norm": [
+            0.12,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.9,
+          "goal_clearance_m": 5.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 80.004,
+          "minimum_direct_distance_m": 14.4,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        }
+      ]
+    },
+    "arena_small_100x100_2d_005": {
+      "band": "small",
+      "extent_m": [
+        100.0,
+        100.0
+      ],
+      "scenario": "external/arena4_ws/src/arena/simulation-setup/worlds/arena_small_100x100_2d_005/scenarios/a2b_benchmark_20.json",
+      "task_count": 20,
+      "task_layout": "generated_arena",
+      "tasks": [
+        {
+          "id": "A2B-01",
+          "label": "long_east_west",
+          "start": [
+            8.025,
+            50.025,
+            0.0
+          ],
+          "goal": [
+            92.025,
+            50.025,
+            0.0
+          ],
+          "start_norm": [
+            0.08,
+            0.5
+          ],
+          "goal_norm": [
+            0.92,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 7.85,
+          "goal_clearance_m": 7.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 84.0,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-02",
+          "label": "long_north_south",
+          "start": [
+            50.025,
+            8.025,
+            1.5708
+          ],
+          "goal": [
+            50.025,
+            92.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.08
+          ],
+          "goal_norm": [
+            0.5,
+            0.92
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 7.9,
+          "goal_clearance_m": 7.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 84.0,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-03",
+          "label": "long_diagonal_sw_ne",
+          "start": [
+            9.975,
+            12.825,
+            0.7601
+          ],
+          "goal": [
+            90.025,
+            88.925,
+            2.3309
+          ],
+          "start_norm": [
+            0.1,
+            0.12
+          ],
+          "goal_norm": [
+            0.9,
+            0.88
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.819,
+          "goal_clearance_m": 0.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 110.45,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.925,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-04",
+          "label": "long_diagonal_nw_se",
+          "start": [
+            9.975,
+            87.125,
+            -0.7479
+          ],
+          "goal": [
+            90.075,
+            12.825,
+            -2.3186
+          ],
+          "start_norm": [
+            0.1,
+            0.88
+          ],
+          "goal_norm": [
+            0.9,
+            0.12
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.819,
+          "goal_clearance_m": 0.819,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 109.254,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.875,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-05",
+          "label": "room_to_room_diagonal",
+          "start": [
+            16.025,
+            78.025,
+            -0.6889
+          ],
+          "goal": [
+            84.025,
+            22.025,
+            0.8819
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.8,
+          "goal_clearance_m": 5.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 88.091,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-06",
+          "label": "warehouse_to_room_diagonal",
+          "start": [
+            84.025,
+            78.025,
+            -2.4527
+          ],
+          "goal": [
+            16.025,
+            22.025,
+            2.2597
+          ],
+          "start_norm": [
+            0.84,
+            0.78
+          ],
+          "goal_norm": [
+            0.16,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.8,
+          "goal_clearance_m": 5.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 88.091,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-07",
+          "label": "room_to_warehouse_diagonal",
+          "start": [
+            16.025,
+            22.025,
+            0.6889
+          ],
+          "goal": [
+            84.025,
+            78.025,
+            -2.4527
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.9,
+          "goal_clearance_m": 5.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 88.091,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-08",
+          "label": "room_cross_diagonal",
+          "start": [
+            84.025,
+            22.025,
+            2.4527
+          ],
+          "goal": [
+            16.025,
+            78.025,
+            -0.6889
+          ],
+          "start_norm": [
+            0.84,
+            0.22
+          ],
+          "goal_norm": [
+            0.16,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.9,
+          "goal_clearance_m": 5.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 88.091,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-09",
+          "label": "west_corridor_to_plaza",
+          "start": [
+            10.025,
+            50.025,
+            0.0
+          ],
+          "goal": [
+            36.025,
+            50.025,
+            0.0
+          ],
+          "start_norm": [
+            0.1,
+            0.5
+          ],
+          "goal_norm": [
+            0.36,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 9.85,
+          "goal_clearance_m": 3.21,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 26.0,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-10",
+          "label": "east_corridor_to_plaza",
+          "start": [
+            90.025,
+            50.025,
+            3.1416
+          ],
+          "goal": [
+            64.025,
+            50.025,
+            -3.1416
+          ],
+          "start_norm": [
+            0.9,
+            0.5
+          ],
+          "goal_norm": [
+            0.64,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 9.85,
+          "goal_clearance_m": 3.21,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 26.0,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-11",
+          "label": "south_corridor_to_plaza",
+          "start": [
+            50.025,
+            10.025,
+            1.5708
+          ],
+          "goal": [
+            50.025,
+            36.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.1
+          ],
+          "goal_norm": [
+            0.5,
+            0.36
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 7.997,
+          "goal_clearance_m": 3.15,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 26.0,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-12",
+          "label": "north_corridor_to_plaza",
+          "start": [
+            50.025,
+            90.025,
+            -1.5708
+          ],
+          "goal": [
+            50.025,
+            64.025,
+            -1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.9
+          ],
+          "goal_norm": [
+            0.5,
+            0.64
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 8.097,
+          "goal_clearance_m": 3.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 26.0,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-13",
+          "label": "upper_block_cross",
+          "start": [
+            16.025,
+            78.025,
+            0.0
+          ],
+          "goal": [
+            84.025,
+            78.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "wide_hall"
+          ],
+          "start_clearance_m": 5.8,
+          "goal_clearance_m": 5.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 68.0,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-14",
+          "label": "lower_block_cross",
+          "start": [
+            16.025,
+            22.025,
+            0.0
+          ],
+          "goal": [
+            84.025,
+            22.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.9,
+          "goal_clearance_m": 5.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 68.0,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-15",
+          "label": "southwest_to_northeast",
+          "start": [
+            16.025,
+            24.025,
+            0.6528
+          ],
+          "goal": [
+            84.025,
+            76.025,
+            2.2236
+          ],
+          "start_norm": [
+            0.16,
+            0.24
+          ],
+          "goal_norm": [
+            0.84,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.3,
+          "goal_clearance_m": 5.4,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 85.604,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-16",
+          "label": "southeast_to_northwest",
+          "start": [
+            84.025,
+            24.025,
+            2.4887
+          ],
+          "goal": [
+            16.025,
+            76.025,
+            0.9179
+          ],
+          "start_norm": [
+            0.84,
+            0.24
+          ],
+          "goal_norm": [
+            0.16,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.3,
+          "goal_clearance_m": 5.4,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 85.604,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-17",
+          "label": "plaza_east_west_local",
+          "start": [
+            35.025,
+            50.025,
+            0.0
+          ],
+          "goal": [
+            65.025,
+            50.025,
+            0.0
+          ],
+          "start_norm": [
+            0.35,
+            0.5
+          ],
+          "goal_norm": [
+            0.65,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 2.35,
+          "goal_clearance_m": 2.35,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 30.0,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-18",
+          "label": "plaza_north_south_local",
+          "start": [
+            50.025,
+            35.025,
+            1.5708
+          ],
+          "goal": [
+            50.025,
+            65.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.35
+          ],
+          "goal_norm": [
+            0.5,
+            0.65
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 4.15,
+          "goal_clearance_m": 4.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 30.0,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-19",
+          "label": "northwest_to_southeast",
+          "start": [
+            12.025,
+            76.025,
+            -0.6001
+          ],
+          "goal": [
+            88.025,
+            24.025,
+            0.9707
+          ],
+          "start_norm": [
+            0.12,
+            0.76
+          ],
+          "goal_norm": [
+            0.88,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.4,
+          "goal_clearance_m": 5.3,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 92.087,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-20",
+          "label": "northeast_to_southwest",
+          "start": [
+            88.025,
+            76.025,
+            -2.5415
+          ],
+          "goal": [
+            12.025,
+            24.025,
+            2.1708
+          ],
+          "start_norm": [
+            0.88,
+            0.76
+          ],
+          "goal_norm": [
+            0.12,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 5.4,
+          "goal_clearance_m": 5.3,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 92.087,
+          "minimum_direct_distance_m": 18.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        }
+      ]
+    },
+    "arena_medium_160x200_2d_005": {
+      "band": "medium",
+      "extent_m": [
+        160.0,
+        200.0
+      ],
+      "scenario": "external/arena4_ws/src/arena/simulation-setup/worlds/arena_medium_160x200_2d_005/scenarios/a2b_benchmark_20.json",
+      "task_count": 20,
+      "task_layout": "generated_arena",
+      "tasks": [
+        {
+          "id": "A2B-01",
+          "label": "long_east_west",
+          "start": [
+            12.825,
+            100.025,
+            0.0
+          ],
+          "goal": [
+            147.225,
+            100.025,
+            0.0
+          ],
+          "start_norm": [
+            0.08,
+            0.5
+          ],
+          "goal_norm": [
+            0.92,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 12.65,
+          "goal_clearance_m": 12.65,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 134.4,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-02",
+          "label": "long_north_south",
+          "start": [
+            80.025,
+            16.025,
+            1.5708
+          ],
+          "goal": [
+            80.025,
+            184.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.08
+          ],
+          "goal_norm": [
+            0.5,
+            0.92
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 15.9,
+          "goal_clearance_m": 15.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 168.0,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-03",
+          "label": "long_diagonal_sw_ne",
+          "start": [
+            16.025,
+            24.025,
+            0.8709
+          ],
+          "goal": [
+            144.025,
+            176.025,
+            2.4417
+          ],
+          "start_norm": [
+            0.1,
+            0.12
+          ],
+          "goal_norm": [
+            0.9,
+            0.88
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.89,
+          "goal_clearance_m": 1.3,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 198.716,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-04",
+          "label": "long_diagonal_nw_se",
+          "start": [
+            16.025,
+            176.025,
+            -0.8709
+          ],
+          "goal": [
+            144.025,
+            24.025,
+            -2.4417
+          ],
+          "start_norm": [
+            0.1,
+            0.88
+          ],
+          "goal_norm": [
+            0.9,
+            0.12
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.829,
+          "goal_clearance_m": 0.89,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 198.716,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-05",
+          "label": "room_to_room_diagonal",
+          "start": [
+            25.625,
+            156.025,
+            -0.7999
+          ],
+          "goal": [
+            134.425,
+            44.025,
+            0.7709
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 13.4,
+          "goal_clearance_m": 13.5,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 156.146,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-06",
+          "label": "warehouse_to_room_diagonal",
+          "start": [
+            134.425,
+            156.025,
+            -2.3417
+          ],
+          "goal": [
+            25.625,
+            44.025,
+            2.3707
+          ],
+          "start_norm": [
+            0.84,
+            0.78
+          ],
+          "goal_norm": [
+            0.16,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 13.4,
+          "goal_clearance_m": 13.5,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 156.146,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-07",
+          "label": "room_to_warehouse_diagonal",
+          "start": [
+            25.625,
+            44.025,
+            0.7999
+          ],
+          "goal": [
+            134.425,
+            156.025,
+            -2.3417
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 13.5,
+          "goal_clearance_m": 13.4,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 156.146,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-08",
+          "label": "room_cross_diagonal",
+          "start": [
+            134.425,
+            44.025,
+            2.3417
+          ],
+          "goal": [
+            25.625,
+            156.025,
+            -0.7999
+          ],
+          "start_norm": [
+            0.84,
+            0.22
+          ],
+          "goal_norm": [
+            0.16,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 13.5,
+          "goal_clearance_m": 13.4,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 156.146,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-09",
+          "label": "west_corridor_to_plaza",
+          "start": [
+            16.025,
+            100.025,
+            0.0
+          ],
+          "goal": [
+            57.625,
+            100.025,
+            0.0
+          ],
+          "start_norm": [
+            0.1,
+            0.5
+          ],
+          "goal_norm": [
+            0.36,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 15.85,
+          "goal_clearance_m": 5.45,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 41.6,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-10",
+          "label": "east_corridor_to_plaza",
+          "start": [
+            144.025,
+            100.025,
+            3.1416
+          ],
+          "goal": [
+            102.425,
+            100.025,
+            -3.1416
+          ],
+          "start_norm": [
+            0.9,
+            0.5
+          ],
+          "goal_norm": [
+            0.64,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 15.85,
+          "goal_clearance_m": 5.45,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 41.6,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-11",
+          "label": "south_corridor_to_plaza",
+          "start": [
+            80.025,
+            20.025,
+            1.5708
+          ],
+          "goal": [
+            80.025,
+            72.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.1
+          ],
+          "goal_norm": [
+            0.5,
+            0.36
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 14.397,
+          "goal_clearance_m": 11.15,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 52.0,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-12",
+          "label": "north_corridor_to_plaza",
+          "start": [
+            80.025,
+            180.025,
+            -1.5708
+          ],
+          "goal": [
+            80.025,
+            128.025,
+            -1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.9
+          ],
+          "goal_norm": [
+            0.5,
+            0.64
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 14.497,
+          "goal_clearance_m": 11.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 52.0,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-13",
+          "label": "upper_block_cross",
+          "start": [
+            25.625,
+            156.025,
+            0.0
+          ],
+          "goal": [
+            134.425,
+            156.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "wide_hall"
+          ],
+          "start_clearance_m": 13.4,
+          "goal_clearance_m": 13.4,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 108.8,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-14",
+          "label": "lower_block_cross",
+          "start": [
+            25.625,
+            44.025,
+            0.0
+          ],
+          "goal": [
+            134.425,
+            44.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 13.5,
+          "goal_clearance_m": 13.5,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 108.8,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-15",
+          "label": "southwest_to_northeast",
+          "start": [
+            25.625,
+            48.025,
+            0.7628
+          ],
+          "goal": [
+            134.425,
+            152.025,
+            2.3336
+          ],
+          "start_norm": [
+            0.16,
+            0.24
+          ],
+          "goal_norm": [
+            0.84,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 11.8,
+          "goal_clearance_m": 11.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 150.511,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-16",
+          "label": "southeast_to_northwest",
+          "start": [
+            134.425,
+            48.025,
+            2.3787
+          ],
+          "goal": [
+            25.625,
+            152.025,
+            0.808
+          ],
+          "start_norm": [
+            0.84,
+            0.24
+          ],
+          "goal_norm": [
+            0.16,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 11.8,
+          "goal_clearance_m": 11.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 150.511,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-17",
+          "label": "plaza_east_west_local",
+          "start": [
+            56.025,
+            100.025,
+            0.0
+          ],
+          "goal": [
+            104.025,
+            100.025,
+            0.0
+          ],
+          "start_norm": [
+            0.35,
+            0.5
+          ],
+          "goal_norm": [
+            0.65,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 3.85,
+          "goal_clearance_m": 3.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 48.0,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-18",
+          "label": "plaza_north_south_local",
+          "start": [
+            80.025,
+            70.025,
+            1.5708
+          ],
+          "goal": [
+            80.025,
+            130.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.35
+          ],
+          "goal_norm": [
+            0.5,
+            0.65
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 9.9,
+          "goal_clearance_m": 9.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 60.0,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-19",
+          "label": "northwest_to_southeast",
+          "start": [
+            19.225,
+            152.025,
+            -0.7075
+          ],
+          "goal": [
+            140.825,
+            48.025,
+            0.8633
+          ],
+          "start_norm": [
+            0.12,
+            0.76
+          ],
+          "goal_norm": [
+            0.88,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 11.9,
+          "goal_clearance_m": 11.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 160.008,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-20",
+          "label": "northeast_to_southwest",
+          "start": [
+            140.825,
+            152.025,
+            -2.4341
+          ],
+          "goal": [
+            19.225,
+            48.025,
+            2.2783
+          ],
+          "start_norm": [
+            0.88,
+            0.76
+          ],
+          "goal_norm": [
+            0.12,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 11.9,
+          "goal_clearance_m": 11.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 160.008,
+          "minimum_direct_distance_m": 32.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        }
+      ]
+    },
+    "arena_medium_200x200_2d_005": {
+      "band": "medium",
+      "extent_m": [
+        200.0,
+        200.0
+      ],
+      "scenario": "external/arena4_ws/src/arena/simulation-setup/worlds/arena_medium_200x200_2d_005/scenarios/a2b_benchmark_20.json",
+      "task_count": 20,
+      "task_layout": "generated_arena",
+      "tasks": [
+        {
+          "id": "A2B-01",
+          "label": "long_east_west",
+          "start": [
+            16.025,
+            100.025,
+            0.0
+          ],
+          "goal": [
+            184.025,
+            100.025,
+            0.0
+          ],
+          "start_norm": [
+            0.08,
+            0.5
+          ],
+          "goal_norm": [
+            0.92,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 15.85,
+          "goal_clearance_m": 15.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 168.0,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-02",
+          "label": "long_north_south",
+          "start": [
+            100.025,
+            16.025,
+            1.5708
+          ],
+          "goal": [
+            100.025,
+            184.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.08
+          ],
+          "goal_norm": [
+            0.5,
+            0.92
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 15.9,
+          "goal_clearance_m": 15.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 168.0,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-03",
+          "label": "long_diagonal_sw_ne",
+          "start": [
+            20.025,
+            23.075,
+            0.7656
+          ],
+          "goal": [
+            180.025,
+            176.875,
+            2.3364
+          ],
+          "start_norm": [
+            0.1,
+            0.12
+          ],
+          "goal_norm": [
+            0.9,
+            0.88
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.85,
+          "goal_clearance_m": 0.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 221.933,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.925,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-04",
+          "label": "long_diagonal_nw_se",
+          "start": [
+            20.025,
+            176.875,
+            -0.7656
+          ],
+          "goal": [
+            180.025,
+            23.075,
+            -2.3364
+          ],
+          "start_norm": [
+            0.1,
+            0.88
+          ],
+          "goal_norm": [
+            0.9,
+            0.12
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.85,
+          "goal_clearance_m": 0.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 221.933,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.925,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-05",
+          "label": "room_to_room_diagonal",
+          "start": [
+            32.025,
+            156.025,
+            -0.6889
+          ],
+          "goal": [
+            168.025,
+            44.025,
+            0.8819
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 11.8,
+          "goal_clearance_m": 11.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 176.182,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-06",
+          "label": "warehouse_to_room_diagonal",
+          "start": [
+            168.025,
+            156.025,
+            -2.4527
+          ],
+          "goal": [
+            32.025,
+            44.025,
+            2.2597
+          ],
+          "start_norm": [
+            0.84,
+            0.78
+          ],
+          "goal_norm": [
+            0.16,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 11.8,
+          "goal_clearance_m": 11.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 176.182,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-07",
+          "label": "room_to_warehouse_diagonal",
+          "start": [
+            32.025,
+            44.025,
+            0.6889
+          ],
+          "goal": [
+            168.025,
+            156.025,
+            -2.4527
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 11.9,
+          "goal_clearance_m": 11.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 176.182,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-08",
+          "label": "room_cross_diagonal",
+          "start": [
+            168.025,
+            44.025,
+            2.4527
+          ],
+          "goal": [
+            32.025,
+            156.025,
+            -0.6889
+          ],
+          "start_norm": [
+            0.84,
+            0.22
+          ],
+          "goal_norm": [
+            0.16,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 11.9,
+          "goal_clearance_m": 11.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 176.182,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-09",
+          "label": "west_corridor_to_plaza",
+          "start": [
+            20.025,
+            100.025,
+            0.0
+          ],
+          "goal": [
+            72.025,
+            100.025,
+            0.0
+          ],
+          "start_norm": [
+            0.1,
+            0.5
+          ],
+          "goal_norm": [
+            0.36,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 19.85,
+          "goal_clearance_m": 6.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 52.0,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-10",
+          "label": "east_corridor_to_plaza",
+          "start": [
+            180.025,
+            100.025,
+            3.1416
+          ],
+          "goal": [
+            128.025,
+            100.025,
+            -3.1416
+          ],
+          "start_norm": [
+            0.9,
+            0.5
+          ],
+          "goal_norm": [
+            0.64,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 19.85,
+          "goal_clearance_m": 6.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 52.0,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-11",
+          "label": "south_corridor_to_plaza",
+          "start": [
+            100.025,
+            20.025,
+            1.5708
+          ],
+          "goal": [
+            100.025,
+            72.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.1
+          ],
+          "goal_norm": [
+            0.5,
+            0.36
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 15.997,
+          "goal_clearance_m": 7.15,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 52.0,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-12",
+          "label": "north_corridor_to_plaza",
+          "start": [
+            100.025,
+            180.025,
+            -1.5708
+          ],
+          "goal": [
+            100.025,
+            128.025,
+            -1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.9
+          ],
+          "goal_norm": [
+            0.5,
+            0.64
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 16.097,
+          "goal_clearance_m": 7.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 52.0,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-13",
+          "label": "upper_block_cross",
+          "start": [
+            32.025,
+            156.025,
+            0.0
+          ],
+          "goal": [
+            168.025,
+            156.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "wide_hall"
+          ],
+          "start_clearance_m": 11.8,
+          "goal_clearance_m": 11.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 136.0,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-14",
+          "label": "lower_block_cross",
+          "start": [
+            32.025,
+            44.025,
+            0.0
+          ],
+          "goal": [
+            168.025,
+            44.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 11.9,
+          "goal_clearance_m": 11.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 136.0,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-15",
+          "label": "southwest_to_northeast",
+          "start": [
+            32.025,
+            48.025,
+            0.6528
+          ],
+          "goal": [
+            168.025,
+            152.025,
+            2.2236
+          ],
+          "start_norm": [
+            0.16,
+            0.24
+          ],
+          "goal_norm": [
+            0.84,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 10.8,
+          "goal_clearance_m": 10.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 171.207,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-16",
+          "label": "southeast_to_northwest",
+          "start": [
+            168.025,
+            48.025,
+            2.4887
+          ],
+          "goal": [
+            32.025,
+            152.025,
+            0.9179
+          ],
+          "start_norm": [
+            0.84,
+            0.24
+          ],
+          "goal_norm": [
+            0.16,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 10.8,
+          "goal_clearance_m": 10.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 171.207,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-17",
+          "label": "plaza_east_west_local",
+          "start": [
+            70.025,
+            100.025,
+            0.0
+          ],
+          "goal": [
+            130.025,
+            100.025,
+            0.0
+          ],
+          "start_norm": [
+            0.35,
+            0.5
+          ],
+          "goal_norm": [
+            0.65,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 4.85,
+          "goal_clearance_m": 4.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 60.0,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-18",
+          "label": "plaza_north_south_local",
+          "start": [
+            100.025,
+            70.025,
+            1.5708
+          ],
+          "goal": [
+            100.025,
+            130.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.35
+          ],
+          "goal_norm": [
+            0.5,
+            0.65
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 9.15,
+          "goal_clearance_m": 9.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 60.0,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-19",
+          "label": "northwest_to_southeast",
+          "start": [
+            24.025,
+            152.025,
+            -0.6001
+          ],
+          "goal": [
+            176.025,
+            48.025,
+            0.9707
+          ],
+          "start_norm": [
+            0.12,
+            0.76
+          ],
+          "goal_norm": [
+            0.88,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 10.9,
+          "goal_clearance_m": 10.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 184.174,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-20",
+          "label": "northeast_to_southwest",
+          "start": [
+            176.025,
+            152.025,
+            -2.5415
+          ],
+          "goal": [
+            24.025,
+            48.025,
+            2.1708
+          ],
+          "start_norm": [
+            0.88,
+            0.76
+          ],
+          "goal_norm": [
+            0.12,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 10.9,
+          "goal_clearance_m": 10.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 184.174,
+          "minimum_direct_distance_m": 40.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        }
+      ]
+    },
+    "arena_large_250x300_2d_005": {
+      "band": "large",
+      "extent_m": [
+        250.0,
+        300.0
+      ],
+      "scenario": "external/arena4_ws/src/arena/simulation-setup/worlds/arena_large_250x300_2d_005/scenarios/a2b_benchmark_20.json",
+      "task_count": 20,
+      "task_layout": "generated_arena",
+      "tasks": [
+        {
+          "id": "A2B-01",
+          "label": "long_east_west",
+          "start": [
+            20.025,
+            150.025,
+            0.0
+          ],
+          "goal": [
+            230.025,
+            150.025,
+            0.0
+          ],
+          "start_norm": [
+            0.08,
+            0.5
+          ],
+          "goal_norm": [
+            0.92,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 19.85,
+          "goal_clearance_m": 19.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 210.0,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-02",
+          "label": "long_north_south",
+          "start": [
+            125.025,
+            24.025,
+            1.5708
+          ],
+          "goal": [
+            125.025,
+            276.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.08
+          ],
+          "goal_norm": [
+            0.5,
+            0.92
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 23.9,
+          "goal_clearance_m": 23.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 252.0,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-03",
+          "label": "long_diagonal_sw_ne",
+          "start": [
+            25.025,
+            36.025,
+            0.8507
+          ],
+          "goal": [
+            225.025,
+            264.025,
+            2.4215
+          ],
+          "start_norm": [
+            0.1,
+            0.12
+          ],
+          "goal_norm": [
+            0.9,
+            0.88
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 1.11,
+          "goal_clearance_m": 1.7,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 303.289,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-04",
+          "label": "long_diagonal_nw_se",
+          "start": [
+            25.025,
+            264.025,
+            -0.8507
+          ],
+          "goal": [
+            225.025,
+            36.025,
+            -2.4215
+          ],
+          "start_norm": [
+            0.1,
+            0.88
+          ],
+          "goal_norm": [
+            0.9,
+            0.12
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 1.1,
+          "goal_clearance_m": 1.11,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 303.289,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-05",
+          "label": "room_to_room_diagonal",
+          "start": [
+            40.025,
+            234.025,
+            -0.7795
+          ],
+          "goal": [
+            210.025,
+            66.025,
+            0.7913
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 19.8,
+          "goal_clearance_m": 19.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 239.006,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-06",
+          "label": "warehouse_to_room_diagonal",
+          "start": [
+            210.025,
+            234.025,
+            -2.3621
+          ],
+          "goal": [
+            40.025,
+            66.025,
+            2.3503
+          ],
+          "start_norm": [
+            0.84,
+            0.78
+          ],
+          "goal_norm": [
+            0.16,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 19.8,
+          "goal_clearance_m": 19.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 239.006,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-07",
+          "label": "room_to_warehouse_diagonal",
+          "start": [
+            40.025,
+            66.025,
+            0.7795
+          ],
+          "goal": [
+            210.025,
+            234.025,
+            -2.3621
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 19.9,
+          "goal_clearance_m": 19.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 239.006,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-08",
+          "label": "room_cross_diagonal",
+          "start": [
+            210.025,
+            66.025,
+            2.3621
+          ],
+          "goal": [
+            40.025,
+            234.025,
+            -0.7795
+          ],
+          "start_norm": [
+            0.84,
+            0.22
+          ],
+          "goal_norm": [
+            0.16,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 19.9,
+          "goal_clearance_m": 19.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 239.006,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-09",
+          "label": "west_corridor_to_plaza",
+          "start": [
+            25.025,
+            150.025,
+            0.0
+          ],
+          "goal": [
+            90.025,
+            150.025,
+            0.0
+          ],
+          "start_norm": [
+            0.1,
+            0.5
+          ],
+          "goal_norm": [
+            0.36,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 24.85,
+          "goal_clearance_m": 8.6,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 65.0,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-10",
+          "label": "east_corridor_to_plaza",
+          "start": [
+            225.025,
+            150.025,
+            3.1416
+          ],
+          "goal": [
+            160.025,
+            150.025,
+            -3.1416
+          ],
+          "start_norm": [
+            0.9,
+            0.5
+          ],
+          "goal_norm": [
+            0.64,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 24.85,
+          "goal_clearance_m": 8.6,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 65.0,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-11",
+          "label": "south_corridor_to_plaza",
+          "start": [
+            125.025,
+            30.025,
+            1.5708
+          ],
+          "goal": [
+            125.025,
+            108.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.1
+          ],
+          "goal_norm": [
+            0.5,
+            0.36
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 21.997,
+          "goal_clearance_m": 16.15,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 78.0,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-12",
+          "label": "north_corridor_to_plaza",
+          "start": [
+            125.025,
+            270.025,
+            -1.5708
+          ],
+          "goal": [
+            125.025,
+            192.025,
+            -1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.9
+          ],
+          "goal_norm": [
+            0.5,
+            0.64
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 22.097,
+          "goal_clearance_m": 16.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 78.0,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-13",
+          "label": "upper_block_cross",
+          "start": [
+            40.025,
+            234.025,
+            0.0
+          ],
+          "goal": [
+            210.025,
+            234.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "wide_hall"
+          ],
+          "start_clearance_m": 19.8,
+          "goal_clearance_m": 19.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 170.0,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-14",
+          "label": "lower_block_cross",
+          "start": [
+            40.025,
+            66.025,
+            0.0
+          ],
+          "goal": [
+            210.025,
+            66.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 19.9,
+          "goal_clearance_m": 19.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 170.0,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-15",
+          "label": "southwest_to_northeast",
+          "start": [
+            40.025,
+            72.025,
+            0.7425
+          ],
+          "goal": [
+            210.025,
+            228.025,
+            2.3133
+          ],
+          "start_norm": [
+            0.16,
+            0.24
+          ],
+          "goal_norm": [
+            0.84,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 17.55,
+          "goal_clearance_m": 17.65,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 230.729,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-16",
+          "label": "southeast_to_northwest",
+          "start": [
+            210.025,
+            72.025,
+            2.3991
+          ],
+          "goal": [
+            40.025,
+            228.025,
+            0.8283
+          ],
+          "start_norm": [
+            0.84,
+            0.24
+          ],
+          "goal_norm": [
+            0.16,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 17.55,
+          "goal_clearance_m": 17.65,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 230.729,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-17",
+          "label": "plaza_east_west_local",
+          "start": [
+            87.525,
+            150.025,
+            0.0
+          ],
+          "goal": [
+            162.525,
+            150.025,
+            0.0
+          ],
+          "start_norm": [
+            0.35,
+            0.5
+          ],
+          "goal_norm": [
+            0.65,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 6.1,
+          "goal_clearance_m": 6.1,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 75.0,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-18",
+          "label": "plaza_north_south_local",
+          "start": [
+            125.025,
+            105.025,
+            1.5708
+          ],
+          "goal": [
+            125.025,
+            195.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.35
+          ],
+          "goal_norm": [
+            0.5,
+            0.65
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 15.15,
+          "goal_clearance_m": 15.05,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 90.0,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-19",
+          "label": "northwest_to_southeast",
+          "start": [
+            30.025,
+            228.025,
+            -0.6874
+          ],
+          "goal": [
+            220.025,
+            72.025,
+            0.8833
+          ],
+          "start_norm": [
+            0.12,
+            0.76
+          ],
+          "goal_norm": [
+            0.88,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 17.65,
+          "goal_clearance_m": 17.55,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 245.837,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-20",
+          "label": "northeast_to_southwest",
+          "start": [
+            220.025,
+            228.025,
+            -2.4541
+          ],
+          "goal": [
+            30.025,
+            72.025,
+            2.2582
+          ],
+          "start_norm": [
+            0.88,
+            0.76
+          ],
+          "goal_norm": [
+            0.12,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 17.65,
+          "goal_clearance_m": 17.55,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 245.837,
+          "minimum_direct_distance_m": 55.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        }
+      ]
+    },
+    "arena_large_300x500_2d_005": {
+      "band": "large",
+      "extent_m": [
+        300.0,
+        500.0
+      ],
+      "scenario": "external/arena4_ws/src/arena/simulation-setup/worlds/arena_large_300x500_2d_005/scenarios/a2b_benchmark_20.json",
+      "task_count": 20,
+      "task_layout": "generated_arena",
+      "tasks": [
+        {
+          "id": "A2B-01",
+          "label": "long_east_west",
+          "start": [
+            24.025,
+            250.025,
+            0.0
+          ],
+          "goal": [
+            276.025,
+            250.025,
+            0.0
+          ],
+          "start_norm": [
+            0.08,
+            0.5
+          ],
+          "goal_norm": [
+            0.92,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 23.85,
+          "goal_clearance_m": 23.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 252.0,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-02",
+          "label": "long_north_south",
+          "start": [
+            150.025,
+            40.025,
+            1.5708
+          ],
+          "goal": [
+            150.025,
+            460.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.08
+          ],
+          "goal_norm": [
+            0.5,
+            0.92
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 39.9,
+          "goal_clearance_m": 39.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 420.0,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-03",
+          "label": "long_diagonal_sw_ne",
+          "start": [
+            30.025,
+            60.025,
+            1.0075
+          ],
+          "goal": [
+            270.025,
+            440.025,
+            2.5783
+          ],
+          "start_norm": [
+            0.1,
+            0.12
+          ],
+          "goal_norm": [
+            0.9,
+            0.88
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 1.35,
+          "goal_clearance_m": 2.3,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 449.444,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-04",
+          "label": "long_diagonal_nw_se",
+          "start": [
+            30.025,
+            440.025,
+            -1.0075
+          ],
+          "goal": [
+            270.025,
+            60.025,
+            -2.5783
+          ],
+          "start_norm": [
+            0.1,
+            0.88
+          ],
+          "goal_norm": [
+            0.9,
+            0.12
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 1.35,
+          "goal_clearance_m": 1.35,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 449.444,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-05",
+          "label": "room_to_room_diagonal",
+          "start": [
+            48.025,
+            390.025,
+            -0.9412
+          ],
+          "goal": [
+            252.025,
+            110.025,
+            0.6296
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 37.8,
+          "goal_clearance_m": 37.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 346.433,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-06",
+          "label": "warehouse_to_room_diagonal",
+          "start": [
+            252.025,
+            390.025,
+            -2.2004
+          ],
+          "goal": [
+            48.025,
+            110.025,
+            2.5119
+          ],
+          "start_norm": [
+            0.84,
+            0.78
+          ],
+          "goal_norm": [
+            0.16,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 37.8,
+          "goal_clearance_m": 37.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 346.433,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-07",
+          "label": "room_to_warehouse_diagonal",
+          "start": [
+            48.025,
+            110.025,
+            0.9412
+          ],
+          "goal": [
+            252.025,
+            390.025,
+            -2.2004
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 37.9,
+          "goal_clearance_m": 37.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 346.433,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-08",
+          "label": "room_cross_diagonal",
+          "start": [
+            252.025,
+            110.025,
+            2.2004
+          ],
+          "goal": [
+            48.025,
+            390.025,
+            -0.9412
+          ],
+          "start_norm": [
+            0.84,
+            0.22
+          ],
+          "goal_norm": [
+            0.16,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 37.9,
+          "goal_clearance_m": 37.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 346.433,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-09",
+          "label": "west_corridor_to_plaza",
+          "start": [
+            30.025,
+            250.025,
+            0.0
+          ],
+          "goal": [
+            108.025,
+            250.025,
+            0.0
+          ],
+          "start_norm": [
+            0.1,
+            0.5
+          ],
+          "goal_norm": [
+            0.36,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 29.85,
+          "goal_clearance_m": 10.35,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 78.0,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-10",
+          "label": "east_corridor_to_plaza",
+          "start": [
+            270.025,
+            250.025,
+            3.1416
+          ],
+          "goal": [
+            192.025,
+            250.025,
+            -3.1416
+          ],
+          "start_norm": [
+            0.9,
+            0.5
+          ],
+          "goal_norm": [
+            0.64,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 29.85,
+          "goal_clearance_m": 10.35,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 78.0,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-11",
+          "label": "south_corridor_to_plaza",
+          "start": [
+            150.025,
+            50.025,
+            1.5708
+          ],
+          "goal": [
+            150.025,
+            180.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.1
+          ],
+          "goal_norm": [
+            0.5,
+            0.36
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 31.997,
+          "goal_clearance_m": 27.4,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 130.0,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-12",
+          "label": "north_corridor_to_plaza",
+          "start": [
+            150.025,
+            450.025,
+            -1.5708
+          ],
+          "goal": [
+            150.025,
+            320.025,
+            -1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.9
+          ],
+          "goal_norm": [
+            0.5,
+            0.64
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 32.097,
+          "goal_clearance_m": 27.3,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 130.0,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-13",
+          "label": "upper_block_cross",
+          "start": [
+            48.025,
+            390.025,
+            0.0
+          ],
+          "goal": [
+            252.025,
+            390.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "wide_hall"
+          ],
+          "start_clearance_m": 37.8,
+          "goal_clearance_m": 37.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 204.0,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-14",
+          "label": "lower_block_cross",
+          "start": [
+            48.025,
+            110.025,
+            0.0
+          ],
+          "goal": [
+            252.025,
+            110.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 37.9,
+          "goal_clearance_m": 37.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 204.0,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-15",
+          "label": "southwest_to_northeast",
+          "start": [
+            48.025,
+            120.025,
+            0.9055
+          ],
+          "goal": [
+            252.025,
+            380.025,
+            2.4763
+          ],
+          "start_norm": [
+            0.16,
+            0.24
+          ],
+          "goal_norm": [
+            0.84,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 32.3,
+          "goal_clearance_m": 32.4,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 330.478,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-16",
+          "label": "southeast_to_northwest",
+          "start": [
+            252.025,
+            120.025,
+            2.2361
+          ],
+          "goal": [
+            48.025,
+            380.025,
+            0.6653
+          ],
+          "start_norm": [
+            0.84,
+            0.24
+          ],
+          "goal_norm": [
+            0.16,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 32.3,
+          "goal_clearance_m": 32.4,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 330.478,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-17",
+          "label": "plaza_east_west_local",
+          "start": [
+            105.025,
+            250.025,
+            0.0
+          ],
+          "goal": [
+            195.025,
+            250.025,
+            0.0
+          ],
+          "start_norm": [
+            0.35,
+            0.5
+          ],
+          "goal_norm": [
+            0.65,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 7.35,
+          "goal_clearance_m": 7.35,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 90.0,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-18",
+          "label": "plaza_north_south_local",
+          "start": [
+            150.025,
+            175.025,
+            1.5708
+          ],
+          "goal": [
+            150.025,
+            325.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.35
+          ],
+          "goal_norm": [
+            0.5,
+            0.65
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 22.4,
+          "goal_clearance_m": 22.3,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 150.0,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-19",
+          "label": "northwest_to_southeast",
+          "start": [
+            36.025,
+            380.025,
+            -0.8509
+          ],
+          "goal": [
+            264.025,
+            120.025,
+            0.7199
+          ],
+          "start_norm": [
+            0.12,
+            0.76
+          ],
+          "goal_norm": [
+            0.88,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 32.4,
+          "goal_clearance_m": 32.3,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 345.809,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-20",
+          "label": "northeast_to_southwest",
+          "start": [
+            264.025,
+            380.025,
+            -2.2907
+          ],
+          "goal": [
+            36.025,
+            120.025,
+            2.4217
+          ],
+          "start_norm": [
+            0.88,
+            0.76
+          ],
+          "goal_norm": [
+            0.12,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 32.4,
+          "goal_clearance_m": 32.3,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 345.809,
+          "minimum_direct_distance_m": 66.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        }
+      ]
+    },
+    "arena_xlarge_500x500_2d_005": {
+      "band": "xlarge",
+      "extent_m": [
+        500.0,
+        500.0
+      ],
+      "scenario": "external/arena4_ws/src/arena/simulation-setup/worlds/arena_xlarge_500x500_2d_005/scenarios/a2b_benchmark_20.json",
+      "task_count": 20,
+      "task_layout": "generated_arena",
+      "tasks": [
+        {
+          "id": "A2B-01",
+          "label": "long_east_west",
+          "start": [
+            40.025,
+            250.025,
+            0.0
+          ],
+          "goal": [
+            460.025,
+            250.025,
+            0.0
+          ],
+          "start_norm": [
+            0.08,
+            0.5
+          ],
+          "goal_norm": [
+            0.92,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 39.85,
+          "goal_clearance_m": 39.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 420.0,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-02",
+          "label": "long_north_south",
+          "start": [
+            250.025,
+            40.025,
+            1.5708
+          ],
+          "goal": [
+            250.025,
+            460.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.08
+          ],
+          "goal_norm": [
+            0.5,
+            0.92
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 39.9,
+          "goal_clearance_m": 39.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 420.0,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-03",
+          "label": "long_diagonal_sw_ne",
+          "start": [
+            50.025,
+            59.175,
+            0.7619
+          ],
+          "goal": [
+            450.025,
+            440.775,
+            2.3327
+          ],
+          "start_norm": [
+            0.1,
+            0.12
+          ],
+          "goal_norm": [
+            0.9,
+            0.88
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.85,
+          "goal_clearance_m": 0.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 552.828,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.825,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-04",
+          "label": "long_diagonal_nw_se",
+          "start": [
+            50.025,
+            440.775,
+            -0.7619
+          ],
+          "goal": [
+            450.025,
+            59.175,
+            -2.3327
+          ],
+          "start_norm": [
+            0.1,
+            0.88
+          ],
+          "goal_norm": [
+            0.9,
+            0.12
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.85,
+          "goal_clearance_m": 0.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 552.828,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.825,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-05",
+          "label": "room_to_room_diagonal",
+          "start": [
+            80.025,
+            390.025,
+            -0.6889
+          ],
+          "goal": [
+            420.025,
+            110.025,
+            0.8819
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 29.8,
+          "goal_clearance_m": 29.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 440.454,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-06",
+          "label": "warehouse_to_room_diagonal",
+          "start": [
+            420.025,
+            390.025,
+            -2.4527
+          ],
+          "goal": [
+            80.025,
+            110.025,
+            2.2597
+          ],
+          "start_norm": [
+            0.84,
+            0.78
+          ],
+          "goal_norm": [
+            0.16,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 29.8,
+          "goal_clearance_m": 29.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 440.454,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-07",
+          "label": "room_to_warehouse_diagonal",
+          "start": [
+            80.025,
+            110.025,
+            0.6889
+          ],
+          "goal": [
+            420.025,
+            390.025,
+            -2.4527
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 29.9,
+          "goal_clearance_m": 29.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 440.454,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-08",
+          "label": "room_cross_diagonal",
+          "start": [
+            420.025,
+            110.025,
+            2.4527
+          ],
+          "goal": [
+            80.025,
+            390.025,
+            -0.6889
+          ],
+          "start_norm": [
+            0.84,
+            0.22
+          ],
+          "goal_norm": [
+            0.16,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 29.9,
+          "goal_clearance_m": 29.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 440.454,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-09",
+          "label": "west_corridor_to_plaza",
+          "start": [
+            50.025,
+            250.025,
+            0.0
+          ],
+          "goal": [
+            180.025,
+            250.025,
+            0.0
+          ],
+          "start_norm": [
+            0.1,
+            0.5
+          ],
+          "goal_norm": [
+            0.36,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 49.85,
+          "goal_clearance_m": 17.35,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 130.0,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-10",
+          "label": "east_corridor_to_plaza",
+          "start": [
+            450.025,
+            250.025,
+            3.1416
+          ],
+          "goal": [
+            320.025,
+            250.025,
+            -3.1416
+          ],
+          "start_norm": [
+            0.9,
+            0.5
+          ],
+          "goal_norm": [
+            0.64,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 49.85,
+          "goal_clearance_m": 17.35,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 130.0,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-11",
+          "label": "south_corridor_to_plaza",
+          "start": [
+            250.025,
+            50.025,
+            1.5708
+          ],
+          "goal": [
+            250.025,
+            180.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.1
+          ],
+          "goal_norm": [
+            0.5,
+            0.36
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 39.997,
+          "goal_clearance_m": 19.15,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 130.0,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-12",
+          "label": "north_corridor_to_plaza",
+          "start": [
+            250.025,
+            450.025,
+            -1.5708
+          ],
+          "goal": [
+            250.025,
+            320.025,
+            -1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.9
+          ],
+          "goal_norm": [
+            0.5,
+            0.64
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 40.097,
+          "goal_clearance_m": 19.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 130.0,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-13",
+          "label": "upper_block_cross",
+          "start": [
+            80.025,
+            390.025,
+            0.0
+          ],
+          "goal": [
+            420.025,
+            390.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "wide_hall"
+          ],
+          "start_clearance_m": 29.8,
+          "goal_clearance_m": 29.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 340.0,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-14",
+          "label": "lower_block_cross",
+          "start": [
+            80.025,
+            110.025,
+            0.0
+          ],
+          "goal": [
+            420.025,
+            110.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 29.9,
+          "goal_clearance_m": 29.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 340.0,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-15",
+          "label": "southwest_to_northeast",
+          "start": [
+            80.025,
+            120.025,
+            0.6528
+          ],
+          "goal": [
+            420.025,
+            380.025,
+            2.2236
+          ],
+          "start_norm": [
+            0.16,
+            0.24
+          ],
+          "goal_norm": [
+            0.84,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 27.3,
+          "goal_clearance_m": 27.4,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 428.019,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-16",
+          "label": "southeast_to_northwest",
+          "start": [
+            420.025,
+            120.025,
+            2.4887
+          ],
+          "goal": [
+            80.025,
+            380.025,
+            0.9179
+          ],
+          "start_norm": [
+            0.84,
+            0.24
+          ],
+          "goal_norm": [
+            0.16,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 27.3,
+          "goal_clearance_m": 27.4,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 428.019,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-17",
+          "label": "plaza_east_west_local",
+          "start": [
+            175.025,
+            250.025,
+            0.0
+          ],
+          "goal": [
+            325.025,
+            250.025,
+            0.0
+          ],
+          "start_norm": [
+            0.35,
+            0.5
+          ],
+          "goal_norm": [
+            0.65,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 12.35,
+          "goal_clearance_m": 12.35,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 150.0,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-18",
+          "label": "plaza_north_south_local",
+          "start": [
+            250.025,
+            175.025,
+            1.5708
+          ],
+          "goal": [
+            250.025,
+            325.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.35
+          ],
+          "goal_norm": [
+            0.5,
+            0.65
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 24.15,
+          "goal_clearance_m": 24.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 150.0,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-19",
+          "label": "northwest_to_southeast",
+          "start": [
+            60.025,
+            380.025,
+            -0.6001
+          ],
+          "goal": [
+            440.025,
+            120.025,
+            0.9707
+          ],
+          "start_norm": [
+            0.12,
+            0.76
+          ],
+          "goal_norm": [
+            0.88,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 27.4,
+          "goal_clearance_m": 27.3,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 460.435,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-20",
+          "label": "northeast_to_southwest",
+          "start": [
+            440.025,
+            380.025,
+            -2.5415
+          ],
+          "goal": [
+            60.025,
+            120.025,
+            2.1708
+          ],
+          "start_norm": [
+            0.88,
+            0.76
+          ],
+          "goal_norm": [
+            0.12,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 27.4,
+          "goal_clearance_m": 27.3,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 460.435,
+          "minimum_direct_distance_m": 125.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        }
+      ]
+    },
+    "arena_xlarge_600x400_2d_005": {
+      "band": "xlarge",
+      "extent_m": [
+        600.0,
+        400.0
+      ],
+      "scenario": "external/arena4_ws/src/arena/simulation-setup/worlds/arena_xlarge_600x400_2d_005/scenarios/a2b_benchmark_20.json",
+      "task_count": 20,
+      "task_layout": "generated_arena",
+      "tasks": [
+        {
+          "id": "A2B-01",
+          "label": "long_east_west",
+          "start": [
+            48.025,
+            200.025,
+            0.0
+          ],
+          "goal": [
+            552.025,
+            200.025,
+            0.0
+          ],
+          "start_norm": [
+            0.08,
+            0.5
+          ],
+          "goal_norm": [
+            0.92,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 47.85,
+          "goal_clearance_m": 47.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 504.0,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-02",
+          "label": "long_north_south",
+          "start": [
+            300.025,
+            32.025,
+            1.5708
+          ],
+          "goal": [
+            300.025,
+            368.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.08
+          ],
+          "goal_norm": [
+            0.5,
+            0.92
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 31.9,
+          "goal_clearance_m": 31.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 336.0,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-03",
+          "label": "long_diagonal_sw_ne",
+          "start": [
+            60.025,
+            47.125,
+            0.5671
+          ],
+          "goal": [
+            540.025,
+            352.825,
+            2.1379
+          ],
+          "start_norm": [
+            0.1,
+            0.12
+          ],
+          "goal_norm": [
+            0.9,
+            0.88
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.85,
+          "goal_clearance_m": 0.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 569.08,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.875,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-04",
+          "label": "long_diagonal_nw_se",
+          "start": [
+            60.025,
+            352.825,
+            -0.5671
+          ],
+          "goal": [
+            540.025,
+            47.125,
+            -2.1379
+          ],
+          "start_norm": [
+            0.1,
+            0.88
+          ],
+          "goal_norm": [
+            0.9,
+            0.12
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "wide_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 0.85,
+          "goal_clearance_m": 0.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 569.08,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.875,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-05",
+          "label": "room_to_room_diagonal",
+          "start": [
+            96.025,
+            312.025,
+            -0.5021
+          ],
+          "goal": [
+            504.025,
+            88.025,
+            1.0687
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 23.8,
+          "goal_clearance_m": 23.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 465.446,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-06",
+          "label": "warehouse_to_room_diagonal",
+          "start": [
+            504.025,
+            312.025,
+            -2.6395
+          ],
+          "goal": [
+            96.025,
+            88.025,
+            2.0729
+          ],
+          "start_norm": [
+            0.84,
+            0.78
+          ],
+          "goal_norm": [
+            0.16,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "office_teaching_room",
+            "2m_door"
+          ],
+          "start_clearance_m": 23.8,
+          "goal_clearance_m": 23.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 465.446,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-07",
+          "label": "room_to_warehouse_diagonal",
+          "start": [
+            96.025,
+            88.025,
+            0.5021
+          ],
+          "goal": [
+            504.025,
+            312.025,
+            -2.6395
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 23.9,
+          "goal_clearance_m": 23.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 465.446,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-08",
+          "label": "room_cross_diagonal",
+          "start": [
+            504.025,
+            88.025,
+            2.6395
+          ],
+          "goal": [
+            96.025,
+            312.025,
+            -0.5021
+          ],
+          "start_norm": [
+            0.84,
+            0.22
+          ],
+          "goal_norm": [
+            0.16,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 23.9,
+          "goal_clearance_m": 23.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 465.446,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-09",
+          "label": "west_corridor_to_plaza",
+          "start": [
+            60.025,
+            200.025,
+            0.0
+          ],
+          "goal": [
+            216.025,
+            200.025,
+            0.0
+          ],
+          "start_norm": [
+            0.1,
+            0.5
+          ],
+          "goal_norm": [
+            0.36,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 59.85,
+          "goal_clearance_m": 15.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 156.0,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-10",
+          "label": "east_corridor_to_plaza",
+          "start": [
+            540.025,
+            200.025,
+            3.1416
+          ],
+          "goal": [
+            384.025,
+            200.025,
+            -3.1416
+          ],
+          "start_norm": [
+            0.9,
+            0.5
+          ],
+          "goal_norm": [
+            0.64,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 59.85,
+          "goal_clearance_m": 15.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 156.0,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-11",
+          "label": "south_corridor_to_plaza",
+          "start": [
+            300.025,
+            40.025,
+            1.5708
+          ],
+          "goal": [
+            300.025,
+            144.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.1
+          ],
+          "goal_norm": [
+            0.5,
+            0.36
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 31.997,
+          "goal_clearance_m": 15.15,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 104.0,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-12",
+          "label": "north_corridor_to_plaza",
+          "start": [
+            300.025,
+            360.025,
+            -1.5708
+          ],
+          "goal": [
+            300.025,
+            256.025,
+            -1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.9
+          ],
+          "goal_norm": [
+            0.5,
+            0.64
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_main_corridor",
+            "central_plaza"
+          ],
+          "start_clearance_m": 32.097,
+          "goal_clearance_m": 15.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 104.0,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-13",
+          "label": "upper_block_cross",
+          "start": [
+            96.025,
+            312.025,
+            0.0
+          ],
+          "goal": [
+            504.025,
+            312.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.78
+          ],
+          "goal_norm": [
+            0.84,
+            0.78
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "wide_hall"
+          ],
+          "start_clearance_m": 23.8,
+          "goal_clearance_m": 23.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 408.0,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-14",
+          "label": "lower_block_cross",
+          "start": [
+            96.025,
+            88.025,
+            0.0
+          ],
+          "goal": [
+            504.025,
+            88.025,
+            0.0
+          ],
+          "start_norm": [
+            0.16,
+            0.22
+          ],
+          "goal_norm": [
+            0.84,
+            0.22
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_hall",
+            "2m_door"
+          ],
+          "start_clearance_m": 23.9,
+          "goal_clearance_m": 23.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 408.0,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-15",
+          "label": "southwest_to_northeast",
+          "start": [
+            96.025,
+            96.025,
+            0.4715
+          ],
+          "goal": [
+            504.025,
+            304.025,
+            2.0423
+          ],
+          "start_norm": [
+            0.16,
+            0.24
+          ],
+          "goal_norm": [
+            0.84,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 21.8,
+          "goal_clearance_m": 21.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 457.961,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-16",
+          "label": "southeast_to_northwest",
+          "start": [
+            504.025,
+            96.025,
+            2.6701
+          ],
+          "goal": [
+            96.025,
+            304.025,
+            1.0993
+          ],
+          "start_norm": [
+            0.84,
+            0.24
+          ],
+          "goal_norm": [
+            0.16,
+            0.76
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "office_teaching_room",
+            "warehouse_shelf_aisle",
+            "2m_door"
+          ],
+          "start_clearance_m": 21.8,
+          "goal_clearance_m": 21.9,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 457.961,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-17",
+          "label": "plaza_east_west_local",
+          "start": [
+            210.025,
+            200.025,
+            0.0
+          ],
+          "goal": [
+            390.025,
+            200.025,
+            0.0
+          ],
+          "start_norm": [
+            0.35,
+            0.5
+          ],
+          "goal_norm": [
+            0.65,
+            0.5
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 9.85,
+          "goal_clearance_m": 9.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 180.0,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-18",
+          "label": "plaza_north_south_local",
+          "start": [
+            300.025,
+            140.025,
+            1.5708
+          ],
+          "goal": [
+            300.025,
+            260.025,
+            1.5708
+          ],
+          "start_norm": [
+            0.5,
+            0.35
+          ],
+          "goal_norm": [
+            0.5,
+            0.65
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_plaza",
+            "wide_corridor"
+          ],
+          "start_clearance_m": 19.15,
+          "goal_clearance_m": 19.25,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 120.0,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-19",
+          "label": "northwest_to_southeast",
+          "start": [
+            72.025,
+            304.025,
+            -0.4279
+          ],
+          "goal": [
+            528.025,
+            96.025,
+            1.1428
+          ],
+          "start_norm": [
+            0.12,
+            0.76
+          ],
+          "goal_norm": [
+            0.88,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "office_teaching_room",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 21.9,
+          "goal_clearance_m": 21.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 501.199,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-20",
+          "label": "northeast_to_southwest",
+          "start": [
+            528.025,
+            304.025,
+            -2.7136
+          ],
+          "goal": [
+            72.025,
+            96.025,
+            1.9987
+          ],
+          "start_norm": [
+            0.88,
+            0.76
+          ],
+          "goal_norm": [
+            0.12,
+            0.24
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_corridor",
+            "2m_door"
+          ],
+          "start_clearance_m": 21.9,
+          "goal_clearance_m": 21.8,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 501.199,
+          "minimum_direct_distance_m": 100.0,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        }
+      ]
+    },
+    "mentor_map_20260825_005": {
+      "band": "medium",
+      "extent_m": [
+        164.35,
+        75.6
+      ],
+      "scenario": "external/arena4_ws/src/arena/simulation-setup/worlds/mentor_map_20260825_005/scenarios/a2b_benchmark_20.json",
+      "task_count": 20,
+      "task_layout": "mentor_warehouse",
+      "tasks": [
+        {
+          "id": "A2B-01",
+          "label": "long_east_west_central",
+          "start": [
+            12.225,
+            40.275,
+            -0.0038
+          ],
+          "goal": [
+            155.875,
+            39.725,
+            -0.0038
+          ],
+          "start_norm": [
+            0.0741,
+            0.5321
+          ],
+          "goal_norm": [
+            0.9484,
+            0.5255
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_transfer_zone"
+          ],
+          "start_clearance_m": 0.819,
+          "goal_clearance_m": 0.81,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 143.651,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-02",
+          "label": "long_north_south_central",
+          "start": [
+            80.225,
+            13.425,
+            1.4494
+          ],
+          "goal": [
+            86.725,
+            66.725,
+            1.4494
+          ],
+          "start_norm": [
+            0.4881,
+            0.1776
+          ],
+          "goal_norm": [
+            0.5277,
+            0.8826
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_crossing",
+            "wide_cross_aisle"
+          ],
+          "start_clearance_m": 0.81,
+          "goal_clearance_m": 0.82,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 53.695,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.0,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-03",
+          "label": "long_diagonal_sw_ne",
+          "start": [
+            14.875,
+            9.775,
+            0.4002
+          ],
+          "goal": [
+            152.825,
+            68.125,
+            1.971
+          ],
+          "start_norm": [
+            0.0902,
+            0.1286
+          ],
+          "goal_norm": [
+            0.9299,
+            0.9005
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "perimeter_corridor",
+            "warehouse_shelf_aisle",
+            "wide_cross_aisle"
+          ],
+          "start_clearance_m": 0.869,
+          "goal_clearance_m": 0.86,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 149.783,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-04",
+          "label": "long_diagonal_nw_se",
+          "start": [
+            16.925,
+            60.775,
+            -0.3074
+          ],
+          "goal": [
+            148.125,
+            19.125,
+            -1.8782
+          ],
+          "start_norm": [
+            0.103,
+            0.8039
+          ],
+          "goal_norm": [
+            0.901,
+            0.2523
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "perimeter_corridor",
+            "warehouse_shelf_aisle",
+            "wide_cross_aisle"
+          ],
+          "start_clearance_m": 0.81,
+          "goal_clearance_m": 0.88,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 137.652,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-05",
+          "label": "lower_east_west_cross",
+          "start": [
+            19.625,
+            19.175,
+            -0.0048
+          ],
+          "goal": [
+            144.275,
+            18.575,
+            1.566
+          ],
+          "start_norm": [
+            0.1191,
+            0.253
+          ],
+          "goal_norm": [
+            0.8779,
+            0.245
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "lower_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 0.849,
+          "goal_clearance_m": 0.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 124.651,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-06",
+          "label": "upper_east_west_cross",
+          "start": [
+            20.125,
+            55.575,
+            0.0237
+          ],
+          "goal": [
+            144.625,
+            58.525,
+            -1.5471
+          ],
+          "start_norm": [
+            0.1221,
+            0.7351
+          ],
+          "goal_norm": [
+            0.8797,
+            0.7735
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "upper_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 0.819,
+          "goal_clearance_m": 0.829,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 124.535,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-07",
+          "label": "west_north_south_aisle",
+          "start": [
+            31.575,
+            10.775,
+            1.5756
+          ],
+          "goal": [
+            31.325,
+            62.425,
+            -1.566
+          ],
+          "start_norm": [
+            0.1921,
+            0.1425
+          ],
+          "goal_norm": [
+            0.1906,
+            0.8257
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "vertical_aisle",
+            "west_warehouse_block"
+          ],
+          "start_clearance_m": 0.81,
+          "goal_clearance_m": 0.81,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 51.651,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.0,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-08",
+          "label": "east_north_south_aisle",
+          "start": [
+            131.175,
+            17.625,
+            1.576
+          ],
+          "goal": [
+            130.925,
+            65.575,
+            -1.5656
+          ],
+          "start_norm": [
+            0.7981,
+            0.2325
+          ],
+          "goal_norm": [
+            0.7966,
+            0.8667
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "vertical_aisle",
+            "east_warehouse_block"
+          ],
+          "start_clearance_m": 0.86,
+          "goal_clearance_m": 0.819,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 47.951,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.05,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-09",
+          "label": "west_to_central_transfer",
+          "start": [
+            11.825,
+            37.075,
+            0.0765
+          ],
+          "goal": [
+            71.175,
+            41.625,
+            0.0765
+          ],
+          "start_norm": [
+            0.0716,
+            0.4904
+          ],
+          "goal_norm": [
+            0.4328,
+            0.5499
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "west_main_corridor",
+            "central_transfer_zone"
+          ],
+          "start_clearance_m": 0.81,
+          "goal_clearance_m": 0.829,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 59.524,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-10",
+          "label": "east_to_central_transfer",
+          "start": [
+            156.475,
+            37.075,
+            -3.1127
+          ],
+          "goal": [
+            92.525,
+            35.225,
+            -3.1127
+          ],
+          "start_norm": [
+            0.9518,
+            0.4904
+          ],
+          "goal_norm": [
+            0.563,
+            0.4659
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_main_corridor",
+            "central_transfer_zone"
+          ],
+          "start_clearance_m": 0.819,
+          "goal_clearance_m": 0.81,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 63.977,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.05,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-11",
+          "label": "south_to_central_transfer",
+          "start": [
+            76.925,
+            12.675,
+            1.4494
+          ],
+          "goal": [
+            79.425,
+            33.175,
+            1.4494
+          ],
+          "start_norm": [
+            0.4678,
+            0.167
+          ],
+          "goal_norm": [
+            0.4833,
+            0.4388
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "south_cross_aisle",
+            "central_transfer_zone"
+          ],
+          "start_clearance_m": 0.829,
+          "goal_clearance_m": 0.81,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 20.652,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-12",
+          "label": "north_to_central_transfer",
+          "start": [
+            86.725,
+            66.725,
+            -1.6246
+          ],
+          "goal": [
+            85.425,
+            42.575,
+            -1.6246
+          ],
+          "start_norm": [
+            0.5277,
+            0.8826
+          ],
+          "goal_norm": [
+            0.5195,
+            0.5625
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_cross_aisle",
+            "central_transfer_zone"
+          ],
+          "start_clearance_m": 0.82,
+          "goal_clearance_m": 0.839,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 24.185,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-13",
+          "label": "upper_block_cross",
+          "start": [
+            34.875,
+            53.425,
+            0.0216
+          ],
+          "goal": [
+            127.575,
+            55.425,
+            0.0216
+          ],
+          "start_norm": [
+            0.2122,
+            0.7067
+          ],
+          "goal_norm": [
+            0.7759,
+            0.7325
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "upper_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 0.81,
+          "goal_clearance_m": 0.82,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 92.722,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-14",
+          "label": "lower_block_cross",
+          "start": [
+            36.275,
+            21.525,
+            0.0253
+          ],
+          "goal": [
+            129.175,
+            23.875,
+            0.0253
+          ],
+          "start_norm": [
+            0.2204,
+            0.2847
+          ],
+          "goal_norm": [
+            0.7857,
+            0.3151
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "lower_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 0.82,
+          "goal_clearance_m": 0.85,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 92.93,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-15",
+          "label": "southwest_to_northeast",
+          "start": [
+            23.175,
+            12.775,
+            0.4181
+          ],
+          "goal": [
+            134.825,
+            62.375,
+            1.9889
+          ],
+          "start_norm": [
+            0.1407,
+            0.169
+          ],
+          "goal_norm": [
+            0.82,
+            0.8244
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "vertical_aisle",
+            "wide_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 0.83,
+          "goal_clearance_m": 0.87,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 122.172,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-16",
+          "label": "southeast_to_northwest",
+          "start": [
+            142.725,
+            15.025,
+            2.7472
+          ],
+          "goal": [
+            29.675,
+            62.075,
+            1.1764
+          ],
+          "start_norm": [
+            0.8681,
+            0.1974
+          ],
+          "goal_norm": [
+            0.1803,
+            0.8204
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "vertical_aisle",
+            "wide_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 0.81,
+          "goal_clearance_m": 1.248,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 122.45,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.112,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-17",
+          "label": "central_east_west_local",
+          "start": [
+            51.625,
+            39.125,
+            -0.0201
+          ],
+          "goal": [
+            111.175,
+            37.925,
+            -0.0201
+          ],
+          "start_norm": [
+            0.3138,
+            0.5169
+          ],
+          "goal_norm": [
+            0.6765,
+            0.5017
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_transfer_zone",
+            "east_west_main_corridor"
+          ],
+          "start_clearance_m": 0.81,
+          "goal_clearance_m": 0.81,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 59.562,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-18",
+          "label": "central_north_south_local",
+          "start": [
+            82.175,
+            21.225,
+            1.56
+          ],
+          "goal": [
+            82.525,
+            53.725,
+            1.56
+          ],
+          "start_norm": [
+            0.5,
+            0.2801
+          ],
+          "goal_norm": [
+            0.5021,
+            0.7106
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_transfer_zone",
+            "north_south_crossing"
+          ],
+          "start_clearance_m": 0.929,
+          "goal_clearance_m": 0.81,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 32.502,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.05,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-19",
+          "label": "northwest_to_southeast_inner",
+          "start": [
+            41.125,
+            54.525,
+            -0.3837
+          ],
+          "goal": [
+            123.475,
+            21.275,
+            1.187
+          ],
+          "start_norm": [
+            0.2502,
+            0.7206
+          ],
+          "goal_norm": [
+            0.751,
+            0.2808
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_cross_aisle"
+          ],
+          "start_clearance_m": 0.849,
+          "goal_clearance_m": 0.88,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 88.809,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-20",
+          "label": "northeast_to_southwest_inner",
+          "start": [
+            123.475,
+            54.675,
+            -2.7558
+          ],
+          "goal": [
+            41.125,
+            21.225,
+            1.9566
+          ],
+          "start_norm": [
+            0.751,
+            0.7226
+          ],
+          "goal_norm": [
+            0.2502,
+            0.2801
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_cross_aisle"
+          ],
+          "start_clearance_m": 0.89,
+          "goal_clearance_m": 1.019,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 88.884,
+          "minimum_direct_distance_m": 15.12,
+          "snap_offset_m": 0.071,
+          "free_component": 1
+        }
+      ]
+    },
+    "mentor_map_20260825_005_4x_area": {
+      "band": "medium",
+      "extent_m": [
+        328.7,
+        151.2
+      ],
+      "scenario": "external/arena4_ws/src/arena/simulation-setup/worlds/mentor_map_20260825_005_4x_area/scenarios/a2b_benchmark_20.json",
+      "task_count": 20,
+      "task_layout": "mentor_warehouse",
+      "tasks": [
+        {
+          "id": "A2B-01",
+          "label": "long_east_west_central",
+          "start": [
+            24.375,
+            80.475,
+            -0.0035
+          ],
+          "goal": [
+            311.775,
+            79.475,
+            -0.0035
+          ],
+          "start_norm": [
+            0.0741,
+            0.5321
+          ],
+          "goal_norm": [
+            0.9484,
+            0.5255
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_west_main_corridor",
+            "central_transfer_zone"
+          ],
+          "start_clearance_m": 1.618,
+          "goal_clearance_m": 1.569,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 287.402,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-02",
+          "label": "long_north_south_central",
+          "start": [
+            160.475,
+            26.875,
+            1.4494
+          ],
+          "goal": [
+            173.475,
+            133.475,
+            1.4494
+          ],
+          "start_norm": [
+            0.4881,
+            0.1776
+          ],
+          "goal_norm": [
+            0.5277,
+            0.8826
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_south_crossing",
+            "wide_cross_aisle"
+          ],
+          "start_clearance_m": 1.58,
+          "goal_clearance_m": 1.599,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 107.39,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-03",
+          "label": "long_diagonal_sw_ne",
+          "start": [
+            29.675,
+            19.475,
+            0.4
+          ],
+          "goal": [
+            305.675,
+            136.175,
+            1.9708
+          ],
+          "start_norm": [
+            0.0902,
+            0.1286
+          ],
+          "goal_norm": [
+            0.9299,
+            0.9005
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "perimeter_corridor",
+            "warehouse_shelf_aisle",
+            "wide_cross_aisle"
+          ],
+          "start_clearance_m": 1.618,
+          "goal_clearance_m": 1.61,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 299.658,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-04",
+          "label": "long_diagonal_nw_se",
+          "start": [
+            33.875,
+            121.575,
+            -0.3078
+          ],
+          "goal": [
+            296.175,
+            38.175,
+            -1.8786
+          ],
+          "start_norm": [
+            0.103,
+            0.8039
+          ],
+          "goal_norm": [
+            0.901,
+            0.2523
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "perimeter_corridor",
+            "warehouse_shelf_aisle",
+            "wide_cross_aisle"
+          ],
+          "start_clearance_m": 1.55,
+          "goal_clearance_m": 1.658,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 275.24,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-05",
+          "label": "lower_east_west_cross",
+          "start": [
+            39.175,
+            38.275,
+            -0.0048
+          ],
+          "goal": [
+            288.575,
+            37.075,
+            1.566
+          ],
+          "start_norm": [
+            0.1191,
+            0.253
+          ],
+          "goal_norm": [
+            0.8779,
+            0.245
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "lower_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 1.608,
+          "goal_clearance_m": 1.59,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 249.403,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-06",
+          "label": "upper_east_west_cross",
+          "start": [
+            40.175,
+            111.175,
+            0.0233
+          ],
+          "goal": [
+            289.175,
+            116.975,
+            -1.5475
+          ],
+          "start_norm": [
+            0.1221,
+            0.7351
+          ],
+          "goal_norm": [
+            0.8797,
+            0.7735
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "upper_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 1.608,
+          "goal_clearance_m": 1.62,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 249.068,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-07",
+          "label": "west_north_south_aisle",
+          "start": [
+            63.175,
+            21.575,
+            1.5756
+          ],
+          "goal": [
+            62.675,
+            124.875,
+            -1.566
+          ],
+          "start_norm": [
+            0.1921,
+            0.1425
+          ],
+          "goal_norm": [
+            0.1906,
+            0.8257
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "vertical_aisle",
+            "west_warehouse_block"
+          ],
+          "start_clearance_m": 1.59,
+          "goal_clearance_m": 1.57,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 103.301,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.036,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-08",
+          "label": "east_north_south_aisle",
+          "start": [
+            262.375,
+            35.175,
+            1.576
+          ],
+          "goal": [
+            261.875,
+            131.075,
+            -1.5656
+          ],
+          "start_norm": [
+            0.7981,
+            0.2325
+          ],
+          "goal_norm": [
+            0.7966,
+            0.8667
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "vertical_aisle",
+            "east_warehouse_block"
+          ],
+          "start_clearance_m": 1.61,
+          "goal_clearance_m": 1.568,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 95.901,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-09",
+          "label": "west_to_central_transfer",
+          "start": [
+            23.575,
+            74.175,
+            0.0757
+          ],
+          "goal": [
+            142.275,
+            83.175,
+            0.0757
+          ],
+          "start_norm": [
+            0.0716,
+            0.4904
+          ],
+          "goal_norm": [
+            0.4328,
+            0.5499
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "west_main_corridor",
+            "central_transfer_zone"
+          ],
+          "start_clearance_m": 1.58,
+          "goal_clearance_m": 1.609,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 119.041,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-10",
+          "label": "east_to_central_transfer",
+          "start": [
+            312.875,
+            74.175,
+            -3.1126
+          ],
+          "goal": [
+            185.075,
+            70.475,
+            -3.1126
+          ],
+          "start_norm": [
+            0.9518,
+            0.4904
+          ],
+          "goal_norm": [
+            0.563,
+            0.4659
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "east_main_corridor",
+            "central_transfer_zone"
+          ],
+          "start_clearance_m": 1.568,
+          "goal_clearance_m": 1.56,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 127.854,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-11",
+          "label": "south_to_central_transfer",
+          "start": [
+            153.775,
+            25.275,
+            1.4473
+          ],
+          "goal": [
+            158.875,
+            66.375,
+            1.4473
+          ],
+          "start_norm": [
+            0.4678,
+            0.167
+          ],
+          "goal_norm": [
+            0.4833,
+            0.4388
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "south_cross_aisle",
+            "central_transfer_zone"
+          ],
+          "start_clearance_m": 1.638,
+          "goal_clearance_m": 1.58,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 41.415,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-12",
+          "label": "north_to_central_transfer",
+          "start": [
+            173.475,
+            133.475,
+            -1.6265
+          ],
+          "goal": [
+            170.775,
+            85.075,
+            -1.6265
+          ],
+          "start_norm": [
+            0.5277,
+            0.8826
+          ],
+          "goal_norm": [
+            0.5195,
+            0.5625
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "north_cross_aisle",
+            "central_transfer_zone"
+          ],
+          "start_clearance_m": 1.599,
+          "goal_clearance_m": 1.608,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 48.475,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-13",
+          "label": "upper_block_cross",
+          "start": [
+            69.775,
+            106.875,
+            0.021
+          ],
+          "goal": [
+            255.075,
+            110.775,
+            0.021
+          ],
+          "start_norm": [
+            0.2122,
+            0.7067
+          ],
+          "goal_norm": [
+            0.7759,
+            0.7325
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "upper_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 1.609,
+          "goal_clearance_m": 1.61,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 185.341,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-14",
+          "label": "lower_block_cross",
+          "start": [
+            72.475,
+            43.075,
+            0.0248
+          ],
+          "goal": [
+            258.275,
+            47.675,
+            0.0248
+          ],
+          "start_norm": [
+            0.2204,
+            0.2847
+          ],
+          "goal_norm": [
+            0.7857,
+            0.3151
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "lower_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 1.57,
+          "goal_clearance_m": 1.61,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 185.857,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-15",
+          "label": "southwest_to_northeast",
+          "start": [
+            46.275,
+            25.575,
+            0.4177
+          ],
+          "goal": [
+            269.575,
+            124.675,
+            1.9885
+          ],
+          "start_norm": [
+            0.1407,
+            0.169
+          ],
+          "goal_norm": [
+            0.82,
+            0.8244
+          ],
+          "preference": "edge",
+          "preference_side": "left",
+          "feature_tags": [
+            "vertical_aisle",
+            "wide_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 1.65,
+          "goal_clearance_m": 1.649,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 244.302,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-16",
+          "label": "southeast_to_northwest",
+          "start": [
+            285.375,
+            29.875,
+            2.7468
+          ],
+          "goal": [
+            59.275,
+            124.075,
+            1.176
+          ],
+          "start_norm": [
+            0.8681,
+            0.1974
+          ],
+          "goal_norm": [
+            0.1803,
+            0.8204
+          ],
+          "preference": "edge",
+          "preference_side": "right",
+          "feature_tags": [
+            "vertical_aisle",
+            "wide_cross_aisle",
+            "warehouse_shelf_aisle"
+          ],
+          "start_clearance_m": 1.65,
+          "goal_clearance_m": 2.407,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 244.938,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-17",
+          "label": "central_east_west_local",
+          "start": [
+            103.175,
+            78.175,
+            -0.0193
+          ],
+          "goal": [
+            222.375,
+            75.875,
+            -0.0193
+          ],
+          "start_norm": [
+            0.3138,
+            0.5169
+          ],
+          "goal_norm": [
+            0.6765,
+            0.5017
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_transfer_zone",
+            "east_west_main_corridor"
+          ],
+          "start_clearance_m": 1.599,
+          "goal_clearance_m": 1.57,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 119.222,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-18",
+          "label": "central_north_south_local",
+          "start": [
+            164.375,
+            42.375,
+            1.56
+          ],
+          "goal": [
+            165.075,
+            107.475,
+            1.56
+          ],
+          "start_norm": [
+            0.5,
+            0.2801
+          ],
+          "goal_norm": [
+            0.5021,
+            0.7106
+          ],
+          "preference": "center",
+          "preference_side": "none",
+          "feature_tags": [
+            "central_transfer_zone",
+            "north_south_crossing"
+          ],
+          "start_clearance_m": 1.828,
+          "goal_clearance_m": 1.55,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 65.104,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-19",
+          "label": "northwest_to_southeast_inner",
+          "start": [
+            82.275,
+            108.975,
+            -0.384
+          ],
+          "goal": [
+            246.875,
+            42.475,
+            1.1868
+          ],
+          "start_norm": [
+            0.2502,
+            0.7206
+          ],
+          "goal_norm": [
+            0.751,
+            0.2808
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_cross_aisle"
+          ],
+          "start_clearance_m": 1.679,
+          "goal_clearance_m": 1.639,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 177.526,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        },
+        {
+          "id": "A2B-20",
+          "label": "northeast_to_southwest_inner",
+          "start": [
+            246.875,
+            109.275,
+            -2.7555
+          ],
+          "goal": [
+            82.275,
+            42.375,
+            1.9568
+          ],
+          "start_norm": [
+            0.751,
+            0.7226
+          ],
+          "goal_norm": [
+            0.2502,
+            0.2801
+          ],
+          "preference": "none",
+          "preference_side": "none",
+          "feature_tags": [
+            "warehouse_shelf_aisle",
+            "wide_cross_aisle"
+          ],
+          "start_clearance_m": 1.639,
+          "goal_clearance_m": 1.958,
+          "required_clearance_m": 0.6,
+          "direct_distance_m": 177.676,
+          "minimum_direct_distance_m": 30.24,
+          "snap_offset_m": 0.035,
+          "free_component": 1
+        }
+      ]
+    }
+  }
+}
