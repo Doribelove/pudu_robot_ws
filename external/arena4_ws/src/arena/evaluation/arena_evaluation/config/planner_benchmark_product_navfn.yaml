@@ -1,0 +1,8 @@
+planner_id: navfn_astar
+config_variant: product
+planner_plugins: [GridBased]
+GridBased:
+  plugin: nav2_navfn_planner/NavfnPlanner
+  use_astar: true
+  allow_unknown: true
+  tolerance: 0.5

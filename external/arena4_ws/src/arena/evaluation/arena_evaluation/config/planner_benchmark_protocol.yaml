@@ -1,0 +1,38 @@
+schema_version: 1
+experiment: hospital_global_planner_baseline
+robot: jackal
+map: hospital
+map_cells: 640000
+resolution: 0.1
+random_seed: 20260821
+
+queries_per_map: 10
+warmup_runs: 3
+measured_runs: 5
+external_timeout_seconds: 5.0
+sample_interval_ms: 10
+allow_in_place_rotation: true
+allow_reverse: true
+preferred_minimum_turning_radius: 0.4
+reverse_penalty: 2.0
+minimum_endpoint_clearance_m: 0.5
+frame_id: map
+map_yaml: external/arena4_ws/src/arena/simulation-setup/worlds/hospital/map/map.yaml
+
+footprint:
+  - [0.255, 0.215]
+  - [0.255, -0.215]
+  - [-0.255, -0.215]
+  - [-0.255, 0.215]
+
+variants:
+  product:
+    allow_unknown: true
+    tolerance: 0.5
+    inflation_radius: 0.55
+    cost_scaling_factor: 3.0
+  normalized:
+    allow_unknown: false
+    tolerance: 0.25
+    inflation_radius: 0.55
+    cost_scaling_factor: 3.0

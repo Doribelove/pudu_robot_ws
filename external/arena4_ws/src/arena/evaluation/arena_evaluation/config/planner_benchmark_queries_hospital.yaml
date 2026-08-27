@@ -1,0 +1,64 @@
+schema_version: 1
+map: hospital
+seed: 20260821
+queries:
+  - query_id: q00
+    category: forward_heading
+    seed: 20260821
+    validation_status: UNVALIDATED
+    start: [1.05, 1.35, -2.658]
+    goal: [-11.15, -5.05, 0.483]
+  - query_id: q01
+    category: forward_heading
+    seed: 20260821
+    validation_status: UNVALIDATED
+    start: [8.65, -18.15, 2.405]
+    goal: [-9.45, -1.75, -0.736]
+  - query_id: q02
+    category: forward_heading
+    seed: 20260821
+    validation_status: UNVALIDATED
+    start: [-4.55, -7.55, -0.633]
+    goal: [7.85, -16.65, 2.508]
+  - query_id: q03
+    category: forward_heading
+    seed: 20260821
+    validation_status: UNVALIDATED
+    start: [7.55, -32.75, 1.477]
+    goal: [10.85, 2.15, -1.665]
+  - query_id: q04
+    category: forward_heading
+    seed: 20260821
+    validation_status: UNVALIDATED
+    start: [9.35, -7.85, 1.722]
+    goal: [5.35, 18.45, -1.420]
+  - query_id: q05
+    category: reverse_heading
+    seed: 20260821
+    validation_status: UNVALIDATED
+    start: [-2.95, -27.25, 2.910]
+    goal: [11.05, -30.55, 2.910]
+  - query_id: q06
+    category: reverse_heading
+    seed: 20260821
+    validation_status: UNVALIDATED
+    start: [-1.45, -33.55, -1.398]
+    goal: [-5.65, -9.55, -1.398]
+  - query_id: q07
+    category: reverse_heading
+    seed: 20260821
+    validation_status: UNVALIDATED
+    start: [7.55, -1.85, 0.892]
+    goal: [-7.95, -21.05, 0.892]
+  - query_id: q08
+    category: reverse_heading
+    seed: 20260821
+    validation_status: UNVALIDATED
+    start: [-6.05, -23.15, -2.330]
+    goal: [6.95, -9.45, -2.330]
+  - query_id: q09
+    category: reverse_heading
+    seed: 20260821
+    validation_status: UNVALIDATED
+    start: [-5.65, -28.95, -2.678]
+    goal: [5.95, -23.15, -2.678]

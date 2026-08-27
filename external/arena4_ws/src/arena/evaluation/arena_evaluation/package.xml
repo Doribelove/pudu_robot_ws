@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>arena_evaluation</name>
+  <version>0.0.0</version>
+  <description>Record, evaluate, and plot navigational metrics to evaluate ROS navigation planners</description>
+  <maintainer email="trannamtruong98@gmail.com">NamTruongTran</maintainer>
+  <license>BSD</license>
+
+  <!-- ament_cmake as CMake build tool used in ROS2 -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- packages dependencies  -->
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>ompl</depend>
+  <depend>yaml_cpp_vendor</depend>
+  <depend>visualization_msgs</depend>
+  <depend>arena_evaluation_msgs</depend>
+  <depend>hunav_msgs</depend>
+  <exec_depend>action_msgs</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>rosgraph_msgs</exec_depend>
+  <exec_depend>rosbag2_py</exec_depend>
+  <exec_depend>tf_transformations</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-pandas</exec_depend>
+  <exec_depend>python3-pyyaml</exec_depend>
+
+
+  <depend>nav2_msgs</depend>
+  <depend>nav2_map_server</depend>
+  <depend>nav2_planner</depend>
+  <depend>nav2_lifecycle_manager</depend>
+  <depend>tf2_ros</depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>lifecycle_msgs</exec_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <!-- Metadata about how the package should be exported to other packages -->
+  <export>
+    <build_type>ament_python</build_type>
+    <!-- <build_type>ament_cmake</build_type> -->
+  </export>
+</package>
