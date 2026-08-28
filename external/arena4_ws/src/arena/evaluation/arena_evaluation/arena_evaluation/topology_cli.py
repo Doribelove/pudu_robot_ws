@@ -812,7 +812,13 @@ def _write_plots(directory: Path, frame: pd.DataFrame) -> None:
             if len(values):
                 groups.append(values.to_numpy()); labels.append(mode)
         if groups:
-            axis.boxplot(groups, tick_labels=labels)
+            # Matplotlib renamed this keyword from ``labels`` to
+            # ``tick_labels`` in newer releases. Keep the benchmark usable
+            # with the Ubuntu 22.04 system Matplotlib as well as newer envs.
+            try:
+                axis.boxplot(groups, tick_labels=labels)
+            except TypeError:
+                axis.boxplot(groups, labels=labels)
             axis.tick_params(axis="x", rotation=25)
         axis.set_title(title); axis.set_ylabel(ylabel); axis.grid(True, alpha=0.25)
         fig.tight_layout(); fig.savefig(directory / name, dpi=140); plt.close(fig)

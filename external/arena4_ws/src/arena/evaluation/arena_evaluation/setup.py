@@ -60,6 +60,8 @@ setup(
         'unified_four_backends_smoke = arena_evaluation.unified_four_backends_smoke:main',
         'fixed_layered_pipeline_smoke = arena_evaluation.fixed_layered_pipeline_smoke:main',
         'fixed_layered_pipeline_efficiency_smoke = arena_evaluation.fixed_layered_pipeline_efficiency_smoke:main',
+        'l1_l3_corridor_hybrid_smoke = arena_evaluation.l1_l3_corridor_hybrid_smoke:main',
+        'layered_architecture_paired_benchmark = arena_evaluation.layered_architecture_paired_benchmark:main',
         'forward_no_reverse_repair_smoke = arena_evaluation.forward_no_reverse_repair_smoke:main',
         'single_planner_report = arena_evaluation.single_planner_report:main',
         'baseline_path_visualizer = arena_evaluation.baseline_visualizer:main',

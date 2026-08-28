@@ -214,16 +214,49 @@ def _run_stage(
     )
 
 
+def _prepare_rollback_bundle(root: Path) -> None:
+    """Copy the immutable v6 rollback bundle into a fresh A/B root.
+
+    Historical v7 roots are intentionally never reused for a new run.  A
+    caller may provide an empty sibling directory; in that case the latest
+    completed v7 result is used only as the read-only source of the rollback
+    archive.
+    """
+    root.mkdir(parents=True, exist_ok=True)
+    existing = {item.name for item in root.iterdir()}
+    if existing - {"rollback", "rollback_manifest.yaml"}:
+        raise ValueError(f"refusing to overwrite non-empty A/B root: {root}")
+    has_rollback_dir = (root / "rollback").is_dir()
+    has_rollback_manifest = (root / "rollback_manifest.yaml").is_file()
+    if has_rollback_dir != has_rollback_manifest:
+        raise ValueError(f"rollback bundle is incomplete: {root}")
+    if has_rollback_dir and has_rollback_manifest:
+        return
+    rollback_sources = (
+        root,
+        V7_ROOT,
+        fixed.ROOT / "experiments/layered_planner_benchmark/"
+        "fixed_layered_pipeline_v7_online_efficiency_postfix5_final",
+        fixed.ROOT / "experiments/layered_planner_benchmark/"
+        "fixed_layered_pipeline_v7_online_efficiency_postfix4_final",
+    )
+    source_root = next(
+        (
+            candidate for candidate in rollback_sources
+            if (candidate / "rollback").is_dir()
+            and (candidate / "rollback_manifest.yaml").is_file()
+        ),
+        None,
+    )
+    if source_root is None:
+        raise RuntimeError("v6 rollback baseline is unavailable")
+    shutil.copy2(source_root / "rollback_manifest.yaml", root / "rollback_manifest.yaml")
+    shutil.copytree(source_root / "rollback", root / "rollback")
+
+
 def run_v7_ab(root: Path = V7_ROOT) -> Path:
     root = root.resolve()
-    root.mkdir(parents=True, exist_ok=True)
-    if not (root / "rollback_manifest.yaml").exists():
-        rollback_source = V7_ROOT / "rollback"
-        rollback_manifest_source = V7_ROOT / "rollback_manifest.yaml"
-        if not rollback_source.exists() or not rollback_manifest_source.exists():
-            raise RuntimeError("v6 rollback baseline is unavailable")
-        shutil.copy2(rollback_manifest_source, root / "rollback_manifest.yaml")
-        shutil.copytree(rollback_source, root / "rollback")
+    _prepare_rollback_bundle(root)
     cache_dir = root / "topology_cache"
     stage_summaries: List[Dict[str, Any]] = []
     for name, profile, stage, smac_profile in V7_STAGE_SPECS:

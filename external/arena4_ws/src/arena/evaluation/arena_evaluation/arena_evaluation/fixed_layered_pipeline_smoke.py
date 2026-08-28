@@ -1426,6 +1426,9 @@ def run_smoke(
     }:
         raise ValueError(f"unsupported optimization stage: {optimization_stage}")
     if optimization_profile == "v6_compatible":
+        # Ensure v6 remains an exact rollback of the validated baseline even
+        # if a CLI caller supplied a candidate Smac parameter profile.
+        smac_parameter_profile = "baseline"
         optimization_stage = "baseline"
     skip_low_window_simplification = optimization_stage != "baseline"
     light_query_reset = optimization_stage in {"step2_light_reset", "step3_delta_map"}
@@ -2129,6 +2132,8 @@ def run_smoke(
         "simplification_min_raw_windows": SIMPLIFICATION_MIN_RAW_WINDOWS,
         "query_session_restore_base_map": not light_query_reset,
         "local_map_update_strategy": "delta" if optimization_stage == "step3_delta_map" else "v6_full",
+        "delta_max_patch_gap_cells": legacy.DELTA_MAX_PATCH_GAP_CELLS,
+        "delta_max_patch_expansion": legacy.DELTA_MAX_PATCH_EXPANSION,
         "context_scope": context_scope, "warmups": warmups, "repetitions": repetitions,
         "online_timing_fields": [
             "cold_stack_startup_ms", "topology_build_time_ms", "topology_load_time_ms", "online_pipeline_wall_time_ms",

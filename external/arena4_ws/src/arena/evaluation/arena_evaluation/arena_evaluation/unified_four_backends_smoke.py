@@ -142,6 +142,13 @@ SMAC_PARAMETER_PROFILES: Dict[str, Dict[str, Any]] = {
     },
 }
 
+# Incremental costmap patches may coalesce only within this local envelope.
+# Keeping the bounds explicit prevents a chain of distant windows from
+# degenerating into a full-map update while still reducing message overhead
+# for fragmented cells in one window.
+DELTA_MAX_PATCH_GAP_CELLS = 64
+DELTA_MAX_PATCH_EXPANSION = 2.5
+
 
 def _grid_digest(grid: np.ndarray) -> str:
     return hashlib.sha256(np.ascontiguousarray(grid, dtype=np.int8).tobytes()).hexdigest()
@@ -150,7 +157,14 @@ def _grid_digest(grid: np.ndarray) -> str:
 def delta_patch_rectangles(
     previous_grid: np.ndarray, expected_grid: np.ndarray,
 ) -> List[Tuple[int, int, int, int]]:
-    """Return bounded map-coordinate patches for close and open regions."""
+    """Return tight map-coordinate patches for close and open regions.
+
+    A single bounding box over all changed cells can span unrelated windows
+    and turn an incremental update into an effectively full-map update.  Label
+    each connected changed component independently so distant regions remain
+    separate patches.  Four-connectivity matches the cell adjacency used by
+    the occupancy grid and keeps diagonal corners as distinct updates.
+    """
     previous = np.asarray(previous_grid, dtype=np.int8)
     expected = np.asarray(expected_grid, dtype=np.int8)
     if previous.shape != expected.shape:
@@ -159,21 +173,104 @@ def delta_patch_rectangles(
     if not np.any(changed):
         return []
     rectangles: List[Tuple[int, int, int, int]] = []
-    # Treat closing and opening as separate regions. This prevents a single
-    # bounding box from spanning two distant windows during a state switch.
+    # Treat closing and opening as separate regions. This prevents an opening
+    # component from being merged with a closing component during a state
+    # switch, while the component labelling below prevents distant windows
+    # within one region from sharing a large bounding box.
+    try:
+        from scipy import ndimage
+    except ImportError:  # pragma: no cover - scipy ships with project deps
+        ndimage = None
+
+    def rect_area(rectangle: Tuple[int, int, int, int]) -> int:
+        return rectangle[2] * rectangle[3]
+
+    def merge_local_rectangles(
+        candidates: Sequence[Tuple[int, int, int, int]],
+    ) -> List[Tuple[int, int, int, int]]:
+        """Coalesce nearby components without spanning unrelated windows."""
+        pending = sorted(candidates, key=lambda item: (item[1], item[0]))
+        merged: List[Tuple[int, int, int, int]] = []
+        for candidate in pending:
+            absorbed = False
+            for index, current in enumerate(merged):
+                current_x, current_y, current_w, current_h = current
+                candidate_x, candidate_y, candidate_w, candidate_h = candidate
+                gap_x = max(
+                    0,
+                    current_x - (candidate_x + candidate_w),
+                    candidate_x - (current_x + current_w),
+                )
+                gap_y = max(
+                    0,
+                    current_y - (candidate_y + candidate_h),
+                    candidate_y - (current_y + current_h),
+                )
+                union_x = min(current_x, candidate_x)
+                union_y = min(current_y, candidate_y)
+                union_right = max(current_x + current_w, candidate_x + candidate_w)
+                union_bottom = max(current_y + current_h, candidate_y + candidate_h)
+                union = (
+                    union_x, union_y, union_right - union_x, union_bottom - union_y,
+                )
+                # A component may be joined to its local neighbour, but a
+                # large empty gap or excessive bounding-box expansion keeps
+                # distant windows as separate messages.
+                if (
+                    max(gap_x, gap_y) <= DELTA_MAX_PATCH_GAP_CELLS
+                    and rect_area(union)
+                    <= DELTA_MAX_PATCH_EXPANSION * (rect_area(current) + rect_area(candidate))
+                ):
+                    merged[index] = union
+                    absorbed = True
+                    break
+            if not absorbed:
+                merged.append(candidate)
+        return merged
+
     for region in (changed & (expected == 100), changed & (expected != 100)):
         if not np.any(region):
             continue
-        rows, columns = np.nonzero(region)
-        # Closing the old window and opening the new one remain separate even
-        # when they are far apart. Within each local region, one bounding box
-        # avoids losing StaticLayer update bounds when many small messages
-        # arrive inside the same costmap cycle.
-        rectangles.append((
-            int(columns.min()), int(rows.min()),
-            int(columns.max() - columns.min() + 1),
-            int(rows.max() - rows.min() + 1),
-        ))
+        region_rectangles: List[Tuple[int, int, int, int]] = []
+        if ndimage is not None:
+            labels, component_count = ndimage.label(
+                region, structure=np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=np.uint8),
+            )
+            for component_slice in ndimage.find_objects(labels)[:int(component_count)]:
+                if component_slice is None:
+                    continue
+                row_slice, column_slice = component_slice
+                region_rectangles.append((
+                    int(column_slice.start), int(row_slice.start),
+                    int(column_slice.stop - column_slice.start),
+                    int(row_slice.stop - row_slice.start),
+                ))
+        else:
+            # Keep a dependency-free fallback for minimal test/install
+            # environments. It is intentionally used only when scipy is
+            # absent; a set-backed flood fill preserves the same four-neighbor
+            # component semantics as ``ndimage.label``.
+            remaining = {tuple(int(value) for value in item) for item in np.argwhere(region)}
+            while remaining:
+                seed = remaining.pop()
+                stack = [seed]
+                min_row = max_row = seed[0]
+                min_col = max_col = seed[1]
+                while stack:
+                    row, column = stack.pop()
+                    min_row, max_row = min(min_row, row), max(max_row, row)
+                    min_col, max_col = min(min_col, column), max(max_col, column)
+                    for neighbour in (
+                        (row - 1, column), (row + 1, column),
+                        (row, column - 1), (row, column + 1),
+                    ):
+                        if neighbour in remaining:
+                            remaining.remove(neighbour)
+                            stack.append(neighbour)
+                region_rectangles.append((
+                    min_col, min_row, max_col - min_col + 1, max_row - min_row + 1,
+                ))
+        rectangles.extend(merge_local_rectangles(region_rectangles))
     return sorted(rectangles, key=lambda item: (item[1], item[0], item[3], item[2]))
 
 
@@ -228,6 +325,10 @@ class SmacSession:
         }:
             raise ValueError(f"unsupported optimization stage: {optimization_stage}")
         if optimization_profile == "v6_compatible":
+            # The rollback profile is a behavioral contract, not merely a
+            # label.  Keep the strict baseline Smac parameters even when a
+            # caller accidentally carries a candidate parameter selection.
+            smac_parameter_profile = "baseline"
             optimization_stage = "baseline"
         self.optimization_profile = optimization_profile
         self.optimization_stage = optimization_stage

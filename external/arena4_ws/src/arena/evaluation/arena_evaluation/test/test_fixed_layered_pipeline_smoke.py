@@ -5,6 +5,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
+import pytest
 
 from arena_evaluation import fixed_layered_pipeline_smoke as fixed
 from arena_evaluation import fixed_layered_pipeline_efficiency_smoke as efficiency
@@ -498,6 +499,12 @@ def test_selected_v7_rerun_success_keeps_candidate_profile():
     assert selection["fallback_applied"] is False
 
 
+def test_v7_ab_refuses_to_overwrite_existing_stage_root(tmp_path):
+    (tmp_path / "baseline_v6_compatible").mkdir()
+    with pytest.raises(ValueError, match="non-empty A/B root"):
+        efficiency._prepare_rollback_bundle(tmp_path)
+
+
 def _bare_session(*, trusted=True, supports=True):
     session = object.__new__(fixed.legacy.SmacSession)
     session.client = object()
@@ -595,6 +602,16 @@ def test_delta_switch_closes_old_window_and_matches_full_grid():
     assert np.array_equal(current, second)
     assert np.all(current[1:3, 1:4] == 100)
     assert np.all(current[5:7, 7:9] == 0)
+
+
+def test_delta_switch_keeps_distant_regions_as_separate_patches():
+    lethal = np.full((12, 16), 100, dtype=np.int8)
+    expected = lethal.copy()
+    expected[1:3, 1:4] = 0
+    expected[8:10, 12:15] = 0
+    rectangles = fixed.legacy.delta_patch_rectangles(lethal, expected)
+    assert rectangles == [(1, 1, 3, 2), (12, 8, 3, 2)]
+    assert np.array_equal(fixed.legacy.apply_delta_rectangles(lethal, expected, rectangles), expected)
 
 
 def test_delta_update_exception_falls_back_to_full(monkeypatch):
