@@ -15,7 +15,7 @@ import math
 import time
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
 import cv2
 import numpy as np
@@ -78,17 +78,70 @@ class TopologyEdge:
 class TopologyGraph:
     nodes: List[TopologyNode] = field(default_factory=list)
     edges: List[TopologyEdge] = field(default_factory=list)
+    # Adjacency is immutable for a persisted topology artifact.  Keep it on
+    # the in-memory graph so every query reuses the same object.
+    _adjacency_cache: Optional[Dict[int, List[Tuple[int, TopologyEdge, bool]]]] = field(
+        default=None, init=False, repr=False, compare=False,
+    )
 
     @property
     def components(self) -> int:
         return len({node.component_id for node in self.nodes})
 
     def adjacency(self) -> Dict[int, List[Tuple[int, TopologyEdge, bool]]]:
+        if self._adjacency_cache is not None:
+            return self._adjacency_cache
         result: Dict[int, List[Tuple[int, TopologyEdge, bool]]] = {node.node_id: [] for node in self.nodes}
         for edge in self.edges:
             result.setdefault(edge.source, []).append((edge.target, edge, False))
             result.setdefault(edge.target, []).append((edge.source, edge, True))
+        self._adjacency_cache = result
         return result
+
+    @property
+    def adjacency_cache_hit(self) -> bool:
+        return self._adjacency_cache is not None
+
+
+@dataclass
+class NodeSpatialIndex:
+    """Deterministic uniform-grid index for topology node lookup."""
+
+    cell_size_m: float
+    buckets: Dict[Tuple[int, int], List[int]]
+    nodes_by_id: Dict[int, TopologyNode]
+
+    @classmethod
+    def build(cls, nodes: Sequence[TopologyNode], cell_size_m: float = 5.0) -> "NodeSpatialIndex":
+        size = max(0.1, float(cell_size_m))
+        by_id = {int(node.node_id): node for node in nodes}
+        buckets: Dict[Tuple[int, int], List[int]] = {}
+        for node in nodes:
+            key = (math.floor(float(node.x) / size), math.floor(float(node.y) / size))
+            buckets.setdefault(key, []).append(int(node.node_id))
+        for values in buckets.values():
+            values.sort()
+        return cls(size, buckets, by_id)
+
+    def query(self, x: float, y: float, radius_m: float) -> List[TopologyNode]:
+        radius = max(0.0, float(radius_m))
+        min_x = math.floor((float(x) - radius) / self.cell_size_m)
+        max_x = math.floor((float(x) + radius) / self.cell_size_m)
+        min_y = math.floor((float(y) - radius) / self.cell_size_m)
+        max_y = math.floor((float(y) + radius) / self.cell_size_m)
+        result: List[Tuple[float, int, TopologyNode]] = []
+        radius_sq = radius * radius
+        for bucket_x in range(min_x, max_x + 1):
+            for bucket_y in range(min_y, max_y + 1):
+                for node_id in self.buckets.get((bucket_x, bucket_y), []):
+                    node = self.nodes_by_id[node_id]
+                    dx = float(node.x) - float(x)
+                    dy = float(node.y) - float(y)
+                    distance_sq = dx * dx + dy * dy
+                    if distance_sq <= radius_sq + 1.0e-12:
+                        result.append((distance_sq, node_id, node))
+        result.sort(key=lambda item: (item[0], item[1]))
+        return [item[2] for item in result]
 
 
 @dataclass
@@ -440,6 +493,13 @@ def save_topology(artifact: TopologyArtifact, directory: str | Path) -> Path:
         "algorithm": TOPOLOGY_ALGORITHM_VERSION,
         "nodes": [asdict(node) for node in artifact.graph.nodes],
         "edges": [asdict(edge) for edge in artifact.graph.edges],
+        "adjacency": {
+            str(node_id): [
+                {"target": int(target), "edge_id": int(edge.edge_id), "reverse": bool(reverse)}
+                for target, edge, reverse in values
+            ]
+            for node_id, values in artifact.graph.adjacency().items()
+        },
     }
     (directory / "topology_graph.json").write_text(json.dumps(graph_payload, indent=2))
     np.savez_compressed(
@@ -486,6 +546,20 @@ def load_topology(
         nodes=[TopologyNode(**node) for node in payload.get("nodes", [])],
         edges=[TopologyEdge(**edge) for edge in payload.get("edges", [])],
     )
+    edge_by_id = {int(edge.edge_id): edge for edge in graph.edges}
+    stored_adjacency = payload.get("adjacency") or {}
+    if stored_adjacency:
+        adjacency: Dict[int, List[Tuple[int, TopologyEdge, bool]]] = {node.node_id: [] for node in graph.nodes}
+        try:
+            for node_id, values in stored_adjacency.items():
+                adjacency[int(node_id)] = [
+                    (int(item["target"]), edge_by_id[int(item["edge_id"])], bool(item.get("reverse", False)))
+                    for item in values
+                    if int(item["edge_id"]) in edge_by_id
+                ]
+            graph._adjacency_cache = adjacency
+        except (KeyError, TypeError, ValueError):
+            graph._adjacency_cache = None
     return TopologyArtifact(
         hospital_map=hospital_map,
         free_mask=np.asarray(arrays["free_mask"], dtype=bool),
@@ -522,33 +596,27 @@ def attach_pose(
     return Attachment(node.node_id, float(distance), node.component_id)
 
 
-def search_topology(artifact: TopologyArtifact, start_id: int, goal_id: int) -> Optional[TopologyRoute]:
-    if start_id == goal_id:
-        node = artifact.graph.nodes[start_id]
-        return TopologyRoute([start_id], [], 0.0, node.channel_width_m, [[node.x, node.y]])
-    adjacency = artifact.graph.adjacency()
-    queue = [(0.0, start_id)]
-    distances = {start_id: 0.0}
-    previous: Dict[int, Tuple[int, TopologyEdge, bool]] = {}
-    while queue:
-        cost, node_id = heapq.heappop(queue)
-        if node_id == goal_id:
-            break
-        if cost != distances.get(node_id):
-            continue
-        for target, edge, reverse in adjacency.get(node_id, []):
-            candidate = cost + edge.length_m
-            if candidate < distances.get(target, float("inf")):
-                distances[target] = candidate
-                previous[target] = (node_id, edge, reverse)
-                heapq.heappush(queue, (candidate, target))
+def _route_from_search(
+    artifact: TopologyArtifact,
+    start_id: int,
+    goal_id: int,
+    distances: Mapping[int, float],
+    previous: Mapping[int, Tuple[int, TopologyEdge, bool]],
+) -> Optional[TopologyRoute]:
     if goal_id not in distances:
         return None
+    if start_id == goal_id:
+        node = next((item for item in artifact.graph.nodes if item.node_id == start_id), None)
+        if node is None:
+            return None
+        return TopologyRoute([start_id], [], 0.0, node.channel_width_m, [[node.x, node.y]])
     nodes = [goal_id]
     edges: List[TopologyEdge] = []
     directions: List[bool] = []
     cursor = goal_id
     while cursor != start_id:
+        if cursor not in previous:
+            return None
         parent, edge, reverse = previous[cursor]
         nodes.append(parent)
         edges.append(edge)
@@ -566,14 +634,239 @@ def search_topology(artifact: TopologyArtifact, start_id: int, goal_id: int) -> 
         polyline.extend(points)
         min_width = min(min_width, edge.min_width_m)
     if not polyline:
-        polyline = [[artifact.graph.nodes[node].x, artifact.graph.nodes[node].y] for node in nodes]
+        node_by_id = {int(item.node_id): item for item in artifact.graph.nodes}
+        polyline = [[node_by_id[node].x, node_by_id[node].y] for node in nodes if node in node_by_id]
     return TopologyRoute(nodes, [edge.edge_id for edge in edges], distances[goal_id], 0.0 if min_width == float("inf") else min_width, polyline)
 
 
+def search_topology(artifact: TopologyArtifact, start_id: int, goal_id: int) -> Optional[TopologyRoute]:
+    """Run deterministic graph search using the graph's cached adjacency."""
+    adjacency = artifact.graph.adjacency()
+    queue = [(0.0, int(start_id))]
+    distances: Dict[int, float] = {int(start_id): 0.0}
+    previous: Dict[int, Tuple[int, TopologyEdge, bool]] = {}
+    while queue:
+        cost, node_id = heapq.heappop(queue)
+        if node_id == int(goal_id):
+            break
+        if cost != distances.get(node_id):
+            continue
+        for target, edge, reverse in adjacency.get(node_id, []):
+            candidate = cost + edge.length_m
+            if candidate < distances.get(target, float("inf")):
+                distances[target] = candidate
+                previous[target] = (node_id, edge, reverse)
+                heapq.heappush(queue, (candidate, int(target)))
+    return _route_from_search(artifact, int(start_id), int(goal_id), distances, previous)
+
+
+def search_topology_multi_source(
+    artifact: TopologyArtifact,
+    start_ids: Sequence[int],
+    goal_ids: Sequence[int],
+) -> Tuple[Optional[TopologyRoute], Optional[int], Optional[int]]:
+    """Find a route from any start to any goal in one graph traversal."""
+    starts = sorted({int(value) for value in start_ids})
+    goals = {int(value) for value in goal_ids}
+    if not starts or not goals:
+        return None, None, None
+    adjacency = artifact.graph.adjacency()
+    queue: List[Tuple[float, int, int]] = []
+    distances: Dict[int, float] = {}
+    previous: Dict[int, Tuple[int, TopologyEdge, bool]] = {}
+    roots: Dict[int, int] = {}
+    for node_id in starts:
+        distances[node_id] = 0.0
+        roots[node_id] = node_id
+        heapq.heappush(queue, (0.0, node_id, node_id))
+    selected_goal: Optional[int] = None
+    while queue:
+        cost, node_id, root_id = heapq.heappop(queue)
+        if cost != distances.get(node_id) or roots.get(node_id) != root_id:
+            continue
+        if node_id in goals:
+            selected_goal = node_id
+            break
+        for target, edge, reverse in adjacency.get(node_id, []):
+            candidate = cost + edge.length_m
+            old = distances.get(target, float("inf"))
+            old_root = roots.get(target, 2**63 - 1)
+            if candidate < old or (candidate == old and root_id < old_root):
+                distances[target] = candidate
+                roots[target] = root_id
+                previous[target] = (node_id, edge, reverse)
+                heapq.heappush(queue, (candidate, int(target), root_id))
+    if selected_goal is None:
+        return None, None, None
+    selected_start = roots[selected_goal]
+    route = _route_from_search(artifact, selected_start, selected_goal, distances, previous)
+    return route, selected_start, selected_goal
+
+
+def search_topology_timed(
+    artifact: TopologyArtifact, start_id: int, goal_id: int,
+) -> Tuple[Optional[TopologyRoute], Dict[str, float | bool]]:
+    """Single-pair graph search with mutually exclusive phase timings."""
+    adjacency_cached = artifact.graph.adjacency_cache_hit
+    adjacency_started = time.monotonic_ns()
+    adjacency = artifact.graph.adjacency()
+    adjacency_ms = (time.monotonic_ns() - adjacency_started) / 1.0e6
+    search_started = time.monotonic_ns()
+    queue = [(0.0, int(start_id))]
+    distances: Dict[int, float] = {int(start_id): 0.0}
+    previous: Dict[int, Tuple[int, TopologyEdge, bool]] = {}
+    while queue:
+        cost, node_id = heapq.heappop(queue)
+        if node_id == int(goal_id):
+            break
+        if cost != distances.get(node_id):
+            continue
+        for target, edge, reverse in adjacency.get(node_id, []):
+            candidate = cost + edge.length_m
+            if candidate < distances.get(target, float("inf")):
+                distances[target] = candidate
+                previous[target] = (node_id, edge, reverse)
+                heapq.heappush(queue, (candidate, int(target)))
+    search_ms = (time.monotonic_ns() - search_started) / 1.0e6
+    construction_started = time.monotonic_ns()
+    route = _route_from_search(artifact, int(start_id), int(goal_id), distances, previous)
+    construction_ms = (time.monotonic_ns() - construction_started) / 1.0e6
+    return route, {
+        "adjacency_cache_hit": bool(adjacency_cached),
+        "adjacency_build_ms": float(adjacency_ms),
+        "route_search_ms": float(search_ms),
+        "route_construction_ms": float(construction_ms),
+    }
+
+
+def search_topology_multi_source_timed(
+    artifact: TopologyArtifact,
+    start_ids: Sequence[int],
+    goal_ids: Sequence[int],
+) -> Tuple[Optional[TopologyRoute], Optional[int], Optional[int], Dict[str, float | bool]]:
+    """Timed multi-source search used by the optimized layered candidate."""
+    starts = sorted({int(value) for value in start_ids})
+    goals = {int(value) for value in goal_ids}
+    adjacency_cached = artifact.graph.adjacency_cache_hit
+    adjacency_started = time.monotonic_ns()
+    adjacency = artifact.graph.adjacency()
+    adjacency_ms = (time.monotonic_ns() - adjacency_started) / 1.0e6
+    search_started = time.monotonic_ns()
+    queue: List[Tuple[float, int, int]] = []
+    distances: Dict[int, float] = {}
+    previous: Dict[int, Tuple[int, TopologyEdge, bool]] = {}
+    roots: Dict[int, int] = {}
+    for node_id in starts:
+        distances[node_id] = 0.0
+        roots[node_id] = node_id
+        heapq.heappush(queue, (0.0, node_id, node_id))
+    selected_goal: Optional[int] = None
+    while queue:
+        cost, node_id, root_id = heapq.heappop(queue)
+        if cost != distances.get(node_id) or roots.get(node_id) != root_id:
+            continue
+        if node_id in goals:
+            selected_goal = node_id
+            break
+        for target, edge, reverse in adjacency.get(node_id, []):
+            candidate = cost + edge.length_m
+            old = distances.get(target, float("inf"))
+            old_root = roots.get(target, 2**63 - 1)
+            if candidate < old or (candidate == old and root_id < old_root):
+                distances[target] = candidate
+                roots[target] = root_id
+                previous[target] = (node_id, edge, reverse)
+                heapq.heappush(queue, (candidate, int(target), root_id))
+    search_ms = (time.monotonic_ns() - search_started) / 1.0e6
+    construction_started = time.monotonic_ns()
+    if selected_goal is None:
+        route = None
+        selected_start = None
+    else:
+        selected_start = roots[selected_goal]
+        route = _route_from_search(artifact, selected_start, selected_goal, distances, previous)
+    construction_ms = (time.monotonic_ns() - construction_started) / 1.0e6
+    return route, selected_start, selected_goal, {
+        "adjacency_cache_hit": bool(adjacency_cached),
+        "adjacency_build_ms": float(adjacency_ms),
+        "route_search_ms": float(search_ms),
+        "route_construction_ms": float(construction_ms),
+    }
+
+
+def search_topology_multi_goal_timed(
+    artifact: TopologyArtifact,
+    start_ids: Sequence[int],
+    goal_ids: Sequence[int],
+) -> Tuple[Optional[TopologyRoute], Optional[int], Optional[int], Dict[str, float | bool | int]]:
+    """Search each ordered start once against all goals.
+
+    The ordered candidate semantics match the historical pair loop (nearest
+    start first, then nearest reachable goal) while avoiding one independent
+    graph search for every start/goal pair.
+    """
+    starts = list(dict.fromkeys(int(value) for value in start_ids))
+    goals = list(dict.fromkeys(int(value) for value in goal_ids))
+    adjacency_cached = artifact.graph.adjacency_cache_hit
+    adjacency_started = time.monotonic_ns()
+    adjacency = artifact.graph.adjacency()
+    adjacency_ms = (time.monotonic_ns() - adjacency_started) / 1.0e6
+    total_search_ms = 0.0
+    total_construction_ms = 0.0
+    attempts = 0
+    for start_id in starts:
+        attempts += 1
+        search_started = time.monotonic_ns()
+        queue = [(0.0, int(start_id))]
+        distances: Dict[int, float] = {int(start_id): 0.0}
+        previous: Dict[int, Tuple[int, TopologyEdge, bool]] = {}
+        while queue:
+            cost, node_id = heapq.heappop(queue)
+            if cost != distances.get(node_id):
+                continue
+            for target, edge, reverse in adjacency.get(node_id, []):
+                candidate = cost + edge.length_m
+                if candidate < distances.get(target, float("inf")):
+                    distances[target] = candidate
+                    previous[target] = (node_id, edge, reverse)
+                    heapq.heappush(queue, (candidate, int(target)))
+        total_search_ms += (time.monotonic_ns() - search_started) / 1.0e6
+        selected_goal = next((goal for goal in goals if goal in distances), None)
+        if selected_goal is None:
+            continue
+        construction_started = time.monotonic_ns()
+        route = _route_from_search(artifact, int(start_id), int(selected_goal), distances, previous)
+        total_construction_ms += (time.monotonic_ns() - construction_started) / 1.0e6
+        if route is not None:
+            return route, int(start_id), int(selected_goal), {
+                "adjacency_cache_hit": bool(adjacency_cached),
+                "adjacency_build_ms": float(adjacency_ms),
+                "route_search_ms": float(total_search_ms),
+                "route_construction_ms": float(total_construction_ms),
+                "candidate_pair_attempts": int(attempts),
+            }
+    return None, None, None, {
+        "adjacency_cache_hit": bool(adjacency_cached),
+        "adjacency_build_ms": float(adjacency_ms),
+        "route_search_ms": float(total_search_ms),
+        "route_construction_ms": float(total_construction_ms),
+        "candidate_pair_attempts": int(attempts),
+    }
+
+
+_RADIUS_KERNEL_CACHE: Dict[Tuple[float, float], np.ndarray] = {}
+
+
 def _kernel_for_radius(radius_m: float, resolution: float) -> np.ndarray:
+    cache_key = (round(float(radius_m), 6), round(float(resolution), 6))
+    cached = _RADIUS_KERNEL_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
     radius_cells = max(1, int(math.ceil(radius_m / resolution)))
     diameter = 2 * radius_cells + 1
-    return cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (diameter, diameter))
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (diameter, diameter))
+    _RADIUS_KERNEL_CACHE[cache_key] = kernel
+    return kernel
 
 
 def corridor_mask(

@@ -34,7 +34,7 @@ import yaml
 from . import unified_four_backends_smoke as legacy
 from .planner_benchmark.map_utils import sha256_file
 from .planner_benchmark.models import Query
-from .topology import footprint_hash, load_topology
+from .topology import _has_skimage, footprint_hash, load_topology
 
 
 ROOT = legacy.ROOT
@@ -52,6 +52,11 @@ MAX_CURVATURE = 2.5
 CURVATURE_NUMERICAL_TOLERANCE = 1.0e-3
 MAX_HEADING_JUMP = math.radians(25.0)
 MAX_PATH_SAMPLE_SPACING_M = legacy.MAX_PATH_SAMPLE_SPACING_M
+TOPOLOGY_PADDING_M = 0.05
+TOPOLOGY_SAFETY_MARGIN_M = 0.05
+TOPOLOGY_ALLOW_UNKNOWN = False
+CACHE_MODE_BASELINE = "baseline"
+CACHE_MODE_OPTIMIZED = "optimized"
 WINDOW_RADIUS_M = 2.0
 WINDOW_MARGIN_M = 2.0
 WINDOW_ENDPOINT_CONTEXT_M = 1.0
@@ -515,6 +520,7 @@ def _enrich(points: List[Dict[str, Any]], source_commit: Optional[str]) -> str:
 
 def _topology_cache_expected(
     map_id: str, ctx: legacy.MapContext, source_commit: Optional[str], source_hash: str,
+    planner_parameter_profile: str = "baseline",
 ) -> Dict[str, Any]:
     return {
         "map_id": map_id,
@@ -526,30 +532,41 @@ def _topology_cache_expected(
         "origin": [float(value) for value in ctx.hospital_map.origin],
         "footprint_hash": footprint_hash(FOOTPRINT),
         "topology_algorithm_version": legacy.TOPOLOGY_ALGORITHM_VERSION,
+        "topology_padding_m": TOPOLOGY_PADDING_M,
+        "topology_safety_margin_m": TOPOLOGY_SAFETY_MARGIN_M,
+        "allow_unknown": TOPOLOGY_ALLOW_UNKNOWN,
+        "skeleton_backend": "scikit-image" if _has_skimage() else "numpy_zhang_suen",
         "source_commit": source_commit or "unknown",
         "source_hash": source_hash,
+        "planner_parameter_profile": str(planner_parameter_profile),
     }
 
 
 def _load_or_build_topology_cache(
     map_id: str, ctx: legacy.MapContext, cache_root: Path,
     source_commit: Optional[str], source_hash: str,
+    planner_parameter_profile: str = "baseline",
 ) -> Tuple[legacy.TopologyArtifact, Dict[str, Any]]:
     """Load an exact metadata-bound topology artifact or build it once."""
-    expected = _topology_cache_expected(map_id, ctx, source_commit, source_hash)
+    expected = _topology_cache_expected(
+        map_id, ctx, source_commit, source_hash,
+        planner_parameter_profile=planner_parameter_profile,
+    )
     cache_key = hashlib.sha256(
         json.dumps(expected, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
     directory = cache_root / map_id / cache_key
     manifest_path = directory / "cache_manifest.yaml"
     load_started = time.monotonic_ns()
+    cache_miss_reason = ""
     if manifest_path.exists():
         stored = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
         if stored.get("cache_key") == cache_key and stored.get("metadata") == expected:
             try:
                 artifact = load_topology(
                     directory, ctx.hospital_map, FOOTPRINT,
-                    padding_m=0.05, safety_margin_m=0.05, allow_unknown=False,
+                    padding_m=TOPOLOGY_PADDING_M, safety_margin_m=TOPOLOGY_SAFETY_MARGIN_M,
+                    allow_unknown=TOPOLOGY_ALLOW_UNKNOWN,
                 )
                 return artifact, {
                     **expected, "topology_cache_key": cache_key,
@@ -557,15 +574,22 @@ def _load_or_build_topology_cache(
                     "topology_load_count": 1, "topology_build_time_ms": 0.0,
                     "topology_load_time_ms": (time.monotonic_ns() - load_started) / 1.0e6,
                     "cache_directory": str(directory),
+                    "cache_miss_reason": "",
                 }
             except (OSError, ValueError, KeyError, json.JSONDecodeError):
                 # Preserve the stale/corrupt cache.  A run-local fallback below
                 # avoids deleting or overwriting evidence from an earlier run.
+                cache_miss_reason = "artifact_load_failed"
                 directory = cache_root / map_id / f"{cache_key}_rebuild_{time.time_ns()}"
+        else:
+            cache_miss_reason = "metadata_mismatch"
+    else:
+        cache_miss_reason = "manifest_missing"
     build_started = time.monotonic_ns()
     artifact = legacy.build_topology(
         ctx.hospital_map, FOOTPRINT,
-        padding_m=0.05, safety_margin_m=0.05, allow_unknown=False,
+        padding_m=TOPOLOGY_PADDING_M, safety_margin_m=TOPOLOGY_SAFETY_MARGIN_M,
+        allow_unknown=TOPOLOGY_ALLOW_UNKNOWN,
     )
     build_ms = (time.monotonic_ns() - build_started) / 1.0e6
     legacy.save_topology(artifact, directory)
@@ -580,6 +604,7 @@ def _load_or_build_topology_cache(
         "topology_cache_hit": False, "topology_build_count": 1,
         "topology_load_count": 0, "topology_build_time_ms": build_ms,
         "topology_load_time_ms": 0.0, "cache_directory": str(directory),
+        "cache_miss_reason": cache_miss_reason,
     }
 
 
@@ -1410,9 +1435,12 @@ def run_smoke(
     optimization_stage: str = "step3_delta_map",
     smac_parameter_profile: str = "baseline",
     selected_final_profile: Optional[str] = None,
+    cache_mode: str = CACHE_MODE_BASELINE,
 ) -> Path:
     if context_scope not in {"query", "map"}:
         raise ValueError(f"unsupported Smac context scope: {context_scope}")
+    if cache_mode not in {CACHE_MODE_BASELINE, CACHE_MODE_OPTIMIZED}:
+        raise ValueError(f"unsupported cache mode: {cache_mode}")
     if warmups < 0 or repetitions <= 0:
         raise ValueError("warmups must be >= 0 and repetitions must be > 0")
     if efficiency_profile not in {"v5", "v6"}:
@@ -1471,6 +1499,7 @@ def run_smoke(
         if topology_cache_dir is not None:
             topology, cache_info = _load_or_build_topology_cache(
                 map_id, ctx, topology_cache_dir.resolve(), source_commit, topology_source_hash,
+                planner_parameter_profile=smac_parameter_profile,
             )
             after = resource.getrusage(resource.RUSAGE_SELF)
             topology.metadata["precompute_wall_time_ms"] = float(cache_info["topology_build_time_ms"])
@@ -1492,6 +1521,26 @@ def run_smoke(
                 "topology_load_time_ms": 0.0,
             }
         topologies[map_id] = topology
+        # Optimized mode pays for static graph/index preparation once during
+        # map initialization.  These timings are intentionally outside every
+        # query's online pipeline wall time.
+        if cache_mode == CACHE_MODE_OPTIMIZED:
+            from . import l1_l3_corridor_hybrid_smoke as optimized_candidate
+
+            adjacency_hit_before = bool(topology.graph.adjacency_cache_hit)
+            adjacency_started = time.monotonic_ns()
+            topology.graph.adjacency()
+            adjacency_ms = (time.monotonic_ns() - adjacency_started) / 1.0e6
+            index_started = time.monotonic_ns()
+            _index, index_hit, _certificate = optimized_candidate._get_endpoint_spatial_index(topology)
+            index_ms = (time.monotonic_ns() - index_started) / 1.0e6
+            topology.metadata.update({
+                "topology_adjacency_cache_hit": bool(adjacency_hit_before or topology.graph.adjacency_cache_hit),
+                "topology_adjacency_precompute_ms": float(adjacency_ms),
+                "endpoint_spatial_index_cache_hit": bool(index_hit),
+                "endpoint_spatial_index_precompute_ms": float(index_ms),
+            })
+            precompute_row.update(topology.metadata)
         if topology_cache_dir is None:
             legacy.save_topology(topology, output / "topology" / map_id)
         precompute_rows.append(precompute_row)
@@ -1596,6 +1645,8 @@ def run_smoke(
             layer_elapsed = 0.0
             l2_time = 0.0
             l1_time = 0.0
+            cache_fallback_used = False
+            cache_fallback_reason = ""
             raw_l2_path_file = ""
             simplified_l2_path_file = ""
             raw_l2_output_points: List[Dict[str, Any]] = []
@@ -1640,13 +1691,42 @@ def run_smoke(
                 })
             else:
                 layer_started = time.monotonic_ns()
-                l2_result, l2_diagnostics = legacy.plan_layered(
-                    ctx, query, "topology_guided_grid", specs, TIMEOUTS[map_id], topologies[map_id], output,
-                    capture_allowed_mask=simplify_l2,
+                selected_cache_mode = (
+                    legacy.CACHE_MODE_OPTIMIZED
+                    if cache_mode == CACHE_MODE_OPTIMIZED
+                    else legacy.CACHE_MODE_BASELINE
                 )
+                try:
+                    l2_result, l2_diagnostics = legacy.plan_layered(
+                        ctx, query, "topology_guided_grid", specs, TIMEOUTS[map_id], topologies[map_id], output,
+                        capture_allowed_mask=simplify_l2, cache_mode=selected_cache_mode,
+                    )
+                except (OSError, RuntimeError, ValueError, KeyError) as exc:
+                    if selected_cache_mode != legacy.CACHE_MODE_OPTIMIZED:
+                        raise
+                    cache_fallback_used = True
+                    cache_fallback_reason = f"optimized_exception:{type(exc).__name__}"
+                    l2_result, l2_diagnostics = legacy.plan_layered(
+                        ctx, query, "topology_guided_grid", specs, TIMEOUTS[map_id], topologies[map_id], output,
+                        capture_allowed_mask=simplify_l2, cache_mode=legacy.CACHE_MODE_BASELINE,
+                    )
                 layer_elapsed = (time.monotonic_ns() - layer_started) / 1.0e6
                 l2_time = float((l2_result.diagnostics or {}).get("planning_time_ms") or 0.0)
-                l1_time = max(0.0, layer_elapsed - l2_time)
+                l1_time = float((l2_result.diagnostics or {}).get("l1_graph_search_ms") or max(0.0, layer_elapsed - l2_time))
+                if (
+                    selected_cache_mode == legacy.CACHE_MODE_OPTIMIZED
+                    and not l2_result.planner_success
+                ):
+                    baseline_result, baseline_diagnostics = legacy.plan_layered(
+                        ctx, query, "topology_guided_grid", specs, TIMEOUTS[map_id], topologies[map_id], output,
+                        capture_allowed_mask=simplify_l2, cache_mode=legacy.CACHE_MODE_BASELINE,
+                    )
+                    if baseline_result.planner_success:
+                        cache_fallback_used = True
+                        cache_fallback_reason = f"optimized_l1_or_l2_failure:{l2_result.failure_code or 'NO_PATH'}"
+                        l2_result, l2_diagnostics = baseline_result, baseline_diagnostics
+                        l2_time = float((l2_result.diagnostics or {}).get("planning_time_ms") or 0.0)
+                        l1_time = float((l2_result.diagnostics or {}).get("l1_graph_search_ms") or max(0.0, layer_elapsed - l2_time))
                 allowed_mask = l2_diagnostics.pop("_allowed_mask_runtime", None)
                 raw_points = [dict(point) for point in (l2_result.points or [])]
                 raw_groups = _violation_groups(raw_points)
@@ -1795,7 +1875,32 @@ def run_smoke(
             validation_started = time.monotonic_ns()
             metrics = legacy.validate_path(ctx, query, points)
             output_validation_ms = (time.monotonic_ns() - validation_started) / 1.0e6
-            l3_diag = {**(l3_result.diagnostics or {}), **l3_session_timing}
+            # ``repair_all_windows`` returns its own L3 diagnostics. Preserve
+            # the L1/L2 diagnostics attached by ``plan_layered`` so cache
+            # timing and hit fields remain visible in the final run record.
+            l3_diag = {
+                **(l2_result.diagnostics or {}),
+                **(l3_result.diagnostics or {}),
+                **l3_session_timing,
+            }
+            l1_diag_fields = {
+                "cache_mode": l3_diag.get("cache_mode", cache_mode),
+                "cache_fallback_used": bool(cache_fallback_used),
+                "cache_fallback_reason": cache_fallback_reason,
+                "l1_attachment_lookup_ms": float(l3_diag.get("l1_attachment_lookup_ms") or 0.0),
+                "l1_candidate_collision_check_ms": float(l3_diag.get("l1_candidate_collision_check_ms") or 0.0),
+                "l1_adjacency_build_ms": float(l3_diag.get("l1_adjacency_build_ms") or 0.0),
+                "l1_route_search_ms": float(l3_diag.get("l1_route_search_ms") or 0.0),
+                "l1_route_construction_ms": float(l3_diag.get("l1_route_construction_ms") or 0.0),
+                "l1_total_time_ms": float(l3_diag.get("l1_total_time_ms") or l3_diag.get("l1_graph_search_ms") or 0.0),
+                "l1_start_candidate_count": int(l3_diag.get("l1_start_candidate_count") or 0),
+                "l1_goal_candidate_count": int(l3_diag.get("l1_goal_candidate_count") or 0),
+                "l1_candidate_pair_attempts": int(l3_diag.get("l1_candidate_pair_attempts") or 0),
+                "topology_adjacency_cache_hit": bool(l3_diag.get("topology_adjacency_cache_hit", False)),
+                "endpoint_spatial_index_cache_hit": bool(l3_diag.get("endpoint_spatial_index_cache_hit", False)),
+                "endpoint_candidate_cache_hit": bool(l3_diag.get("endpoint_candidate_cache_hit", False)),
+                "route_cache_hit": bool(l3_diag.get("route_cache_hit", False)),
+            }
             stitch_validation_ms = float(l3_diag.get("stitch_validation_time_ms") or 0.0) + output_validation_ms
             pipeline_wall = (time.monotonic_ns() - pipeline_started) / 1.0e6
             pipeline_cpu = max(0.0, (after.ru_utime - before.ru_utime + after.ru_stime - before.ru_stime) * 1000.0)
@@ -1847,7 +1952,7 @@ def run_smoke(
                 "topology_cache_hit": bool(topology_info.get("topology_cache_hit")),
                 "topology_cache_key": topology_info.get("topology_cache_key", ""),
                 "query_topology_reused": True,
-                **query_session, **l2_efficiency,
+                **query_session, **l2_efficiency, **l1_diag_fields,
             }
             for row in query_call_rows:
                 row.update(common_call_fields)
@@ -1935,7 +2040,7 @@ def run_smoke(
                 "topology_cache_hit": bool(topology_info.get("topology_cache_hit")),
                 "topology_cache_key": topology_info.get("topology_cache_key", ""),
                 "query_topology_reused": True,
-                **query_session, **l2_efficiency,
+                **query_session, **l2_efficiency, **l1_diag_fields,
                 "path_length_m": metrics["path_length_m"], "minimum_clearance_m": metrics["minimum_clearance_m"],
                 "maximum_curvature": metrics["maximum_curvature"], "curvature_p95": metrics["curvature_p95"],
                 "heading_discontinuity_count": metrics["heading_discontinuity_count"], "steering_jump_count": metrics["steering_jump_count"],
@@ -2135,6 +2240,7 @@ def run_smoke(
         "delta_max_patch_gap_cells": legacy.DELTA_MAX_PATCH_GAP_CELLS,
         "delta_max_patch_expansion": legacy.DELTA_MAX_PATCH_EXPANSION,
         "context_scope": context_scope, "warmups": warmups, "repetitions": repetitions,
+        "cache_mode": cache_mode,
         "online_timing_fields": [
             "cold_stack_startup_ms", "topology_build_time_ms", "topology_load_time_ms", "online_pipeline_wall_time_ms",
             "l1_graph_search_ms", "l2_grid_search_ms", "l3_local_map_update_ms",
@@ -2441,6 +2547,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--context-scope", choices=("query", "map"), default="query", help="reuse Smac per query (legacy) or per map (online latency mode)")
     parser.add_argument("--warmups", type=int, default=0)
     parser.add_argument("--repetitions", type=int, default=1)
+    parser.add_argument("--cache-mode", choices=(CACHE_MODE_BASELINE, CACHE_MODE_OPTIMIZED), default=CACHE_MODE_BASELINE,
+                        help="L1/L2 map-cache mode; baseline preserves the frozen V7 query path")
     return parser
 
 
@@ -2451,6 +2559,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             Path(args.output_dir).resolve(), map_ids=args.map_ids or DEFAULT_MAP_IDS,
             query_ids=args.query_ids or DEFAULT_QUERY_IDS, include_diagnostics=not args.no_diagnostics,
             context_scope=args.context_scope, warmups=args.warmups, repetitions=args.repetitions,
+            cache_mode=args.cache_mode,
         )
     except (OSError, RuntimeError, ValueError, KeyError) as exc:
         print(f"fixed_layered_pipeline_smoke: ERROR: {exc}")

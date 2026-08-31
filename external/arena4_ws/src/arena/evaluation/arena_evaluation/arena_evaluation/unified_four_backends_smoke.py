@@ -72,6 +72,8 @@ LAYERED_MODES = (
     "l3_hybrid_repair",
     "l3_kinodynamic_rrt",
 )
+CACHE_MODE_BASELINE = "baseline"
+CACHE_MODE_OPTIMIZED = "optimized"
 
 
 def _strict_smac_config_path() -> Path:
@@ -301,6 +303,7 @@ class SmacSession:
         log_tag: Optional[str] = None, local_mask_updates: bool = False,
         optimization_profile: str = "v6_compatible", smac_parameter_profile: str = "baseline",
         optimization_stage: str = "step3_delta_map",
+        enable_mask_reuse_noop: bool = False,
     ):
         from .planner_benchmark.config import load_yaml, stack_parameters
         from .planner_benchmark.runner import BenchmarkStack, ComputePathClient
@@ -410,6 +413,10 @@ class SmacSession:
         self._costmap_state_trusted = False
         self._force_full_next_update = False
         self._action_in_progress = False
+        # Optional r1 optimization.  Kept disabled by default so the V0/V7
+        # session semantics remain unchanged.
+        self.enable_mask_reuse_noop = bool(enable_mask_reuse_noop)
+        self._last_update_had_fallback = False
 
     def start(self) -> None:
         started_ns = time.monotonic_ns()
@@ -555,7 +562,8 @@ class SmacSession:
         clear_ms = self._clear_global_costmap() if clear_costmap else 0.0
         self._local_map_publisher.publish(full_map)
         self._local_update_publisher.publish(message)
-        for _ in range(3 if self.local_map_update_strategy == "v6_full" else 2):
+        settle_cycles = int(getattr(self, "full_grid_settle_cycles", 3 if self.local_map_update_strategy == "v6_full" else 2))
+        for _ in range(max(0, settle_cycles)):
             self.client.executor.spin_once(timeout_sec=0.01)
         return clear_ms
 
@@ -603,6 +611,37 @@ class SmacSession:
         started_ns = time.monotonic_ns()
         expected_hash = _grid_digest(values)
         previous_hash = _grid_digest(self._current_grid) if self._current_grid is not None else ""
+        can_reuse = bool(
+            getattr(self, "enable_mask_reuse_noop", False) and not force_full and not initialization
+            and not getattr(self, "_force_full_next_update", False) and getattr(self, "_costmap_state_trusted", False)
+            and self._current_grid is not None and not getattr(self, "_last_update_had_fallback", False)
+            and previous_hash == expected_hash
+        )
+        if can_reuse:
+            elapsed_ms = (time.monotonic_ns() - started_ns) / 1.0e6
+            allowed_cells = int(np.count_nonzero(mask))
+            self._local_mask_info = {
+                "local_mask_hash": expected_hash,
+                "local_map_width_cells": int(mask.shape[1]),
+                "local_map_height_cells": int(mask.shape[0]),
+                "local_window_allowed_cells": allowed_cells,
+                "local_window_start_index": int(window_start_index),
+                "local_window_end_index": int(window_end_index),
+                "local_window_path_length_m": window_path_length_m,
+                "local_map_update_ms": elapsed_ms,
+                "local_costmap_clear_ms": 0.0,
+                "local_map_update_mode": "reuse_noop",
+                "local_map_update_messages": 0,
+                "local_map_update_cells": 0,
+                "local_map_update_bytes": 0,
+                "local_map_update_fallback": False,
+                "local_map_update_fallback_reason": "",
+                "local_map_update_skipped": True,
+                "previous_mask_hash": previous_hash,
+                "expected_mask_hash": expected_hash,
+                "applied_mask_hash": previous_hash,
+            }
+            return dict(self._local_mask_info)
         mode = "v6_full"
         messages = 1
         cells = int(values.size)
@@ -652,6 +691,7 @@ class SmacSession:
         self._current_grid = applied
         self._costmap_state_trusted = applied_hash == expected_hash
         self._force_full_next_update = False
+        self._last_update_had_fallback = bool(fallback)
         elapsed_ms = (time.monotonic_ns() - started_ns) / 1.0e6
         self._local_mask_info = {
             "local_mask_hash": expected_hash,
@@ -669,6 +709,7 @@ class SmacSession:
             "local_map_update_bytes": update_bytes,
             "local_map_update_fallback": fallback,
             "local_map_update_fallback_reason": actual_fallback_reason,
+            "local_map_update_skipped": False,
             "previous_mask_hash": previous_hash,
             "expected_mask_hash": expected_hash,
             "applied_mask_hash": applied_hash,
@@ -702,6 +743,7 @@ class SmacSession:
         self, query: Query, spec: BackendSpec, *, source: str = "hybrid_astar",
         allowed_mask: Any = None, window_start_index: int = -1,
         window_end_index: int = -1, window_path_length_m: Optional[float] = None,
+        force_full_update: bool = False,
     ) -> PlanResult:
         if self.client is None:
             return unavailable_plan(spec, source=source)
@@ -712,6 +754,7 @@ class SmacSession:
                 allowed_mask, window_start_index=window_start_index,
                 window_end_index=window_end_index,
                 window_path_length_m=window_path_length_m,
+                force_full=bool(force_full_update),
             )
             local_update_ms = float(local_mask_info.get("local_map_update_ms") or 0.0)
         def call_action() -> Tuple[str, str, float, Any, List[Dict[str, Any]], Any, Optional[float]]:
@@ -724,6 +767,7 @@ class SmacSession:
                 self._action_in_progress = False
             if result_code == "CLIENT_TIMEOUT":
                 self._costmap_state_trusted = False
+                self._last_update_had_fallback = True
             points = _annotate_smac_points(raw_points or [], spec, source)
             planning_ms = None
             duration = getattr(action_result, "planning_time", None)
@@ -1348,10 +1392,28 @@ def plan_layered(
     ctx: MapContext, query: Query, mode: str, specs: Mapping[str, BackendSpec], timeout_s: float,
     topology: Optional[TopologyArtifact], output: Optional[Path] = None,
     capture_allowed_mask: bool = False,
+    cache_mode: str = CACHE_MODE_BASELINE,
 ) -> Tuple[PlanResult, Dict[str, Any]]:
+    if cache_mode not in {CACHE_MODE_BASELINE, CACHE_MODE_OPTIMIZED}:
+        raise ValueError(f"unsupported cache mode: {cache_mode}")
     diagnostics: Dict[str, Any] = {
         "layer_mode": mode, "l1_route": False, "l2_attempts": [],
         "l3_attempted": False, "backend_calls": [],
+        "cache_mode": cache_mode,
+        "l1_attachment_lookup_ms": 0.0,
+        "l1_candidate_collision_check_ms": 0.0,
+        "l1_adjacency_build_ms": 0.0,
+        "l1_route_search_ms": 0.0,
+        "l1_route_construction_ms": 0.0,
+        "l1_graph_search_ms": 0.0,
+        "l1_total_time_ms": 0.0,
+        "l1_start_candidate_count": 0,
+        "l1_goal_candidate_count": 0,
+        "l1_candidate_pair_attempts": 0,
+        "topology_adjacency_cache_hit": bool(getattr(getattr(topology, "graph", None), "adjacency_cache_hit", False)),
+        "endpoint_spatial_index_cache_hit": False,
+        "endpoint_candidate_cache_hit": False,
+        "route_cache_hit": False,
     }
     if mode == "full_grid":
         result = plan_grid_astar(ctx, query, timeout_s, source="full_grid")
@@ -1360,10 +1422,70 @@ def plan_layered(
         return result, diagnostics
     if topology is None:
         return PlanResult(failure_code="TOPOLOGY_BUILD_FAILED", failure_detail="topology artifact unavailable", source="l1"), diagnostics
+    l1_started = time.monotonic_ns()
+    endpoint_started = time.monotonic_ns()
     start_cell = ctx.hospital_map.world_to_cell(*query.start[:2])
     goal_cell = ctx.hospital_map.world_to_cell(*query.goal[:2])
-    start_attachment = attach_pose(topology, query.start, FOOTPRINT)
-    goal_attachment = attach_pose(topology, query.goal, FOOTPRINT)
+    if cache_mode == CACHE_MODE_OPTIMIZED:
+        # Import lazily: the optimized helper imports this legacy module for
+        # constants and path validation, so importing it at module load time
+        # would create a circular import.
+        from . import l1_l3_corridor_hybrid_smoke as optimized_candidate
+
+        attach_timing: Dict[str, Any] = {}
+        start_attachment, goal_attachment, route, attach_reason = optimized_candidate._select_route_with_endpoint_attach(
+            topology, query, cache_mode=optimized_candidate.CACHE_MODE_OPTIMIZED,
+            timing=attach_timing,
+        )
+        diagnostics.update({
+            "l1_attachment_lookup_ms": float(attach_timing.get("start_lookup_ms", 0.0))
+            + float(attach_timing.get("goal_lookup_ms", 0.0)),
+            "l1_candidate_collision_check_ms": float(attach_timing.get("start_collision_check_ms", 0.0))
+            + float(attach_timing.get("goal_collision_check_ms", 0.0)),
+            "l1_start_candidate_count": int(attach_timing.get("start_candidate_count", 0)),
+            "l1_goal_candidate_count": int(attach_timing.get("goal_candidate_count", 0)),
+            "endpoint_spatial_index_cache_hit": bool(attach_timing.get("endpoint_spatial_index_cache_hit", False)),
+            "endpoint_candidate_cache_hit": bool(attach_timing.get("endpoint_candidate_cache_hit", False)),
+            "route_cache_hit": bool(attach_timing.get("route_cache_hit", False)),
+            "l1_adjacency_build_ms": float(attach_timing.get("adjacency_build_ms", 0.0)),
+            "l1_route_search_ms": float(attach_timing.get("route_search_ms", 0.0)),
+            "l1_route_construction_ms": float(attach_timing.get("route_construction_ms", 0.0)),
+            "l1_candidate_pair_attempts": int(attach_timing.get("candidate_pair_attempts", 0)),
+            "topology_adjacency_cache_hit": bool(attach_timing.get(
+                "topology_adjacency_cache_hit",
+                diagnostics["topology_adjacency_cache_hit"],
+            )),
+            "endpoint_attach_reason": attach_reason,
+        })
+    else:
+        # Preserve the frozen V7 baseline attach semantics exactly.  The
+        # timings below are observational only and do not alter selection.
+        attach_started = time.monotonic_ns()
+        start_attachment = attach_pose(topology, query.start, FOOTPRINT)
+        goal_attachment = attach_pose(topology, query.goal, FOOTPRINT)
+        diagnostics["l1_attachment_lookup_ms"] = (time.monotonic_ns() - attach_started) / 1.0e6
+        diagnostics["l1_start_candidate_count"] = int(start_attachment is not None)
+        diagnostics["l1_goal_candidate_count"] = int(goal_attachment is not None)
+        route = None
+        attach_reason = "legacy_attach"
+        if start_attachment is not None and goal_attachment is not None:
+            adjacency_started = time.monotonic_ns()
+            topology.graph.adjacency()
+            diagnostics["l1_adjacency_build_ms"] = (time.monotonic_ns() - adjacency_started) / 1.0e6
+            route_started = time.monotonic_ns()
+            route = search_topology(topology, start_attachment.node_id, goal_attachment.node_id)
+            diagnostics["l1_route_search_ms"] = (time.monotonic_ns() - route_started) / 1.0e6
+            diagnostics["topology_adjacency_cache_hit"] = bool(
+                getattr(getattr(topology, "graph", None), "adjacency_cache_hit", False)
+            )
+    diagnostics["l1_graph_search_ms"] = float(
+        diagnostics["l1_attachment_lookup_ms"]
+        + diagnostics["l1_candidate_collision_check_ms"]
+        + diagnostics["l1_adjacency_build_ms"]
+        + diagnostics["l1_route_search_ms"]
+        + diagnostics["l1_route_construction_ms"]
+    )
+    diagnostics["l1_total_time_ms"] = float((time.monotonic_ns() - l1_started) / 1.0e6)
     if start_cell is None or goal_cell is None or start_attachment is None or goal_attachment is None:
         diagnostics["failure_code"] = "TOPOLOGY_ENDPOINT_NOT_ATTACHABLE"
         if mode == "topology_guided_grid_fallback":
@@ -1372,7 +1494,9 @@ def plan_layered(
             result.diagnostics = {**(result.diagnostics or {}), **diagnostics}
             return result, diagnostics
         return PlanResult(failure_code="TOPOLOGY_ENDPOINT_NOT_ATTACHABLE", failure_detail="L1 could not attach endpoint", source="l1"), diagnostics
-    route = search_topology(topology, start_attachment.node_id, goal_attachment.node_id)
+    # Baseline route was searched above; optimized route is selected by the
+    # multi-goal helper.  Keep this guard to make malformed custom helpers a
+    # structured failure instead of performing a hidden second search.
     if route is None:
         diagnostics["failure_code"] = "TOPOLOGY_NO_ROUTE"
         if mode == "topology_guided_grid_fallback":
