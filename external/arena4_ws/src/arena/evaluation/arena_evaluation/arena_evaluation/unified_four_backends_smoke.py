@@ -128,6 +128,7 @@ class PlanResult:
     rewires: Optional[int] = None
     first_solution_time_ms: Optional[float] = None
     diagnostics: Dict[str, Any] = None  # type: ignore[assignment]
+    path_audit: Any = None
 
 
 SMAC_PARAMETER_PROFILES: Dict[str, Dict[str, Any]] = {
@@ -304,13 +305,15 @@ class SmacSession:
         optimization_profile: str = "v6_compatible", smac_parameter_profile: str = "baseline",
         optimization_stage: str = "step3_delta_map",
         enable_mask_reuse_noop: bool = False,
+        planner_parameter_overrides: Optional[Mapping[str, Any]] = None,
+        costmap_ack_timeout_s: float = 0.6,
     ):
         from .planner_benchmark.config import load_yaml, stack_parameters
         from .planner_benchmark.runner import BenchmarkStack, ComputePathClient
 
         import rclpy
         from map_msgs.msg import OccupancyGridUpdate
-        from nav2_msgs.srv import ClearEntireCostmap
+        from nav2_msgs.srv import ClearEntireCostmap, GetCostmap
         from nav_msgs.msg import OccupancyGrid
         from rclpy.qos import QoSDurabilityPolicy, QoSProfile, QoSReliabilityPolicy
         from rclpy.context import Context
@@ -342,9 +345,18 @@ class SmacSession:
         self.OccupancyGridUpdate = OccupancyGridUpdate
         self.OccupancyGrid = OccupancyGrid
         self.ClearEntireCostmap = ClearEntireCostmap
+        self.GetCostmap = GetCostmap
         self._map_qos = QoSProfile(
             depth=1, reliability=QoSReliabilityPolicy.RELIABLE,
             durability=QoSDurabilityPolicy.TRANSIENT_LOCAL,
+        )
+        # Nav2 Humble's StaticLayer subscribes to map updates as BEST_EFFORT.
+        # Match that endpoint exactly and bound each serialized update below a
+        # DDS fragment-heavy payload; server readback remains the reliability
+        # barrier for the complete logical ROI.
+        self._map_update_qos = QoSProfile(
+            depth=10, reliability=QoSReliabilityPolicy.BEST_EFFORT,
+            durability=QoSDurabilityPolicy.VOLATILE,
         )
         self.context = Context()
         rclpy.init(context=self.context)
@@ -362,6 +374,11 @@ class SmacSession:
                     planner_config["GridBased"].setdefault("smoother", {}).update(value)
                 else:
                     planner_config["GridBased"][key] = value
+            for key, value in dict(planner_parameter_overrides or {}).items():
+                if key == "smoother" and isinstance(value, Mapping):
+                    planner_config["GridBased"].setdefault("smoother", {}).update(dict(value))
+                else:
+                    planner_config["GridBased"][str(key)] = value
         protocol = {
             "resolution": 0.05,
             "width_cells": ctx.hospital_map.width,
@@ -407,6 +424,7 @@ class SmacSession:
         self._local_update_publisher = None
         self._local_map_publisher = None
         self._clear_costmap_client = None
+        self._get_costmap_client = None
         self._local_mask_info: Dict[str, Any] = {}
         self._current_allowed_mask: Optional[np.ndarray] = None
         self._current_grid: Optional[np.ndarray] = None
@@ -417,6 +435,16 @@ class SmacSession:
         # session semantics remain unchanged.
         self.enable_mask_reuse_noop = bool(enable_mask_reuse_noop)
         self._last_update_had_fallback = False
+        self._last_publish_timing: Dict[str, float] = {}
+        self._last_delta_publish_timing: Dict[str, float] = {}
+        self.costmap_ack_timeout_s = max(0.05, float(costmap_ack_timeout_s))
+        # Keep each BEST_EFFORT sample comfortably below the multi-megabyte
+        # updates that Humble/Fast-DDS dropped in transport testing, while
+        # avoiding dozens of artificial spin delays per request.
+        self.roi_max_payload_bytes = 128_000
+        self.roi_publish_pacing_s = 0.001
+        self._last_server_update_time_ns = -1
+        self._costmap_ack_sequence = 0
 
     def start(self) -> None:
         started_ns = time.monotonic_ns()
@@ -430,7 +458,7 @@ class SmacSession:
         )
         if self.supports_local_mask:
             self._local_update_publisher = self.client.node.create_publisher(
-                self.OccupancyGridUpdate, "/map_updates", 10,
+                self.OccupancyGridUpdate, "/map_updates", self._map_update_qos,
             )
             # StaticLayer handles a complete OccupancyGrid deterministically;
             # publishing it alongside the update message avoids relying on a
@@ -441,10 +469,13 @@ class SmacSession:
             self._clear_costmap_client = self.client.node.create_client(
                 self.ClearEntireCostmap, "/global_costmap/clear_entirely_global_costmap",
             )
+            self._get_costmap_client = self.client.node.create_client(
+                self.GetCostmap, "/global_costmap/get_costmap",
+            )
         self.stack_startup_time_ms = (time.monotonic_ns() - started_ns) / 1.0e6
         self.session_start_count += 1
 
-        if self.supports_local_mask and self.local_map_update_strategy == "delta":
+        if self.supports_local_mask and self.local_map_update_strategy in {"delta", "roi_ack"}:
             # The cold-start phase initializes a deterministic all-lethal map.
             # Online requests then only open/close their local regions.
             lethal = np.zeros(
@@ -484,8 +515,10 @@ class SmacSession:
         self._local_mask_info = {}
         if restore_base_map and self.supports_local_mask:
             base_mask = np.asarray(self.ctx.hospital_map.occupancy == 0, dtype=bool)
-            self.update_local_mask(base_mask, force_full=True)
+            reset_map_info = self.update_local_mask(base_mask, force_full=True)
             self._local_mask_info = {}
+        else:
+            reset_map_info = {}
         return {
             "query_session_reused": self.session_start_count == 1,
             "session_start_count": self.session_start_count,
@@ -496,6 +529,11 @@ class SmacSession:
             "session_reset_fallback": fallback,
             "session_reset_fallback_reason": fallback_reason,
             "query_session_reset_ms": (time.monotonic_ns() - reset_started_ns) / 1.0e6,
+            "query_session_reset_local_map_generation_ms": reset_map_info.get("local_map_generation_ms", 0.0),
+            "query_session_reset_local_map_serialization_ms": reset_map_info.get("local_map_serialization_ms", 0.0),
+            "query_session_reset_local_map_publication_ms": reset_map_info.get("local_map_publication_ms", 0.0),
+            "query_session_reset_costmap_clear_ms": reset_map_info.get("local_costmap_clear_ms", 0.0),
+            "query_session_reset_costmap_settle_ms": reset_map_info.get("costmap_settle_ms", 0.0),
         }
 
     def close(self) -> None:
@@ -508,6 +546,7 @@ class SmacSession:
                 self.client.node.destroy_publisher(self._local_map_publisher)
                 self._local_map_publisher = None
             self._clear_costmap_client = None
+            self._get_costmap_client = None
             self.client.close()
             self.client = None
         self.stack.stop()
@@ -540,7 +579,231 @@ class SmacSession:
                 raise RuntimeError("global costmap clear service timed out")
         return (time.monotonic_ns() - clear_started_ns) / 1.0e6
 
+    def _server_costmap_snapshot(self, deadline: float) -> Tuple[np.ndarray, int]:
+        """Read the planner server's master costmap through its service."""
+        if self._get_costmap_client is None or self.client is None:
+            raise RuntimeError("global costmap readback service is unavailable")
+        remaining = max(0.0, deadline - time.monotonic())
+        if not self._get_costmap_client.wait_for_service(timeout_sec=min(0.2, remaining)):
+            raise RuntimeError("global costmap readback service unavailable")
+        future = self._get_costmap_client.call_async(self.GetCostmap.Request())
+        while not future.done() and time.monotonic() < deadline:
+            self.client.executor.spin_once(timeout_sec=min(0.01, max(0.0, deadline - time.monotonic())))
+        if not future.done():
+            raise RuntimeError("global costmap readback timed out")
+        response = future.result()
+        message = getattr(response, "map", None)
+        metadata = getattr(message, "metadata", None)
+        width = int(getattr(metadata, "size_x", 0))
+        height = int(getattr(metadata, "size_y", 0))
+        if width != int(self.ctx.hospital_map.width) or height != int(self.ctx.hospital_map.height):
+            raise RuntimeError(f"global costmap readback shape mismatch: {width}x{height}")
+        data = np.frombuffer(bytes(getattr(message, "data", b"")), dtype=np.uint8)
+        if data.size != width * height:
+            raise RuntimeError("global costmap readback data length mismatch")
+        update_time = getattr(metadata, "update_time", None)
+        update_time_ns = (
+            int(getattr(update_time, "sec", 0)) * 1_000_000_000
+            + int(getattr(update_time, "nanosec", 0))
+        )
+        return data.reshape((height, width)), update_time_ns
+
+    def _wait_for_costmap_ack(
+        self,
+        expected: np.ndarray,
+        changed: np.ndarray,
+        *,
+        timeout_s: Optional[float] = None,
+    ) -> Dict[str, Any]:
+        """Wait until Nav2's master costmap reflects every changed static cell.
+
+        The server costmap includes inflation, so raw byte equality with the
+        static grid is intentionally not used.  A closed corridor cell must be
+        lethal (254), while an opened raw-free cell must be non-lethal.  This
+        checks the complete changed set returned by the server, rather than a
+        client-side predicted grid hash.
+        """
+        ack_started_ns = time.monotonic_ns()
+        deadline = time.monotonic() + float(timeout_s or self.costmap_ack_timeout_s)
+        expected_grid = np.asarray(expected, dtype=np.int8)
+        changed_mask = np.asarray(changed, dtype=bool)
+        checked = int(np.count_nonzero(changed_mask))
+        if checked == 0:
+            return {
+                "costmap_update_acknowledged": True,
+                "costmap_ack_status": "unchanged_verified_state",
+                "costmap_ack_wait_ms": 0.0,
+                "costmap_ack_attempts": 0,
+                "costmap_ack_checked_cells": 0,
+                "costmap_ack_mismatch_cells": 0,
+                "server_costmap_update_time_ns": self._last_server_update_time_ns,
+                "server_costmap_content_hash": "",
+            }
+        # Let the subscription callback and one costmap update event become
+        # runnable before requesting the large service snapshot.  This is not
+        # a correctness settle: the subsequent server-content comparison is
+        # still the only gate.  It avoids spending the first multi-megabyte
+        # GetCostmap response on a version that necessarily predates the
+        # just-published ROI.
+        if self.client is not None:
+            self.client.executor.spin_once(
+                timeout_sec=min(0.025, max(0.0, deadline - time.monotonic())),
+            )
+        attempts = 0
+        last_mismatch = checked
+        last_update_time_ns = -1
+        last_hash = ""
+        last_error = ""
+        repair_count = 0
+        repair_messages = 0
+        repair_cells = 0
+        repair_serialization_ms = 0.0
+        repair_publication_ms = 0.0
+        while time.monotonic() < deadline:
+            attempts += 1
+            try:
+                server, update_time_ns = self._server_costmap_snapshot(deadline)
+            except RuntimeError as exc:
+                last_error = str(exc)
+                continue
+            server_values = np.ascontiguousarray(server[changed_mask], dtype=np.uint8)
+            expected_values = expected_grid[changed_mask]
+            expected_closed = expected_values == 100
+            matches = np.where(expected_closed, server_values == 254, server_values < 254)
+            last_mismatch = int(matches.size - np.count_nonzero(matches))
+            last_update_time_ns = int(update_time_ns)
+            last_hash = hashlib.sha256(server_values.tobytes()).hexdigest()
+            if last_mismatch == 0:
+                self._last_server_update_time_ns = last_update_time_ns
+                self._costmap_ack_sequence += 1
+                return {
+                    "costmap_update_acknowledged": True,
+                    "costmap_ack_status": "server_content_verified",
+                    "costmap_ack_wait_ms": (time.monotonic_ns() - ack_started_ns) / 1.0e6,
+                    "costmap_ack_attempts": attempts,
+                    "costmap_ack_checked_cells": checked,
+                    "costmap_ack_mismatch_cells": 0,
+                    "costmap_ack_sequence": self._costmap_ack_sequence,
+                    "server_costmap_update_time_ns": last_update_time_ns,
+                    "server_costmap_content_hash": last_hash,
+                    "costmap_ack_repair_count": repair_count,
+                    "costmap_ack_repair_messages": repair_messages,
+                    "costmap_ack_repair_cells": repair_cells,
+                    "costmap_ack_repair_serialization_ms": repair_serialization_ms,
+                    "costmap_ack_repair_publication_ms": repair_publication_ms,
+                }
+            # BEST_EFFORT delivery can lose an isolated update tile even when
+            # nearly all of the logical ROI arrived.  Re-publish only the
+            # server-proven mismatching cells (bounded to two attempts) before
+            # declaring the ACK timeout and performing the required full
+            # fallback.  Large mismatches are still allowed to settle first.
+            elapsed_s = (time.monotonic_ns() - ack_started_ns) / 1.0e9
+            repair_limit = max(5_000, int(math.ceil(checked * 0.05)))
+            if repair_count < 2 and elapsed_s >= 0.05 and last_mismatch <= repair_limit:
+                mismatch_mask = np.zeros(changed_mask.shape, dtype=bool)
+                changed_indices = np.flatnonzero(changed_mask)
+                mismatch_mask.flat[changed_indices[~matches]] = True
+                _applied, repair_info = self._publish_dirty_roi(expected_grid, mismatch_mask)
+                repair_count += 1
+                repair_messages += int(repair_info.get("roi_message_count", 0))
+                repair_cells += int(repair_info.get("roi_published_cells", 0))
+                repair_serialization_ms += float(repair_info.get("local_map_serialization_ms", 0.0))
+                repair_publication_ms += float(repair_info.get("local_map_publication_ms", 0.0))
+                if self.client is not None:
+                    self.client.executor.spin_once(
+                        timeout_sec=min(0.025, max(0.0, deadline - time.monotonic())),
+                    )
+            if self.client is not None:
+                self.client.executor.spin_once(timeout_sec=min(0.01, max(0.0, deadline - time.monotonic())))
+        return {
+            "costmap_update_acknowledged": False,
+            "costmap_ack_status": "server_content_mismatch" if not last_error else "readback_error",
+            "costmap_ack_wait_ms": (time.monotonic_ns() - ack_started_ns) / 1.0e6,
+            "costmap_ack_attempts": attempts,
+            "costmap_ack_checked_cells": checked,
+            "costmap_ack_mismatch_cells": last_mismatch,
+            "costmap_ack_sequence": self._costmap_ack_sequence,
+            "server_costmap_update_time_ns": last_update_time_ns,
+            "server_costmap_content_hash": last_hash,
+            "costmap_ack_error": last_error,
+            "costmap_ack_repair_count": repair_count,
+            "costmap_ack_repair_messages": repair_messages,
+            "costmap_ack_repair_cells": repair_cells,
+            "costmap_ack_repair_serialization_ms": repair_serialization_ms,
+            "costmap_ack_repair_publication_ms": repair_publication_ms,
+        }
+
+    def _publish_dirty_roi(
+        self, expected: np.ndarray, changed: np.ndarray,
+    ) -> Tuple[np.ndarray, Dict[str, Any]]:
+        """Publish one merged ROI containing both corridor closes and opens."""
+        if self._current_grid is None:
+            raise RuntimeError("ROI update has no initialized grid")
+        changed_cells = np.argwhere(np.asarray(changed, dtype=bool))
+        if changed_cells.size == 0:
+            return self._current_grid.copy(), {
+                "local_map_serialization_ms": 0.0,
+                "local_map_publication_ms": 0.0,
+                "costmap_settle_ms": 0.0,
+                "roi_bbox": [0, 0, 0, 0],
+                "roi_changed_cells": 0,
+            }
+        min_y = int(changed_cells[:, 0].min())
+        max_y = int(changed_cells[:, 0].max()) + 1
+        min_x = int(changed_cells[:, 1].min())
+        max_x = int(changed_cells[:, 1].max()) + 1
+        width = max_x - min_x
+        # The logical dirty ROI remains one merged bbox, but Nav2 Humble's
+        # BEST_EFFORT update subscription can drop a 1-5 MB sample.  Publish
+        # deterministic horizontal tiles no larger than 32 KiB and verify the
+        # union through GetCostmap before planning.
+        max_payload_bytes = max(1024, int(getattr(self, "roi_max_payload_bytes", 128_000)))
+        rows_per_tile = max(1, max_payload_bytes // max(1, width))
+        serialization_ms = 0.0
+        publication_ms = 0.0
+        message_count = 0
+        for tile_y in range(min_y, max_y, rows_per_tile):
+            tile_y1 = min(max_y, tile_y + rows_per_tile)
+            serialize_started_ns = time.monotonic_ns()
+            patch = np.ascontiguousarray(
+                expected[tile_y:tile_y1, min_x:max_x], dtype=np.int8,
+            )
+            message = self.OccupancyGridUpdate()
+            message.header.frame_id = "map"
+            message.header.stamp = self.client.node.get_clock().now().to_msg()
+            message.x = min_x
+            message.y = tile_y
+            message.width = width
+            message.height = tile_y1 - tile_y
+            message.data = array("b", patch.tobytes())
+            serialization_ms += (time.monotonic_ns() - serialize_started_ns) / 1.0e6
+            publish_started_ns = time.monotonic_ns()
+            self._local_update_publisher.publish(message)
+            publication_ms += (time.monotonic_ns() - publish_started_ns) / 1.0e6
+            message_count += 1
+            pacing_s = max(0.0, float(getattr(self, "roi_publish_pacing_s", 0.001)))
+            if pacing_s > 0.0:
+                executor = getattr(self.client, "executor", None)
+                if executor is not None:
+                    executor.spin_once(timeout_sec=pacing_s)
+                else:
+                    time.sleep(pacing_s)
+        applied = self._current_grid.copy()
+        applied[min_y:max_y, min_x:max_x] = expected[min_y:max_y, min_x:max_x]
+        return applied, {
+            "local_map_serialization_ms": serialization_ms,
+            "local_map_publication_ms": publication_ms,
+            "costmap_settle_ms": 0.0,
+            "roi_bbox": [min_x, min_y, max_x - min_x, max_y - min_y],
+            "roi_changed_cells": int(changed_cells.shape[0]),
+            "roi_published_cells": int((max_y - min_y) * width),
+            "roi_message_count": message_count,
+            "roi_max_message_bytes": int(min(max_payload_bytes, max(1, width) * rows_per_tile)),
+            "roi_publish_pacing_ms": float(getattr(self, "roi_publish_pacing_s", 0.001)) * 1000.0,
+        }
+
     def _publish_full_grid(self, values: np.ndarray, *, clear_costmap: bool = True) -> float:
+        serialize_started_ns = time.monotonic_ns()
         message = self.OccupancyGridUpdate()
         message.header.frame_id = "map"
         message.x = 0
@@ -559,12 +822,21 @@ class SmacSession:
         full_map.info.origin.position.y = float(self.ctx.hospital_map.origin[1])
         full_map.info.origin.orientation.w = 1.0
         full_map.data = serialized_data
+        serialization_ms = (time.monotonic_ns() - serialize_started_ns) / 1.0e6
         clear_ms = self._clear_global_costmap() if clear_costmap else 0.0
+        publish_started_ns = time.monotonic_ns()
         self._local_map_publisher.publish(full_map)
         self._local_update_publisher.publish(message)
+        publication_ms = (time.monotonic_ns() - publish_started_ns) / 1.0e6
+        settle_started_ns = time.monotonic_ns()
         settle_cycles = int(getattr(self, "full_grid_settle_cycles", 3 if self.local_map_update_strategy == "v6_full" else 2))
         for _ in range(max(0, settle_cycles)):
             self.client.executor.spin_once(timeout_sec=0.01)
+        self._last_publish_timing = {
+            "local_map_serialization_ms": serialization_ms,
+            "local_map_publication_ms": publication_ms,
+            "costmap_settle_ms": (time.monotonic_ns() - settle_started_ns) / 1.0e6,
+        }
         return clear_ms
 
     def _publish_delta_updates(
@@ -572,8 +844,12 @@ class SmacSession:
     ) -> np.ndarray:
         if self._current_grid is None:
             raise RuntimeError("delta update has no initialized grid")
+        serialize_ms = 0.0
+        publication_ms = 0.0
+        settle_ms = 0.0
         applied = apply_delta_rectangles(self._current_grid, expected, rectangles)
         for x, y, width, height in rectangles:
+            serialize_started_ns = time.monotonic_ns()
             patch = np.ascontiguousarray(expected[y:y + height, x:x + width], dtype=np.int8)
             message = self.OccupancyGridUpdate()
             message.header.frame_id = "map"
@@ -582,13 +858,23 @@ class SmacSession:
             message.width = int(width)
             message.height = int(height)
             message.data = array("b", patch.tobytes())
+            serialize_ms += (time.monotonic_ns() - serialize_started_ns) / 1.0e6
+            publish_started_ns = time.monotonic_ns()
             self._local_update_publisher.publish(message)
+            publication_ms += (time.monotonic_ns() - publish_started_ns) / 1.0e6
             # StaticLayer and the master costmap run in the planner process.
             # Let each close/open region cross three 100 Hz costmap periods before
             # publishing the next region, otherwise only the last bounds can be
             # visible to Smac on some Nav2 Humble builds.
+            settle_started_ns = time.monotonic_ns()
             for _ in range(6):
                 self.client.executor.spin_once(timeout_sec=0.005)
+            settle_ms += (time.monotonic_ns() - settle_started_ns) / 1.0e6
+        self._last_delta_publish_timing = {
+            "local_map_serialization_ms": serialize_ms,
+            "local_map_publication_ms": publication_ms,
+            "costmap_settle_ms": settle_ms,
+        }
         return applied
 
     def update_local_mask(
@@ -607,10 +893,14 @@ class SmacSession:
         """
         if not self.supports_local_mask or self._local_update_publisher is None or self._local_map_publisher is None or self.client is None:
             raise RuntimeError("Smac session does not support local costmap updates")
-        mask, values = self._grid_for_mask(allowed_mask)
         started_ns = time.monotonic_ns()
+        generation_started_ns = time.monotonic_ns()
+        mask, values = self._grid_for_mask(allowed_mask)
+        generation_ms = (time.monotonic_ns() - generation_started_ns) / 1.0e6
+        hash_started_ns = time.monotonic_ns()
         expected_hash = _grid_digest(values)
         previous_hash = _grid_digest(self._current_grid) if self._current_grid is not None else ""
+        grid_hash_ms = (time.monotonic_ns() - hash_started_ns) / 1.0e6
         can_reuse = bool(
             getattr(self, "enable_mask_reuse_noop", False) and not force_full and not initialization
             and not getattr(self, "_force_full_next_update", False) and getattr(self, "_costmap_state_trusted", False)
@@ -629,7 +919,12 @@ class SmacSession:
                 "local_window_end_index": int(window_end_index),
                 "local_window_path_length_m": window_path_length_m,
                 "local_map_update_ms": elapsed_ms,
+                "local_map_generation_ms": generation_ms,
+                "local_map_serialization_ms": 0.0,
+                "local_map_publication_ms": 0.0,
                 "local_costmap_clear_ms": 0.0,
+                "costmap_settle_ms": 0.0,
+                "local_map_hash_ms": grid_hash_ms,
                 "local_map_update_mode": "reuse_noop",
                 "local_map_update_messages": 0,
                 "local_map_update_cells": 0,
@@ -640,6 +935,20 @@ class SmacSession:
                 "previous_mask_hash": previous_hash,
                 "expected_mask_hash": expected_hash,
                 "applied_mask_hash": previous_hash,
+                "costmap_update_acknowledged": (
+                    True if self.local_map_update_strategy == "roi_ack" else "not_available"
+                ),
+                "costmap_ack_status": (
+                    "reused_server_verified_state" if self.local_map_update_strategy == "roi_ack"
+                    else "not_requested"
+                ),
+                "costmap_ack_wait_ms": 0.0,
+                "costmap_ack_attempts": 0,
+                "costmap_ack_checked_cells": 0,
+                "costmap_ack_mismatch_cells": 0,
+                "costmap_ack_sequence": getattr(self, "_costmap_ack_sequence", 0),
+                "server_costmap_update_time_ns": getattr(self, "_last_server_update_time_ns", -1),
+                "server_costmap_content_hash": "",
             }
             return dict(self._local_mask_info)
         mode = "v6_full"
@@ -647,14 +956,98 @@ class SmacSession:
         cells = int(values.size)
         update_bytes = int(values.nbytes)
         clear_ms = 0.0
+        publish_timing = {
+            "local_map_serialization_ms": 0.0,
+            "local_map_publication_ms": 0.0,
+            "costmap_settle_ms": 0.0,
+        }
+        ack_info: Dict[str, Any] = {
+            "costmap_update_acknowledged": "not_available",
+            "costmap_ack_status": "not_requested",
+            "costmap_ack_wait_ms": 0.0,
+            "costmap_ack_attempts": 0,
+            "costmap_ack_checked_cells": 0,
+            "costmap_ack_mismatch_cells": 0,
+            "server_costmap_update_time_ns": "not_available",
+            "server_costmap_content_hash": "",
+        }
         fallback = False
         actual_fallback_reason = fallback_reason
+        changed = (
+            np.ones(values.shape, dtype=bool)
+            if self._current_grid is None else np.asarray(self._current_grid != values, dtype=bool)
+        )
+        use_roi_ack = (
+            self.local_map_update_strategy == "roi_ack" and not force_full
+            and not self._force_full_next_update and self._costmap_state_trusted
+            and self._current_grid is not None
+        )
         use_delta = (
             self.local_map_update_strategy == "delta" and not force_full
             and not self._force_full_next_update and self._costmap_state_trusted
             and self._current_grid is not None
         )
-        if use_delta:
+        if use_roi_ack:
+            mode = "roi_ack"
+            applied, publish_timing = self._publish_dirty_roi(values, changed)
+            messages = int(publish_timing.get("roi_message_count", 0))
+            cells = int(publish_timing.get("roi_published_cells", 0))
+            update_bytes = cells
+            ack_info = self._wait_for_costmap_ack(values, changed)
+            messages += int(ack_info.get("costmap_ack_repair_messages", 0))
+            cells += int(ack_info.get("costmap_ack_repair_cells", 0))
+            update_bytes += int(ack_info.get("costmap_ack_repair_cells", 0))
+            publish_timing["local_map_serialization_ms"] = float(
+                publish_timing.get("local_map_serialization_ms", 0.0)
+            ) + float(ack_info.get("costmap_ack_repair_serialization_ms", 0.0))
+            publish_timing["local_map_publication_ms"] = float(
+                publish_timing.get("local_map_publication_ms", 0.0)
+            ) + float(ack_info.get("costmap_ack_repair_publication_ms", 0.0))
+            if not bool(ack_info.get("costmap_update_acknowledged")):
+                fallback = True
+                actual_fallback_reason = str(
+                    ack_info.get("costmap_ack_status") or "roi_ack_failed"
+                )
+                mode = "roi_ack_full_fallback"
+                clear_ms = self._publish_full_grid(values)
+                full_timing = dict(getattr(self, "_last_publish_timing", {}) or {})
+                publish_timing = {
+                    key: float(publish_timing.get(key, 0.0)) + float(full_timing.get(key, 0.0))
+                    for key in (
+                        "local_map_serialization_ms", "local_map_publication_ms", "costmap_settle_ms",
+                    )
+                } | {
+                    "roi_bbox": publish_timing.get("roi_bbox", [0, 0, 0, 0]),
+                    "roi_changed_cells": publish_timing.get("roi_changed_cells", 0),
+                    "roi_published_cells": publish_timing.get("roi_published_cells", 0),
+                    "roi_message_count": publish_timing.get("roi_message_count", 0),
+                    "roi_max_message_bytes": publish_timing.get("roi_max_message_bytes", 0),
+                    "roi_publish_pacing_ms": publish_timing.get("roi_publish_pacing_ms", 0.0),
+                }
+                applied = values.copy()
+                messages += 2
+                cells += int(values.size) * 2
+                update_bytes += int(values.nbytes) * 2
+                full_ack = self._wait_for_costmap_ack(
+                    values, np.ones(values.shape, dtype=bool),
+                )
+                ack_info = {
+                    **full_ack,
+                    "roi_ack_initial_status": ack_info.get("costmap_ack_status", ""),
+                    "roi_ack_initial_mismatch_cells": ack_info.get("costmap_ack_mismatch_cells", 0),
+                    "roi_ack_initial_attempts": ack_info.get("costmap_ack_attempts", 0),
+                    "roi_ack_initial_wait_ms": ack_info.get("costmap_ack_wait_ms", 0.0),
+                    "roi_ack_initial_error": ack_info.get("costmap_ack_error", ""),
+                }
+                if not bool(full_ack.get("costmap_update_acknowledged")):
+                    self._costmap_state_trusted = False
+                    self._force_full_next_update = True
+                    self._last_update_had_fallback = True
+                    raise RuntimeError(
+                        "costmap full fallback ACK failed: "
+                        + str(full_ack.get("costmap_ack_status") or full_ack.get("costmap_ack_error") or "unknown")
+                    )
+        elif use_delta:
             mode = "delta"
             try:
                 rectangles = delta_patch_rectangles(self._current_grid, values)
@@ -662,6 +1055,7 @@ class SmacSession:
                 cells = sum(width * height for _x, _y, width, height in rectangles)
                 update_bytes = cells
                 applied = self._publish_delta_updates(values, rectangles)
+                publish_timing = dict(getattr(self, "_last_delta_publish_timing", {}) or publish_timing)
                 applied_hash = _grid_digest(applied)
                 if applied_hash != expected_hash:
                     raise RuntimeError("delta applied-grid hash mismatch")
@@ -670,26 +1064,46 @@ class SmacSession:
                 actual_fallback_reason = actual_fallback_reason or str(exc)
                 mode = "full_fallback"
                 clear_ms = self._publish_full_grid(values)
+                publish_timing = dict(getattr(self, "_last_publish_timing", {}) or publish_timing)
                 applied = values.copy()
                 messages += 2
                 cells += int(values.size)
                 update_bytes += int(values.nbytes)
         else:
-            mode = "delta_initial_full" if initialization else (
-                "full_fallback" if self.local_map_update_strategy == "delta" else "v6_full"
+            incremental_mode = self.local_map_update_strategy in {"delta", "roi_ack"}
+            mode = (
+                ("roi_ack_initial_full" if self.local_map_update_strategy == "roi_ack" else "delta_initial_full")
+                if initialization else ("full_fallback" if incremental_mode else "v6_full")
             )
-            fallback = bool(self.local_map_update_strategy == "delta" and not initialization)
+            fallback = bool(incremental_mode and not initialization)
             if fallback and not actual_fallback_reason:
                 actual_fallback_reason = "forced_full_update"
             clear_ms = self._publish_full_grid(values)
+            publish_timing = dict(getattr(self, "_last_publish_timing", {}) or publish_timing)
             applied = values.copy()
             messages = 2
             cells = int(values.size) * 2
             update_bytes = int(values.nbytes) * 2
+            if self.local_map_update_strategy == "roi_ack":
+                ack_info = self._wait_for_costmap_ack(values, changed)
+                if not bool(ack_info.get("costmap_update_acknowledged")):
+                    self._costmap_state_trusted = False
+                    self._force_full_next_update = True
+                    self._last_update_had_fallback = True
+                    raise RuntimeError(
+                        "costmap full update ACK failed: "
+                        + str(ack_info.get("costmap_ack_status") or ack_info.get("costmap_ack_error") or "unknown")
+                    )
         applied_hash = _grid_digest(applied)
         self._current_allowed_mask = mask.copy()
         self._current_grid = applied
-        self._costmap_state_trusted = applied_hash == expected_hash
+        self._costmap_state_trusted = bool(
+            applied_hash == expected_hash
+            and (
+                self.local_map_update_strategy != "roi_ack"
+                or ack_info.get("costmap_update_acknowledged") is True
+            )
+        )
         self._force_full_next_update = False
         self._last_update_had_fallback = bool(fallback)
         elapsed_ms = (time.monotonic_ns() - started_ns) / 1.0e6
@@ -702,7 +1116,11 @@ class SmacSession:
             "local_window_end_index": int(window_end_index),
             "local_window_path_length_m": window_path_length_m,
             "local_map_update_ms": elapsed_ms,
+            "local_map_generation_ms": generation_ms,
+            "local_map_serialization_ms": float(publish_timing.get("local_map_serialization_ms", 0.0)),
+            "local_map_publication_ms": float(publish_timing.get("local_map_publication_ms", 0.0)),
             "local_costmap_clear_ms": clear_ms,
+            "costmap_settle_ms": float(publish_timing.get("costmap_settle_ms", 0.0)),
             "local_map_update_mode": mode,
             "local_map_update_messages": messages,
             "local_map_update_cells": cells,
@@ -713,6 +1131,9 @@ class SmacSession:
             "previous_mask_hash": previous_hash,
             "expected_mask_hash": expected_hash,
             "applied_mask_hash": applied_hash,
+            "local_map_hash_ms": grid_hash_ms,
+            **publish_timing,
+            **ack_info,
         }
         return dict(self._local_mask_info)
 
@@ -744,6 +1165,7 @@ class SmacSession:
         allowed_mask: Any = None, window_start_index: int = -1,
         window_end_index: int = -1, window_path_length_m: Optional[float] = None,
         force_full_update: bool = False,
+        skip_path_mask_validation: bool = False,
     ) -> PlanResult:
         if self.client is None:
             return unavailable_plan(spec, source=source)
@@ -757,6 +1179,8 @@ class SmacSession:
                 force_full=bool(force_full_update),
             )
             local_update_ms = float(local_mask_info.get("local_map_update_ms") or 0.0)
+        action_phase_timings: List[Dict[str, float]] = []
+
         def call_action() -> Tuple[str, str, float, Any, List[Dict[str, Any]], Any, Optional[float]]:
             self._action_in_progress = True
             try:
@@ -765,10 +1189,14 @@ class SmacSession:
                 )
             finally:
                 self._action_in_progress = False
+            client_timing = dict(getattr(self.client, "last_timing", {}) or {})
+            annotation_started_ns = time.monotonic_ns()
             if result_code == "CLIENT_TIMEOUT":
                 self._costmap_state_trusted = False
                 self._last_update_had_fallback = True
             points = _annotate_smac_points(raw_points or [], spec, source)
+            client_timing["point_annotation_ms"] = (time.monotonic_ns() - annotation_started_ns) / 1.0e6
+            action_phase_timings.append(client_timing)
             planning_ms = None
             duration = getattr(action_result, "planning_time", None)
             if duration is not None:
@@ -777,10 +1205,13 @@ class SmacSession:
 
         action_results = [call_action()]
         status, result_code, wall_ms, measurement, points, action_result, planning_ms = action_results[-1]
+        mask_check_started_ns = time.monotonic_ns()
         path_left_mask = bool(
-            allowed_mask is not None and result_code == "SUCCEEDED" and points
+            not skip_path_mask_validation
+            and allowed_mask is not None and result_code == "SUCCEEDED" and points
             and not self._path_within_allowed_mask(points, np.asarray(allowed_mask, dtype=bool))
         )
+        path_within_mask_check_ms = (time.monotonic_ns() - mask_check_started_ns) / 1.0e6
         if path_left_mask and self.local_map_update_strategy == "delta":
             first_update = dict(local_mask_info)
             fallback_update = self.update_local_mask(
@@ -802,10 +1233,12 @@ class SmacSession:
             }
             action_results.append(call_action())
             status, result_code, wall_ms, measurement, points, action_result, planning_ms = action_results[-1]
+            mask_check_started_ns = time.monotonic_ns()
             path_left_mask = bool(
                 result_code == "SUCCEEDED" and points
                 and not self._path_within_allowed_mask(points, np.asarray(allowed_mask, dtype=bool))
             )
+            path_within_mask_check_ms += (time.monotonic_ns() - mask_check_started_ns) / 1.0e6
         if path_left_mask:
             result_code = "L3_PATH_OUTSIDE_LOCAL_MASK"
             points = []
@@ -839,6 +1272,13 @@ class SmacSession:
             "backend_call_count": len(action_results),
             "backend_action_attempts": backend_attempts,
             "returned_path_within_mask": not path_left_mask,
+            "path_within_mask_check_ms": path_within_mask_check_ms,
+            "session_path_mask_validation_skipped": bool(skip_path_mask_validation),
+            "ros_path_conversion_ms": sum(float(item.get("ros_path_conversion_ms", 0.0)) for item in action_phase_timings),
+            "point_annotation_ms": sum(float(item.get("point_annotation_ms", 0.0)) for item in action_phase_timings),
+            "action_server_wait_ms": sum(float(item.get("action_server_wait_ms", 0.0)) for item in action_phase_timings),
+            "action_goal_send_wait_ms": sum(float(item.get("action_goal_send_wait_ms", 0.0)) for item in action_phase_timings),
+            "action_result_wait_ms": sum(float(item.get("action_result_wait_ms", 0.0)) for item in action_phase_timings),
             **local_mask_info,
         }
         success = result_code == "SUCCEEDED" and bool(points)
