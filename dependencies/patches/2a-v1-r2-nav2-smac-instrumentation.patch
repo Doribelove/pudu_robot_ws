@@ -1,0 +1,273 @@
+From 656ae8d4c56978efbdd446fe85582f2bcd06e920 Mon Sep 17 00:00:00 2001
+From: robot <doribelove@gmail.com>
+Date: Thu, 3 Sep 2026 13:04:39 +0800
+Subject: [PATCH] feat(smac): add runtime-gated planner instrumentation
+
+---
+ .../include/nav2_smac_planner/a_star.hpp      | 15 ++++
+ .../nav2_smac_planner/smac_planner_hybrid.hpp |  1 +
+ nav2_smac_planner/src/a_star.cpp              | 88 +++++++++++++++++--
+ nav2_smac_planner/src/smac_planner_hybrid.cpp | 35 ++++++++
+ 4 files changed, 134 insertions(+), 5 deletions(-)
+
+diff --git a/nav2_smac_planner/include/nav2_smac_planner/a_star.hpp b/nav2_smac_planner/include/nav2_smac_planner/a_star.hpp
+index 8b3b9808..7e58b2c8 100644
+--- a/nav2_smac_planner/include/nav2_smac_planner/a_star.hpp
++++ b/nav2_smac_planner/include/nav2_smac_planner/a_star.hpp
+@@ -182,6 +182,15 @@ public:
+    */
+   unsigned int & getSizeDim3();
+ 
++  void setBenchmarkInstrumentation(const bool enabled);
++  void resetBenchmarkMetrics();
++  size_t getGeneratedStates() const;
++  int getAnalyticExpansionAttempts() const;
++  int getAnalyticExpansionSuccesses() const;
++  double getHeuristicTimeMs() const;
++  double getHeuristicResetTimeMs() const;
++  double getAnalyticExpansionTimeMs() const;
++
+ protected:
+   /**
+    * @brief Get pointer to next goal in open set
+@@ -258,6 +267,12 @@ protected:
+   GridCollisionChecker * _collision_checker;
+   nav2_costmap_2d::Costmap2D * _costmap;
+   std::unique_ptr<AnalyticExpansion<NodeT>> _expander;
++  bool _benchmark_instrumentation{false};
++  int _benchmark_analytic_attempts{0};
++  int _benchmark_analytic_successes{0};
++  double _benchmark_heuristic_ms{0.0};
++  double _benchmark_heuristic_reset_ms{0.0};
++  double _benchmark_analytic_ms{0.0};
+ };
+ 
+ }  // namespace nav2_smac_planner
+diff --git a/nav2_smac_planner/include/nav2_smac_planner/smac_planner_hybrid.hpp b/nav2_smac_planner/include/nav2_smac_planner/smac_planner_hybrid.hpp
+index c782fe41..3362afcf 100644
+--- a/nav2_smac_planner/include/nav2_smac_planner/smac_planner_hybrid.hpp
++++ b/nav2_smac_planner/include/nav2_smac_planner/smac_planner_hybrid.hpp
+@@ -110,6 +110,7 @@ protected:
+   double _angle_bin_size;
+   unsigned int _angle_quantizations;
+   bool _allow_unknown;
++  bool _benchmark_instrumentation;
+   int _max_iterations;
+   int _max_on_approach_iterations;
+   SearchInfo _search_info;
+diff --git a/nav2_smac_planner/src/a_star.cpp b/nav2_smac_planner/src/a_star.cpp
+index e23e7513..10dbfb49 100644
+--- a/nav2_smac_planner/src/a_star.cpp
++++ b/nav2_smac_planner/src/a_star.cpp
+@@ -187,7 +187,14 @@ void AStarAlgorithm<NodeT>::setGoal(
+       throw std::runtime_error("Start must be set before goal.");
+     }
+ 
+-    NodeT::resetObstacleHeuristic(_costmap, _start->pose.x, _start->pose.y, mx, my);
++    if (_benchmark_instrumentation) {
++      const auto heuristic_reset_start = steady_clock::now();
++      NodeT::resetObstacleHeuristic(_costmap, _start->pose.x, _start->pose.y, mx, my);
++      _benchmark_heuristic_reset_ms += duration_cast<duration<double, std::milli>>(
++        steady_clock::now() - heuristic_reset_start).count();
++    } else {
++      NodeT::resetObstacleHeuristic(_costmap, _start->pose.x, _start->pose.y, mx, my);
++    }
+   }
+ 
+   _goal_coordinates = goal_coords;
+@@ -290,8 +297,20 @@ bool AStarAlgorithm<NodeT>::createPath(
+ 
+     // 2.1) Use an analytic expansion (if available) to generate a path
+     expansion_result = nullptr;
+-    expansion_result = _expander->tryAnalyticExpansion(
+-      current_node, getGoal(), neighborGetter, analytic_iterations, closest_distance);
++    if (_benchmark_instrumentation) {
++      const auto analytic_start = steady_clock::now();
++      expansion_result = _expander->tryAnalyticExpansion(
++        current_node, getGoal(), neighborGetter, analytic_iterations, closest_distance);
++      _benchmark_analytic_attempts++;
++      _benchmark_analytic_ms += duration_cast<duration<double, std::milli>>(
++        steady_clock::now() - analytic_start).count();
++      if (expansion_result != nullptr) {
++        _benchmark_analytic_successes++;
++      }
++    } else {
++      expansion_result = _expander->tryAnalyticExpansion(
++        current_node, getGoal(), neighborGetter, analytic_iterations, closest_distance);
++    }
+     if (expansion_result != nullptr) {
+       current_node = expansion_result;
+     }
+@@ -378,8 +397,15 @@ float AStarAlgorithm<NodeT>::getHeuristicCost(const NodePtr & node)
+ {
+   const Coordinates node_coords =
+     NodeT::getCoords(node->getIndex(), getSizeX(), getSizeDim3());
+-  float heuristic = NodeT::getHeuristicCost(
+-    node_coords, _goal_coordinates, _costmap);
++  float heuristic;
++  if (_benchmark_instrumentation) {
++    const auto heuristic_start = steady_clock::now();
++    heuristic = NodeT::getHeuristicCost(node_coords, _goal_coordinates, _costmap);
++    _benchmark_heuristic_ms += duration_cast<duration<double, std::milli>>(
++      steady_clock::now() - heuristic_start).count();
++  } else {
++    heuristic = NodeT::getHeuristicCost(node_coords, _goal_coordinates, _costmap);
++  }
+ 
+   if (heuristic < _best_heuristic_node.first) {
+     _best_heuristic_node = {heuristic, node->getIndex()};
+@@ -439,6 +465,58 @@ unsigned int & AStarAlgorithm<NodeT>::getSizeDim3()
+   return _dim3_size;
+ }
+ 
++template<typename NodeT>
++void AStarAlgorithm<NodeT>::setBenchmarkInstrumentation(const bool enabled)
++{
++  _benchmark_instrumentation = enabled;
++}
++
++template<typename NodeT>
++void AStarAlgorithm<NodeT>::resetBenchmarkMetrics()
++{
++  _benchmark_analytic_attempts = 0;
++  _benchmark_analytic_successes = 0;
++  _benchmark_heuristic_ms = 0.0;
++  _benchmark_heuristic_reset_ms = 0.0;
++  _benchmark_analytic_ms = 0.0;
++}
++
++template<typename NodeT>
++size_t AStarAlgorithm<NodeT>::getGeneratedStates() const
++{
++  return _graph.size();
++}
++
++template<typename NodeT>
++int AStarAlgorithm<NodeT>::getAnalyticExpansionAttempts() const
++{
++  return _benchmark_analytic_attempts;
++}
++
++template<typename NodeT>
++int AStarAlgorithm<NodeT>::getAnalyticExpansionSuccesses() const
++{
++  return _benchmark_analytic_successes;
++}
++
++template<typename NodeT>
++double AStarAlgorithm<NodeT>::getHeuristicTimeMs() const
++{
++  return _benchmark_heuristic_ms;
++}
++
++template<typename NodeT>
++double AStarAlgorithm<NodeT>::getHeuristicResetTimeMs() const
++{
++  return _benchmark_heuristic_reset_ms;
++}
++
++template<typename NodeT>
++double AStarAlgorithm<NodeT>::getAnalyticExpansionTimeMs() const
++{
++  return _benchmark_analytic_ms;
++}
++
+ // Instantiate algorithm for the supported template types
+ template class AStarAlgorithm<Node2D>;
+ template class AStarAlgorithm<NodeHybrid>;
+diff --git a/nav2_smac_planner/src/smac_planner_hybrid.cpp b/nav2_smac_planner/src/smac_planner_hybrid.cpp
+index fa6ae695..0d7a3d8d 100644
+--- a/nav2_smac_planner/src/smac_planner_hybrid.cpp
++++ b/nav2_smac_planner/src/smac_planner_hybrid.cpp
+@@ -86,6 +86,9 @@ void SmacPlannerHybrid::configure(
+   nav2_util::declare_parameter_if_not_declared(
+     node, name + ".allow_unknown", rclcpp::ParameterValue(true));
+   node->get_parameter(name + ".allow_unknown", _allow_unknown);
++  nav2_util::declare_parameter_if_not_declared(
++    node, name + ".benchmark_instrumentation", rclcpp::ParameterValue(false));
++  node->get_parameter(name + ".benchmark_instrumentation", _benchmark_instrumentation);
+   nav2_util::declare_parameter_if_not_declared(
+     node, name + ".max_iterations", rclcpp::ParameterValue(1000000));
+   node->get_parameter(name + ".max_iterations", _max_iterations);
+@@ -197,6 +200,7 @@ void SmacPlannerHybrid::configure(
+     _max_planning_time,
+     _lookup_table_dim,
+     _angle_quantizations);
++  _a_star->setBenchmarkInstrumentation(_benchmark_instrumentation);
+ 
+   // Initialize path smoother
+   if (smooth_path) {
+@@ -288,6 +292,7 @@ nav_msgs::msg::Path SmacPlannerHybrid::createPlan(
+     _costmap_ros->getUseRadius(),
+     findCircumscribedCost(_costmap_ros));
+   _a_star->setCollisionChecker(&_collision_checker);
++  _a_star->resetBenchmarkMetrics();
+ 
+   // Set starting point, in A* bin search coordinates
+   unsigned int mx, my;
+@@ -335,6 +340,7 @@ nav_msgs::msg::Path SmacPlannerHybrid::createPlan(
+   NodeHybrid::CoordinateVector path;
+   int num_iterations = 0;
+   std::string error;
++  const auto search_started = steady_clock::now();
+   try {
+     if (!_a_star->createPath(
+         path, num_iterations, _tolerance / static_cast<float>(costmap->getResolution())))
+@@ -349,8 +355,21 @@ nav_msgs::msg::Path SmacPlannerHybrid::createPlan(
+     error = "invalid use: ";
+     error += e.what();
+   }
++  const double search_ms = duration_cast<duration<double, std::milli>>(
++    steady_clock::now() - search_started).count();
+ 
+   if (!error.empty()) {
++    if (_benchmark_instrumentation) {
++      RCLCPP_INFO(
++        _logger,
++        "PLN02_SMAC_METRICS search_ms=%.6f smoothing_ms=0.000000 expanded_states=%d "
++        "generated_states=%zu heuristic_reset_ms=%.6f heuristic_eval_ms=%.6f "
++        "analytic_expansion_ms=%.6f analytic_attempts=%d analytic_successes=%d success=0",
++        search_ms, num_iterations, _a_star->getGeneratedStates(),
++        _a_star->getHeuristicResetTimeMs(), _a_star->getHeuristicTimeMs(),
++        _a_star->getAnalyticExpansionTimeMs(), _a_star->getAnalyticExpansionAttempts(),
++        _a_star->getAnalyticExpansionSuccesses());
++    }
+     RCLCPP_WARN(
+       _logger,
+       "%s: failed to create plan, %s.",
+@@ -382,9 +401,24 @@ nav_msgs::msg::Path SmacPlannerHybrid::createPlan(
+ #endif
+ 
+   // Smooth plan
++  const auto smoothing_started = steady_clock::now();
+   if (_smoother && num_iterations > 1) {
+     _smoother->smooth(plan, costmap, time_remaining);
+   }
++  const double smoothing_ms = duration_cast<duration<double, std::milli>>(
++    steady_clock::now() - smoothing_started).count();
++
++  if (_benchmark_instrumentation) {
++    RCLCPP_INFO(
++      _logger,
++      "PLN02_SMAC_METRICS search_ms=%.6f smoothing_ms=%.6f expanded_states=%d "
++      "generated_states=%zu heuristic_reset_ms=%.6f heuristic_eval_ms=%.6f "
++      "analytic_expansion_ms=%.6f analytic_attempts=%d analytic_successes=%d success=1",
++      search_ms, smoothing_ms, num_iterations, _a_star->getGeneratedStates(),
++      _a_star->getHeuristicResetTimeMs(), _a_star->getHeuristicTimeMs(),
++      _a_star->getAnalyticExpansionTimeMs(), _a_star->getAnalyticExpansionAttempts(),
++      _a_star->getAnalyticExpansionSuccesses());
++  }
+ 
+ #ifdef BENCHMARK_TESTING
+   steady_clock::time_point c = steady_clock::now();
+@@ -544,6 +578,7 @@ SmacPlannerHybrid::dynamicParametersCallback(std::vector<rclcpp::Parameter> para
+         _max_planning_time,
+         _lookup_table_dim,
+         _angle_quantizations);
++      _a_star->setBenchmarkInstrumentation(_benchmark_instrumentation);
+     }
+ 
+     // Re-Initialize costmap downsampler
+-- 
+2.34.1
+
