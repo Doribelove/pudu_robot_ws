@@ -187,6 +187,7 @@ class ComputePathClient:
         self.executor = SingleThreadedExecutor(context=context)
         self.executor.add_node(self.node)
         self.timeout = float(timeout)
+        self.last_timing: Dict[str, float] = {}
 
     def close(self) -> None:
         self.executor.remove_node(self.node)
@@ -203,7 +204,15 @@ class ComputePathClient:
     ) -> Tuple[str, str, float, Optional[float], Optional[List[Dict[str, float]]], Any]:
         started_ns = time.monotonic_ns()
         deadline = time.monotonic() + self.timeout
-        if not self.client.wait_for_server(timeout_sec=max(0.0, deadline - time.monotonic())):
+        server_wait_started_ns = time.monotonic_ns()
+        server_ready = self.client.wait_for_server(timeout_sec=max(0.0, deadline - time.monotonic()))
+        self.last_timing = {
+            "action_server_wait_ms": (time.monotonic_ns() - server_wait_started_ns) / 1.0e6,
+            "action_goal_send_wait_ms": 0.0,
+            "action_result_wait_ms": 0.0,
+            "ros_path_conversion_ms": 0.0,
+        }
+        if not server_ready:
             return "", "SERVER_UNAVAILABLE", (time.monotonic_ns() - started_ns) / 1e6, None, None, None
         goal = self.ComputePathToPose.Goal()
         goal.goal.header.frame_id = "map"
@@ -220,8 +229,10 @@ class ComputePathClient:
         goal.use_start = True
         monitor = ResourceMonitor(planner_pid, stack_pids, sample_interval_ms)
         monitor.start()
+        send_started_ns = time.monotonic_ns()
         send_future = self.client.send_goal_async(goal)
         self._spin_until(send_future, deadline)
+        self.last_timing["action_goal_send_wait_ms"] = (time.monotonic_ns() - send_started_ns) / 1.0e6
         wall_after_send_ms = (time.monotonic_ns() - started_ns) / 1e6
         if not send_future.done():
             measurement = monitor.finish(wall_after_send_ms)
@@ -230,8 +241,10 @@ class ComputePathClient:
         if goal_handle is None or not goal_handle.accepted:
             measurement = monitor.finish(wall_after_send_ms)
             return "", "ACTION_REJECTED", wall_after_send_ms, measurement, None, None
+        result_started_ns = time.monotonic_ns()
         result_future = goal_handle.get_result_async()
         self._spin_until(result_future, deadline)
+        self.last_timing["action_result_wait_ms"] = (time.monotonic_ns() - result_started_ns) / 1.0e6
         wall_time_ms = (time.monotonic_ns() - started_ns) / 1e6
         if not result_future.done():
             try:
@@ -251,7 +264,9 @@ class ComputePathClient:
             if duration is not None:
                 planning_time_ms = float(getattr(duration, "sec", 0)) * 1000.0 + float(getattr(duration, "nanosec", 0)) / 1e6
             path = getattr(result, "path", None)
+            conversion_started_ns = time.monotonic_ns()
             points = path_from_message(path) if path is not None else []
+            self.last_timing["ros_path_conversion_ms"] = (time.monotonic_ns() - conversion_started_ns) / 1.0e6
         measurement = monitor.finish(wall_time_ms)
         return status_text, classify_action_result(status, path_point_count=len(points or [])), wall_time_ms, measurement, points, result
 

@@ -15,6 +15,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import resource
 import subprocess
 import time
@@ -718,6 +719,33 @@ def _classify_smac_failure(
     return "ACTION_ABORTED_UNKNOWN", "not_available", "Nav2 returned no success result"
 
 
+def _parse_smac_benchmark_metrics(log_delta: str) -> Dict[str, Any]:
+    matches = re.findall(
+        r"PLN02_SMAC_METRICS\s+search_ms=([0-9.]+)\s+smoothing_ms=([0-9.]+)\s+"
+        r"expanded_states=([0-9]+)\s+generated_states=([0-9]+)\s+"
+        r"heuristic_reset_ms=([0-9.]+)\s+heuristic_eval_ms=([0-9.]+)\s+"
+        r"analytic_expansion_ms=([0-9.]+)\s+analytic_attempts=([0-9]+)\s+"
+        r"analytic_successes=([0-9]+)\s+success=([01])",
+        log_delta or "",
+    )
+    if not matches:
+        return {}
+    values = matches[-1]
+    return {
+        "smac_search_ms": float(values[0]),
+        "smac_smoothing_ms": float(values[1]),
+        "expanded_states": int(values[2]),
+        "generated_states": int(values[3]),
+        "smac_heuristic_reset_ms": float(values[4]),
+        "smac_heuristic_eval_ms": float(values[5]),
+        "smac_analytic_expansion_ms": float(values[6]),
+        "smac_analytic_attempts": int(values[7]),
+        "smac_analytic_successes": int(values[8]),
+        "smac_instrumented_success": bool(int(values[9])),
+        "smac_internal_metrics_measured": True,
+    }
+
+
 def plan_l1_l3_corridor_hybrid(
     ctx: legacy.MapContext,
     query: Query,
@@ -733,6 +761,9 @@ def plan_l1_l3_corridor_hybrid(
     validate_each_attempt: bool = False,
     cache_mode: str = CACHE_MODE_BASELINE,
     corridor_mask_builder: Optional[Callable[..., Tuple[np.ndarray, Mapping[str, Any]]]] = None,
+    route_selector: Optional[Callable[..., Tuple[Optional[Any], Optional[Any], Optional[Any], str]]] = None,
+    canonical_path_auditor: Optional[Callable[[Any, Sequence[Dict[str, Any]], np.ndarray], Any]] = None,
+    skip_session_path_mask_validation: bool = False,
 ) -> Tuple[PlanResult, Dict[str, Any]]:
     """Execute L1 followed by one or a bounded set of corridor L3' requests.
 
@@ -798,7 +829,8 @@ def plan_l1_l3_corridor_hybrid(
         ), diagnostics
 
     attach_timing: Dict[str, Any] = {}
-    start_attachment, goal_attachment, route, attach_reason = _select_route_with_endpoint_attach(
+    selector = route_selector or _select_route_with_endpoint_attach
+    start_attachment, goal_attachment, route, attach_reason = selector(
         topology, query, cache_mode=cache_mode, timing=attach_timing,
     )
     diagnostics.update({
@@ -817,6 +849,15 @@ def plan_l1_l3_corridor_hybrid(
         "endpoint_candidate_cache_hit": bool(attach_timing.get("endpoint_candidate_cache_hit", False)),
         "route_cache_hit": bool(attach_timing.get("route_cache_hit", False)),
     })
+    for key in (
+        "endpoint_yaw_cache_key", "endpoint_yaw_cache_hit",
+        "endpoint_yaw_selection_ms", "endpoint_dubins_feasible_pair_count",
+        "endpoint_selected_start_node_id", "endpoint_selected_goal_node_id",
+        "endpoint_start_yaw_error_rad", "endpoint_goal_yaw_error_rad",
+        "endpoint_start_dubins_word", "endpoint_goal_dubins_word",
+    ):
+        if key in attach_timing:
+            diagnostics[key] = attach_timing[key]
     diagnostics["l1_graph_search_ms"] = float(
         diagnostics["l1_attachment_lookup_ms"]
         + diagnostics["l1_candidate_collision_check_ms"]
@@ -908,6 +949,38 @@ def plan_l1_l3_corridor_hybrid(
             "costmap_update_ms", "costmap_update_cells", "costmap_update_bytes",
             "costmap_update_skipped", "total_corridor_mask_online_ms",
             "edge_mask_cache_verified",
+            "local_map_generation_ms", "local_map_hash_ms",
+            "local_map_serialization_ms", "local_map_publication_ms",
+            "local_costmap_clear_ms", "costmap_settle_ms",
+            "costmap_ack_wait_ms", "costmap_ack_status", "costmap_ack_attempts",
+            "costmap_ack_checked_cells", "costmap_ack_mismatch_cells",
+            "costmap_ack_sequence", "server_costmap_update_time_ns",
+            "server_costmap_content_hash", "roi_bbox", "roi_changed_cells",
+            "roi_published_cells", "roi_message_count", "roi_max_message_bytes",
+            "roi_publish_pacing_ms",
+            "ros_path_conversion_ms", "point_annotation_ms",
+            "roi_ack_initial_status", "roi_ack_initial_mismatch_cells",
+            "roi_ack_initial_attempts", "roi_ack_initial_wait_ms", "roi_ack_initial_error",
+            "costmap_ack_repair_count", "costmap_ack_repair_messages",
+            "costmap_ack_repair_cells", "costmap_ack_repair_serialization_ms",
+            "costmap_ack_repair_publication_ms",
+            "action_server_wait_ms", "action_goal_send_wait_ms", "action_result_wait_ms",
+            "path_interpolation_ms", "world_to_cell_ms", "path_within_mask_ms",
+            "path_hash_provenance_ms", "footprint_validation_ms",
+            "kinematic_validation_ms", "canonical_path_audit_ms",
+            "canonical_path_hash", "canonical_pose_hash", "canonical_mask_hash",
+            "canonical_sampled_pose_count", "canonical_exact_footprint_check_count",
+            "canonical_path_audit_reused",
+            "endpoint_yaw_cache_key", "endpoint_yaw_cache_hit",
+            "endpoint_yaw_selection_ms", "endpoint_dubins_feasible_pair_count",
+            "endpoint_selected_start_node_id", "endpoint_selected_goal_node_id",
+            "endpoint_start_yaw_error_rad", "endpoint_goal_yaw_error_rad",
+            "endpoint_start_dubins_word", "endpoint_goal_dubins_word",
+            "smac_search_ms", "smac_smoothing_ms", "expanded_states",
+            "generated_states", "smac_heuristic_reset_ms", "smac_heuristic_eval_ms",
+            "smac_analytic_expansion_ms", "smac_analytic_attempts",
+            "smac_analytic_successes", "smac_instrumented_success",
+            "smac_internal_metrics_measured",
         ):
             if key in attempt:
                 diagnostics[key] = attempt[key]
@@ -964,6 +1037,8 @@ def plan_l1_l3_corridor_hybrid(
             }
             if force_full_update:
                 plan_kwargs["force_full_update"] = True
+            if skip_session_path_mask_validation:
+                plan_kwargs["skip_path_mask_validation"] = True
             result = session.plan(query, smac_spec, **plan_kwargs)
         except Exception as exc:
             message = str(exc)
@@ -977,6 +1052,7 @@ def plan_l1_l3_corridor_hybrid(
             continue
         result_diagnostics = dict(result.diagnostics or {})
         log_delta = _session_log_delta(session, log_cursor)
+        result_diagnostics.update(_parse_smac_benchmark_metrics(log_delta))
         called = bool(result_diagnostics.get("backend_called", True))
         physical_calls = int(result_diagnostics.get("backend_call_count") or result_diagnostics.get("physical_backend_call_count") or (1 if called else 0))
         total_calls += physical_calls if called else 0
@@ -989,15 +1065,36 @@ def plan_l1_l3_corridor_hybrid(
             {**result_diagnostics, **diagnostics}, log_delta,
         )
         points = result.points or []
-        path_mask_started_ns = time.monotonic_ns()
-        within = not points or _path_within_mask(ctx, points, allowed)
-        path_mask_check_ms = (time.monotonic_ns() - path_mask_started_ns) / 1.0e6
         local_valid = False
         local_validation_code = ""
         local_validation_ms = 0.0
-        if result.planner_success and points and not within:
+        path_mask_check_ms = 0.0
+        local_metrics: Dict[str, Any] = {}
+        if result.planner_success and points and canonical_path_auditor is not None:
+            audit = canonical_path_auditor(query, points, allowed)
+            result.path_audit = audit
+            audit_diagnostics = audit.diagnostics() if hasattr(audit, "diagnostics") else {}
+            result_diagnostics.update(dict(audit_diagnostics))
+            local_metrics = dict(getattr(audit, "metrics", {}) or {})
+            within = bool(getattr(audit, "within_mask", False))
+            path_mask_check_ms = float(audit_diagnostics.get("path_within_mask_ms", 0.0))
+            local_validation_ms = float(audit_diagnostics.get("canonical_path_audit_ms", 0.0))
+            local_valid = bool(
+                local_metrics.get("static_footprint_valid")
+                and local_metrics.get("kinematic_valid")
+                and not local_metrics.get("failure_code")
+            )
+            if not within:
+                local_validation_code = "L3_PRIME_PATH_OUTSIDE_CORRIDOR"
+            elif not local_valid:
+                local_validation_code = str(local_metrics.get("failure_code") or "FINAL_VALIDATION_FAILED")
+        else:
+            path_mask_started_ns = time.monotonic_ns()
+            within = not points or _path_within_mask(ctx, points, allowed)
+            path_mask_check_ms = (time.monotonic_ns() - path_mask_started_ns) / 1.0e6
+        if result.planner_success and points and not within and not local_validation_code:
             local_validation_code = "L3_PRIME_PATH_OUTSIDE_CORRIDOR"
-        elif result.planner_success and points and validate_each_attempt:
+        elif result.planner_success and points and validate_each_attempt and canonical_path_auditor is None:
             # The shared validator requires immutable provenance fields.  Smac
             # itself does not emit those audit fields, so attach them to this
             # exact returned path before local validation; pose, yaw,
@@ -1025,7 +1122,7 @@ def plan_l1_l3_corridor_hybrid(
             )
             if not local_valid:
                 local_validation_code = str(local_metrics.get("failure_code") or "FINAL_VALIDATION_FAILED")
-        elif result.planner_success and points:
+        elif result.planner_success and points and canonical_path_auditor is None:
             local_valid = True
         success = bool(result.planner_success and points and within and (local_valid or not validate_each_attempt))
         if not success:
@@ -1054,6 +1151,35 @@ def plan_l1_l3_corridor_hybrid(
             "action_status": result_diagnostics.get("action_status", ""),
             "action_result_code": result_diagnostics.get("action_result_code", ""),
         })
+        for key in (
+            "local_map_generation_ms", "local_map_hash_ms", "local_map_serialization_ms",
+            "local_map_publication_ms", "local_costmap_clear_ms", "costmap_settle_ms",
+            "costmap_ack_wait_ms", "costmap_ack_status", "costmap_ack_attempts",
+            "costmap_ack_checked_cells", "costmap_ack_mismatch_cells", "costmap_ack_sequence",
+            "server_costmap_update_time_ns", "server_costmap_content_hash",
+            "roi_bbox", "roi_changed_cells", "roi_published_cells",
+            "roi_message_count", "roi_max_message_bytes",
+            "roi_publish_pacing_ms",
+            "roi_ack_initial_status", "roi_ack_initial_mismatch_cells",
+            "roi_ack_initial_attempts", "roi_ack_initial_wait_ms", "roi_ack_initial_error",
+            "costmap_ack_repair_count", "costmap_ack_repair_messages",
+            "costmap_ack_repair_cells", "costmap_ack_repair_serialization_ms",
+            "costmap_ack_repair_publication_ms",
+            "ros_path_conversion_ms", "point_annotation_ms", "action_server_wait_ms",
+            "action_goal_send_wait_ms", "action_result_wait_ms",
+            "path_interpolation_ms", "world_to_cell_ms", "path_within_mask_ms",
+            "path_hash_provenance_ms", "footprint_validation_ms", "kinematic_validation_ms",
+            "canonical_path_audit_ms", "canonical_path_hash", "canonical_pose_hash",
+            "canonical_mask_hash", "canonical_sampled_pose_count",
+            "canonical_exact_footprint_check_count", "canonical_path_audit_reused",
+            "smac_search_ms", "smac_smoothing_ms", "expanded_states",
+            "generated_states", "smac_heuristic_reset_ms", "smac_heuristic_eval_ms",
+            "smac_analytic_expansion_ms", "smac_analytic_attempts",
+            "smac_analytic_successes", "smac_instrumented_success",
+            "smac_internal_metrics_measured",
+        ):
+            if key in result_diagnostics:
+                attempt_diag[key] = result_diagnostics[key]
         attempts.append(attempt_diag)
         _promote_attempt_state(attempt_diag)
         if success:
@@ -1140,6 +1266,10 @@ def _run_one(
     validate_each_attempt: bool = False,
     cache_mode: str = CACHE_MODE_BASELINE,
     corridor_mask_builder: Optional[Callable[..., Tuple[np.ndarray, Mapping[str, Any]]]] = None,
+    route_selector: Optional[Callable[..., Tuple[Optional[Any], Optional[Any], Optional[Any], str]]] = None,
+    canonical_path_auditor: Optional[Callable[[Any, Sequence[Dict[str, Any]], np.ndarray], Any]] = None,
+    skip_session_path_mask_validation: bool = False,
+    baseline_fallback_decider: Optional[Callable[[Any, Mapping[str, Any], Mapping[str, Any], PlanResult], bool]] = None,
 ) -> Tuple[Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
     run_id = f"{ctx.map_id}_{query.query_id}_l1_l3_{run_mode}_{repetition}"
     query_hash = _query_hash(query)
@@ -1178,18 +1308,27 @@ def _run_one(
                 validate_each_attempt=validate_each_attempt,
                 cache_mode=selected_mode,
                 corridor_mask_builder=corridor_mask_builder,
+                route_selector=route_selector,
+                canonical_path_auditor=canonical_path_auditor,
+                skip_session_path_mask_validation=skip_session_path_mask_validation,
             )
             if planned.points:
-                # Provenance is the only metadata added here.  The planner's
-                # poses, yaw, steering, curvature and direction are untouched.
-                for point in planned.points:
-                    point.setdefault("source_commit", source_commit or "unknown")
-                result_path_hash = legacy._path_hash(planned.points)
-                for point in planned.points:
-                    point["path_hash"] = result_path_hash
-                validation_started_ns = time.monotonic_ns()
-                measured = legacy.validate_path(ctx, query, planned.points)
-                measured["final_validation_time_ms"] = (time.monotonic_ns() - validation_started_ns) / 1.0e6
+                if planned.path_audit is not None:
+                    measured = dict(getattr(planned.path_audit, "metrics", {}) or {})
+                    measured["final_validation_time_ms"] = 0.0
+                    measured["final_validation_reused_canonical_audit"] = True
+                else:
+                    # Provenance is the only metadata added here.  The planner's
+                    # poses, yaw, steering, curvature and direction are untouched.
+                    for point in planned.points:
+                        point.setdefault("source_commit", source_commit or "unknown")
+                    result_path_hash = legacy._path_hash(planned.points)
+                    for point in planned.points:
+                        point["path_hash"] = result_path_hash
+                    validation_started_ns = time.monotonic_ns()
+                    measured = legacy.validate_path(ctx, query, planned.points)
+                    measured["final_validation_time_ms"] = (time.monotonic_ns() - validation_started_ns) / 1.0e6
+                    measured["final_validation_reused_canonical_audit"] = False
             else:
                 measured = _empty_metrics(planned.failure_code or "EMPTY_PATH")
                 measured["final_validation_time_ms"] = 0.0
@@ -1202,7 +1341,13 @@ def _run_one(
             return planned, plan_diagnostics, measured
 
         result, diagnostics, metrics = execute(cache_mode)
-        if cache_mode == CACHE_MODE_OPTIMIZED and not bool(metrics.get("final_valid_success")):
+        should_fallback = cache_mode == CACHE_MODE_OPTIMIZED and not bool(metrics.get("final_valid_success"))
+        if should_fallback and baseline_fallback_decider is not None:
+            should_fallback = bool(baseline_fallback_decider(query, metrics, diagnostics, result))
+            if not should_fallback:
+                diagnostics["baseline_fallback_suppressed"] = True
+                diagnostics["baseline_fallback_suppressed_reason"] = "offline_parity_proven_deterministic_failure"
+        if should_fallback:
             # Optimized endpoint/cached route selection is never allowed to
             # reduce validity.  Re-run the unchanged baseline path and retain
             # both diagnostics so the fallback is auditable.
@@ -1224,6 +1369,18 @@ def _run_one(
                 "fallback_used": True,
                 "fallback_reason": fallback_reason,
                 "optimized_diagnostics": diagnostics,
+                "optimized_failure_code": str(
+                    metrics.get("failure_code") or result.failure_code or ""
+                ),
+                "optimized_route_signature": diagnostics.get("route_signature", ""),
+                "optimized_corridor_mask_hash": diagnostics.get("corridor_mask_hash", ""),
+                "optimized_canonical_path_hash": diagnostics.get("canonical_path_hash", ""),
+                "optimized_costmap_update_acknowledged": diagnostics.get(
+                    "costmap_update_acknowledged", "not_available"
+                ),
+                "optimized_costmap_ack_mismatch_cells": diagnostics.get(
+                    "costmap_ack_mismatch_cells", "not_available"
+                ),
                 "optimized_l3_prime_call_count": optimized_calls,
                 "l3_prime_call_count": optimized_calls + baseline_calls,
                 "cache_mode": CACHE_MODE_BASELINE,
@@ -1253,7 +1410,7 @@ def _run_one(
         points = [dict(point) for point in result.points]
         for point in points:
             point.setdefault("source_commit", source_commit or "unknown")
-        path_hash = legacy._path_hash(points)
+        path_hash = str(getattr(result.path_audit, "path_hash", "") or legacy._path_hash(points))
         for point in points:
             point["path_hash"] = path_hash
         path_file = f"paths/{run_id}.json"
@@ -1266,6 +1423,8 @@ def _run_one(
         "cache_mode": diagnostics.get("cache_mode", cache_mode),
         "fallback_used": bool(diagnostics.get("fallback_used", False)),
         "fallback_reason": diagnostics.get("fallback_reason", ""),
+        "baseline_fallback_suppressed": bool(diagnostics.get("baseline_fallback_suppressed", False)),
+        "baseline_fallback_suppressed_reason": diagnostics.get("baseline_fallback_suppressed_reason", ""),
         "l1_attachment_lookup_ms": diagnostics.get("l1_attachment_lookup_ms", 0.0),
         "l1_candidate_collision_check_ms": diagnostics.get("l1_candidate_collision_check_ms", 0.0),
         "l1_adjacency_build_ms": diagnostics.get("l1_adjacency_build_ms", 0.0),
@@ -1297,7 +1456,19 @@ def _run_one(
         "costmap_update_bytes": diagnostics.get("costmap_update_bytes", 0),
         "costmap_update_skipped": diagnostics.get("costmap_update_skipped", False),
         "costmap_update_mode": diagnostics.get("costmap_update_mode", "not_available"),
+        "costmap_update_fallback": diagnostics.get("costmap_update_fallback", False),
+        "costmap_update_fallback_reason": diagnostics.get("costmap_update_fallback_reason", ""),
         "costmap_update_acknowledged": diagnostics.get("costmap_update_acknowledged", "not_available"),
+        "optimized_failure_code": diagnostics.get("optimized_failure_code", ""),
+        "optimized_route_signature": diagnostics.get("optimized_route_signature", ""),
+        "optimized_corridor_mask_hash": diagnostics.get("optimized_corridor_mask_hash", ""),
+        "optimized_canonical_path_hash": diagnostics.get("optimized_canonical_path_hash", ""),
+        "optimized_costmap_update_acknowledged": diagnostics.get(
+            "optimized_costmap_update_acknowledged", "not_available"
+        ),
+        "optimized_costmap_ack_mismatch_cells": diagnostics.get(
+            "optimized_costmap_ack_mismatch_cells", "not_available"
+        ),
         "corner_count": diagnostics.get("corner_count", 0),
         "corner_node_ids": diagnostics.get("corner_node_ids", []),
         "corner_edge_ids": diagnostics.get("corner_edge_ids", []),
@@ -1324,6 +1495,72 @@ def _run_one(
         "allowed_cell_count_ms": diagnostics.get("allowed_cell_count_ms", 0.0),
         "total_corridor_mask_online_ms": diagnostics.get("total_corridor_mask_online_ms", diagnostics.get("corridor_mask_total_time_ms", 0.0)),
         "edge_mask_cache_verified": diagnostics.get("edge_mask_cache_verified", False),
+        "local_map_generation_ms": diagnostics.get("local_map_generation_ms", 0.0),
+        "local_map_hash_ms": diagnostics.get("local_map_hash_ms", 0.0),
+        "local_map_serialization_ms": diagnostics.get("local_map_serialization_ms", 0.0),
+        "local_map_publication_ms": diagnostics.get("local_map_publication_ms", 0.0),
+        "local_costmap_clear_ms": diagnostics.get("local_costmap_clear_ms", 0.0),
+        "costmap_settle_ms": diagnostics.get("costmap_settle_ms", 0.0),
+        "costmap_ack_wait_ms": diagnostics.get("costmap_ack_wait_ms", 0.0),
+        "costmap_ack_status": diagnostics.get("costmap_ack_status", "not_available"),
+        "costmap_ack_attempts": diagnostics.get("costmap_ack_attempts", 0),
+        "costmap_ack_checked_cells": diagnostics.get("costmap_ack_checked_cells", 0),
+        "costmap_ack_mismatch_cells": diagnostics.get("costmap_ack_mismatch_cells", 0),
+        "costmap_ack_sequence": diagnostics.get("costmap_ack_sequence", 0),
+        "server_costmap_update_time_ns": diagnostics.get("server_costmap_update_time_ns", "not_available"),
+        "server_costmap_content_hash": diagnostics.get("server_costmap_content_hash", ""),
+        "roi_bbox": diagnostics.get("roi_bbox", []),
+        "roi_changed_cells": diagnostics.get("roi_changed_cells", 0),
+        "roi_published_cells": diagnostics.get("roi_published_cells", 0),
+        "roi_message_count": diagnostics.get("roi_message_count", 0),
+        "roi_max_message_bytes": diagnostics.get("roi_max_message_bytes", 0),
+        "roi_publish_pacing_ms": diagnostics.get("roi_publish_pacing_ms", 0.0),
+        "roi_ack_initial_status": diagnostics.get("roi_ack_initial_status", ""),
+        "roi_ack_initial_mismatch_cells": diagnostics.get("roi_ack_initial_mismatch_cells", 0),
+        "roi_ack_initial_attempts": diagnostics.get("roi_ack_initial_attempts", 0),
+        "roi_ack_initial_wait_ms": diagnostics.get("roi_ack_initial_wait_ms", 0.0),
+        "roi_ack_initial_error": diagnostics.get("roi_ack_initial_error", ""),
+        "costmap_ack_repair_count": diagnostics.get("costmap_ack_repair_count", 0),
+        "costmap_ack_repair_messages": diagnostics.get("costmap_ack_repair_messages", 0),
+        "costmap_ack_repair_cells": diagnostics.get("costmap_ack_repair_cells", 0),
+        "costmap_ack_repair_serialization_ms": diagnostics.get("costmap_ack_repair_serialization_ms", 0.0),
+        "costmap_ack_repair_publication_ms": diagnostics.get("costmap_ack_repair_publication_ms", 0.0),
+        "ros_path_conversion_ms": diagnostics.get("ros_path_conversion_ms", 0.0),
+        "point_annotation_ms": diagnostics.get("point_annotation_ms", 0.0),
+        "action_server_wait_ms": diagnostics.get("action_server_wait_ms", 0.0),
+        "action_goal_send_wait_ms": diagnostics.get("action_goal_send_wait_ms", 0.0),
+        "action_result_wait_ms": diagnostics.get("action_result_wait_ms", 0.0),
+        "path_interpolation_ms": diagnostics.get("path_interpolation_ms", 0.0),
+        "world_to_cell_ms": diagnostics.get("world_to_cell_ms", 0.0),
+        "path_within_mask_ms": diagnostics.get("path_within_mask_ms", 0.0),
+        "path_hash_provenance_ms": diagnostics.get("path_hash_provenance_ms", 0.0),
+        "footprint_validation_ms": diagnostics.get("footprint_validation_ms", 0.0),
+        "kinematic_validation_ms": diagnostics.get("kinematic_validation_ms", 0.0),
+        "canonical_path_audit_ms": diagnostics.get("canonical_path_audit_ms", 0.0),
+        "canonical_path_audit_reused": diagnostics.get("canonical_path_audit_reused", False),
+        "canonical_path_hash": diagnostics.get("canonical_path_hash", ""),
+        "canonical_pose_hash": diagnostics.get("canonical_pose_hash", ""),
+        "canonical_mask_hash": diagnostics.get("canonical_mask_hash", ""),
+        "canonical_sampled_pose_count": diagnostics.get("canonical_sampled_pose_count", 0),
+        "canonical_exact_footprint_check_count": diagnostics.get("canonical_exact_footprint_check_count", 0),
+        "endpoint_yaw_cache_key": diagnostics.get("endpoint_yaw_cache_key", ""),
+        "endpoint_yaw_cache_hit": diagnostics.get("endpoint_yaw_cache_hit", False),
+        "endpoint_yaw_selection_ms": diagnostics.get("endpoint_yaw_selection_ms", 0.0),
+        "endpoint_dubins_feasible_pair_count": diagnostics.get("endpoint_dubins_feasible_pair_count", 0),
+        "endpoint_selected_start_node_id": diagnostics.get("endpoint_selected_start_node_id", -1),
+        "endpoint_selected_goal_node_id": diagnostics.get("endpoint_selected_goal_node_id", -1),
+        "endpoint_start_yaw_error_rad": diagnostics.get("endpoint_start_yaw_error_rad", "not_available"),
+        "endpoint_goal_yaw_error_rad": diagnostics.get("endpoint_goal_yaw_error_rad", "not_available"),
+        "endpoint_start_dubins_word": diagnostics.get("endpoint_start_dubins_word", ""),
+        "endpoint_goal_dubins_word": diagnostics.get("endpoint_goal_dubins_word", ""),
+        "smac_search_ms": diagnostics.get("smac_search_ms", "not_available"),
+        "smac_smoothing_ms": diagnostics.get("smac_smoothing_ms", "not_available"),
+        "smac_heuristic_reset_ms": diagnostics.get("smac_heuristic_reset_ms", "not_available"),
+        "smac_heuristic_eval_ms": diagnostics.get("smac_heuristic_eval_ms", "not_available"),
+        "smac_analytic_expansion_ms": diagnostics.get("smac_analytic_expansion_ms", "not_available"),
+        "smac_analytic_attempts": diagnostics.get("smac_analytic_attempts", "not_available"),
+        "smac_analytic_successes": diagnostics.get("smac_analytic_successes", "not_available"),
+        "smac_internal_metrics_measured": diagnostics.get("smac_internal_metrics_measured", False),
     }
     call_row = {
         "run_id": run_id,
@@ -1357,8 +1594,8 @@ def _run_one(
         "attempt_count": diagnostics.get("attempt_count", 0),
         "attempts": diagnostics.get("attempts", []),
         "planner_search_started": diagnostics.get("planner_search_started", "not_available"),
-        "expanded_states": "not_available",
-        "generated_states": "not_available",
+        "expanded_states": diagnostics.get("expanded_states", "not_available"),
+        "generated_states": diagnostics.get("generated_states", "not_available"),
         "final_valid_success": bool(metrics.get("final_valid_success")),
         "failure_code": result.failure_code if result is not None else "PIPELINE_EXCEPTION",
         **l1_timing_fields,
@@ -1386,8 +1623,8 @@ def _run_one(
         "l2_call_count": 0,
         "l3_prime_call_count": l3_calls,
         "l3_backend_call_count": l3_calls,
-        "expanded_states": "not_available",
-        "generated_states": "not_available",
+        "expanded_states": diagnostics.get("expanded_states", "not_available"),
+        "generated_states": diagnostics.get("generated_states", "not_available"),
         "l3_attempted": l3_calls > 0,
         "corridor_semantics": corridor_semantics,
         "corridor_profile": profile_name,
