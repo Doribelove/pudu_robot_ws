@@ -1,0 +1,83 @@
+architecture_id: 3D-V1
+implementation_revision: r0-production-substrate-l2-dstar-v1
+parent_architecture: 2A-V1-r2
+explicitly_not_derived_from: 3D-V0
+protocol_version: PLN-02-3D-V1-DYNAMIC-EXT-V1
+scope:
+  classification: independent_dynamic_extension
+  static_pln02_claims_allowed: false
+  overwrite_frozen_experiments: false
+layers:
+  dynamic_input: versioned_snapshot_two_observation_confirmation
+  scheduler: relevance_and_optimality_safe_skip
+  l1: deterministic_graph_astar
+  l2: persistent_dstar_lite_in_cropped_adaptive_corridor_roi
+  l3: nav2_smac_planner_hybrid
+runtime:
+  map_resolution_m: 0.05
+  multiresolution_or_downsampled_l2: false
+  corridor_profile: topology_turn_adaptive_2m_4m
+  ordinary_padding_m: 2.0
+  turn_support_padding_m: 4.0
+  roi_max_message_bytes: 131072
+  server_content_ack_required_before_smac: true
+  fixed_settle_cycles_after_ack: 0
+  normal_costmap_clear_count: 0
+  canonical_path_audit_reused: true
+l2:
+  allow_diagonal: true
+  prevent_corner_cutting: true
+  persistent_state: [g, rhs, OPEN, km]
+  state_binding:
+    - map_hash
+    - map_shape
+    - map_origin
+    - resolution
+    - topology_hash
+    - route_edge_ids
+    - corridor_mask_hash
+    - start_cell
+    - goal_cell
+    - footprint_hash
+  reinitialize_only_on_binding_change: true
+  dynamic_inflation_radius_cells: 7
+  dstar_wall_budget_ms: 500.0
+  dstar_wall_budget_candidates_ms: [100, 250, 500, 750]
+  dstar_budget_requires_heldout_calibration: true
+  dstar_max_expansions: 20000
+  dstar_attempt_max_confirmed_source_cells: 2
+  dstar_attempt_on_recovery: false
+  bounded_fallback: deterministic_grid_astar
+  partial_dstar_result_allowed: false
+  resync_cpu_reported_separately: true
+dynamic:
+  states: [AVAILABLE, BLOCKED_PENDING, BLOCKED, RECOVERING, AVAILABLE]
+  block_confirmation_observations: 2
+  recovery_confirmation_observations: 2
+  confidence_threshold: 0.60
+  reject_expired_snapshot: true
+  reject_out_of_order_snapshot: true
+  snapshot_is_complete_occupancy_observation: true
+scheduler:
+  skip_unconfirmed_or_duplicate: true
+  skip_outside_active_corridor: true
+  skip_off_path_cost_increase: true
+  never_skip_recovery_cost_decrease: true
+  l1_reroute_only_after_l2_no_path: true
+smac:
+  angle_quantization_bins: 48
+  motion_model: DUBIN
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  allow_reverse: false
+  allow_in_place_rotation: false
+gates:
+  oracle_parity_required: 1.0
+  blocked_cell_in_returned_l2_path_max: 0
+  partial_dstar_result_max: 0
+  l2_dynamic_p50_reduction_min: 0.20
+  l2_dynamic_p95_ratio_max: 1.05
+  l2_dynamic_p99_ratio_max: 1.10
+  expanded_node_p50_reduction_min: 0.50
+  no_route_and_recovery_required: true
+  stage_b_requires_stage_a_pass: true

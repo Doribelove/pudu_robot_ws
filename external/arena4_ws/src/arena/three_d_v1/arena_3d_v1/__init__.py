@@ -1,0 +1,13 @@
+"""3D-V1: production L1/L3 substrate with persistent D* Lite at L2."""
+
+ARCHITECTURE_ID = "3D-V1"
+IMPLEMENTATION_REVISION = "r0-production-substrate-l2-dstar-v1"
+PARENT_ARCHITECTURE = "2A-V1-r2"
+PROTOCOL_VERSION = "PLN-02-3D-V1-DYNAMIC-EXT-V1"
+
+__all__ = [
+    "ARCHITECTURE_ID",
+    "IMPLEMENTATION_REVISION",
+    "PARENT_ARCHITECTURE",
+    "PROTOCOL_VERSION",
+]

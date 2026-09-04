@@ -44,6 +44,14 @@ class GraphDStarSearchStats:
     search_time_ms: float = 0.0
     timeout_triggered: bool = False
     no_path: bool = False
+    budget_triggered: bool = False
+    budget_reason: str = ""
+    converged: bool = True
+    stale_queue_entries: int = 0
+    peak_open_size: int = 0
+    g_changed_nodes: int = 0
+    rhs_changed_nodes: int = 0
+    predecessor_propagations: int = 0
 
 
 class GraphDStarLite:
@@ -112,6 +120,9 @@ class GraphDStarLite:
         self.queue_push_count = 0
         self.queue_pop_count = 0
         self.update_vertex_count = 0
+        self.rhs_change_count = 0
+        self.g_change_count = 0
+        self.predecessor_propagation_count = 0
         self.update_count = 0
         self._push(self.goal)
         self.last_stats = GraphDStarSearchStats()
@@ -129,6 +140,12 @@ class GraphDStarLite:
     def _heuristic(self, first: int, second: int) -> float:
         # Topology callers may attach coordinates through ``node_positions``.
         # Integer-id distance is a conservative deterministic fallback.
+        # A virtual endpoint/root has a negative id and may intentionally have
+        # no coordinate.  The former 1.0 fallback could exceed a sub-metre
+        # ranking edge, breaking heuristic consistency and stopping an
+        # incremental cost-increase repair before the start state was updated.
+        if int(first) < 0 or int(second) < 0:
+            return 0.0
         if hasattr(self, "node_positions"):
             try:
                 ax, ay = self.node_positions[int(first)]
@@ -156,7 +173,10 @@ class GraphDStarLite:
 
     def _edge_cost(self, edge: GraphEdge) -> float:
         status = self.edge_status.get(str(edge.edge_id), self.AVAILABLE)
-        if status == self.BLOCKED:
+        # RECOVERING remains unavailable until the second clear observation
+        # promotes it to AVAILABLE.  Treating it as a static-cost edge would
+        # defeat recovery hysteresis and could expose a route too early.
+        if status in {self.BLOCKED, self.RECOVERING}:
             return INF
         value = self.edge_cost_override.get(str(edge.edge_id), edge.length_m + edge.static_cost + edge.turn_penalty)
         if not math.isfinite(value) or value <= 0.0:
@@ -178,6 +198,8 @@ class GraphDStarLite:
             best = INF
             for successor, edge, _reverse in self._successors(node):
                 best = min(best, self._edge_cost(edge) + self._value(self.g, successor))
+            if best != self._value(self.rhs, node):
+                self.rhs_change_count += 1
             self.rhs[node] = best
         self._push(node)
 
@@ -229,32 +251,73 @@ class GraphDStarLite:
         return len(affected)
 
     def compute_shortest_path(
-        self, *, timeout_s: Optional[float] = None, max_expansions: Optional[int] = None,
+        self, *, timeout_s: Optional[float] = None,
+        max_expansions: Optional[int] = None,
+        max_queue_pops: Optional[int] = None,
+        max_update_vertex: Optional[int] = None,
+        max_open_size: Optional[int] = None,
+        max_inconsistent_states: Optional[int] = None,
     ) -> GraphDStarSearchStats:
+        """Repair the shortest path, optionally stopping at auditable limits.
+
+        A caller must check ``converged`` before extracting or returning a
+        route.  Budget termination deliberately leaves the incremental state
+        in-place so it can either be resumed from the same snapshot or
+        discarded and rebuilt by the caller; it never pretends the partial
+        state is a valid solution.
+        """
         started = time.monotonic_ns()
         initial_queue_size = len(self._open)
         pushes_before = self.queue_push_count
         pops_before = self.queue_pop_count
         updates_before = self.update_vertex_count
+        rhs_changes_before = self.rhs_change_count
+        g_changes_before = self.g_change_count
+        predecessor_before = self.predecessor_propagation_count
         expanded = generated = pops = 0
         timeout = False
+        budget_reason = ""
+        stale_entries = 0
+        peak_open_size = len(self._open)
         deadline = None if timeout_s is None else time.monotonic() + max(0.0, float(timeout_s))
         while self._open:
+            peak_open_size = max(peak_open_size, len(self._open))
             top_key = (self._open[0][0], self._open[0][1])
             start_key = self._calculate_key(self.start)
             if not (top_key < start_key or self._value(self.rhs, self.start) != self._value(self.g, self.start)):
                 break
             if deadline is not None and time.monotonic() >= deadline:
                 timeout = True
+                budget_reason = "WALL_TIME_BUDGET"
                 break
             if max_expansions is not None and expanded >= max(0, int(max_expansions)):
                 timeout = True
+                budget_reason = "EXPANSION_BUDGET"
+                break
+            if max_queue_pops is not None and pops >= max(0, int(max_queue_pops)):
+                timeout = True
+                budget_reason = "OPEN_POP_BUDGET"
+                break
+            if (max_update_vertex is not None
+                    and self.update_vertex_count - updates_before >= max(0, int(max_update_vertex))):
+                timeout = True
+                budget_reason = "UPDATE_VERTEX_BUDGET"
+                break
+            if max_open_size is not None and len(self._open) > max(0, int(max_open_size)):
+                timeout = True
+                budget_reason = "OPEN_SIZE_BUDGET"
+                break
+            if (max_inconsistent_states is not None
+                    and len(self._queued_keys) > max(0, int(max_inconsistent_states))):
+                timeout = True
+                budget_reason = "INCONSISTENT_STATE_BUDGET"
                 break
             old_1, old_2, _counter, node = heapq.heappop(self._open)
             pops += 1
             self.queue_pop_count += 1
             old_key = (old_1, old_2)
             if self._queued_keys.get(node) != old_key:
+                stale_entries += 1
                 continue
             self._queued_keys.pop(node, None)
             new_key = self._calculate_key(node)
@@ -263,14 +326,18 @@ class GraphDStarLite:
                 continue
             if self._value(self.g, node) > self._value(self.rhs, node):
                 self.g[node] = self._value(self.rhs, node)
+                self.g_change_count += 1
                 expanded += 1
                 for predecessor, _edge, _reverse in self._predecessor_nodes(node):
+                    self.predecessor_propagation_count += 1
                     self.update_vertex(predecessor)
             else:
                 self.g[node] = INF
+                self.g_change_count += 1
                 expanded += 1
                 self.update_vertex(node)
                 for predecessor, _edge, _reverse in self._predecessor_nodes(node):
+                    self.predecessor_propagation_count += 1
                     self.update_vertex(predecessor)
             generated += 1
         elapsed = (time.monotonic_ns() - started) / 1.0e6
@@ -281,6 +348,14 @@ class GraphDStarLite:
             initial_queue_size=initial_queue_size, final_queue_size=len(self._open),
             update_vertex_count=self.update_vertex_count - updates_before,
             search_time_ms=float(elapsed), timeout_triggered=timeout, no_path=no_path,
+            budget_triggered=timeout, budget_reason=budget_reason,
+            converged=not timeout, stale_queue_entries=stale_entries,
+            peak_open_size=peak_open_size,
+            g_changed_nodes=self.g_change_count - g_changes_before,
+            rhs_changed_nodes=self.rhs_change_count - rhs_changes_before,
+            predecessor_propagations=(
+                self.predecessor_propagation_count - predecessor_before
+            ),
         )
         return self.last_stats
 

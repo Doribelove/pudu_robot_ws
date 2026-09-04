@@ -954,6 +954,10 @@ def plan_l1_l3_corridor_hybrid(
             "local_costmap_clear_ms", "costmap_settle_ms",
             "costmap_ack_wait_ms", "costmap_ack_status", "costmap_ack_attempts",
             "costmap_ack_checked_cells", "costmap_ack_mismatch_cells",
+            "costmap_ack_hard_checked_cells", "costmap_ack_hard_mismatch_cells",
+            "costmap_ack_soft_checked_cells", "costmap_ack_soft_mismatch_cells",
+            "costmap_ack_soft_exact_mismatch_cells",
+            "costmap_ack_soft_exact_mismatch_ratio", "costmap_ack_semantics",
             "costmap_ack_sequence", "server_costmap_update_time_ns",
             "server_costmap_content_hash", "roi_bbox", "roi_changed_cells",
             "roi_published_cells", "roi_message_count", "roi_max_message_bytes",
@@ -981,6 +985,11 @@ def plan_l1_l3_corridor_hybrid(
             "smac_analytic_expansion_ms", "smac_analytic_attempts",
             "smac_analytic_successes", "smac_instrumented_success",
             "smac_internal_metrics_measured",
+            "semantic_roi_sequence", "semantic_publication_version",
+            "semantic_policy_hash", "semantic_expected_grid_hash",
+            "semantic_expected_master_hash",
+            "semantic_hard_exact_soft_static_to_inflation_bounds_verified",
+            "semantic_hard_soft_mismatch",
         ):
             if key in attempt:
                 diagnostics[key] = attempt[key]
@@ -1156,6 +1165,10 @@ def plan_l1_l3_corridor_hybrid(
             "local_map_publication_ms", "local_costmap_clear_ms", "costmap_settle_ms",
             "costmap_ack_wait_ms", "costmap_ack_status", "costmap_ack_attempts",
             "costmap_ack_checked_cells", "costmap_ack_mismatch_cells", "costmap_ack_sequence",
+            "costmap_ack_hard_checked_cells", "costmap_ack_hard_mismatch_cells",
+            "costmap_ack_soft_checked_cells", "costmap_ack_soft_mismatch_cells",
+            "costmap_ack_soft_exact_mismatch_cells",
+            "costmap_ack_soft_exact_mismatch_ratio", "costmap_ack_semantics",
             "server_costmap_update_time_ns", "server_costmap_content_hash",
             "roi_bbox", "roi_changed_cells", "roi_published_cells",
             "roi_message_count", "roi_max_message_bytes",
@@ -1177,6 +1190,11 @@ def plan_l1_l3_corridor_hybrid(
             "smac_analytic_expansion_ms", "smac_analytic_attempts",
             "smac_analytic_successes", "smac_instrumented_success",
             "smac_internal_metrics_measured",
+            "semantic_roi_sequence", "semantic_publication_version",
+            "semantic_policy_hash", "semantic_expected_grid_hash",
+            "semantic_expected_master_hash",
+            "semantic_hard_exact_soft_static_to_inflation_bounds_verified",
+            "semantic_hard_soft_mismatch",
         ):
             if key in result_diagnostics:
                 attempt_diag[key] = result_diagnostics[key]

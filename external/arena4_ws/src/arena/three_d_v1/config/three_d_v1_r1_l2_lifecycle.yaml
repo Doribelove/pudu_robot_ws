@@ -1,0 +1,70 @@
+architecture_id: 3D-V1
+revision_id: r1-l2-state-lifecycle-soak
+protocol_id: PLN-02-3D-V1-R1-L2-LIFECYCLE-V1
+freeze:
+  frozen_at: '2026-09-04T13:08:51+08:00'
+  calibration_directory: /home/robot/pudu_robot_ws/experiments/layered_planner_benchmark/3d_v1_r1_calibration_20260904_05
+  calibration_gate_results_sha256: fcee839333ee181e2190e3f9b4f74de26c73cf84f604ac2755c51ee0f866c5c5
+  calibration_manifest_sha256: 5c457825ca44b6e5979a1d95eef06da32ced38203e9328d190a3359e3c91342e
+  l2_state_lifecycle_sha256: a189b8ae68e30a24b00fad397e33c10da6999fb1ba9124b81836e9357e362b9d
+  r1_pipeline_sha256: e4cf9ad21f5d8819e8757ee27d8339d5aaf44384a6ff93bf68bb8360ad043e7a
+  r1_stage_a_pre_freeze_sha256: 75711c01afbab515d2d562838247b476ee47600029ce3bef8f1f1d4499196ad3
+  threshold_adjustments_after_calibration: 0
+map:
+  id: mentor_map_20260825_005_4x_area
+  resolution_m: 0.05
+workload:
+  classification: realistic_synthetic_workload_on_real_4x_map
+  reliable_real_dynamic_log_found: false
+  calibration_queries: [A2B-02, A2B-07, A2B-11, A2B-15]
+  heldout_queries:
+    - A2B-01
+    - A2B-03
+    - A2B-04
+    - A2B-05
+    - A2B-06
+    - A2B-08
+    - A2B-09
+    - A2B-10
+    - A2B-12
+    - A2B-13
+    - A2B-17
+    - A2B-18
+  classification_only_queries: [A2B-16, A2B-19]
+  paired_repetitions_per_heldout_query: 10
+policy:
+  dynamic_inflation_radius_cells: 7
+  confirmation_observations: 2
+  dstar_attempt_max_changed_sources: 2
+  dstar_wall_budget_ms: 500.0
+  dstar_max_expansions: 20000
+  max_active_states_default: 1
+  max_active_states_hard: 2
+  geometry_schema: 3D-V1-r1-compact-geometry-v2
+  state_schema: 3D-V1-r1-compact-dstar-state-v2
+  algorithm_version: compact-dstar-lite-corner-safe-f64-v2
+  adjacency_rule: 8-neighbor-euclidean-corner-safe-int16-delta-v2
+gates:
+  oracle_reachability_and_cost_parity_required: true
+  canonical_cost_error_max: 0.0
+  blocked_or_recovering_path_cells_max: 0
+  partial_dstar_results_max: 0
+  hidden_reinitialize_count_max: 0
+  r1_p50_reduction_vs_cold_astar_min: 0.20
+  r1_p95_ratio_vs_cold_astar_max: 1.05
+  r1_p99_ratio_vs_cold_astar_max: 1.10
+  target_p95_ratio_vs_cold_astar_max: 1.0
+  target_p99_ratio_vs_cold_astar_max: 1.0
+  warm_activation_p95_ms_max: 1000.0
+  resident_reduction_vs_57974008_min: 0.30
+  resident_bytes_target_max: 35000000
+  cache_corruption_and_binding_reject_rate_min: 1.0
+  recovery_execution_rate_min: 1.0
+stage_b:
+  conditional_on_stage_a_hard_gate: true
+  query_count_min: 3
+  angle_quantization_bins: 48
+  motion_model: DUBIN
+  fixed_settle_cycles: 0
+  require_server_content_ack: true
+  canonical_path_audit_singleton: true

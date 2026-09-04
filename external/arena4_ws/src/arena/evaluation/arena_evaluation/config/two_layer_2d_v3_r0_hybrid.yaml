@@ -1,0 +1,55 @@
+architecture_id: 2D-V3
+implementation_revision: r0-hybrid-tail-bounded-v1
+parent_architecture: 2D-V2-r0
+status: candidate
+protocol_version: PLN-02-EXP-V1
+layers:
+  l1: original_static_skeleton_hybrid_bounded_persistent_dstar_with_cold_graph_astar
+  l2: disabled
+  l3_prime: nav2_smac_planner_hybrid
+motion:
+  model: DUBIN
+  angle_quantization_bins: 48
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  allow_reverse: false
+  allow_in_place_rotation: false
+runtime:
+  corridor_profile: topology_turn_adaptive_2m_4m
+  ordinary_padding_m: 2.0
+  turn_support_padding_m: 4.0
+  roi_max_message_bytes: 131072
+  server_content_ack_required: true
+  fixed_settle_cycles_after_ack: 0
+  normal_costmap_clear_count: 0
+  canonical_path_audit_reuse: true
+dynamic:
+  states: [AVAILABLE, BLOCKED_PENDING, BLOCKED, RECOVERING, AVAILABLE]
+  blocked_cost: INF
+  recovering_cost: INF
+  block_confirmation_observations: 2
+  recovery_confirmation_observations: 2
+  reject_expired_snapshot: true
+  reject_out_of_order_snapshot: true
+selector:
+  route_unaffected_reuse: true
+  cold_graph_astar_fallback: true
+  partial_dstar_result_allowed: false
+  calibration_wall_budget_candidates_ms: [0.5, 1, 2, 4, 6, 8]
+cache:
+  route_mask_lru_memory_cap_bytes: 134217728
+  primitives: [compressed_edge_roi, compressed_turn_support_roi, endpoint_strip]
+  binding_fields:
+    - map_hash
+    - map_shape
+    - map_origin
+    - resolution
+    - topology_hash
+    - route_edge_ids
+    - dynamic_snapshot_id
+    - blocked_edge_digest
+    - corridor_profile
+    - footprint
+    - minimum_turning_radius_m
+    - start_goal_full_pose
+    - source_hash

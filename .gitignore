@@ -24,3 +24,10 @@ __pycache__/
 
 # Arena4 evaluation outputs
 experiments/
+
+# Private maps and derived site data (never commit)
+/private_data/
+
+# Generated previews and presentation artifacts
+/.tmp_feishu_preview/
+/artifacts/

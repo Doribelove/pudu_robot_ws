@@ -1,0 +1,193 @@
+schema_version: two_layer_v2_semantic_config.v3
+architecture_id: 2A-V2
+implementation_revision: r2-direction-ack-latency
+protocol_id: PLN-02-2A-V2-R2-DIRECTION-ACK-LATENCY-V1
+parent_architecture: 2A-V2-r1
+semantic_map_version: SemanticMapV1
+
+protocol:
+  resolution_m: 0.05
+  dynamic_obstacles: false
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  footprint:
+    - [0.255, 0.215]
+    - [0.255, -0.215]
+    - [-0.255, -0.215]
+    - [-0.255, 0.215]
+  footprint_padding_m: 0.05
+  semantic_safety_margin_m: 0.05
+  hard_semantic_mask: footprint_expanded
+
+l1_edge_cost:
+  formula: length + semantic_integral + zone_entry_penalty + direction_penalty
+  sample_spacing_m: 0.05
+  zone_entry_penalty: 0.20
+  wrong_way_penalty_per_m: 10.0
+  class_cost_per_m:
+    unlabelled: 0.15
+    lane: 0.0
+    junction_area: 0.05
+    parking_area: 0.10
+    speed_bumps: 2.0
+    fence_area: 0.0
+    no_stopping: 0.0
+
+endpoint_attachment:
+  strategy: near_candidates_then_expanded_weighted_multi_source
+  preferred_radius_m: 2.0
+  cost_weight: 4.0
+
+regional_preference:
+  geometry_revision: r2_crop_native_lane_instance_boundary_pair
+  lane_direction_source: query_start_to_goal_selected_l1_route_tangent
+  polygon_vertex_order_is_direction: false
+  lane_base_center_to_right_boundary_m: 0.40
+  lane_distance_reference: robot_base_center
+  lane_target_tolerance_m: 0.20
+  lane_huber_delta_m: 1.0
+  lane_error_scale_m: 5.0
+  lane_cost_cap: 64
+  parking_cost_cap: 48
+  junction_transition_distance_m: 0.75
+  parking_endpoint_taper_distance_m: 1.00
+  endpoint_relax_radius_m: 0.75
+  narrow_channel_width_m: 1.10
+  direction_instability_floor: 0.20
+  r1_lateral_weight_scale: 0.50
+  max_boundary_probe_m: 12.0
+  route_crop_margin_m: 1.0
+
+l3_soft_cost:
+  formula: clamp(class + regional + transition, 0, soft_cost_max)
+  w_class: 1.0
+  w_lateral: 1.0
+  w_transition: 0.10
+  soft_cost_max: 80
+  class_soft_cost:
+    speed_bumps: 72
+    parking_area: 4
+    lane: 0
+    junction_area: 0
+    fence_area: 0
+    no_stopping: 0
+  composition_method: max
+  static_layer:
+    trinary_costmap: false
+    lethal_cost_threshold: 100
+    unknown_cost_value: 255
+    ack_semantics: exact_effective_master
+  inflation:
+    inflation_radius_m: 0.55
+    cost_scaling_factor: 3.0
+    nav2_footprint_padding_m: 0.01
+    inscribed_radius_m: 0.225
+    expected_effective_mapping: pinned_humble_propagation_exact_v1
+
+roi:
+  r0_padding_m: 2.0
+  r3_padding_m: 4.0
+  r4_full_map: true
+  expand_route_lane_instances: true
+  lane_route_probe_radius_m: 0.50
+  ack_timeout_s: 1.5
+  ack_stable_observations: 2
+  affected_cells_only: true
+  effective_old_new_dirty_union: true
+  reuse_r0_r1_r2_mask: true
+  noop_requires_exact_complete_key: true
+
+cache:
+  composer_inflation_capacity: 2
+  field_capacity_per_query: 8
+  roi_capacity_per_query: 8
+  bounded: true
+
+query_validity:
+  rule_id: r2_endpoint_footprint_and_4_connected_target_band_v1
+  target_error_threshold_m: 0.50
+  require_footprint_safe_endpoints: true
+  require_hard_semantic_free_endpoints: true
+  require_no_stopping_free_goal: true
+  require_start_goal_same_4_connected_component: true
+  require_reachable_target_band: true
+
+ablation_arms:
+  E0:
+    description: legacy selector; all semantic planning influence disabled; audit on
+    route_selector: legacy
+    l1_semantic_costs: false
+    l1_hard_semantics: false
+    l3_hard_semantics: false
+    l3_soft_class_costs: false
+    regional_preference: false
+    semantic_audit: true
+    relaxation: strict
+  E1:
+    description: multi-source neutral selector only; semantic planning influence disabled
+    route_selector: multi_source
+    l1_semantic_costs: false
+    l1_hard_semantics: false
+    l3_hard_semantics: false
+    l3_soft_class_costs: false
+    regional_preference: false
+    semantic_audit: true
+    relaxation: strict
+  E2:
+    description: multi-source semantic L1 and hard L3; lateral/class soft L3 disabled
+    route_selector: multi_source
+    l1_semantic_costs: true
+    l1_hard_semantics: true
+    l3_hard_semantics: true
+    l3_soft_class_costs: false
+    regional_preference: false
+    semantic_audit: true
+    relaxation: strict
+  E3:
+    description: E2 route held fixed; complete r2 L3 semantics at R0
+    route_selector: multi_source
+    l1_semantic_costs: true
+    l1_hard_semantics: true
+    l3_hard_semantics: true
+    l3_soft_class_costs: true
+    regional_preference: true
+    semantic_audit: true
+    relaxation: strict
+    fixed_l1_route_from: E2
+  E4:
+    description: full 2A-V2 r2 with exact ACK and graceful preference relaxation
+    route_selector: multi_source
+    l1_semantic_costs: true
+    l1_hard_semantics: true
+    l3_hard_semantics: true
+    l3_soft_class_costs: true
+    regional_preference: true
+    semantic_audit: true
+    relaxation: graceful
+
+preference_relaxation:
+  levels: [R0, R1, R2, R3, R4]
+  skip_soft_only_levels_without_effective_soft_semantics: true
+
+gates:
+  direction_correct_side_min: 0.80
+  direction_target_error_p50_max_m: 0.50
+  direction_required_relaxation: R0
+  hard_exact_mismatch_max: 0
+  soft_exact_mismatch_max: 0
+  stale_roi_cells_max: 0
+  ack_hash_mismatch_max: 0
+  ack_sequence_mismatch_max: 0
+  cold_e4_over_e0_max: 2.0
+  cold_e4_over_e0_target: 1.5
+
+experiment:
+  seed: 20260903
+  diagnostic_query_count: 8
+  formal_query_minimum: 30
+  warmups: 1
+  repetitions: 3
+  p99_minimum_effective_samples: 100
+  dynamic_obstacles: false

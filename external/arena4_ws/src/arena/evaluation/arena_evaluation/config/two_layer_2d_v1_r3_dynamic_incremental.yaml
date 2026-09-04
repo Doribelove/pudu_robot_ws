@@ -1,0 +1,65 @@
+architecture_id: 2D-V1
+implementation_revision: r3
+parent_architecture: 2D-V1-r2
+experiment_kind: dynamic_incremental
+protocol_version: PLN-02-EXP-V1
+
+topology:
+  representation: 2a_v0_static_skeleton_graph
+  refinement_enabled: false
+  frozen_r2_cache_key: af45cba4e2772b5d8209efdc171ad4672a48b3f01697d60f5d421ac821d42b4c
+  node_count: 2114
+  edge_count: 2172
+
+layers:
+  l1: paired_incremental_dstar_cold_dstar_cold_graph_astar
+  l2_enabled: false
+  l3_backend: nav2_smac_planner_hybrid
+  motion_model: DUBIN
+
+dynamic_overlay:
+  mutates_static_map: false
+  mutates_static_topology: false
+  state_machine:
+    - AVAILABLE
+    - BLOCKED_PENDING
+    - BLOCKED
+    - RECOVERING
+    - AVAILABLE
+  confirmed_block_cost: INF
+  confirmation_observations: 2
+  recovery_observations: 2
+  reject_expired_snapshots: true
+  reject_out_of_order_snapshots: true
+  require_same_snapshot_id_across_layers: true
+
+paired_arms:
+  incremental_dstar:
+    reuse: [g, rhs, OPEN, km]
+    changed_edges_only: true
+    implicit_reinitialize_allowed: false
+  cold_dstar:
+    fresh_search_state_per_snapshot: true
+  cold_graph_astar:
+    fresh_search_state_per_snapshot: true
+    deterministic_tie_break: [path_cost, successor_node_id, edge_id]
+    correctness_oracle: true
+
+map_and_motion:
+  resolution_m: 0.05
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  allow_reverse: false
+  allow_in_place_rotation: false
+
+formal_experiment:
+  initial_snapshot: S0
+  dynamic_snapshots: 20
+  warmups: 3
+  algorithm_repetitions: 20
+  ros_repetitions: 3
+  main_static_valid_queries: 8
+  fixed_seed: 20260903
+  evaluator_deadline_ms: 2500
+  ros_domain_id: 97
+  frozen_r2_directory: /home/robot/pudu_robot_ws/experiments/layered_planner_benchmark/2d_v1_mentor_map_20260825_005_20_performance_r2_20260903_1147

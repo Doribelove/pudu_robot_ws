@@ -1,0 +1,37 @@
+research_id: 2D-V2-r1-dstar-tail-research
+parent_architecture: 2D-V2-r0
+reference_architecture: 2D-V3-r0
+experiment_kind: dstar_core_tail_latency
+status: research_only
+protocol_version: PLN-02-EXP-V1
+scope: L1_only
+map_id: mentor_map_20260825_005_4x_area
+workload: realistic_synthetic_cleaning_workload
+graph_astar_oracle: deterministic_cold_graph_astar
+blocked_states: [BLOCKED, RECOVERING]
+blocked_cost: INF
+virtual_negative_endpoint_heuristic: 0.0
+arms:
+  - cold_graph_astar
+  - baseline_lazy_dstar
+  - indexed_open_dstar
+  - indexed_batch_dstar
+  - indexed_batch_connectivity
+  - optimized_combo_dstar
+gates:
+  oracle_parity: 1.0
+  maximum_path_cost_error: 0.0
+  blocked_edges_in_path: 0
+  hidden_reinitialize: 0
+  p50_reduction_vs_astar: 0.10
+  p95_max_ratio_vs_astar: 1.05
+  p99_max_ratio_vs_astar: 1.10
+  no_route_p50_p95_max_ratio_vs_astar: 1.0
+calibration:
+  selection: progressive_single_variable_only
+  minimum_tail_improvement: 0.01
+  connectivity_no_route_improvement: 0.05
+resync:
+  strategies: [immediate, lazy, batched_background]
+  lazy_quiet_window_snapshots: 2
+stage_b_policy: run_only_if_heldout_verdict_A
