@@ -196,6 +196,16 @@ PyObject * inflate(PyObject *, PyObject * args)
         for (int x = 0; x < width; ++x) {
           const auto index = static_cast<std::uint32_t>(y * width + x);
           if (master[index] == kLethalObstacle) {
+            // Interior lethal seeds only enqueue other lethal seeds. Those
+            // entries are all discarded as seen before nonzero bins run.
+            // Marking them directly preserves the surviving queue order and
+            // every master byte, without four redundant distance calculations.
+            const bool boundary =
+              (x > 0 && input[index - 1] != kLethalObstacle) ||
+              (y > 0 && input[index - width] != kLethalObstacle) ||
+              (x + 1 < width && input[index + 1] != kLethalObstacle) ||
+              (y + 1 < height && input[index + width] != kLethalObstacle);
+            if (!boundary) { seen[index] = 1U; continue; }
             process(CellData{
               index, static_cast<std::uint32_t>(x), static_cast<std::uint32_t>(y),
               static_cast<std::uint32_t>(x), static_cast<std::uint32_t>(y)});

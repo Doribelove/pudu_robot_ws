@@ -1,0 +1,47 @@
+architecture_id: 2A-V3
+implementation_revision: r14-parking-dispatch-ack-cache
+protocol_id: PLN-02-2A-V3-R14-EXPANDED-PAIRED-V1
+schema_version: PLN-02-2A-V3-R14-EXPANDED-CONFIG-V1
+status: frozen_for_formal_evaluation
+freeze_utc: "2026-09-08T18:00:00Z"
+
+algorithm_config:
+  path: two_layer_v3_semantic_r14_engineering.yaml
+  sha256: 51a690266e00374abd0f54746544d7813262b2c1993f4fbab847278ea5a74128
+
+query_set:
+  path: pudu_wanda_3f_v3_r14_expanded32_v2.yaml
+  file_sha256: d581763605e7830d1b72d2503d75a996646a7155b698bdedd0dd10f9f41b83e2
+  query_set_id: pudu_wanda_3f_2a_v3_r14_expanded32_v2
+  query_hash: 42464f9e99d3a017e63dde3c9559944698deccf732b2d03a0f56110d814dfd02
+  query_count: 32
+  selection_used_planner_outcome: false
+
+online_interface:
+  ros_domain_id: 146
+  yaw_bins: 48
+  motion_model: DUBIN
+  exact_effective_master_ack: true
+  fixed_settle_s: 0.0
+  exact_ack_timeout_s: 3.0
+  deterministic_reinflation_reset: ROI_TILES_CLEAR_SERVICE_FULL_SOURCE_REPLAY_EXACT_READBACK
+  verified_master_source: EXPECTED_MASTER_PROVEN_EQUAL_BY_EXACT_ACK
+  post_ack_get_costmap_requests: 0
+  timeout_full_repair_allowed: false
+  roi_tile_overlap_rows: 32
+  roi_seam_repair_margin_rows: 16
+  roi_max_payload_bytes: 128000
+
+dispatch:
+  applicable: E5_R14_EXPLICIT_SE2
+  inapplicable: E0_NATIVE_SMAC_48BIN
+  applicable_search_failure: FAIL_CLOSED
+  semantic_success_counted_for_e0: false
+
+measurement:
+  warmups: 1
+  repetitions: 5
+  paired_order: DETERMINISTIC_QUERY_REPETITION_COUNTERBALANCED_AB_BA
+  formal_sample_definition: one arm-query repetition row
+  formal_p99_minimum_samples_per_arm: 100
+  evidence_serialization_excluded_from_request: true

@@ -1,0 +1,87 @@
+Panels:
+  - Class: rviz_common/Displays
+  - Class: rviz_common/Views
+Visualization Manager:
+  Class: ""
+  Global Options:
+    Fixed Frame: map
+    Frame Rate: 30
+  Displays:
+    - Class: rviz_default_plugins/Map
+      Enabled: true
+      Name: Occupancy map
+      Topic:
+        Value: /map
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+    - Class: rviz_default_plugins/RobotModel
+      Enabled: true
+      Name: Jackal
+      TF Prefix: jackal
+      Description Topic:
+        Value: /robot_description
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: 3D-V1 L3 global path
+      Topic:
+        Value: /plan
+      Line Style: Lines
+      Line Width: 0.05
+      Color: 0; 255; 0
+    - Class: rviz_default_plugins/Map
+      Enabled: true
+      Name: Local costmap
+      Topic:
+        Value: /local_costmap/costmap
+      Alpha: 0.55
+    - Class: rviz_default_plugins/TF
+      Enabled: false
+      Name: TF
+      Show Names: true
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Discrete TEB local trajectory
+      Topic:
+        Value: /local_plan
+      Color: 255; 80; 180
+      Line Style: Lines
+      Line Width: 0.10
+    - Class: rviz_default_plugins/Polygon
+      Enabled: true
+      Name: Padded Jackal footprint
+      Topic:
+        Value: /local_costmap/published_footprint
+      Color: 255; 190; 0
+    - Class: rviz_default_plugins/Marker
+      Enabled: true
+      Name: Query and mission state
+      Topic:
+        Value: /three_d_v1/mission_marker
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Moving obstacle and swept envelope
+      Topic:
+        Value: /three_d_v1/moving_obstacle_markers
+    - Class: rviz_default_plugins/LaserScan
+      Enabled: true
+      Name: Gazebo lidar returns
+      Topic:
+        Value: /scan
+      Size (m): 0.03
+      Style: Points
+  Enabled: true
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/Measure
+  Views:
+    Current:
+      Class: rviz_default_plugins/TopDownOrtho
+      Scale: 12
+      Angle: 0
+      Target Frame: moving_scene_center
+Window Geometry:
+  Width: 1280
+  Height: 800

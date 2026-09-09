@@ -1,0 +1,15 @@
+schema_version: PLN-02-2A-V3-R5-TARGETED-APPLICABLE-POSITIVE-V1
+architecture_id: 2A-V3
+implementation_revision: r5-two-successor-lazy
+protocol_id: PLN-02-2A-V3-R5-TWO-SUCCESSOR-LAZY-V1
+extends_targeted:
+  path: pudu_wanda_3f_v3_r4_targeted_applicable_positive_v1.yaml
+  sha256: 4fe895c0730d38f6ffc72c6da3b6e6ebd00457a91d9753b3fa2409f31a515c33
+composition:
+  purpose: identical frozen triad; retain two valid successors per future layer
+  predecessor_targeted_file_sha256: 4fe895c0730d38f6ffc72c6da3b6e6ebd00457a91d9753b3fa2409f31a515c33
+  endpoint_change_from_r4: none
+source_evidence:
+  r4_positive_result:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r4_lazy_positive_calibration_20260907T174500Z/result.json
+    sha256: 33933e2772c026c85ed221406db38271c5d547122c279a4de5aff2cc49dc677f

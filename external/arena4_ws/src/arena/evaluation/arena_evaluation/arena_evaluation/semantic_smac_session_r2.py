@@ -25,6 +25,12 @@ class ExactSemanticSmacSessionR2(SemanticSmacSession):
     PUBLICATION_VERSION = "2A-V2-semantic-costmap-r2-exact-v1"
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
+        # Preserve the r2 behavior by default.  A caller may opt into exact
+        # old/new effective-master delta publication; the existing full-key
+        # no-op check and final server-content ACK remain mandatory.
+        self.force_full_on_semantic_signature_change = bool(
+            kwargs.pop("force_full_on_semantic_signature_change", True)
+        )
         self._semantic_publication_sequence = 0
         self._active_publication_bbox: Tuple[int, int, int, int] = (0, 0, 0, 0)
         self._active_publication_baseline_timestamp_ns = -1
@@ -123,6 +129,7 @@ class ExactSemanticSmacSessionR2(SemanticSmacSession):
             semantic is not None
             and getattr(self, "enable_mask_reuse_noop", False)
             and signature != self._last_exact_signature
+            and getattr(self, "force_full_on_semantic_signature_change", True)
         ):
             # The parent would otherwise trust byte-identical source content
             # without proof that its effective master state was exact.

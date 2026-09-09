@@ -24,6 +24,7 @@ from . import two_layer_v2_semantic_r1_benchmark as r1
 from .planner_benchmark.map_utils import sha256_file
 from .regional_preference_r2 import RegionalPreferenceBuilderR2
 from .semantic_costmap_r2 import SemanticCostmapComposerR2
+from .semantic_query_defaults import DEFAULT_QUERY_SET_PATH, load_query_set
 from .semantic_smac_session_r2 import ExactSemanticSmacSessionR2
 
 
@@ -37,6 +38,7 @@ SOURCE_FILES = (
     Path(__file__),
     Path(__file__).with_name("regional_preference_r2.py"),
     Path(__file__).with_name("semantic_costmap_r2.py"),
+    Path(__file__).with_name("semantic_query_defaults.py"),
     Path(__file__).with_name("semantic_smac_session_r2.py"),
     Path(__file__).with_name("two_layer_v2_semantic_r2_root_cause.py"),
     Path(__file__).with_name("two_layer_v2_semantic_r1_benchmark.py"),
@@ -44,6 +46,7 @@ SOURCE_FILES = (
     Path(__file__).resolve().parents[1] / "test/test_two_layer_v2_semantic_r2.py",
     Path(__file__).resolve().parents[1] / "setup.py",
     DEFAULT_CONFIG,
+    DEFAULT_QUERY_SET_PATH,
     ROOT / "docs/r2_root_cause_report.md",
     ROOT / "docs/PLN-02_ARCHITECTURE_2A_V2_R2.md",
 )
@@ -68,6 +71,42 @@ def _r2_bindings() -> Iterator[None]:
     finally:
         for name, value in previous.items():
             setattr(r1, name, value)
+
+
+@contextmanager
+def _query_set_binding(path: Path, *, require_default_contract: bool) -> Iterator[None]:
+    """Bind one frozen set into the r1 parent without modifying the r1 runner."""
+
+    target = path.resolve()
+    previous = r1.generate_query_set
+
+    def frozen_query_set(hospital_map: Any, _free_mask: Any, _components: Any, raster: Any, **_kwargs: Any):
+        return load_query_set(
+            target,
+            actual_map_hash=hospital_map.sha256,
+            actual_semantic_map_hash=raster.semantic_map_hash,
+            require_default_contract=require_default_contract,
+        )
+
+    try:
+        r1.generate_query_set = frozen_query_set
+        yield
+    finally:
+        r1.generate_query_set = previous
+
+
+def _real_query_set_selection(
+    query_set: Optional[Path], generate_query_set: bool,
+) -> tuple[Optional[Path], bool, bool]:
+    """Return path, default-contract flag and legacy-gate compatibility."""
+
+    if query_set is not None and generate_query_set:
+        raise ValueError("--query-set and --generate-query-set are mutually exclusive")
+    if generate_query_set:
+        return None, False, True
+    if query_set is not None:
+        return query_set.resolve(), False, False
+    return DEFAULT_QUERY_SET_PATH.resolve(), True, False
 
 
 def _git_read(path: Path, *args: str) -> str:
@@ -320,7 +359,10 @@ def _write_delivery_metadata(output: Path, reproduction: str) -> None:
     )
 
 
-def _postprocess(output: Path, reproduction: str, *, real: bool) -> None:
+def _postprocess(
+    output: Path, reproduction: str, *, real: bool,
+    legacy_stage5_gates: bool = True,
+) -> None:
     protocol_path = output / "protocol.json"
     if protocol_path.exists():
         protocol = json.loads(protocol_path.read_text())
@@ -336,7 +378,25 @@ def _postprocess(output: Path, reproduction: str, *, real: bool) -> None:
         )
     if real:
         exact = _exact_ack_summary(output)
-        _gate_summary(output, exact)
+        if legacy_stage5_gates:
+            _gate_summary(output, exact)
+        else:
+            (output / "r2_gate_summary.json").write_text(
+                json.dumps(
+                    {
+                        "architecture_id": ARCHITECTURE_ID,
+                        "implementation_revision": IMPLEMENTATION_REVISION,
+                        "protocol_id": PROTOCOL_ID,
+                        "query_set_gate_profile": "map_bound_comparison_set",
+                        "stage5_all_hard_gates_passed": None,
+                        "stage5_gate_status": "NOT_APPLICABLE_LEGACY_DIAGNOSTIC_QUERY_IDS_ABSENT",
+                        "exact_ack": exact,
+                    },
+                    indent=2,
+                    sort_keys=True,
+                ) + "\n",
+                encoding="utf-8",
+            )
     for filename, schema in (
         ("synthetic_smoke.json", "2A-V2-r2-synthetic-smoke-v1"),
         ("direction_diagnostics.json", "2A-V2-r2-offline-direction-diagnostic-v1"),
@@ -360,6 +420,19 @@ def _parser() -> argparse.ArgumentParser:
     parser = r1._parser()
     parser.description = "Run PLN-02 static 2A-V2/r2 direction, exact-ACK and latency validation"
     parser.set_defaults(config=DEFAULT_CONFIG)
+    parser.add_argument(
+        "--query-set",
+        type=Path,
+        help=(
+            "frozen query-set YAML for real-ablation; defaults to the map-bound "
+            f"eight-query set {DEFAULT_QUERY_SET_PATH}"
+        ),
+    )
+    parser.add_argument(
+        "--generate-query-set",
+        action="store_true",
+        help="explicitly opt out of the map-bound default and regenerate the legacy diagnostic set",
+    )
     return parser
 
 
@@ -370,6 +443,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     reproduction = "two_layer_v2_semantic_r2_benchmark " + " ".join(
         shlex.quote(value) for value in arguments
     )
+    if args.mode != "real-ablation" and (args.query_set is not None or args.generate_query_set):
+        raise SystemExit("--query-set/--generate-query-set apply only to real-ablation mode")
+    try:
+        query_path, require_default_contract, legacy_stage5_gates = _real_query_set_selection(
+            args.query_set, args.generate_query_set,
+        )
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
     with _r2_bindings():
         if args.mode == "convert":
             return r1.main(arguments)
@@ -403,13 +484,28 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 unknown = sorted(set(arms) - set(r1.ARM_ORDER))
                 if unknown:
                     raise SystemExit(f"unknown arms: {unknown}")
-                r1.run_real_ablation(
-                    **common, warmups=args.warmups, repetitions=args.repetitions,
-                    ros_domain_id=args.ros_domain_id, arms=arms,
-                    query_ids=[value.strip() for value in args.query_ids.split(",") if value.strip()] or None,
-                )
+                if query_path is None:
+                    r1.run_real_ablation(
+                        **common, warmups=args.warmups, repetitions=args.repetitions,
+                        ros_domain_id=args.ros_domain_id, arms=arms,
+                        query_ids=[value.strip() for value in args.query_ids.split(",") if value.strip()] or None,
+                    )
+                    legacy_stage5_gates = True
+                else:
+                    with _query_set_binding(
+                        query_path,
+                        require_default_contract=require_default_contract,
+                    ):
+                        r1.run_real_ablation(
+                            **common, warmups=args.warmups, repetitions=args.repetitions,
+                            ros_domain_id=args.ros_domain_id, arms=arms,
+                            query_ids=[value.strip() for value in args.query_ids.split(",") if value.strip()] or None,
+                        )
                 real = True
-    _postprocess(args.output_dir.resolve(), reproduction, real=real)
+    _postprocess(
+        args.output_dir.resolve(), reproduction, real=real,
+        legacy_stage5_gates=legacy_stage5_gates,
+    )
     print(f"2A-V2/r2 output: {args.output_dir.resolve()}")
     return 0
 

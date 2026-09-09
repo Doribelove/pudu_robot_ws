@@ -1,0 +1,72 @@
+architecture_id: 2A-V1
+implementation_revision: r3-reachable-endpoint-tiled-topology-exact-ack
+protocol_id: PLN-02-2A-V1-R3-REACHABLE-ENDPOINT-TILED-TOPOLOGY-EXACT-ACK-V1
+map_resolution_m: 0.05
+static_map: true
+unknown_is_collision: true
+footprint: [[0.255, 0.215], [0.255, -0.215], [-0.255, -0.215], [-0.255, 0.215]]
+motion_model: DUBIN
+heading_bins: 48
+minimum_turning_radius_m: 0.40
+maximum_curvature_1pm: 2.50
+allow_reverse: false
+allow_in_place_rotation: false
+request_budget_s: 7.0
+online_timing_scope: lazy_query_topology_through_final_canonical_audit
+deadline_semantics: success_cutoff_with_bounded_work_checks_not_hard_realtime
+cold_preparation_scope: selected_cold_query_only
+smac_max_planning_time_s: 5.0
+max_corridor_expansions: 1
+corridor_base_m: 2.0
+corridor_corner_m: 4.0
+corridor_retry_corner_m: 6.0
+connector:
+  radius_m: 25.0
+  max_length_m: 40.0
+  max_candidates: 32
+  max_expanded_per_local_search: 2500
+  sample_spacing_m: 0.025
+  cache_capacity: 64
+topology:
+  tile_cells: 512
+  halo_cells: 32
+  memory_tiles: 4
+  padding_m: 0.05
+  safety_margin_m: 0.05
+ack:
+  full_content_exact: true
+  transport_profile: two_layer_v1_r3_transport.xml
+  update_reliability: RELIABLE
+  update_queue_depth: 512
+  readback_source: native_mutex_protected_costmap_raw
+  readback_queue_depth: 2
+  readback_publish_frequency_hz: 20.0
+  require_distinct_fresh_server_snapshots: true
+  update_reader_discovery_timeout_s: 5.0
+  matching_readbacks: 2
+  repair_limit: 2
+  inflation_overlap_cells: 12
+  publication_chunk_side: 224
+  publication_callback_wait_s: 0.0
+  ack_budget_s: 3.0
+  full_update_fallback_limit: 1
+  repair_processing_grace_multiplier: 1.25
+  repair_processing_grace_max_s: 0.8
+runtime_caches:
+  query_topology_capacity: 32
+  corridor_packed_max_bytes: 134217728
+  expected_effective_max_bytes: 536870912
+server_budget_policy:
+  maximum_s: 5.0
+  reconfiguration_reserve_s: 1.25
+  quantum_s: 0.5
+  post_reconfiguration_remaining_recheck: true
+  uncertain_rpc_requires_session_restart: true
+formal:
+  queries_per_map: 20
+  warmups: 3
+  measured: 5
+  stable_window_s: 600
+  max_load1: 6
+  min_mem_available_gib: 12
+  resource_poll_interval_s: 1

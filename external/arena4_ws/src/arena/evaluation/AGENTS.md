@@ -164,3 +164,26 @@
 本课题最终只回答：
 
 > 在静态超大栅格地图上，拓扑层、栅格层和按需运动学层的组合，是否比单层 A* 或全程运动学搜索更快、更省资源，并且能够生成无静态碰撞、运动学可行、路径质量可接受的全局参考路径？
+
+## 9. 导师语义地图的默认查询集
+
+当实验使用 `pudu_wanda_3f` 导师语义地图时，后续 Codex 和实验脚本必须默认使用以下冻结查询集：
+
+```text
+config/pudu_wanda_3f_selected8_gt50m_r2_v2.yaml
+query_set_id: pudu_wanda_3f_semantic_compare_selected8_r2_v2
+query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+```
+
+适用规则：
+
+- 真实地图的常规对比、消融、性能和回归实验默认使用这 8 组起终点，保持原顺序；
+- 不得在每次实验中重新随机或按地图重新生成起终点；
+- 实验启动时必须校验地图 hash、语义地图 hash、query hash、查询数量、端点净空和拓扑长度；校验失败必须终止；
+- 每次输出的 `protocol.json` 必须记录实际 query-set ID、文件 SHA-256、query hash 和来源模式；
+- `--query-ids` 只用于从默认 8 组中抽取预检子集；
+- 只有用户明确要求难例集、扩样或其他查询时，才允许使用 `--query-set <path>` 覆盖，并在报告中明确标注；
+- 只有为复现旧版诊断协议时才可使用 `--generate-query-set`，不得把重新生成的查询冒充默认对比集；
+- 离线方向场专用诊断仍可使用自身的 `real-lane-forward/reverse` 诊断查询，因为其门槛依赖固定 query ID；该例外不适用于真实规划对比实验。

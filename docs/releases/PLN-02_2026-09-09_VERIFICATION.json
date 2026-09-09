@@ -1,0 +1,124 @@
+{
+  "snapshot_id": "pln-02-snapshot-2026.09.09",
+  "date": "2026-09-09",
+  "purpose": "Source delivery verification, not a new architecture promotion or formal performance acceptance.",
+  "status": "SOURCE_DELIVERY_PASS_WITH_DISCLOSED_ENVIRONMENT_REQUIREMENTS",
+  "source_audit": {
+    "selected_source_manifest_files": 284,
+    "complete_tested_package_source_files": 459,
+    "selected_source_index_and_live_hash_mismatch": 0,
+    "tested_source_vs_index_and_live_mismatch": 0,
+    "dependency_patches": 4,
+    "dependency_patch_apply_and_restored_hash_parity": "59/59",
+    "dependency_live_hash_mismatch": 0,
+    "python_ast": "PASS",
+    "staged_binary_size_and_secret_pattern_scan": "PASS",
+    "limitations": "Pattern-based secret checks are not a proof that all confidential information has been identified. Private inputs, map binaries, caches and experiment outputs are excluded."
+  },
+  "python_environment": {
+    "interpreter": "/usr/bin/python3",
+    "ros_distribution": "humble",
+    "dependency_overlay": "/home/robot/pudu_robot_ws/external/arena4_ws/install/setup.bash",
+    "additional_scientific_dependencies": "Existing arena-rosnav Python 3.10 virtualenv site-packages",
+    "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "pytest_options": "-q -p no:cacheprovider",
+    "collection_rule": "Run each package separately with default pytest import mode; ROS launch_testing autoload and duplicate test module names require this harness isolation."
+  },
+  "tests": {
+    "independent_source_copy_initial": {
+      "arena_evaluation": {"passed": 870, "failed": 15},
+      "arena_3d_v1": {"passed": 56, "failed": 0},
+      "three_d_v1_nav2": {"passed": 37, "failed": 0},
+      "two_a_v1_nav2": {"passed": 1, "failed": 0},
+      "total_cases": 979,
+      "passed": 964,
+      "failed": 15
+    },
+    "initial_failure_classification": {
+      "unavailable_private_inputs_and_frozen_experiment_fixtures": 14,
+      "sandbox_smac_subprocess_start_failure": 1
+    },
+    "local_fixture_recheck": {
+      "location": "Original workspace with source hashes equal to the staged and independently tested snapshot",
+      "files": [
+        "test_semantic_applicability_v3.py",
+        "test_stage5.py",
+        "test_two_layer_v3_semantic_online.py",
+        "test_two_layer_v3_semantic_r0.py",
+        "test_two_layer_v3_semantic_r13.py"
+      ],
+      "passed": 41,
+      "failed": 0,
+      "covers_initial_failures": 14,
+      "private_fixtures_committed": false
+    },
+    "smac_host_recheck": {
+      "source": "Independent source copy",
+      "test": "test_unified_four_backends_smoke.py::test_actual_smac_dubin_backend_returns_valid_straight_path",
+      "ROS_DOMAIN_ID": 194,
+      "passed": 1,
+      "failed": 0,
+      "covers_initial_failures": 1,
+      "scope": "Tiny generated straight-path smoke test, not a full navigation mission."
+    },
+    "initial_failed_case_names_matched_to_passing_rechecks": "15/15",
+    "unresolved_test_failures": 0,
+    "unique_primary_cases_passing_across_documented_contexts": 979,
+    "single_clean_clone_full_suite_pass_claimed": false
+  },
+  "build": {
+    "native_extensions_from_source": [
+      "_endpoint_geometry_r3",
+      "_ompl_planner_backend",
+      "_nav2_effective_costmap"
+    ],
+    "native_extensions_status": "PASS",
+    "colcon_packages_passed": [
+      "arena_evaluation_msgs",
+      "arena_evaluation",
+      "arena_3d_v1",
+      "three_d_v1_nav2",
+      "two_a_v1_nav2"
+    ],
+    "colcon_elapsed_seconds": 32.4,
+    "colcon_exit_code": 0,
+    "build_and_install": "Independent temporary directories; existing dependency overlay sourced read-only",
+    "cmake_options": [
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DPython3_EXECUTABLE=/usr/bin/python3",
+      "-DPYTHON_EXECUTABLE=/usr/bin/python3"
+    ],
+    "disclosed_warnings": [
+      "Existing OMPL variadic macro and Python module initializer warnings",
+      "ROS overlay runtime library search path cycle warnings in both Nav2 adapters",
+      "Unused PYTHON_EXECUTABLE variable in one CMake package"
+    ],
+    "first_attempt": "Sandbox build stalled after configuration; only its identified process was stopped. Host-side isolated retry with explicit system Python completed."
+  },
+  "whitespace": {
+    "full_staged_diff_check": "WARN_EXISTING_FORMATTING_PRESERVED",
+    "warning_count": 12,
+    "scope": "Historical Markdown hard line breaks / EOF blanks and existing arena_evaluation_msgs XML/CMake whitespace",
+    "python_cpp_headers_yaml_shell_staged_diff_check": "PASS",
+    "historical_source_reformatted": false
+  },
+  "safety_and_scope": {
+    "formal_map_experiments_rerun": false,
+    "full_vehicle_acceptance_rerun": false,
+    "private_data_or_large_runtime_artifacts_added": false,
+    "existing_navigation_processes_terminated": false,
+    "gitignore_changed": false,
+    "third_party_upstreams_pushed": false,
+    "main_branch_modified": false,
+    "research_variants_promoted": false
+  },
+  "local_diagnostic_directory": "/tmp/pudu-delivery-20260909-fW6DLv",
+  "local_diagnostic_directory_is_portable_archive": false,
+  "reproduction_limits": [
+    "Private-map tests require separately authorized input data and frozen experiment fixtures.",
+    "Current Nav2 adapters still bind frozen r1/r2 experimental runtime sources; this snapshot does not certify stable whole-vehicle integration.",
+    "Dependency patch hash restoration was checked, but the entire TEB/Nav2 upstream dependency tree was not freshly rebuilt or re-certified.",
+    "The source manifest, dependency manifest, Git commit and annotated snapshot tag identify this delivery; runtime caches must be separately prebuilt and verified."
+  ]
+}

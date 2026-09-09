@@ -1,0 +1,62 @@
+schema_version: PLN-02-2A-V2-R3-FROZEN-MIRROR-QUERY-V1
+architecture_id: 2A-V2
+implementation_revision: r3-lane-relative-viability-guide
+protocol_id: PLN-02-2A-V2-R3-LANE-VIABILITY-GUIDE-V1
+seed: 20260903
+map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+query_hash: 615dc7e7d866447d059e416f7602240edc8a7b94e112d7155168b800e1f2ce50
+selection_policy_sha256: ebe14afb4a7383d15dec40a25931794f3fa32ee8042d2a30911c7ab236b3d436
+selection_result_sha256: da0bf7cc8fa0e967880cf73d90a516676851d337e73c7672e8f522a390f408b1
+source_candidate_id: mirror-candidate-003
+usage: short bidirectional geometry regression; excluded from formal performance claims
+queries:
+  - query_id: r3-mirror-1-positive
+    start: [-25.750998999999993, -19.133104000000003, 1.5707963267948966]
+    goal: [-25.950998999999996, -10.683104, 2.356194490192345]
+    category: lane_mirror_regression
+    seed: 20260903
+    validation_status: OFFLINE_DIRECTED_VIABILITY_CERTIFIED
+  - query_id: r3-mirror-2-negative
+    start: [-25.950998999999996, -10.683104, -0.7853981633974483]
+    goal: [-25.750998999999993, -19.133104000000003, -1.5707963267948966]
+    category: lane_mirror_regression
+    seed: 20260903
+    validation_status: OFFLINE_DIRECTED_VIABILITY_CERTIFIED
+intent_validation:
+  - query_id: r3-mirror-1-positive
+    category: lane_mirror_regression
+    start_semantics: [lane]
+    goal_semantics: [lane]
+    footprint_safe: true
+    connected_component: 23
+    purpose_verified: true
+    verification:
+      start_cell: [2717, 1105]
+      goal_cell: [2548, 1101]
+      start_topology_node: 640
+      goal_topology_node: 624
+      start_topology_clearance_m: 2.419689893722534
+      goal_topology_clearance_m: 2.0
+      topology_route_length_m: 8.482842712474621
+      l1_endpoint_attachment_max_m: 0.05
+      lane_semantic_id: 374682499F8A4131783406408835
+      offline_viability_certificate_passed: true
+  - query_id: r3-mirror-2-negative
+    category: lane_mirror_regression
+    start_semantics: [lane]
+    goal_semantics: [lane]
+    footprint_safe: true
+    connected_component: 23
+    purpose_verified: true
+    verification:
+      start_cell: [2548, 1101]
+      goal_cell: [2717, 1105]
+      start_topology_node: 624
+      goal_topology_node: 640
+      start_topology_clearance_m: 2.0
+      goal_topology_clearance_m: 2.419689893722534
+      topology_route_length_m: 8.482842712474621
+      l1_endpoint_attachment_max_m: 0.05
+      lane_semantic_id: 374682499F8A4131783406408835
+      offline_viability_certificate_passed: true

@@ -1,0 +1,94 @@
+architecture_id: 2A-V3
+implementation_revision: r14-parking-dispatch-ack-cache
+protocol_id: PLN-02-2A-V3-R14-PARKING-DISPATCH-ACK-CACHE-V1
+schema_version: PLN-02-2A-V3-R14-ALGORITHM-CONFIG-V1
+status: frozen_for_formal_evaluation
+freeze_utc: "2026-09-08T18:00:00Z"
+
+parent_algorithm:
+  path: two_layer_v3_semantic_r13_route_phase.yaml
+  sha256: c6cf6d098d90ad85bc4029345d12660a971ada06c1638fe73eb2e32dc9fb8824
+
+frozen_bindings:
+  query_set_id: pudu_wanda_3f_semantic_compare_selected8_r2_v2
+  query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  resolution_m: 0.05
+  yaw_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  footprint_half_length_m: 0.265
+  footprint_half_width_m: 0.225
+
+parking_reference:
+  station_spacing_m: 0.25
+  search_resolution_m: 0.10
+  route_tube_half_width_m: 8.0
+  centre_cost_weight: 300.0
+  outside_target_cost_weight: 150.0
+  simplify_tolerance_m: 0.02
+  smoothing_window: 9
+  smoothing_passes: 0
+  maximum_expanded_cells: 350000
+  minimum_parking_run_m: 0.50
+  endpoint_snap_limit_m: 2.0
+  target_deviation_max: 0.25
+  maximum_reference_curvature_1pm: 2.50
+
+semantic_applicability:
+  decision_source: finite_directed_se2_graph_and_continuous_reference
+  parking_minimum_reference_target_ratio: 0.50
+  require_start_reachable_and_goal_coreachable_target: true
+  empty_or_disconnected_target_action: E0_NATIVE_SMAC_FALLBACK
+  applicable_but_strict_search_failed_action: FAIL_CLOSED
+  fallback_semantic_success_counted: false
+
+static_cache:
+  schema_version: PLN-02-2A-V3-STATIC-CACHE-V1
+  root: /home/robot/pudu_robot_ws/private_data/pudu_wanda_3f/cache/2a_v3_r14_static_v1
+  maximum_disk_entries: 2
+  maximum_active_entries: 1
+  maximum_resident_bytes: 536870912
+  fail_closed_on_hash_or_schema_mismatch: true
+
+compact_route_phase_state:
+  enabled: true
+  maximum_lateral_probe_m: 6.0
+  crop_support_margin_m: 0.75
+  full_search_array_materialization: false
+  publication_roi_remains_full_route_lane_roi: true
+  regional_2d_planning_costs_enabled: false
+
+exact_ack_snapshot_lifecycle:
+  stable_server_observations: 2
+  post_ack_get_costmap_requests: 0
+  verified_master_source: EXPECTED_MASTER_PROVEN_EQUAL_BY_EXACT_ACK
+  cancel_timed_out_client_future: true
+  timeout_full_repair_allowed: false
+
+gates:
+  parking_center_band_ratio_min_exclusive: 0.50
+  parking_normalized_deviation_p50_max: 0.25
+  lane_correct_side_ratio_min: 0.80
+  lane_target_band_ratio_min_exclusive: 0.50
+  lane_lateral_error_p50_m_max: 0.50
+  exact_ack_mismatch_cells_allowed: 0
+  timeout_full_repair_allowed: 0
+  safety_violations_allowed: 0
+  cold_request_e5_over_e0_p50_max: 2.0
+  target_request_e5_over_e0_p50_max: 1.5
+  expanded_query_count_min: 30
+  measured_samples_per_arm_min: 100
+  semantic_success_queries_min: 4
+  semantic_success_rows_min: 10
+  static_prepare_ms_max: 1000.0
+  peak_rss_bytes_max: 1800000000
+  steady_rss_growth_bytes_max: 134217728
+  e0_p95_ms_max: 3000.0
+  e0_p99_ms_max: 3500.0
+  adaptive_p95_ms_max: 5000.0
+  adaptive_p99_ms_max: 6000.0

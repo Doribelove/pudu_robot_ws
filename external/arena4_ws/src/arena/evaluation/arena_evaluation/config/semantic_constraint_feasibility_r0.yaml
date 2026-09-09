@@ -1,0 +1,84 @@
+schema_version: PLN-02-CONSTRAINED-FEASIBILITY-R0-V1
+protocol_id: PLN-02-CONSTRAINED-FEASIBILITY-R0-V1
+architecture_id: UNNAMED_STAGE1_FEASIBILITY
+parent: 2A-V2-r4-C1
+stage0_version: 1
+frozen_parent_config: two_layer_v2_semantic_r4.yaml
+frozen_parent_sha256: null  # Resolved and bound by Stage 0 before any search.
+contract:
+  resolution_m: 0.05
+  dynamic_obstacles: false
+  yaw_bins: 48
+  motion_model: DUBIN
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  allow_reverse: false
+  allow_in_place_rotation: false
+  exact_start_and_goal_xy_yaw: true
+  footprint: [[0.255, 0.215], [0.255, -0.215], [-0.255, -0.215], [-0.255, 0.215]]
+  nav2_footprint_padding_m: 0.01
+  required_relaxation: R0
+  expected_master: frozen_r3_pinned_humble_propagation_exact_v1
+  same_lane_instance: true
+  correct_side_ratio_min: 0.80
+  lateral_error_p50_m_max: 0.50
+  target_band_ratio_min_exclusive: 0.50
+  collision_violations_max: 0
+  kinematic_violations_max: 0
+  hard_semantic_violations_max: 0
+  no_stopping_goal_violations_max: 0
+  reverse_distance_m_max: 0.0
+  in_place_rotation_count_max: 0
+  dense_collision_translation_spacing_m: 0.025
+  dense_collision_yaw_step_deg: 1.0
+  semantic_auditor: unchanged_SemanticPathAuditor
+  canonical_auditor: unchanged_PathAuditor_plus_stricter_independent_contract_audit
+search:
+  per_query_per_variant_timeout_s: 120.0
+  per_query_per_variant_max_labels: 1000000
+  per_process_rss_limit_mib: 2048
+  maximum_path_length_factor: 4.0
+  maximum_path_length_floor_m: 40.0
+  seeds: [0, 1, 2, 3]
+  permitted_families:
+    - route_progress_resource_multilabel_dubins_lattice
+    - independent_piecewise_dubins_or_direct_collocation_witness
+  initial_station_spacing_m: 0.40
+  initial_lateral_spacing_m: 0.10
+  discretization_refinement_requires_new_variant_manifest: true
+  dominance: identical_vertex_and_progress; length_le; 5C-4N_ge; 2T-N_ge
+  endpoint_yaw_handling: exact_continuous_Dubins_terminal_attachment
+  soft_weight_scan: prohibited
+  open_exhaustion_scope: only_the_explicit_finite_graph_and_resource_bounds
+  timeout_is_infeasibility_proof: false
+online_if_stage1_passes:
+  architecture_id: 2A-V3
+  implementation_revision: r0
+  adapter: independent_restricted_state_lattice_or_reference_trajectory
+  output: nav_msgs/Path
+  pinned_nav2_core_changes: prohibited
+  arms: [E0, E4-r3-compatible, V3]
+  yaw_bins_all_arms: 48
+  targeted_warmups: 1
+  targeted_measured_repetitions: 3
+  selected8_warmups: 1
+  selected8_measured_repetitions: 3
+  planner_budget_ms: 2000
+  evaluator_deadline_ms: 2500
+  exact_effective_content_ack_mismatch_max: 0
+  cold_request_p50_v3_over_e0_hard_max: 2.0
+  cold_request_p50_v3_over_e0_target: 1.5
+  selected8_query_success_required: 8
+  preserve_e0_success: true
+  selected8_selection_bias: true
+grading:
+  B: all_three_offline_and_online_targeted_pass_AND_fair48_AND_selected8_repeats_pass_AND_hard_safety_AND_exact_ACK_AND_cold_latency_AND_no_E0_regression_AND_verification_AND_owned_process_cleanup
+  A: B_plus_30_to_50_queries_and_at_least_100_valid_measured_samples_and_separate_promotion_review
+  any_B_minimum_failure: C
+  stage1_failure: do_not_name_V3_or_implement_online_or_run_selected8
+protocol_precedence_notes:
+  - The user's current explicit contract authorizes this new static 0.05 m, forward-only, exact-pose variant; P0's historical 0.10 m/diff-drive/repetition definitions are retained as historical and not mixed into these runs.
+  - Unified protocol defaults are superseded only by explicit fields frozen here under the user's requested stage policy. No safety or semantic threshold is weakened.
+  - Canonical PathAudit historically uses raw footprint, 5-degree yaw sampling and looser endpoint checks. It remains intact; the additional audit enforces padded footprint, 1-degree sampling and exact poses.
+  - The historical r4 south goal was quantized; all new witnesses must retain the frozen original yaw.
+  - Existing user visualization and unrelated ROS processes remain running. Record machine contention; do not claim controlled production performance.

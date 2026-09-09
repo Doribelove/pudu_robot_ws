@@ -1,0 +1,85 @@
+architecture_id: 3D-V1
+production_baseline_id: 3D-V1-r2-stable
+source_revision: r2-production-acceptance
+release_candidate: 3D-V1-r2-stable-rc1
+protocol_id: PLN-02-3D-V1-R2-STABLE-PROMOTION-V1
+parent_acceptance_revision: r2-production-acceptance-real-replay
+policy:
+  dynamic_snapshot: versioned_complete_occupancy
+  confidence_threshold: 0.60
+  block_confirmation_observations: 2
+  recovery_confirmation_observations: 2
+  scheduler: relevance_and_optimality_safe_skip
+  l1: deterministic_graph_astar
+  l2: selective_verified_cache_only_persistent_dstar_lite
+  dstar_changed_source_eligibility_max: 2
+  dstar_wall_budget_ms: 500.0
+  dstar_max_expansions: 20000
+  online_synchronous_dstar_build: false
+  pure_dstar_production_mode: false
+  partial_dstar_result_allowed: false
+  cache_miss_backend: deterministic_grid_astar
+  cache_reject_backend: deterministic_grid_astar
+  timeout_backend: deterministic_grid_astar
+  invalid_extraction_backend: deterministic_grid_astar
+  large_change_backend: deterministic_grid_astar
+  recovery_backend: deterministic_grid_astar
+  not_ready_backend: deterministic_grid_astar
+  l2_no_route_action: exclude_blocked_topology_edges_and_rerun_l1
+runtime:
+  map_resolution_m: 0.05
+  multiresolution_l2: false
+  corridor_profile: topology_turn_adaptive_2m_4m
+  ordinary_corridor_padding_m: 2.0
+  turn_corridor_padding_m: 4.0
+  roi_max_message_bytes: 131072
+  server_effective_content_ack_required: true
+  exact_old_new_dirty_roi_union: true
+  fixed_settle_cycles_after_ack: 0
+  canonical_path_audit_single_result_reused: true
+cache:
+  schema: 3D-V1-r2-stable-cache-bundle-v1
+  underlying_geometry_schema: 3D-V1-r1-compact-geometry-v2
+  underlying_state_schema: 3D-V1-r1-compact-dstar-state-v2
+  packed_static_mask_schema: 3D-V1-r2-packed-static-roi-little-v1
+  algorithm_version: compact-dstar-lite-corner-safe-f64-v2+r2-packed-static-mask
+  adjacency_rule: 8-neighbor-euclidean-corner-safe-int16-delta-v2
+  dynamic_baseline_version: empty-dynamic-overlay-v1
+  max_active_states_default: 1
+  max_active_states_hard: 2
+  resident_bytes_hard_max: 30000000
+  atomic_write: temp_fsync_atomic_rename
+  production_ready_required_for_dstar: true
+vehicle_contract:
+  angle_quantization_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+release_gates:
+  correctness_rows_required: 3600
+  correctness_oracle_parity: 1.0
+  canonical_cost_error_max: 0.0
+  blocked_or_recovering_in_path_max: 0
+  partial_dstar_results_max: 0
+  hidden_reinitialize_count_max: 0
+  l2_p50_reduction_vs_cold_astar_min: 0.20
+  pre_l3_pipeline_p95_ratio_vs_cold_astar_max: 1.05
+  pre_l3_pipeline_p99_ratio_vs_cold_astar_max: 1.10
+  warm_activation_p95_ms_max: 250.0
+  resident_bytes_max: 30000000
+  online_synchronous_dstar_build_count_max: 0
+  cache_corruption_reject_rate: 1.0
+  soak_snapshots: 10000
+  soak_oracle_partial_blocked_timeout_max: 0
+  stage_b_final_valid_required: 9
+  ack_mismatch_max: 0
+source_bindings:
+  r2_state_lifecycle.py: f9f8fb393a89e6916b4fdbd1c6d02b19fcdfa03c0e27002e46b81af640ffb434
+  r2_pipeline.py: 87b6f760241e2c0f4e471a811fdd26a1a2e22b6cc837b624c5212c42a216695c
+frozen_acceptance:
+  config_sha256: 8beb87502d2fd7aa6644615da0057668909ed596ffead55127db2092c4e0370d
+  heldout_manifest_sha256: da7606c3584ee7a81651a9d0d8bdd63cd0e4622289ba7e888ba2bd3ab4fbf506
+  soak_manifest_sha256: 6e05d560e41ef2318624b7ca6d3a9d65f5049eedbfadc0110f4dc4d59c82b99e
+  stage_b_manifest_sha256: 03c8fd74450641d78f474f27a8b7f417ea9fd12c32df3fb35a85b06331a12637

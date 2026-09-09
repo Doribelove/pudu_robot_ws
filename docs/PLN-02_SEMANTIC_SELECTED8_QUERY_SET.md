@@ -1,5 +1,7 @@
 # PLN-02 语义地图对比实验 8 组起终点
 
+> 本文记录原约 45 m 的 `v1` 查询集。后续实验已按“拓扑长度严格大于 50 m”的新要求改用 [`semantic_compare_selected8_r2_v2`](PLN-02_SEMANTIC_SELECTED8_QUERY_SET_GT50M.md)；本文及原始数据保留用于追溯。
+
 ## 结论
 
 在导师提供的 `SemanticMapV1` 上，已冻结一套用于后续 2A-V2 对比实验的 8 组起终点：`semantic_compare_selected8_r2_v1`。

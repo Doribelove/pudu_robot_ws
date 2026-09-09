@@ -1,0 +1,3235 @@
+diff --git a/AGENTS.md b/AGENTS.md
+index 8d448ea848d9aab846b7c24ef4c5c6aa76ad87d2..79029a5a98fa7cf1121f1faeb05a2f1304f74729 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -112,7 +112,7 @@ Global Plan (nav_msgs/Path, from Nav2 planner)
+   → DiscreteTEBPlanner::plan(transformed_plan, start_vel)
+       → cold start: initFromPath | warm start: updateAndPrune (or reinit if goal moved > reinit_dist/angle)
+       → autoResize (insert/delete poses by dt / segment length / angle)
+-      → 3-phase optimization (obstacles+G3+kinematics → kinodynamics → full)
++      → 3-phase optimization (obstacles+path reference+kinematics → kinodynamics → full)
+       → writeBackOptimizedValues, divergence check, clearGraph
+   → checkFeasibility (ESDF + footprint circles, within lookahead)   [stop on collision]
+   → getVelocityCommand (lookahead extraction over poses/dt)
+@@ -125,10 +125,11 @@ Global Plan (nav_msgs/Path, from Nav2 planner)
+ - **Vertices**: `VertexPose` (SE(2), 3 DOF) per pose; `VertexTimeDiff` (1 DOF) per segment. Start pose always
+   fixed; goal pose fixed if `fix_goal` or the trimmed plan reaches the global plan end.
+ - **Edges** are grouped per optimization phase (see `buildGraph` in `src/planner/optimal_planner.cpp`):
+-  1. **Phase Obstacles** (always): `addEdgesESDFObstacles` + G3 continuity + kinematics (diff_drive or car-like).
+-  2. **Phase Kinodynamics**: velocity (holonomic variant if `v_max_y > 0`), snap, steering-angle-goal,
+-     goal-angular-velocity-zero, acceleration (Start/Goal variants), steering rate (Start/Goal),
+-     start-steering-angle, jerk (Start/Goal).
++  1. **Phase Obstacles** (always): `addEdgesESDFObstacles` + via-point path reference + kinematics
++     (`diff_drive`/`skid_steer` body model or car-like); G3 steering continuity is Ackermann-only.
++  2. **Phase Kinodynamics**: velocity (holonomic variant if `v_max_y > 0`), snap,
++     goal-angular-velocity-zero, acceleration and jerk (Start/Goal variants); steering angle/rate edges are
++     Ackermann-only.
+   3. **Phase Full**: time optimal (on dt vertices), shortest path, path smoothness.
+ - Edge factory: `addEdgesGeneric<EdgeType, InfoDim>(EdgeDescriptor, weights)` — descriptor
+   `{num_poses, num_timediffs, stride, offset, info_dim}` defines vertex wiring and iteration range.
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d47046de955528d5f90e1772720ab4b037cacb24..a2bef2f0e9743366dd0c4b709050db774c43bbea 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -26,12 +26,13 @@ add_compile_definitions(USE_ANALYTIC_JACOBI=$<BOOL:${USE_ANALYTIC_JACOBI}>)
+ find_package(ament_cmake REQUIRED)
+ find_package(rclcpp REQUIRED)
+ find_package(rclcpp_lifecycle REQUIRED)
+-find_package(costmap_converter REQUIRED)
+ find_package(nav2_core REQUIRED)
+ find_package(nav2_costmap_2d REQUIRED)
++find_package(costmap_converter_msgs REQUIRED)
+ find_package(nav2_util REQUIRED)
+ find_package(nav_msgs REQUIRED)
+ find_package(geometry_msgs REQUIRED)
++find_package(std_msgs REQUIRED)
+ find_package(ackermann_msgs REQUIRED)
+ find_package(tf2_geometry_msgs REQUIRED)
+ find_package(visualization_msgs REQUIRED)
+@@ -76,20 +77,17 @@ target_include_directories(nav2_teb_controller PUBLIC
+   ${EIGEN3_INCLUDE_DIRS}
+ )
+ 
+-target_include_directories(nav2_teb_controller SYSTEM PUBLIC
+-  ${costmap_converter_INCLUDE_DIRS}
+-)
+-
+ # ament deps FIRST — establishes plain signature for target_link_libraries
+ ament_target_dependencies(nav2_teb_controller
+   rclcpp
+   rclcpp_lifecycle
+   nav2_core
+-  costmap_converter
++  costmap_converter_msgs
+   nav2_costmap_2d
+   nav2_util
+   nav_msgs
+   geometry_msgs
++  std_msgs
+   ackermann_msgs
+   visualization_msgs
+   tf2_geometry_msgs
+@@ -103,8 +101,6 @@ target_link_libraries(nav2_teb_controller
+   g2o::core
+   g2o::stuff
+   g2o::solver_eigen      # 
+-  g2o::solver_cholmod    # 
+-  g2o::solver_csparse    # 
+   g2o::solver_dense      # 
+   Eigen3::Eigen
+ )
+@@ -124,10 +120,14 @@ install(DIRECTORY include/
+   DESTINATION include
+ )
+ 
+-install(DIRECTORY config/ launch/
++install(DIRECTORY config/
+   DESTINATION share/${PROJECT_NAME}/config
+ )
+ 
++install(DIRECTORY launch/
++  DESTINATION share/${PROJECT_NAME}/launch
++)
++
+ # ── Tests ─────────────────────────────────────────────────────────────────────
+ if(BUILD_TESTING)
+   find_package(ament_cmake_gtest REQUIRED)
+@@ -156,12 +156,13 @@ ament_export_dependencies(
+   rclcpp
+   rclcpp_lifecycle
+   nav2_core
+-  costmap_converter
++  costmap_converter_msgs
+   nav2_costmap_2d
+   nav2_util
+   nav_msgs
+   ackermann_msgs
+   geometry_msgs
++  std_msgs
+   visualization_msgs
+   tf2_geometry_msgs
+   pluginlib
+diff --git a/Makefile b/Makefile
+index 22985e182d4600f3e322f971e1fb79706539830d..69e532cd770831b2faef4950eee4056f55a8a8cc 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,9 @@
+ SHELL := /bin/bash
+-WS     := $(HOME)/git/ros2_ws
++WS     ?= $(abspath ../..)
+ PKG    := nav2_teb_controller
+ SRC    := src
++ROS_DISTRO ?= humble
++ROS_SETUP ?= /opt/ros/$(ROS_DISTRO)/setup.bash
+ 
+ .PHONY: help build test format format-fix lint lint-fix docs docs-check all
+ 
+@@ -19,14 +21,14 @@ help:
+ 	@echo "  make all         		- format + lint + build + test + docs-check"
+ 
+ build:
+-	source /opt/ros/jazzy/setup.bash && \
++	source $(ROS_SETUP) && \
+ 	cd $(WS) && colcon build \
+ 		--packages-select $(PKG) \
+ 		--cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+ 		-DCMAKE_WARN_DEPRECATED=OFF
+ 
+ build-clean:
+-	source /opt/ros/jazzy/setup.bash && \
++	source $(ROS_SETUP) && \
+ 	cd $(WS) && colcon build \
+ 		--packages-select $(PKG) \
+ 		--cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+@@ -34,12 +36,12 @@ build-clean:
+ 		--cmake-clean-first
+ 
+ test-with-log:
+-	source /opt/ros/jazzy/setup.bash && \
++	source $(ROS_SETUP) && \
+ 	cd $(WS) && colcon test --packages-select $(PKG) --event-handlers console_direct+ && \
+ 	colcon test-result
+ 
+ test:
+-	source /opt/ros/jazzy/setup.bash && \
++	source $(ROS_SETUP) && \
+ 	cd $(WS) && colcon test --packages-select $(PKG) && \
+ 	colcon test-result
+ 
+@@ -70,14 +72,14 @@ lint-fix:
+ # Regenerate doc/parameters.md from config/teb_controller_parameters.yaml
+ # (the generate_parameter_library schema is the single source of truth).
+ docs:
+-	source /opt/ros/jazzy/setup.bash && \
++	source $(ROS_SETUP) && \
+ 	python3 scripts/gen_params_docs.py \
+ 		--input_yaml_file config/teb_controller_parameters.yaml \
+ 		--output_markdown_file doc/parameters.md
+ 
+ docs-check:
+ 	@tmp=$$(mktemp -d) && \
+-	source /opt/ros/jazzy/setup.bash && \
++	source $(ROS_SETUP) && \
+ 	python3 scripts/gen_params_docs.py \
+ 		--input_yaml_file config/teb_controller_parameters.yaml \
+ 		--output_markdown_file $$tmp/parameters.md && \
+@@ -85,4 +87,4 @@ docs-check:
+ 	echo "doc/parameters.md is up to date" && \
+ 	rm -rf $$tmp
+ 
+-all: format lint build test docs-check
+\ No newline at end of file
++all: format lint build test docs-check
+diff --git a/README.md b/README.md
+index b48823582c1b492a93e0873814c7d7125ff8a8ab..44562546a12b197a4de0b4d67a00e08847ac917f 100644
+--- a/README.md
++++ b/README.md
+@@ -1,7 +1,7 @@
+ # nav2_teb_controller
+ 
+ A modern C++20 reimplementation of the **classic (discrete) Timed Elastic Band (TEB)** local planner for
+-[Nav2](https://nav2.ros.org/) (ROS 2 Jazzy+). The trajectory is a band of SE(2) poses with time steps (Δt);
++[Nav2](https://nav2.org/) (tested on ROS 2 Humble and Jazzy). The trajectory is a band of SE(2) poses with time steps (Δt);
+ velocities and higher derivatives are computed by finite differences. The band is deformed by **sparse
+ nonlinear least-squares optimization** (`libg2o`, Gauss-Newton / Levenberg-Marquardt) considering kinematics,
+ dynamics, obstacle avoidance, and execution time.
+@@ -21,15 +21,16 @@ RST – TU Dortmund, redesigned for ROS 2 with ESDF-based obstacle avoidance.
+ 
+ - **Trajectory optimization via g2o** — Gauss-Newton or Levenberg-Marquardt, 4 solver backends (eigen, cholmod,
+   csparse, dense)
+-- **27 custom g2o edge classes** (21 wired into the graph) — velocity, acceleration, jerk, snap, kinematics
++- **27 custom g2o edge classes** (22 wired into the graph) — velocity, acceleration, jerk, snap, kinematics
+   (diff-drive + car-like), steering rate/angle, G³ continuity, time-optimal, shortest path, path smoothness,
+   ESDF obstacles
+ - **ESDF obstacle avoidance** — Meijster O(n) Euclidean Distance Transform, bilinear interpolation + analytical
+   gradients, per-footprint-circle soft constraints with robust kernel
+ - **Footprint-aware collision checking** — circle model (polygon → circles), hard feasibility stop
+ - **3-phase stepwise optimization** — obstacles+kinematics → kinodynamics → efficiency objectives
+-- **Robot models** — `diff_drive` (forward-drive preference) and `ackermann` (turning radius, steering rate,
+-  steering feedback from `/tricycle_state`); holonomic mode by `v_max_y > 0`
++- **Robot models** — `diff_drive`, `skid_steer` (soft body-slip constraint, controlled reverse) and
++  `ackermann` (turning radius, steering rate, steering feedback from `/tricycle_state`); holonomic mode by
++  `v_max_y > 0`
+ - **Dynamic parameter reconfiguration** via `generate_parameter_library`
+ - **RViz visualization** — 7 topics: local plan, lookahead, poses, obstacles, curvature radii, footprint
+ 
+@@ -44,34 +45,45 @@ The detailed status & roadmap (with gotchas) lives in [`doc/status.md`](doc/stat
+ 
+ **Implemented**
+ - TEBController plugin lifecycle + Nav2 controller API (`setPlan`, `computeVelocityCommands`, `setSpeedLimit`)
+-- g2o trajectory optimization: 3-phase stepwise, 27 edge classes (21 wired), 2 vertex types, `addEdgesGeneric` factory
++- g2o trajectory optimization: 3-phase stepwise, 27 edge classes (22 wired), 2 vertex types, `addEdgesGeneric` factory
++- Global-path reference edges keep the optimized band on the current plan and reset warm starts on material same-goal replans
+ - ESDF obstacle avoidance (Meijster EDT, gradients, per-footprint-circle soft constraints)
+ - Footprint collision check (circle model), hard feasibility stop
+ - TEB utilities: init, autoResize, prune, velocity extraction, Ackermann↔Twist conversion, saturation
+-- Robot models: `diff_drive`, `ackermann` (steering feedback via `/tricycle_state`); holonomic by `v_max_y > 0`
++- Robot models: `diff_drive`, `skid_steer`, `ackermann` (steering feedback via `/tricycle_state`);
++  holonomic by `v_max_y > 0`
+ - Parameters via `generate_parameter_library`, RViz visualization (7 topics), gtest unit tests
+ 
+ **Planned / not yet implemented**
+ - Homotopy Class Planning (interfaces only, `plan()` is a stub) — keep `hcp.activate: false`
+-- Via-points, preferred rotation direction, legacy obstacle association (edges not wired)
++- Preferred rotation direction and legacy obstacle association (edges not wired)
+ - ESDF-aware autoResize, recovery behaviors, integration tests (`test/integration/` empty)
+ - TEB-K (cubic Hermite spline segments) — research feature, not implemented
+ 
+ ## Quick Start
+ 
++Extract or copy this package into a ROS 2 workspace, then install its declared dependencies and build it:
++
+ ```bash
+ mkdir -p ~/ros2_ws/src
+-cd ~/ros2_ws/src
+-git clone https://github.com/danielyousef/nav2_teb_controller.git # This repo
++tar -xzf nav2_teb_controller-0.2.0-source.tar.gz -C ~/ros2_ws/src
+ cd ~/ros2_ws
+ sudo apt update
+-sudo apt install python3-vcstool
++sudo apt install python3-rosdep python3-vcstool
+ vcs import src < src/nav2_teb_controller/nav2_teb_controller.repos
+-rosdep install --from-paths src --ignore-src -r -y
+-colcon build --packages-up-to nav2_teb_controller
++rosdep install --from-paths src --ignore-src -r -y --rosdistro "${ROS_DISTRO:-humble}"
++colcon build --packages-up-to nav2_teb_controller --cmake-args -DCMAKE_BUILD_TYPE=Release
+ source install/setup.bash
+ ```
+ 
++The optimizer requires g2o with its CMake package files. If g2o is installed in a custom prefix, export it before
++building and at runtime:
++
++```bash
++export CMAKE_PREFIX_PATH=/path/to/g2o-install:${CMAKE_PREFIX_PATH:-}
++export LD_LIBRARY_PATH=/path/to/g2o-install/lib:${LD_LIBRARY_PATH:-}
++```
++
+ ## Configuration
+ 
+ Add to Nav2 params:
+@@ -87,9 +99,14 @@ controller_server:
+ 
+ Key defaults to be aware of (see `doc/parameters.md`):
+ - `hcp.activate` must stay `false` (homotopy planning not implemented).
+-- `robot_model` ∈ {`diff_drive`, `ackermann`} (`"bicycle"` was removed from the schema).
++- `robot_model` ∈ {`diff_drive`, `skid_steer`, `ackermann`} (`"bicycle"` was removed from the schema).
+ - `v_max_y > 0` switches the planner to holonomic (default schema value is `0.5` — set `0.0` for non-holonomic).
+ 
++For a four-wheel skid-steer Jackal, merge
++[`config/jackal_skid_steer_1p2.yaml`](config/jackal_skid_steer_1p2.yaml) into the Nav2 parameter file. It provides
++the tested 1.2 m/s forward-speed limit, 2.5 m global-plan lookahead, turn-first/forward-preferred route tracking,
++controlled reverse escape, matching velocity-smoother limits and the two-circle footprint.
++
+ ## Tests
+ 
+ ```bash
+diff --git a/config/teb_controller_parameters.yaml b/config/teb_controller_parameters.yaml
+index 45958d9f1b80ce3056f92b0c34d7afdf665bf1e8..3b6a08a2d06cf8c6e38913de36c3cfa369c2c0da 100644
+--- a/config/teb_controller_parameters.yaml
++++ b/config/teb_controller_parameters.yaml
+@@ -38,6 +38,15 @@ teb_controller:
+         description: >
+           Heading change [rad] threshold for re-initialization, like reinit_dist. Consumed by:
+           DiscreteTEBPlanner::plan.
++      reinit_path_dist:
++        type: double
++        default_value: 0.5
++        description: >
++          Maximum geometric deviation [m] of a newly received global path from the previous path
++          before the warm-started band is cleared. This detects same-goal replans whose route has
++          materially changed. Consumed by: TEBController::setPlan.
++        validation:
++          bounds<>: [0.0, 10.0]
+       auto_resize:
+         type: bool
+         default_value: true
+@@ -70,8 +79,9 @@ teb_controller:
+         type: double
+         default_value: 0.1
+         description: >
+-          Minimum segment length [m]; poses are inserted if a segment is longer than max_seg_length
+-          (or shorter than min_seg_length with dt > dt_ref). Consumed by: autoResize.
++          Minimum segment length [m]; shorter segments are candidates for merging.
++          Merging also preserves the maximum segment length and heading difference.
++          Consumed by: autoResize.
+       max_seg_length:
+         type: double
+         default_value: 0.3
+@@ -93,8 +103,8 @@ teb_controller:
+         type: bool
+         default_value: true
+         description: >
+-          Allow the band to be initialized with backward motion (reversed pose sequence at the start).
+-          Consumed by: initFromPath.
++          Allow the band to be initialized with backward motion when the first meaningful global-path
++          segment lies behind the robot heading. Consumed by: initFromPath.
+       control_look_ahead_poses:
+         type: int
+         default_value: 1
+@@ -124,6 +134,54 @@ teb_controller:
+         description: >
+           Minimum distance [m] the band start pose may lag behind the robot pose before the first pose
+           is dropped. Consumed by: updateAndPrune.
++      terminal_slowdown_distance:
++        type: double
++        default_value: 0.0
++        validation:
++          bounds<>: [0.0, 10.0]
++        description: >
++          Distance [m] from the final global goal over which the output twist is proportionally
++          tapered. Zero disables the taper. Linear and angular components are scaled together so
++          curvature is preserved. Consumed by: limitVelocityNearGoal.
++      terminal_min_speed:
++        type: double
++        default_value: 0.0
++        validation:
++          bounds<>: [0.0, 1.0]
++        description: >
++          Minimum positive linear speed [m/s] used by the terminal taper. Consumed by:
++          limitVelocityNearGoal.
++      terminal_time_weight_scale:
++        type: double
++        default_value: 1.0
++        validation:
++          bounds<>: [0.0, 1.0]
++        description: >
++          Scale the time-optimal objective when the final global goal is inside the local window
++          and terminal slowdown is enabled. The optimizer also uses the terminal speed cap, so
++          planned and commanded timing remain consistent. One preserves the configured weight.
++          Consumed by: TEBController::computeVelocityCommands.
++      max_lateral_acceleration:
++        type: double
++        default_value: 0.0
++        validation:
++          bounds<>: [0.0, 10.0]
++        description: >
++          Maximum lateral acceleration [m/s^2] for a curvature-based speed envelope on the local
++          reference path. Zero disables it. Braking uses half the configured longitudinal
++          acceleration and a 0.5 m anticipation margin. Consumed by: pathCurvatureSpeedLimit.
++      terminal_forward_extension:
++        type: double
++        default_value: 0.0
++        validation:
++          bounds<>: [0.0, 0.5]
++        description: >
++          Curvature-continuous forward extension [m] appended only to the controller's local
++          optimization input when the final global goal is in the local window. It continues the
++          signed curvature of the final global-path segment, bounded by min_turning_radius. The Nav2
++          path and goal checker remain unchanged; TEB feasibility checking covers the extension.
++          Zero disables it. Consumed by:
++          appendForwardGoalExtension.
+ 
+     robot:
+       footprint:
+@@ -150,11 +208,12 @@ teb_controller:
+         type: string
+         default_value: "diff_drive"
+         description: >
+-          Robot kinematic model: 'diff_drive' or 'ackermann' (car-like/bicycle driving). Selects the
+-          kinematics edge and Ackermann-specific edges. Consumed by: DiscreteTEBPlanner::buildGraph.
++          Robot kinematic model: 'diff_drive', 'skid_steer' or 'ackermann'. Skid steer uses the
++          body-level unicycle edge with soft non-holonomic weighting and does not add Ackermann
++          steering-continuity constraints. Consumed by: DiscreteTEBPlanner::buildGraph.
+         read_only: true
+         validation:
+-          one_of<>: [["diff_drive", "ackermann"]]
++          one_of<>: [["diff_drive", "skid_steer", "ackermann"]]
+ 
+       wheelbase:
+         type: double
+@@ -288,7 +347,9 @@ teb_controller:
+         type: bool
+         default_value: true
+         description: >
+-          Reserved for a future steering-aware mode.
++          True only for a plant with physical steering-rack feedback. False keeps Ackermann
++          optimizer edges available as a virtual kinematic contract but skips the physical
++          output steering-rate limiter.
+ 
+       use_proportional_saturation:
+         type: bool
+@@ -415,8 +476,9 @@ teb_controller:
+         type: bool
+         default_value: true
+         description: >
+-          Enable the 3-phase optimization (1: obstacles+G3+kinematics, 2: kinodynamics, 3: efficiency
+-          edges) instead of a single full pass. Consumed by: DiscreteTEBPlanner::optimizeTEB.
++          Enable the 3-phase optimization (1: obstacles+path reference+kinematics, 2: kinodynamics,
++          3: efficiency edges) instead of a single full pass. Ackermann-only constraints are selected
++          inside the phases. Consumed by: DiscreteTEBPlanner::optimizeTEB.
+ 
+       divergence_detection_enable:
+         type: bool
+@@ -468,8 +530,7 @@ teb_controller:
+         default_value: 1.0
+         description: >
+           Weight of the path-length objective pulling the band towards the shortest connection of the
+-          poses. Consumed by: EdgeShortestPath — and note EdgePathSmoothness is wired with this weight
+-          as well (weight_path_smoothness is currently unused).
++          poses. Consumed by: EdgeShortestPath.
+         validation:
+           bounds<>: [0.0, 1000.0]
+ 
+@@ -477,10 +538,31 @@ teb_controller:
+         type: double
+         default_value: 1.0
+         description: >
+-          Weight of the path-smoothing edge (EdgePathSmoothness).
++          Weight of the path-smoothing edge. Consumed by: EdgePathSmoothness.
++        validation:
++          bounds<>: [0.0, 1000.0]
++
++      weight_viapoint:
++        type: double
++        default_value: 1.0
++        description: >
++          Weight pulling each intermediate band pose toward its closest projection on the current
++          global path. Set to zero to disable global-path tracking. Consumed by: EdgeViaPoint in
++          DiscreteTEBPlanner::AddEdgesViaPoints.
+         validation:
+           bounds<>: [0.0, 1000.0]
+ 
++      weight_terminal_waypoint:
++        type: double
++        default_value: 0.0
++        description: >
++          Weight anchoring one interior band pose to the original global goal when a controller-only
++          forward extension is active. This prevents the closest-point path reference from cutting
++          directly onto the extension and bypassing the real goal. Zero disables the anchor.
++          Consumed by: EdgeViaPoint in DiscreteTEBPlanner::AddEdgesViaPoints.
++        validation:
++          bounds<>: [0.0, 100000000.0]
++
+       weight_v_max_x:
+         type: double
+         default_value: 1.0
+@@ -570,8 +652,9 @@ teb_controller:
+         type: double
+         default_value: 1.0
+         description: >
+-          Weight of the non-holonomic (driving) kinematics constraint. Consumed by:
+-          EdgeKinematics{2D,3D} (nonholonomic part).
++          Weight of the non-holonomic body-motion constraint. For skid-steer vehicles this should be
++          finite rather than effectively rigid, representing wheel-ground slip while still forbidding
++          commanded lateral velocity. Consumed by: EdgeKinematicsDiffDrive/EdgeKinematicsCarlike.
+         validation:
+           bounds<>: [0.0, 100000.0]
+ 
+@@ -582,7 +665,7 @@ teb_controller:
+           Weight penalizing backward motion of a diff-drive robot (forward-drive objective). Consumed
+           by: EdgeKinematicsDiffDrive.
+         validation:
+-          bounds<>: [0.0, 1000.0]
++          bounds<>: [0.0, 1000000.0]
+ 
+       weight_kinematics_turning_radius:
+         type: double
+@@ -591,7 +674,7 @@ teb_controller:
+           Weight of the minimum turning radius constraint (ackermann / car-like). Consumed by:
+           EdgeKinematicsCarlike.
+         validation:
+-          bounds<>: [0.0, 1000.0]
++          bounds<>: [0.0, 1000000.0]
+ 
+       weight_max_steering_rate:
+         type: double
+@@ -758,4 +841,4 @@ teb_controller:
+           0 = publish on every control tick (no throttling). Consumed by:
+           TEBController::computeVelocityCommands (visualization throttle).
+         validation:
+-          bounds<>: [0.0, 1000.0]
+\ No newline at end of file
++          bounds<>: [0.0, 1000.0]
+diff --git a/doc/architecture.md b/doc/architecture.md
+index 17dda978d23bb8d6119a14b31834dbefd47c7ec1..5e67b07192ccebd1e2babc655244652119fa6e05 100644
+--- a/doc/architecture.md
++++ b/doc/architecture.md
+@@ -24,7 +24,7 @@ implementing the **classic (discrete) Timed Elastic Band (TEB)** planner. It is
+   a **holonomic mode** that switches to 3-DOF velocity / acceleration edges.
+ 
+ > (trap) **Not implemented (yet)**: Homotopy Class Planning (`hcp.activate` must stay `false` — see section 10),
+-> via-point constraints, preferred rotation direction, legacy costmap obstacle association, spline-based TEB-K.
++> preferred rotation direction, legacy costmap obstacle association, spline-based TEB-K.
+ 
+ ## 2. System Context
+ 
+@@ -129,7 +129,7 @@ Details:
+ 4. **Obstacles** — the optional costmap converter (polygons) is fed to `updateObstacleContainer`; the ESDF is
+    refreshed on a throttled cadence (`costmap_converter_rate`).
+ 5. **Planning / optimization** — `DiscreteTEBPlanner::plan()` (section 4).
+-6. **Feasibility** — hard check on the optimized TEB (section 6). If any footprint circle overlaps an LETHAL cell
++6. **Feasibility** — hard check on the optimized TEB (section 6). If any footprint circle overlaps the full area of a LETHAL cell
+    within `feasibility_check` [m] ahead, all control output is suppressed (`stop_cmd`).
+ 7. **Velocity command** — `getVelocityCommand` extracts a lookahead velocity from `s0 → s_k` over window
+    `k = control_look_ahead_poses` (bounded also by `dt_ref` and `min_time`), then `extractVelocity` computes the
+@@ -178,9 +178,10 @@ Phase logic (`optimizeTEB` / `runPhase`) in more detail:
+ 
+ - The iteration budget `no_inner_iterations`/`no_outer_iterations` is split equally over the 3 phases
+   (± remainder to phase 3). `fast_mode` makes `autoResize` run at most once.
+-- **autoResize** happens *before* forming the graph of each phase: segments with `dt > dt_ref+dt_hyst` AND
+-  `len > max_seg_length`, or segments whose heading change exceeds `max_angle_diff`, are inserted; segments that
+-  are too short and have no significant angle are merged. Bounded by `min_samples`/`max_samples`.
++- **autoResize** happens *before* forming the graph of each phase: segments with
++  `len > max_seg_length`, or heading change above `max_angle_diff`, are split regardless of duration.
++  Short segments merge only when the combined length and heading satisfy those bounds.
++  Bounded by `min_samples`/`max_samples`.
+ - After each optimization run the edge weights are ramped by `weight_adapt_factor` (unless the last outer
+   iteration), the classic *feasibility-first → target-function* TEB weighting.
+ - Optimization failures (chi-sq divergence, violation rate, path length explosion), empty optimizer batches, or
+@@ -197,20 +198,22 @@ global plan end.
+ | Phase | Edge class | Vertices (poses / dts) | Error dim | Info weights (params) |
+ |---|---|---|---|---|
+ | Obstacles | `EdgeESDFObstacle` | 1 pose (pose i, interior 1…n−2) | 1 + #footprint circles | per-circle `weight_obstacle`·`weight_multiplier_`, center `weight_inflation`; Huber kernel |
+-| Obstacles | `EdgeG3Continuity` | 3 poses + 2 dts (sliding i: 0…n−3) | 1 | `weight_g3_continuity` |
+-| Obstacles | `EdgeKinematicsDiffDrive` | 2 poses (sliding) | 2 | `weight_kinematics_nh`, `weight_kinematics_forward_drive` |
+-| Obstacles | `EdgeKinematicsCarlike` (if ackermann) | 2 poses | 2 | `weight_kinematics_nh`, `weight_kinematics_turning_radius` |
++| Obstacles | `EdgeViaPoint` | 1 interior pose | 1 | `weight_viapoint` |
++| Obstacles | terminal `EdgeViaPoint` | nearest interior pose to original goal | 1 | `weight_terminal_waypoint` |
++| Obstacles | `EdgeG3Continuity` (Ackermann only) | 3 poses + 2 dts (sliding i: 0…n−3) | 1 | `weight_g3_continuity` |
++| Obstacles | `EdgeKinematicsDiffDrive` (diff/skid steer) | 2 poses (sliding) | 2 | `weight_kinematics_nh`, `weight_kinematics_forward_drive` |
++| Obstacles | `EdgeKinematicsCarlike` (if ackermann) | 2 poses | 3 | `weight_kinematics_nh`, `weight_kinematics_turning_radius`, `weight_kinematics_forward_drive` |
+ | Kinodynamics | `EdgeVelocity` (or Holonomic if `v_max_y>0`) | 2 poses + 1 dt (sliding) | 2|3 | `weight_v_max_x`, `[weight_v_max_y,]`, `weight_v_max_theta` |
+ | Kinodynamics | `EdgeSnap` | 5 poses + 4 dt (sliding i−0…n−5) | 2 | `weight_snap_max_x`, `weight_snap_max_theta` |
+-| Kinodynamics | `EdgeSteeringAngleGoal` | last 5 poses (once) | 1 | `weight_zero_steering_angle_goal` |
++| Kinodynamics | `EdgeSteeringAngleGoal` (Ackermann only) | last 5 poses (once) | 1 | `weight_zero_steering_angle_goal` |
+ | Kinodynamics | `EdgeGoalAngularVelocityZero` | last 5 poses + 4 dts (once) | 1 | `weight_goal_angular_vel_zero` |
+ | Kinodynamics | `EdgeAcceleration{Start,Goal}` (or Holonomic) | Start: 2P+1dt / Mid: 3P+2dt / Goal: 2P+1dt | 2|3 | `weight_a_max_x`, `[weight_a_max_y,]`, `weight_a_max_theta` |
+-| Kinodynamics | `EdgeSteeringRate{Start,Goal}` | Start: 2P+1dt / Mid: 3P+2dt / Goal: 2P+1dt | 1 | `weight_max_steering_rate` |
+-| Kinodynamics | `EdgeStartSteeringAngle` | first 3 poses + 2 dts (once) | 2 | `weight_start_steering_angle` |
++| Kinodynamics | `EdgeSteeringRate{Start,Goal}` (Ackermann only) | Start: 2P+1dt / Mid: 3P+2dt / Goal: 2P+1dt | 1 | `weight_max_steering_rate` |
++| Kinodynamics | `EdgeStartSteeringAngle` (Ackermann only) | first 3 poses + 2 dts (once) | 2 | `weight_start_steering_angle` |
+ | Kinodynamics | `EdgeJerk{Start,Goal}` | Start/Goal: 3P+2dt / Mid: 4P+3dt | 2 | `weight_jerk_max_x`, `weight_jerk_max_theta` |
+ | Full | `EdgeTimeOptimal` | unary → 1 dt (all segments) | 1 | `weight_time_optimal` |
+ | Full | `EdgeShortestPath` | 2 poses (sliding) | 1 | `weight_shortest_path` |
+-| Full | `EdgePathSmoothness` | 2 poses (sliding) | 1 | `weight_shortest_path` (trap) (see Gotchas) |
++| Full | `EdgePathSmoothness` | 2 poses (sliding) | 1 | `weight_path_smoothness` |
+ 
+ Edge wiring is performed by the generic factory `addEdgesGeneric<EdgeType, InfoDim>` with a single descriptor:
+ 
+@@ -260,8 +263,11 @@ Consumers: `Footprint::check()` (feasibility, section 6) and `EdgeESDFObstacle`
+   `model: "polygon"` (decomposed to radius-0 circles — upstream circle sweep is NOT applied here).
+   `use_local_costmap: true` ignores `points` (the footprint is read later from the costmap footprint — for ESDF
+   checks the internal circles are used, see Gotchas).
+-- **Circle check** (`Footprint::check`, `checkFeasibility`): for every TEB pose up to distance `lookahead`
++- **Circle check** (`Footprint::check`, `checkFeasibility`): for every TEB pose and interpolated
++  segment sample (at most 0.025 m / 1 degree apart) up to distance `lookahead`
+   ahead of the robot, each footprint circle's center `c` is transformed into the world frame and the ESDF
++  center distance is reduced by the grid-cell half-diagonal. This conservatively checks the full raster cell
++  area rather than treating a LETHAL cell as a dimensionless point.
+   distance is compared against `d_min`:
+   ```
+   wx = x + cos*orig - sin*o.y   ;  wy = y + sin*orig + cos*o.y
+@@ -327,8 +333,8 @@ See the `Status` section in [AGENTS.md](../AGENTS.md); the mapping to code is:
+ - `HomotopyClassPlanner::plan()` (src/homotopy/homotopy_class_planner.cpp)
+ - `VisibilityGraphSearch::search()` (src/homotopy/visibility_graph_search.cpp)
+ - `HSignature::compute()`
+-- `AddEdgesViaPoints()` / `AddEdgesPreferRotDir()` (body-less)
++- `AddEdgesPreferRotDir()` (body-less)
+ - `AddEdgesObstacles()` legacy costmap association (unused)
+ - ESDF-aware autoResize
+ - recovery module params (`recovery.*`)
+-- `edge_jerk.h` vs `edge_jerk_new.h` duplicate cleanup
+\ No newline at end of file
++- `edge_jerk.h` vs `edge_jerk_new.h` duplicate cleanup
+diff --git a/doc/parameters.md b/doc/parameters.md
+index ae54d90032f5ff2e06667291ee41ef265909a54e..c496d5c59b51436966b86444ed58f8da20842913 100644
+--- a/doc/parameters.md
++++ b/doc/parameters.md
+@@ -82,6 +82,7 @@ teb_controller:
+         global_plan_prune_distance: 0.5
+         max_angle_diff: 0.15
+         max_global_plan_lookahead_dist: 5.0
++        max_lateral_acceleration: 0.0
+         max_samples: 50.0
+         max_seg_length: 0.3
+         min_prune_distance: 0.0
+@@ -90,6 +91,11 @@ teb_controller:
+         overwrite_plan_orientation: false
+         reinit_angle: 1.055
+         reinit_dist: 1.055
++        reinit_path_dist: 0.5
++        terminal_forward_extension: 0.0
++        terminal_min_speed: 0.0
++        terminal_slowdown_distance: 0.0
++        terminal_time_weight_scale: 1.0
+       visualization:
+         activate: false
+         publish_rate: 30.0
+@@ -113,10 +119,12 @@ teb_controller:
+         weight_snap_max_theta: 1.0
+         weight_snap_max_x: 1.0
+         weight_start_steering_angle: 1.0
++        weight_terminal_waypoint: 0.0
+         weight_time_optimal: 1.0
+         weight_v_max_theta: 1.0
+         weight_v_max_x: 1.0
+         weight_v_max_y: 1.0
++        weight_viapoint: 1.0
+         weight_zero_steering_angle_goal: 1.0
+ 
+ ```
+@@ -145,21 +153,27 @@ teb_controller:
+ |---|---|---|---|---|---|
+ | `FollowPath.trajectory.reinit_dist` | `double` | `1.055` |  | Distance [m] the goal must have moved for the band to be re-initialized from the global plan instead of being warm-started (updateAndPrune). | DiscreteTEBPlanner::plan. |
+ | `FollowPath.trajectory.reinit_angle` | `double` | `1.055` |  | Heading change [rad] threshold for re-initialization, like reinit_dist. | DiscreteTEBPlanner::plan. |
++| `FollowPath.trajectory.reinit_path_dist` | `double` | `0.5` | parameter must be within bounds [0.0, 10.0] | Maximum geometric deviation [m] of a newly received global path from the previous path before the warm-started band is cleared. This detects same-goal replans whose route has materially changed. | TEBController::setPlan. |
+ | `FollowPath.trajectory.auto_resize` | `bool` | `true` |  | Automatically insert/remove band poses during optimization based on time steps, segment lengths and heading differences. | DiscreteTEBPlanner::optimizeTEB (autoResize). |
+ | `FollowPath.trajectory.dt_ref` | `double` | `0.3` |  | Desired time difference [s] between consecutive band poses; used for auto-resizing and for the velocity-command lookahead. | autoResize, getVelocityCommand. |
+ | `FollowPath.trajectory.dt_hyst` | `double` | `0.05` |  | Hysteresis [s] around dt_ref to avoid oscillating pose insertions/removals. | autoResize. |
+ | `FollowPath.trajectory.min_samples` | `int` | `3` |  | Minimum number of band poses. | autoResize, initFromPath, updateAndPrune. |
+ | `FollowPath.trajectory.max_samples` | `int` | `50` |  | Maximum number of band poses. | autoResize. |
+-| `FollowPath.trajectory.min_seg_length` | `double` | `0.1` |  | Minimum segment length [m]; poses are inserted if a segment is longer than max_seg_length (or shorter than min_seg_length with dt > dt_ref). | autoResize. |
++| `FollowPath.trajectory.min_seg_length` | `double` | `0.1` |  | Minimum segment length [m]; shorter segments are candidates for merging. Merging also preserves the maximum segment length and heading difference. | autoResize. |
+ | `FollowPath.trajectory.max_seg_length` | `double` | `0.3` |  | Maximum segment length [m] before poses are inserted. | autoResize. |
+ | `FollowPath.trajectory.max_angle_diff` | `double` | `0.15` |  | Maximum heading difference [rad] between consecutive poses before a pose is inserted. | autoResize. |
+ | `FollowPath.trajectory.overwrite_plan_orientation` | `bool` | `false` |  | Set the initial pose orientations from the direction of the path segments, overwriting the orientations given in the global plan. | initFromPath. |
+-| `FollowPath.trajectory.allow_init_backward` | `bool` | `true` |  | Allow the band to be initialized with backward motion (reversed pose sequence at the start). | initFromPath. |
++| `FollowPath.trajectory.allow_init_backward` | `bool` | `true` |  | Allow the band to be initialized with backward motion when the first meaningful global-path segment lies behind the robot heading. | initFromPath. |
+ | `FollowPath.trajectory.control_look_ahead_poses` | `int` | `1` |  | Number of band segments used as lookahead for the velocity extraction. | getVelocityCommand. |
+ | `FollowPath.trajectory.max_global_plan_lookahead_dist` | `double` | `5.0` |  | Maximum lookahead distance [m] of the global plan that is transformed into the robot frame. | transformAndTrimPlan. |
+ | `FollowPath.trajectory.global_plan_prune_distance` | `double` | `0.5` |  | Poses of the global plan farther behind the robot than this distance [m] are pruned. | pruneGlobalPlan. |
+ | `FollowPath.trajectory.control_min_look_ahead_time` | `double` | `0.0` |  | Minimum lookahead time [s] for the velocity extraction. | getVelocityCommand. |
+ | `FollowPath.trajectory.min_prune_distance` | `double` | `0.0` |  | Minimum distance [m] the band start pose may lag behind the robot pose before the first pose is dropped. | updateAndPrune. |
++| `FollowPath.trajectory.terminal_slowdown_distance` | `double` | `0.0` | parameter must be within bounds [0.0, 10.0] | Distance [m] from the final global goal over which the output twist is proportionally tapered. Zero disables the taper. Linear and angular components are scaled together so curvature is preserved. | limitVelocityNearGoal. |
++| `FollowPath.trajectory.terminal_min_speed` | `double` | `0.0` | parameter must be within bounds [0.0, 1.0] | Minimum positive linear speed [m/s] used by the terminal taper. | limitVelocityNearGoal. |
++| `FollowPath.trajectory.terminal_time_weight_scale` | `double` | `1.0` | parameter must be within bounds [0.0, 1.0] | Scale the time-optimal objective when the final global goal is inside the local window and terminal slowdown is enabled. The optimizer also uses the terminal speed cap, so planned and commanded timing remain consistent. One preserves the configured weight. | TEBController::computeVelocityCommands. |
++| `FollowPath.trajectory.max_lateral_acceleration` | `double` | `0.0` | parameter must be within bounds [0.0, 10.0] | Maximum lateral acceleration [m/s^2] for a curvature-based speed envelope on the local reference path. Zero disables it. Braking uses half the configured longitudinal acceleration and a 0.5 m anticipation margin. | pathCurvatureSpeedLimit. |
++| `FollowPath.trajectory.terminal_forward_extension` | `double` | `0.0` | parameter must be within bounds [0.0, 0.5] | Curvature-continuous forward extension [m] appended only to the controller's local optimization input when the final global goal is in the local window. It continues the signed curvature of the final global-path segment, bounded by min_turning_radius. The Nav2 path and goal checker remain unchanged; TEB feasibility checking covers the extension. Zero disables it. | appendForwardGoalExtension. |
+ 
+ ## `robot`
+ 
+@@ -168,7 +182,7 @@ teb_controller:
+ | `FollowPath.robot.footprint.use_local_costmap` | `bool` | `true` |  | Use the costmap robot radius for the circular footprint instead of the polygon given in model/points. | TEBController::configure (Footprint). |
+ | `FollowPath.robot.footprint.model` | `string` | `""` |  | Footprint model: 'polygon' or 'circle'. | TEBController::configure (Footprint). |
+ | `FollowPath.robot.footprint.points` | `string` | `""` |  | Footprint polygon points as 'x1,y1;x2,y2;...' (used when model='polygon'), converted to a circle set via scripts/footprint_polygon_to_circles.py. | TEBController::configure (Footprint). |
+-| `FollowPath.robot.robot_model` | `string` | `"diff_drive"` | (read-only)<br>one of the specified values: ['diff_drive', 'ackermann'] | Robot kinematic model: 'diff_drive' or 'ackermann' (car-like/bicycle driving). Selects the kinematics edge and Ackermann-specific edges. | DiscreteTEBPlanner::buildGraph. |
++| `FollowPath.robot.robot_model` | `string` | `"diff_drive"` | (read-only)<br>one of the specified values: ['diff_drive', 'skid_steer', 'ackermann'] | Robot kinematic model: 'diff_drive', 'skid_steer' or 'ackermann'. Skid steer uses the body-level unicycle edge with soft non-holonomic weighting and does not add Ackermann steering-continuity constraints. | DiscreteTEBPlanner::buildGraph. |
+ | `FollowPath.robot.wheelbase` | `double` | `1.055` | parameter must be within bounds [0.1, 10.0] | Wheelbase L [m] for the ackermann (car-like) model: steering-rate/steering-angle edges and the steering-angle saturation. | EdgeSteeringRate*, EdgeStartSteeringAngle, saturateSteeringAngle. |
+ | `FollowPath.robot.v_max_x` | `double` | `0.5` | parameter must be within bounds [0.0, 10.0] | Maximum forward linear velocity [m/s]. | EdgeVelocity*/EdgeVelocityHolonomic and saturateVelocity (also speed-limit scaled). |
+ | `FollowPath.robot.v_max_x_backwards` | `double` | `0.0` | parameter must be within bounds [0.0, 10.0] | Maximum backward (reverse) linear velocity [m/s]; 0 disables reverse motion. | EdgeVelocity* (forward-drive) and saturateVelocity. |
+@@ -184,7 +198,7 @@ teb_controller:
+ | `FollowPath.robot.snap_max_theta` | `double` | `0.0` | parameter must be within bounds [0.0, 1000.0] | Maximum angular snap [rad/s⁴] (G4). | EdgeSnap. |
+ | `FollowPath.robot.steering_rate_max` | `double` | `0.5` | parameter must be within bounds [0.0, 10.0] | Maximum steering rate [rad/s] (ackermann / car-like). | EdgeSteeringRate{Start,Goal}, EdgeStartSteeringAngle, saturateSteeringAngle. |
+ | `FollowPath.robot.min_turning_radius` | `double` | `0.5` | parameter must be within bounds [0.0, 100.0] | Minimum turning radius R_min [m] (ackermann / car-like). | EdgeKinematicsCarlike. |
+-| `FollowPath.robot.has_steering` | `bool` | `true` |  | Reserved for a future steering-aware mode. | none |
++| `FollowPath.robot.has_steering` | `bool` | `true` |  | True only for a plant with physical steering-rack feedback. False keeps Ackermann optimizer edges available as a virtual kinematic contract but skips the physical output steering-rate limiter. | none |
+ | `FollowPath.robot.use_proportional_saturation` | `bool` | `true` |  | Use proportional velocity saturation (all components scaled down when one exceeds its limit) instead of hard clamping. | saturateVelocity. |
+ 
+ ## `optimizer`
+@@ -204,7 +218,7 @@ teb_controller:
+ | `FollowPath.optimizer.fix_goal` | `bool` | `true` |  | Fix the goal pose vertex (position and orientation cannot be optimized). | buildGraph (goal vertex). |
+ | `FollowPath.optimizer.free_goal_vel` | `bool` | `false` |  | If true, do not enforce v=0 and angular velocity=0 at the goal (velocity is free at the goal). | buildGraph (vel_goal_ flag) and the goal velocity edges. |
+ | `FollowPath.optimizer.verbose` | `bool` | `false` |  | Print per-phase optimization statistics and costs. | DiscreteTEBPlanner::optimizeTEB (logging). |
+-| `FollowPath.optimizer.stepwise_optimization` | `bool` | `true` |  | Enable the 3-phase optimization (1: obstacles+G3+kinematics, 2: kinodynamics, 3: efficiency edges) instead of a single full pass. | DiscreteTEBPlanner::optimizeTEB. |
++| `FollowPath.optimizer.stepwise_optimization` | `bool` | `true` |  | Enable the 3-phase optimization (1: obstacles+path reference+kinematics, 2: kinodynamics, 3: efficiency edges) instead of a single full pass. Ackermann-only constraints are selected inside the phases. | DiscreteTEBPlanner::optimizeTEB. |
+ | `FollowPath.optimizer.divergence_detection_enable` | `bool` | `false` |  | Enable divergence detection (chi², violation rate and path length) with band re-initialization on failure. | DiscreteTEBPlanner::optimizeTEB. |
+ | `FollowPath.optimizer.divergence_detection_max_chi_squared` | `double` | `10.0` |  | Maximum per-iteration chi² before the optimization is flagged as divergent. | divergence detection in optimizeTEB. |
+ | `FollowPath.optimizer.divergence_detection_max_chi_violation_rate` | `double` | `0.5` |  | Maximum allowed fraction of iterations with an increasing chi² before the optimization is flagged as divergent. | divergence detection in optimizeTEB. |
+@@ -216,8 +230,10 @@ teb_controller:
+ |---|---|---|---|---|---|
+ | `FollowPath.weights.weight_adapt_factor` | `double` | `1.0` |  | Factor that ramps up the obstacle weights over the outer iterations (weight multiplier). | DiscreteTEBPlanner::optimizeTEB. |
+ | `FollowPath.weights.weight_time_optimal` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the time-optimality objective pushing the sum of time intervals ΣT_i towards 0, i.e. executing the band as fast as possible. | EdgeTimeOptimal. |
+-| `FollowPath.weights.weight_shortest_path` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the path-length objective pulling the band towards the shortest connection of the poses. | EdgeShortestPath — and note EdgePathSmoothness is wired with this weight as well (weight_path_smoothness is currently unused). |
+-| `FollowPath.weights.weight_path_smoothness` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the path-smoothing edge (EdgePathSmoothness). | none |
++| `FollowPath.weights.weight_shortest_path` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the path-length objective pulling the band towards the shortest connection of the poses. | EdgeShortestPath. |
++| `FollowPath.weights.weight_path_smoothness` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the path-smoothing edge. | EdgePathSmoothness. |
++| `FollowPath.weights.weight_viapoint` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight pulling each intermediate band pose toward its closest projection on the current global path. Set to zero to disable global-path tracking. | EdgeViaPoint in DiscreteTEBPlanner::AddEdgesViaPoints. |
++| `FollowPath.weights.weight_terminal_waypoint` | `double` | `0.0` | parameter must be within bounds [0.0, 100000000.0] | Weight anchoring one interior band pose to the original global goal when a controller-only forward extension is active. This prevents the closest-point path reference from cutting directly onto the extension and bypassing the real goal. Zero disables the anchor. | EdgeViaPoint in DiscreteTEBPlanner::AddEdgesViaPoints. |
+ | `FollowPath.weights.weight_v_max_x` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the maximum linear velocity constraint (x). | EdgeVelocity/EdgeVelocityHolonomic. |
+ | `FollowPath.weights.weight_v_max_y` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the maximum lateral velocity constraint (y, holonomic mode). | EdgeVelocityHolonomic. |
+ | `FollowPath.weights.weight_v_max_theta` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the maximum angular velocity constraint. | EdgeVelocity*. |
+@@ -228,9 +244,9 @@ teb_controller:
+ | `FollowPath.weights.weight_snap_max_theta` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the maximum angular snap constraint (G4). | EdgeSnap. |
+ | `FollowPath.weights.weight_a_max_y` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the maximum lateral acceleration constraint (holonomic only). | EdgeAccelerationHolonomic{Start,Goal}. |
+ | `FollowPath.weights.weight_a_max_theta` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the maximum angular acceleration constraint. | EdgeAcceleration{Start,Goal}. |
+-| `FollowPath.weights.weight_kinematics_nh` | `double` | `1.0` | parameter must be within bounds [0.0, 100000.0] | Weight of the non-holonomic (driving) kinematics constraint. | EdgeKinematics{2D,3D} (nonholonomic part). |
+-| `FollowPath.weights.weight_kinematics_forward_drive` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight penalizing backward motion of a diff-drive robot (forward-drive objective). | EdgeKinematicsDiffDrive. |
+-| `FollowPath.weights.weight_kinematics_turning_radius` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the minimum turning radius constraint (ackermann / car-like). | EdgeKinematicsCarlike. |
++| `FollowPath.weights.weight_kinematics_nh` | `double` | `1.0` | parameter must be within bounds [0.0, 100000.0] | Weight of the non-holonomic body-motion constraint. For skid-steer vehicles this should be finite rather than effectively rigid, representing wheel-ground slip while still forbidding commanded lateral velocity. | EdgeKinematicsDiffDrive/EdgeKinematicsCarlike. |
++| `FollowPath.weights.weight_kinematics_forward_drive` | `double` | `1.0` | parameter must be within bounds [0.0, 1000000.0] | Weight penalizing backward motion of a diff-drive robot (forward-drive objective). | EdgeKinematicsDiffDrive. |
++| `FollowPath.weights.weight_kinematics_turning_radius` | `double` | `1.0` | parameter must be within bounds [0.0, 1000000.0] | Weight of the minimum turning radius constraint (ackermann / car-like). | EdgeKinematicsCarlike. |
+ | `FollowPath.weights.weight_max_steering_rate` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight of the maximum steering rate constraint. | EdgeSteeringRate{Start,Goal}. |
+ | `FollowPath.weights.weight_zero_steering_angle_goal` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight driving the steering angle to zero at the goal. | EdgeSteeringAngleGoal. |
+ | `FollowPath.weights.weight_start_steering_angle` | `double` | `1.0` | parameter must be within bounds [0.0, 1000.0] | Weight keeping the start pose steering angle equal to the measured feedback angle. | EdgeStartSteeringAngle. |
+diff --git a/doc/status.md b/doc/status.md
+index bf294a5a01e814fb34bb31861af0f696bd7fbafe..7a3f669209b0c02f89d68b4acaa1f00247888e5a 100644
+--- a/doc/status.md
++++ b/doc/status.md
+@@ -7,22 +7,42 @@ project-state details live.
+ ## Implemented
+ 
+ ### Controller & Integration
++- The controller passes the terminal speed cap into the optimizer as well as the output taper.
++  `trajectory.terminal_time_weight_scale` can reduce time pressure during final approach.
++  Once both Nav2 pose tolerances hold, it commands braking and lets the goal checker verify
++  measured stopping. Telemetry records the measured start velocity and effective optimizer limits.
+ - TEBController plugin lifecycle (configure/activate/deactivate/cleanup) + `setPlan`,
+   `computeVelocityCommands`, `setSpeedLimit`
++- Same-goal global replans preserve warm starts only while their geometric deviation remains below
++  `trajectory.reinit_path_dist`; Nav2 percentage and absolute speed limits are applied proportionally
++  to linear, reverse and angular command saturation.
+ - Costmap converter integration (obstacle polygons for visualization/obstacles)
+ - Parameter library via `generate_parameter_library` (schema =
+   `config/teb_controller_parameters.yaml`; doc/parameters.md auto-generated via `make docs`)
+ - TEBVisualizer: 7 RViz topics (local plan, lookahead, poses, obstacles, curvature radii, footprint)
+ 
+ ### Trajectory Optimization (g2o)
+-- 27 custom g2o edge classes + 2 vertex types (21 wired in `buildGraph`; acceleration/jerk/steering-rate
++- 27 custom g2o edge classes + 2 vertex types (22 wired in `buildGraph`; acceleration/jerk/steering-rate
+   Start+Goal variants)
++- `EdgeViaPoint` references every intermediate band pose to its closest projection on the latest
++  global path in all optimization phases; `weights.weight_viapoint` controls the tradeoff against
++  obstacle clearance.
++- A forward terminal extension also gets a separate original-goal anchor on its nearest interior
++  band pose; `weights.weight_terminal_waypoint` prevents a closest-point shortcut from bypassing
++  the real L3 endpoint.
+ - `addEdgesGeneric<EdgeType, InfoDim>` template edge factory
+-- 3-phase stepwise optimization (obstacles+G3+kinematics → kinodynamics → efficiency), per-phase weight
+-  ramp, divergence detection, cost breakdown logging
++- 3-phase stepwise optimization (obstacles+path reference+kinematics → kinodynamics → efficiency),
++  with Ackermann-only steering constraints selected by model, per-phase weight ramp, divergence detection
++  and cost breakdown logging
+ - Solvers: eigen (default), cholmod, csparse, dense; algorithms: gauss_newton, levenberg_marquardt
+ 
+ ### Obstacle Avoidance & Feasibility
++- Swept feasibility checks interpolate between band vertices at 0.025 m / 1 degree.
++  ESDF soft costs and hard feasibility include the raster cell half-diagonal, so lethal/unknown
++  grid cells are treated as occupied squares rather than center points.
++  The obstacle tail exclusion is limited to footprint radius plus clearance, independent of speed.
++  Optional reference-path curvature anticipation limits cruise before bends and shares the cap
++  between optimizer and command output.
+ - ESDF (Meijster O(n) EDT) with bilinear query (C¹) + analytical gradient
+ - Footprint: circle model (polygon → circles via `scripts/footprint_polygon_to_circles.py`),
+   ESDF-based collision check, `checkFeasibility` hard stop
+@@ -31,13 +51,15 @@ project-state details live.
+   call sites (feasibility, obstacle-edge culling, footprint check) skip gradient + normalization
+ 
+ ### TEB Utilities
++- Auto-resizing splits long geometric segments regardless of their duration and only merges
++  short-duration segments when combined length and heading remain within sampling bounds.
+ - initFromPath, autoResize, updateAndPrune, extractVelocity, getVelocityCommand,
+   pruneGlobalPlan, transformAndTrimPlan
+ - Velocity saturation (Twist, proportional option), Ackermann↔Twist conversions,
+   steering-angle rate saturation, computeCurvature
+ 
+ ### Verification
+-- 23 gtest suites, one per edge class (numeric-Jacobian checks via `test_jacobian_utils.hpp`)
++- 26 gtest suites, including edge-level numeric-Jacobian checks and skid-steer path/reverse regressions
+ - `make build` / `make format` / `make lint` / `make test` / `make docs` / `make docs-check`
+ - Visualization throttled to ~30 Hz in the control loop (publishers are additionally subscriber-gated)
+ - `include_shim/tl_expected/expected.hpp` shadows the deprecated parameter_traits header at build time
+@@ -68,7 +90,6 @@ project-state details live.
+ - **Homotopy Class Planning (TBD)**: `HomotopyClassPlanner::plan()`, `VisibilityGraphSearch::search()`,
+   `VisibilityGraph::build()`, `HSignature::compute()` are stubs. Keep `hcp.activate: false`;
+   `configure()` logs an error if enabled. (interfaces in `include/nav2_teb_controller/homotopy/`)
+-- **Via points**: `EdgeViaPoints` / `AddEdgesViaPoints` (empty)
+ - **Preferred rotation direction**: `AddEdgesPreferRotDir` / `edge_prefer_rotdir.h` (not wired)
+ - **Legacy costmap obstacle association**: `AddEdgesObstacles` / `edge_costmap_obstacle.h` (not wired;
+   `legacy_obstacle_association` param unused)
+@@ -79,20 +100,20 @@ project-state details live.
+ 
+ ## Gotchas / Traps
+ 
+-- `robot_model`: only `"diff_drive"` and `"ackermann"` (car-like) are valid. The old `"bicycle"` value was
+-  removed from the schema — it silently added NO kinematics edge.
++- `robot_model`: `"diff_drive"`, `"skid_steer"` and `"ackermann"` are valid. Skid steer shares the
++  body-level unicycle edge with diff drive, but uses finite non-holonomic rigidity; Ackermann-only G3 and
++  steering angle/rate edges are not added. The old `"bicycle"` value remains invalid.
+ - Holonomic mode is NOT a param: it is inferred from `v_max_y > 0` (schema default `v_max_y: 0.5` → holonomic!
+   runtime config sets `0.0`). Holonomic switches velocity/acceleration edges to the 3D variants.
+-- `weight_path_smoothness` is declared but `EdgePathSmoothness` is wired with `weight_shortest_path`
+-  (both in phase Full) — likely a bug, the smoothness weight param is dead.
++- `weight_path_smoothness` independently weights `EdgePathSmoothness` in the Full phase.
+ - `EdgeESDFObstacle` skips pose 0 and last pose (`for i in [1, n-2]`); start pose is also overwritten with the
+   true robot pose before planning.
+ - **Tail exclusion**: obstacle edges are skipped for poses within `s_excl =
+-  max(2·v_max_x/max_vel_theta, circum_radius + min_obstacle_dist)` of the band end — the tail cannot bend
++  circum_radius + min_obstacle_dist` of the band end — the tail cannot bend
+   around obstacles (goal/anchor fixed) and only produced kinks/false divergence. If the whole band is shorter
+   than `s_excl`, no obstacle edges are added at all (only the `checkFeasibility` hard stop).
+   `addEdgesESDFObstacles` in `src/planner/optimal_planner.cpp`.
+-- `checkFeasibility` returns the first colliding pose index; `stop_cmd` only gates the path tracker output,
++- `checkFeasibility` returns the end vertex index of the first colliding swept segment; `stop_cmd` only gates the path tracker output,
+   the planner still runs.
+ - Steering feedback (`/tricycle_state`, ackermann msg) is used as initial steering angle for
+   `EdgeStartSteeringAngle` / `EdgeSteeringRateStart` and for `saturateSteeringAngle`.
+@@ -106,4 +127,4 @@ project-state details live.
+   would double-free. (`setRobustKernel(nullptr)` is only needed if a future g2o takes ownership.)
+ - `initFromPath` creates one band pose per global-plan pose **without a `max_samples` cap** (only
+   `autoResize`'s insert path respects it) — a long plan → oversized band on cold start/reinit.
+-  Deliberately untouched (tracked separately).
+\ No newline at end of file
++  Deliberately untouched (tracked separately).
+diff --git a/include/nav2_teb_controller/core/footprint.hpp b/include/nav2_teb_controller/core/footprint.hpp
+index 01759e629980432cb7d5468a90def0f5571b9a18..99b543c53917abd61abef1ca701fdcae492db1c3 100644
+--- a/include/nav2_teb_controller/core/footprint.hpp
++++ b/include/nav2_teb_controller/core/footprint.hpp
+@@ -79,7 +79,9 @@ public:
+       const double wy = y + st * c.offset.x() + ct * c.offset.y();
+ 
+       const double dist_to_obs = esdf.queryDistance(wx, wy);
+-      const double clearance = dist_to_obs - c.radius;
++      // The EDT is measured to occupied cell centers. Subtract the cell's
++      // half-diagonal so collision means overlap with the full raster cell.
++      const double clearance = dist_to_obs - c.radius - esdf.cellHalfDiagonal();
+ 
+       if (clearance < result.min_clearance) {
+         result.min_clearance = clearance;
+@@ -164,4 +166,4 @@ private:
+   bool use_local_costmap_{};
+ };
+ 
+-}  // namespace nav2_teb_controller
+\ No newline at end of file
++}  // namespace nav2_teb_controller
+diff --git a/include/nav2_teb_controller/core/teb_utils.hpp b/include/nav2_teb_controller/core/teb_utils.hpp
+index 76c7bd5d2980aacc3d71ab9b39f0db50fbcbe4cb..d6c8db8789bffee2acb11e3e13c1edaad45ff2a9 100644
+--- a/include/nav2_teb_controller/core/teb_utils.hpp
++++ b/include/nav2_teb_controller/core/teb_utils.hpp
+@@ -15,6 +15,14 @@
+ 
+ namespace nav2_teb_controller {
+ 
++bool withinGoalPoseTolerance(const geometry_msgs::msg::Pose &pose,
++                             const geometry_msgs::msg::Pose &goal,
++                             const geometry_msgs::msg::Pose &tolerance);
++
++double pathCurvatureSpeedLimit(const nav_msgs::msg::Path &path, double max_speed,
++                              double max_angular_speed, double lateral_acceleration,
++                              double braking_acceleration);
++
+ double estimateDeltaT(const PoseSE2 &start, const PoseSE2 &end, double max_vel_x,
+                       double max_vel_theta);
+ 
+@@ -39,6 +47,27 @@ geometry_msgs::msg::Twist getVelocityCommand(const TimedElasticBand &teb, double
+                                              int look_ahead_poses, double min_look_ahead_time,
+                                              bool holonomic);
+ 
++/// Select a forward-projected command from a later pose in the same optimized TEB.
++///
++/// This is a deterministic no-reverse fallback for the terminal case where the
++/// normal time-based lookahead collapses onto a locally backward first segment,
++/// even though a later pose in the optimized band remains forward of the robot.
++std::optional<geometry_msgs::msg::Twist> getForwardOnlyVelocityCommand(
++    const TimedElasticBand &teb, int minimum_look_ahead_poses, bool holonomic,
++    int *selected_lookahead = nullptr, double *selected_duration = nullptr);
++
++/** Scale a positive command near the final goal while preserving its curvature. */
++bool limitVelocityNearGoal(geometry_msgs::msg::Twist &cmd_vel, double goal_distance,
++                           double slowdown_distance, double minimum_speed,
++                           double maximum_speed);
++
++/** Continue the terminal signed curvature beyond the goal for forward-only convergence. */
++bool appendForwardGoalExtension(nav_msgs::msg::Path &path, double extension_distance,
++                                double terminal_curvature, double maximum_step = 0.05);
++
++/** Read and bound signed terminal curvature from an unpruned global path. */
++double terminalPathCurvature(const nav_msgs::msg::Path &path, double maximum_curvature);
++
+ bool pruneGlobalPlan(const tf2::Transform &plan_to_global,
+                      const geometry_msgs::msg::PoseStamped &robot_pose,
+                      nav_msgs::msg::Path &global_plan, double dist_behind_robot = 1.0);
+diff --git a/include/nav2_teb_controller/g2o_types/edge_esdf_obstacle.h b/include/nav2_teb_controller/g2o_types/edge_esdf_obstacle.h
+index f2689eb01d1c12c71440fc923ce40524b39f80d2..2ceab3c95265e3cfc4830e7d845f3552fc1a3807 100644
+--- a/include/nav2_teb_controller/g2o_types/edge_esdf_obstacle.h
++++ b/include/nav2_teb_controller/g2o_types/edge_esdf_obstacle.h
+@@ -66,7 +66,7 @@ public:
+       const double wy = py + st * c.offset.x() + ct * c.offset.y();
+ 
+       const double dist = esdf_->queryDistance(wx, wy);
+-      const double threshold = min_dist + c.radius;
++      const double threshold = min_dist + c.radius + esdf_->cellHalfDiagonal();
+ 
+       _error[i] =  penaltyBoundFromBelow(dist, threshold, 0.0);
+ 
+@@ -75,7 +75,8 @@ public:
+     }
+ 
+     // ── Inflation penalty at robot center ────────────────────────────────────
+-    _error[_dimension - 1] = penaltyBoundFromBelow(esdf_->queryDistance(px, py), inflation_dist, 0.0);
++    _error[_dimension - 1] = penaltyBoundFromBelow(
++        esdf_->queryDistance(px, py), inflation_dist + esdf_->cellHalfDiagonal(), 0.0);
+   }
+ 
+   /**
+@@ -110,7 +111,7 @@ public:
+ 
+       const auto esdf = esdf_->queryFull(wx, wy);
+       const double dist = esdf.distance;
+-      const double threshold = min_dist + c.radius;
++      const double threshold = min_dist + c.radius + esdf_->cellHalfDiagonal();
+       if (dist > threshold)
+         continue;  // penalty inactive
+ 
+@@ -126,7 +127,7 @@ public:
+ 
+     // ── Inflation penalty at robot center ───────────────────────────────────
+     const auto center = esdf_->queryFull(px, py);
+-    if (center.distance < inflation_dist) {
++    if (center.distance < inflation_dist + esdf_->cellHalfDiagonal()) {
+       const Eigen::Vector2d &grad = center.gradient;
+       _jacobianOplusXi(_dimension - 1, 0) = -grad.x();
+       _jacobianOplusXi(_dimension - 1, 1) = -grad.y();
+diff --git a/include/nav2_teb_controller/g2o_types/edge_kinematic_car_like.h b/include/nav2_teb_controller/g2o_types/edge_kinematic_car_like.h
+index 07d8e49774a5f4df8e8d1ef9ff045ae6d3cfe682..671e7d73cfbe57ec4dfa10fd7f6aef0618b2d203 100644
+--- a/include/nav2_teb_controller/g2o_types/edge_kinematic_car_like.h
++++ b/include/nav2_teb_controller/g2o_types/edge_kinematic_car_like.h
+@@ -36,10 +36,10 @@ namespace nav2_teb_controller
+  *          the user might add an extra margin to the min_turning_radius param.
+  * @remarks Do not forget to call setTebConfig()
+  */    
+-class EdgeKinematicsCarlike : public BaseTebBinaryEdge<2, double, VertexPose, VertexPose>
++class EdgeKinematicsCarlike : public BaseTebBinaryEdge<3, double, VertexPose, VertexPose>
+ {
+ public:
+-  using BaseTebBinaryEdge<2, double, VertexPose, VertexPose>::linearizeOplus;
++  using BaseTebBinaryEdge<3, double, VertexPose, VertexPose>::linearizeOplus;
+ 
+   
+   /**
+@@ -77,6 +77,12 @@ public:
+     else
+       _error[1] = penaltyBoundFromBelow(deltaS.norm() / fabs(angle_diff), turning_radius, 0.0); 
+     // This edge is not affected by the epsilon parameter, the user might add an exra margin to the min_turning_radius parameter.
++
++    // A car-like trajectory is not implicitly forward-only.  Keep this constraint
++    // explicit so v_max_x_backwards=0 cannot turn an optimized reverse first segment
++    // into a permanent zero command at the controller output.
++    const Eigen::Vector2d heading(std::cos(conf1->theta()), std::sin(conf1->theta()));
++    _error[2] = penaltyBoundFromBelow(deltaS.dot(heading), 0.0, 0.0);
+     
+     // TEB_ASSERT_MSG(std::isfinite(_error[0]) && std::isfinite(_error[1]), "EdgeKinematicsCarlike::computeError() _error[0]=%f _error[1]=%f\n",_error[0],_error[1]);
+   }
+@@ -124,43 +130,53 @@ public:
+     _jacobianOplusXj(0, 2) = (-sin2 * deltaS[1] - cos2 * deltaS[0]) * dev_nh_abs;  // e0 theta2
+ 
+     // Row 1 blocks: radius derivatives w.r.t. positions and headings
+-    if (std::abs(angle_diff) < 1e-12 || dist < 1e-12)
+-      return;  // e1 = 0 in the straight-line branch
+-
+-    double radius = 0.0;
+-    double dr_ddist = 0.0;      // d radius / d dist
+-    double dr_dangle = 0.0;     // d radius / d angle_diff
+-    if (exact_arc_length)
+-    {
+-      const double s = std::sin(angle_diff / 2.0);
+-      const double g = 1.0 / (2.0 * std::abs(s));
+-      radius = dist * g;
+-      dr_ddist = g;
+-      // g'(t) = -sign(t) * cos(t/2) / (4 sin^2(t/2))
+-      dr_dangle = -dist * std::copysign(1.0, angle_diff) * std::cos(angle_diff / 2.0) /
+-                  (4.0 * s * s);
+-    }
+-    else
++    if (std::abs(angle_diff) >= 1e-12 && dist >= 1e-12)
+     {
+-      radius = dist / std::abs(angle_diff);
+-      dr_ddist = 1.0 / std::abs(angle_diff);
+-      dr_dangle = -dist * std::copysign(1.0, angle_diff) / (angle_diff * angle_diff);
++      double radius = 0.0;
++      double dr_ddist = 0.0;      // d radius / d dist
++      double dr_dangle = 0.0;     // d radius / d angle_diff
++      if (exact_arc_length)
++      {
++        const double s = std::sin(angle_diff / 2.0);
++        const double g = 1.0 / (2.0 * std::abs(s));
++        radius = dist * g;
++        dr_ddist = g;
++        // g'(t) = -sign(t) * cos(t/2) / (4 sin^2(t/2))
++        dr_dangle = -dist * std::copysign(1.0, angle_diff) * std::cos(angle_diff / 2.0) /
++                    (4.0 * s * s);
++      }
++      else
++      {
++        radius = dist / std::abs(angle_diff);
++        dr_ddist = 1.0 / std::abs(angle_diff);
++        dr_dangle = -dist * std::copysign(1.0, angle_diff) / (angle_diff * angle_diff);
++      }
++
++      const double dev_border =
++          penaltyBoundFromBelowDerivative(radius, turning_radius, 0.0);
++
++      // unit vector of deltaS
++      const double ux = deltaS[0] / dist;
++      const double uy = deltaS[1] / dist;
++      // d(radius)/dp = -dr_ddist * unit,  d(radius)/dq = +dr_ddist * unit
++      // d(angle_diff)/d theta1 = -1,  d(angle_diff)/d theta2 = +1
++      _jacobianOplusXi(1, 0) = -dr_ddist * ux * dev_border;  // e1 x1
++      _jacobianOplusXi(1, 1) = -dr_ddist * uy * dev_border;  // e1 y1
++      _jacobianOplusXi(1, 2) = -dr_dangle * dev_border;      // e1 theta1
++      _jacobianOplusXj(1, 0) =  dr_ddist * ux * dev_border;  // e1 x2
++      _jacobianOplusXj(1, 1) =  dr_ddist * uy * dev_border;  // e1 y2
++      _jacobianOplusXj(1, 2) =  dr_dangle * dev_border;      // e1 theta2
+     }
+ 
+-    const double dev_border =
+-        penaltyBoundFromBelowDerivative(radius, turning_radius, 0.0);
+-
+-    // unit vector of deltaS
+-    const double ux = deltaS[0] / dist;
+-    const double uy = deltaS[1] / dist;
+-    // d(radius)/dp = -dr_ddist * unit,  d(radius)/dq = +dr_ddist * unit
+-    // d(angle_diff)/d theta1 = -1,  d(angle_diff)/d theta2 = +1
+-    _jacobianOplusXi(1, 0) = -dr_ddist * ux * dev_border;  // e1 x1
+-    _jacobianOplusXi(1, 1) = -dr_ddist * uy * dev_border;  // e1 y1
+-    _jacobianOplusXi(1, 2) = -dr_dangle * dev_border;      // e1 theta1
+-    _jacobianOplusXj(1, 0) =  dr_ddist * ux * dev_border;  // e1 x2
+-    _jacobianOplusXj(1, 1) =  dr_ddist * uy * dev_border;  // e1 y2
+-    _jacobianOplusXj(1, 2) =  dr_dangle * dev_border;      // e1 theta2
++    // Row 2: forward-drive penalty e2 = penaltyFromBelow(deltaS dot heading1, 0, 0).
++    const double forward_projection = cos1 * deltaS[0] + sin1 * deltaS[1];
++    const double forward_dev = penaltyBoundFromBelowDerivative(forward_projection, 0.0, 0.0);
++    _jacobianOplusXi(2, 0) = -cos1 * forward_dev;
++    _jacobianOplusXi(2, 1) = -sin1 * forward_dev;
++    _jacobianOplusXi(2, 2) = (-sin1 * deltaS[0] + cos1 * deltaS[1]) * forward_dev;
++    _jacobianOplusXj(2, 0) = cos1 * forward_dev;
++    _jacobianOplusXj(2, 1) = sin1 * forward_dev;
++    _jacobianOplusXj(2, 2) = 0.0;
+   }
+ #endif  // USE_ANALYTIC_JACOBI
+   
+@@ -170,4 +186,4 @@ public:
+ 
+ } // end namespace
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/include/nav2_teb_controller/g2o_types/edge_via_point.h b/include/nav2_teb_controller/g2o_types/edge_via_point.h
+index d56259cba6f485ac5b3eb3359828e2a2d9187ace..8dad1a269877b3e5c11c21cde06fadb45f0e1999 100644
+--- a/include/nav2_teb_controller/g2o_types/edge_via_point.h
++++ b/include/nav2_teb_controller/g2o_types/edge_via_point.h
+@@ -1,79 +1,84 @@
+ #ifndef EDGE_VIA_POINT_H_
+ #define EDGE_VIA_POINT_H_
+ 
+-#include "nav2_teb_controller/g2o_types/vertex_pose.h"
+-#include "nav2_teb_controller/g2o_types/base_teb_edges.h"
+-
+ #include "g2o/core/base_unary_edge.h"
++#include "nav2_teb_controller/g2o_types/base_teb_edges.h"
++#include "nav2_teb_controller/g2o_types/vertex_pose.h"
+ 
+ // Generated by generate_parameter_library
+ #include "nav2_teb_controller/teb_controller_parameters.hpp"
+ 
+-namespace nav2_teb_controller
+-{
++namespace nav2_teb_controller {
+ /**
+  * @class EdgeViaPoint
+  * @brief Edge defining the cost function for pushing a configuration towards a via point
+- * 
++ *
+  * The edge depends on a single vertex \f$ \mathbf{s}_i \f$ and minimizes: \n
+  * \f$ \min  dist2point \cdot weight \f$. \n
+  * \e dist2point denotes the distance to the via point. \n
+  * \e weight can be set using setInformation(). \n
+  * @see TebOptimalPlanner::AddEdgesViaPoints
+  * @remarks Do not forget to call setTebConfig() and setViaPoint()
+- */     
+-class EdgeViaPoint : public BaseTebUnaryEdge<1, const Eigen::Vector2d*, VertexPose>
+-{
++ */
++class EdgeViaPoint : public BaseTebUnaryEdge<1, const Eigen::Vector2d *, VertexPose> {
+ public:
+-  using BaseTebUnaryEdge<1, const Eigen::Vector2d*, VertexPose>::linearizeOplus;
++  using BaseTebUnaryEdge<1, const Eigen::Vector2d *, VertexPose>::linearizeOplus;
+ 
+-    
+   /**
+    * @brief Construct edge.
+-   */    
+-  EdgeViaPoint() 
+-  {
+-    _measurement = NULL;
+-  }
+- 
++   */
++  EdgeViaPoint() { _measurement = NULL; }
++
+   /**
+    * @brief Actual cost function
+-   */    
+-  void computeError()
+-  {
+-    // TEB_ASSERT_MSG(cfg_ && _measurement, "You must call setTebConfig(), setViaPoint() on EdgeViaPoint()");
+-    const VertexPose* bandpt = static_cast<const VertexPose*>(_vertices[0]);
++   */
++  void computeError() override {
++    // TEB_ASSERT_MSG(cfg_ && _measurement, "You must call setTebConfig(), setViaPoint() on
++    // EdgeViaPoint()");
++    const VertexPose *bandpt = static_cast<const VertexPose *>(_vertices[0]);
+ 
+     _error[0] = (bandpt->position() - *_measurement).norm();
+ 
+-    // TEB_ASSERT_MSG(std::isfinite(_error[0]), "EdgeViaPoint::computeError() _error[0]=%f\n",_error[0]);
++    // TEB_ASSERT_MSG(std::isfinite(_error[0]), "EdgeViaPoint::computeError()
++    // _error[0]=%f\n",_error[0]);
+   }
+ 
++#if USE_ANALYTIC_JACOBI
++  void linearizeOplus() override {
++    const auto *bandpt = static_cast<const VertexPose *>(_vertices[0]);
++    const Eigen::Vector2d delta = bandpt->position() - *_measurement;
++    const double distance = delta.norm();
++
++    _jacobianOplusXi.setZero();
++    if (distance < 1e-12)
++      return;
++    _jacobianOplusXi(0, 0) = delta.x() / distance;
++    _jacobianOplusXi(0, 1) = delta.y() / distance;
++  }
++#endif  // USE_ANALYTIC_JACOBI
++
+   /**
+-   * @brief Set pointer to associated via point for the underlying cost function 
++   * @brief Set pointer to associated via point for the underlying cost function
+    * @param via_point 2D position vector containing the position of the via point
+-   */ 
+-  void setViaPoint(const Eigen::Vector2d* via_point)
+-  {
++   */
++  void setViaPoint(const Eigen::Vector2d *via_point) {
+     _measurement = via_point;
+   }
+-    
++
+   /**
+    * @brief Set all parameters at once
+    * @param cfg TebConfig class
+    * @param via_point 2D position vector containing the position of the via point
+-   */ 
+-  void setParameters(const TebConfig& cfg, const Eigen::Vector2d* via_point)
+-  {
+-    cfg_ = &cfg;
++   */
++  void setParameters(const teb_controller::Params &params, const Eigen::Vector2d *via_point) {
++    params_ = &params;
+     _measurement = via_point;
+   }
+-  
+-public: 	
+-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+ 
++public:
++  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+ };
+-  
+-} // end namespace
++
++}  // namespace nav2_teb_controller
+ 
+ #endif
+diff --git a/include/nav2_teb_controller/homotopy/homotopy_class_planner.hpp b/include/nav2_teb_controller/homotopy/homotopy_class_planner.hpp
+index 8643780800bb5f39e695470406de2a87e37c9b18..28714787a69a51d50aa73edddb31bdd76f58542e 100644
+--- a/include/nav2_teb_controller/homotopy/homotopy_class_planner.hpp
++++ b/include/nav2_teb_controller/homotopy/homotopy_class_planner.hpp
+@@ -48,6 +48,8 @@ public:
+       costmap_converter_msgs::msg::ObstacleArrayMsg::ConstSharedPtr /*obstacle_array*/) override;
+   void setObstacleMap(const ObstacleMap2D *esdf) override;
+   void setFixedGoal(bool fix) override;
++  void setTerminalWaypoint(const geometry_msgs::msg::Pose &waypoint) override;
++  void clearTerminalWaypoint() override;
+ 
+   // ── HCP-specific ──────────────────────────────────────────────────────
+ 
+diff --git a/include/nav2_teb_controller/obstacles/esdf.hpp b/include/nav2_teb_controller/obstacles/esdf.hpp
+index fd665aa5d0e5d1afcdd3d12e0727afe5242e0f9b..d141b775c8e2982ebfc4dcd2dc554e303d79cdd9 100644
+--- a/include/nav2_teb_controller/obstacles/esdf.hpp
++++ b/include/nav2_teb_controller/obstacles/esdf.hpp
+@@ -112,6 +112,7 @@ public:
+   [[nodiscard]] unsigned sizeX() const { return nx_; }
+   [[nodiscard]] unsigned sizeY() const { return ny_; }
+   [[nodiscard]] double resolution() const { return res_; }
++  [[nodiscard]] double cellHalfDiagonal() const { return std::sqrt(2.0) * res_ / 2.0; }
+   [[nodiscard]] double originX() const { return origin_x_; }
+   [[nodiscard]] double originY() const { return origin_y_; }
+ 
+diff --git a/include/nav2_teb_controller/planner/optimal_planner.hpp b/include/nav2_teb_controller/planner/optimal_planner.hpp
+index 61e90aebe2f4bd6f82c56a18166ebdbb4f4357ec..0375b394c234c6670fa7d001bc9edae03a098704 100644
+--- a/include/nav2_teb_controller/planner/optimal_planner.hpp
++++ b/include/nav2_teb_controller/planner/optimal_planner.hpp
+@@ -1,11 +1,12 @@
+ #pragma once
+ 
+ #include <Eigen/Core>
++#include <Eigen/StdVector>
+ #include <costmap_converter_msgs/msg/obstacle_array_msg.hpp>
+ #include <memory>
++#include <nav2_teb_controller/obstacles/esdf.hpp>
+ #include <typeindex>
+ #include <unordered_map>
+-#include <nav2_teb_controller/obstacles/esdf.hpp>
+ 
+ #include "ackermann_msgs/msg/ackermann_drive.hpp"
+ #include "geometry_msgs/msg/twist.hpp"
+@@ -20,10 +21,6 @@
+ #include "nav_msgs/msg/path.hpp"
+ 
+ // g2o custom edges and vertices for the TEB planner
+-#include <nav2_teb_controller/g2o_types/edge_path_smoothness.h>
+-#include <nav2_teb_controller/g2o_types/edge_shortest_path.h>
+-#include <nav2_teb_controller/g2o_types/edge_time_optimal.h>
+-// #include <nav2_teb_controller/g2o_types/edge_via_point.h>
+ #include <nav2_teb_controller/g2o_types/edge_acceleration.h>
+ #include <nav2_teb_controller/g2o_types/edge_acceleration_goal.h>
+ #include <nav2_teb_controller/g2o_types/edge_acceleration_holonomic.h>
+@@ -37,14 +34,18 @@
+ #include <nav2_teb_controller/g2o_types/edge_jerk_new.h>
+ #include <nav2_teb_controller/g2o_types/edge_kinematic_car_like.h>
+ #include <nav2_teb_controller/g2o_types/edge_kinematics_diff.h>
++#include <nav2_teb_controller/g2o_types/edge_path_smoothness.h>
++#include <nav2_teb_controller/g2o_types/edge_shortest_path.h>
+ #include <nav2_teb_controller/g2o_types/edge_snap.h>
+ #include <nav2_teb_controller/g2o_types/edge_start_steering_angle.h>
+ #include <nav2_teb_controller/g2o_types/edge_steering_angle_goal.h>
+ #include <nav2_teb_controller/g2o_types/edge_steering_rate.h>
+ #include <nav2_teb_controller/g2o_types/edge_steering_rate_goal.h>
+ #include <nav2_teb_controller/g2o_types/edge_steering_rate_start.h>
++#include <nav2_teb_controller/g2o_types/edge_time_optimal.h>
+ #include <nav2_teb_controller/g2o_types/edge_velocity.h>
+ #include <nav2_teb_controller/g2o_types/edge_velocity_holonomic.h>
++#include <nav2_teb_controller/g2o_types/edge_via_point.h>
+ // #include <nav2_teb_controller/g2o_types/edge_prefer_rotdir.h>
+ 
+ #include <g2o/core/block_solver.h>
+@@ -53,8 +54,6 @@
+ #include <g2o/core/robust_kernel_impl.h>
+ #include <g2o/core/sparse_optimizer.h>
+ 
+-#include "g2o/solvers/cholmod/linear_solver_cholmod.h"
+-#include "g2o/solvers/csparse/linear_solver_csparse.h"
+ #include "g2o/solvers/dense/linear_solver_dense.h"
+ #include "g2o/solvers/eigen/linear_solver_eigen.h"
+ 
+@@ -98,6 +97,13 @@ public:
+ 
+   void setFixedGoal(bool fix) override { final_goal_ = fix; }
+ 
++  void setTerminalWaypoint(const geometry_msgs::msg::Pose &waypoint) override {
++    terminal_waypoint_ = Eigen::Vector2d(waypoint.position.x, waypoint.position.y);
++    has_terminal_waypoint_ = true;
++  }
++
++  void clearTerminalWaypoint() override { has_terminal_waypoint_ = false; }
++
+   bool optimizeTEB(int no_inner_iterations, int no_outer_iterations, bool compute_cost_afterwards);
+   bool isOptimized() const { return optimized_; }
+ 
+@@ -183,6 +189,12 @@ protected:
+   std::vector<Obstacle> obstacles_;
+   const ObstacleMap2D *esdf_{nullptr};
+ 
++  using ViaPointVector = std::vector<Eigen::Vector2d, Eigen::aligned_allocator<Eigen::Vector2d>>;
++  ViaPointVector reference_path_;
++  ViaPointVector via_points_;
++  Eigen::Vector2d terminal_waypoint_{0.0, 0.0};
++  bool has_terminal_waypoint_{false};
++
+   std::vector<VertexPose *> pose_vertices_;
+   std::vector<VertexTimeDiff *> timediff_vertices_;
+ 
+diff --git a/include/nav2_teb_controller/planner/planner_interface.hpp b/include/nav2_teb_controller/planner/planner_interface.hpp
+index 77052d5680bcd17a4be467bd397588684cfd1080..6dae14197094489d3b5617161f7b0bb7b1ac080f 100644
+--- a/include/nav2_teb_controller/planner/planner_interface.hpp
++++ b/include/nav2_teb_controller/planner/planner_interface.hpp
+@@ -4,6 +4,7 @@
+ #include <nav2_teb_controller/obstacles/esdf.hpp>
+ 
+ #include "ackermann_msgs/msg/ackermann_drive.hpp"
++#include "geometry_msgs/msg/pose.hpp"
+ #include "geometry_msgs/msg/twist.hpp"
+ #include "nav_msgs/msg/path.hpp"
+ 
+@@ -25,5 +26,7 @@ public:
+       costmap_converter_msgs::msg::ObstacleArrayMsg::ConstSharedPtr obstacle_array = nullptr) = 0;
+   virtual void setObstacleMap(const ObstacleMap2D *esdf) = 0;
+   virtual void setFixedGoal(bool fix) = 0;
++  virtual void setTerminalWaypoint(const geometry_msgs::msg::Pose &waypoint) = 0;
++  virtual void clearTerminalWaypoint() = 0;
+ };
+-}  // namespace nav2_teb_controller
+\ No newline at end of file
++}  // namespace nav2_teb_controller
+diff --git a/include/nav2_teb_controller/teb_controller.hpp b/include/nav2_teb_controller/teb_controller.hpp
+index 7b82c41cb88f5c3f11aee7825f388e2c6381d052..76c1e2792b18960a32c251e1932b2f1e32cf8def 100644
+--- a/include/nav2_teb_controller/teb_controller.hpp
++++ b/include/nav2_teb_controller/teb_controller.hpp
+@@ -1,7 +1,5 @@
+ #pragma once
+ 
+-#include <costmap_converter/costmap_converter_interface.h>
+-
+ #include <ackermann_msgs/msg/ackermann_drive_stamped.hpp>
+ #include <memory>
+ #include <pluginlib/class_loader.hpp>
+@@ -12,12 +10,14 @@
+ #include "geometry_msgs/msg/twist_stamped.hpp"
+ #include "nav2_core/controller.hpp"
+ #include "nav2_costmap_2d/costmap_2d_ros.hpp"
++#include "nav2_costmap_2d/costmap_filters/filter_values.hpp"
+ #include "nav2_util/geometry_utils.hpp"
+ #include "nav2_util/node_utils.hpp"
+ #include "nav_msgs/msg/path.hpp"
+ #include "pluginlib/class_list_macros.hpp"
+ #include "rclcpp/rclcpp.hpp"
+ #include "rclcpp_lifecycle/lifecycle_node.hpp"
++#include "std_msgs/msg/string.hpp"
+ #include "tf2_ros/buffer.h"
+ 
+ // Own imports
+@@ -57,8 +57,6 @@ public:
+ 
+   void setSpeedLimit(const double &speed_limit, const bool &percentage) override;
+ 
+-  void initCostmapConverter();
+-
+ protected:
+   // Node handles
+   rclcpp_lifecycle::LifecycleNode::WeakPtr node_;
+@@ -75,19 +73,16 @@ protected:
+   // Parameters
+   std::shared_ptr<teb_controller::ParamListener> param_listener_;
+   teb_controller::Params params_;
++  teb_controller::Params planner_params_;
+ 
+   // Current global plan
+   nav_msgs::msg::Path global_plan_;
++  double global_plan_terminal_curvature_{0.0};
++  bool terminal_mode_{false};
+ 
+   // Speed limit override (set by costmap speed limit layer)
+-  double speed_limit_{1.0};
+-  bool speed_limit_is_percentage_{true};
+-
+-  // Costmap converter
+-  rclcpp::Node::SharedPtr intra_proc_node_{nullptr};
+-  pluginlib::ClassLoader<costmap_converter::BaseCostmapToPolygons> costmap_converter_loader_{
+-      "costmap_converter", "costmap_converter::BaseCostmapToPolygons"};
+-  std::shared_ptr<costmap_converter::BaseCostmapToPolygons> costmap_converter_;
++  double speed_limit_{nav2_costmap_2d::NO_SPEED_LIMIT};
++  bool speed_limit_is_percentage_{false};
+ 
+   // Ackermann subscriber
+   rclcpp::Subscription<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr tricycle_state_sub_;
+@@ -96,6 +91,11 @@ protected:
+   // Last cmd
+   geometry_msgs::msg::TwistStamped last_cmd_vel_;
+ 
++  // Machine-readable evidence for every real computeVelocityCommands call.
++  rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::String>::SharedPtr telemetry_pub_;
++  std::uint64_t telemetry_sequence_{0};
++  std::uint64_t feasibility_stop_count_{0};
++
+   // ESDF
+   ObstacleMap2D esdf_;
+   rclcpp::Time last_esdf_update_{0, 0, RCL_ROS_TIME};
+diff --git a/package.xml b/package.xml
+index 48cafab8bda88b3aed829ef34e4326e1271dcdfc..08f76e5053bf1dac392b4246a7f3799573d5e904 100644
+--- a/package.xml
++++ b/package.xml
+@@ -2,13 +2,13 @@
+ <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+ <package format="3">
+   <name>nav2_teb_controller</name>
+-  <version>0.1.0</version>
++  <version>0.2.0</version>
+   <description>
+-    TEB-K: Timed Elastic Band with polynomial (cubic Hermite) trajectory segments.
+-    A Nav2 controller plugin for kinematically complex robots (Ackermann, Tricycle, AGV).
++    Classic discrete Timed Elastic Band controller plugin for Nav2, supporting
++    differential-drive, skid-steer and Ackermann robots.
+   </description>
+   <maintainer email="dyousef@bleichert.de">daniel</maintainer>
+-  <license>Apache-2.0</license>
++  <license>BSD-3-Clause</license>
+ 
+   <!-- Build tools -->
+   <buildtool_depend>ament_cmake</buildtool_depend>
+@@ -27,6 +27,7 @@
+   <!-- Messages -->
+   <depend>nav_msgs</depend>
+   <depend>geometry_msgs</depend>
++  <depend>std_msgs</depend>
+   <depend>ackermann_msgs</depend>
+   <depend>visualization_msgs</depend>
+   <depend>tf2</depend>
+@@ -38,8 +39,8 @@
+   <build_depend>libg2o</build_depend>
+   <build_depend>angles</build_depend>
+ 
+-  <!-- Legacy dependencies -->
+-  <depend>costmap_converter</depend>
++  <!-- The active controller reads Nav2 Costmap2D directly.  This message
++       dependency remains only for the disabled HCP compatibility API. -->
+   <depend>costmap_converter_msgs</depend>
+ 
+   <!-- Testing -->
+diff --git a/src/core/teb_utils.cpp b/src/core/teb_utils.cpp
+index e36421e3a1d520683df9721a16ce4b0082f0f216..127e164b10aad07492c390ff29376366ee58ff56 100644
+--- a/src/core/teb_utils.cpp
++++ b/src/core/teb_utils.cpp
+@@ -3,6 +3,7 @@
+ #include <angles/angles.h>
+ #include <tf2/utils.h>
+ 
++#include <algorithm>
+ #include <cmath>
+ #include <nav2_util/geometry_utils.hpp>
+ #include <optional>
+@@ -10,6 +11,19 @@
+ 
+ namespace nav2_teb_controller {
+ 
++bool withinGoalPoseTolerance(const geometry_msgs::msg::Pose &pose,
++                             const geometry_msgs::msg::Pose &goal,
++                             const geometry_msgs::msg::Pose &tolerance) {
++  const double xy = tolerance.position.x;
++  const double yaw = tf2::getYaw(tolerance.orientation);
++  const double distance = std::hypot(pose.position.x - goal.position.x,
++                                     pose.position.y - goal.position.y);
++  const double angle = std::abs(angles::shortest_angular_distance(
++      tf2::getYaw(pose.orientation), tf2::getYaw(goal.orientation)));
++  return std::isfinite(xy) && std::isfinite(yaw) && xy >= 0.0 && yaw > 0.0 &&
++         distance <= xy && angle < yaw;
++}
++
+ double estimateDeltaT(const PoseSE2 &start, const PoseSE2 &end, double max_vel_x,
+                       double max_vel_theta) {
+   double dt = 0.05;
+@@ -24,6 +38,31 @@ double estimateDeltaT(const PoseSE2 &start, const PoseSE2 &end, double max_vel_x
+   return dt;
+ }
+ 
++double pathCurvatureSpeedLimit(const nav_msgs::msg::Path &path, double max_speed,
++                              double max_angular_speed, double lateral_acceleration,
++                              double braking_acceleration) {
++  if (lateral_acceleration <= 0.0) return max_speed;
++  double limit = max_speed;
++  double progress = 0.0;
++  for (size_t i = 1; i < path.poses.size(); ++i) {
++    const auto &a = path.poses[i - 1].pose;
++    const auto &b = path.poses[i].pose;
++    const double length = std::hypot(b.position.x - a.position.x, b.position.y - a.position.y);
++    if (length < 1e-6) continue;
++    const double angle = angles::shortest_angular_distance(tf2::getYaw(a.orientation), tf2::getYaw(b.orientation));
++    const double curvature = std::abs(2.0 * std::sin(angle / 2.0)) / length;
++    if (curvature > 1e-6) {
++      const double curve_speed = std::min(std::sqrt(lateral_acceleration / curvature),
++                                          max_angular_speed / curvature);
++      const double available = std::max(0.0, progress - 0.5);
++      limit = std::min(limit, std::sqrt(curve_speed * curve_speed +
++                                       2.0 * braking_acceleration * available));
++    }
++    progress += length;
++  }
++  return limit;
++}
++
+ bool initFromPath(TimedElasticBand &teb, const nav_msgs::msg::Path &path, double max_vel_x,
+                   double max_vel_theta, bool estimate_orient, int min_samples,
+                   bool guess_backwards_motion, bool /*fixed_goal*/) {
+@@ -35,8 +74,20 @@ bool initFromPath(TimedElasticBand &teb, const nav_msgs::msg::Path &path, double
+   PoseSE2 goal(path.poses.back().pose);
+   teb.addPose(start);
+ 
+-  bool backward_motion = (goal.position() - start.position()).dot(start.orientationUnitVec()) < 0;
+-  bool backwards = guess_backwards_motion && backward_motion;
++  // Direction must be inferred from the first meaningful path segment, not
++  // from the local goal. A skid-steer vehicle may need to back out of a pocket
++  // before the remainder of the lookahead path turns forward again.
++  Eigen::Vector2d initial_path_direction = goal.position() - start.position();
++  for (std::size_t i = 1; i < path.poses.size(); ++i) {
++    const Eigen::Vector2d candidate(path.poses[i].pose.position.x - start.x(),
++                                    path.poses[i].pose.position.y - start.y());
++    if (candidate.squaredNorm() > 1e-6) {
++      initial_path_direction = candidate;
++      break;
++    }
++  }
++  const bool backward_motion = initial_path_direction.dot(start.orientationUnitVec()) < 0.0;
++  const bool backwards = guess_backwards_motion && backward_motion;
+ 
+   for (int i = 1; i < static_cast<int>(path.poses.size()) - 1; ++i) {
+     double yaw;
+@@ -84,12 +135,11 @@ void autoResize(TimedElasticBand &teb, double dt_ref, double dt_hysteresis, doub
+           std::abs(angles::normalize_angle(teb.pose(i + 1).theta() - teb.pose(i).theta()));
+ 
+       // --- INSERT ---
+-      // Zeit zu lang AND Segment zu lang, ODER Kurve zu scharf
+-      const bool time_too_long = dt > dt_ref + dt_hysteresis;
++      // Preserve geometric sampling even when high speed makes dt short.
+       const bool geom_too_long = seg_len > max_seg_length;
+       const bool curve_too_sharp = angle_diff > max_angle_diff;
+ 
+-      const bool insert_ok = ((time_too_long && geom_too_long) || curve_too_sharp) &&
++      const bool insert_ok = (geom_too_long || curve_too_sharp) &&
+                              (teb.sizeTimeDiffs() < static_cast<std::size_t>(max_samples));
+ 
+       if (insert_ok) {
+@@ -108,7 +158,17 @@ void autoResize(TimedElasticBand &teb, double dt_ref, double dt_hysteresis, doub
+       const bool angle_significant =
+           angle_diff > max_angle_diff;  // 0.01;  // ~0.6° — Kurven-Posen schützen
+ 
+-      const bool delete_ok = ((time_too_short || geom_too_short) && !angle_significant) &&
++      const std::size_t merge_first = i + 1 < teb.sizeTimeDiffs() ? i : i - (i > 0);
++      const std::size_t merge_last = std::min(merge_first + 2, teb.sizePoses() - 1);
++      const double merged_length =
++          (teb.pose(merge_last).position() - teb.pose(merge_first).position()).norm();
++      const double merged_angle = std::abs(angles::shortest_angular_distance(
++          teb.pose(merge_first).theta(), teb.pose(merge_last).theta()));
++      const bool merge_preserves_geometry = merged_length <= max_seg_length &&
++                                           merged_angle <= max_angle_diff;
++
++      const bool delete_ok = ((time_too_short || geom_too_short) && !angle_significant &&
++                              merge_preserves_geometry) &&
+                              (teb.sizeTimeDiffs() > static_cast<std::size_t>(min_samples));
+ 
+       if (delete_ok) {
+@@ -226,6 +286,114 @@ geometry_msgs::msg::Twist getVelocityCommand(const TimedElasticBand &teb, double
+   return cmd_vel;
+ }
+ 
++std::optional<geometry_msgs::msg::Twist> getForwardOnlyVelocityCommand(
++    const TimedElasticBand &teb, int minimum_look_ahead_poses, bool holonomic,
++    int *selected_lookahead, double *selected_duration) {
++  if (selected_lookahead != nullptr) {
++    *selected_lookahead = 0;
++  }
++  if (selected_duration != nullptr) {
++    *selected_duration = 0.0;
++  }
++  if (teb.sizePoses() < 2) {
++    return std::nullopt;
++  }
++
++  const int last = static_cast<int>(teb.sizePoses()) - 1;
++  const int first_candidate = std::clamp(minimum_look_ahead_poses, 1, last);
++  double duration = 0.0;
++  for (int candidate = 1; candidate <= last; ++candidate) {
++    duration += teb.timeDiff(static_cast<std::size_t>(candidate - 1));
++    if (candidate < first_candidate || duration <= 1e-9) {
++      continue;
++    }
++    geometry_msgs::msg::Twist command =
++        extractVelocity(teb.pose(0), teb.pose(static_cast<std::size_t>(candidate)),
++                        duration, holonomic);
++    if (command.linear.x > 1e-6) {
++      if (selected_lookahead != nullptr) {
++        *selected_lookahead = candidate;
++      }
++      if (selected_duration != nullptr) {
++        *selected_duration = duration;
++      }
++      return command;
++    }
++  }
++  return std::nullopt;
++}
++
++bool limitVelocityNearGoal(geometry_msgs::msg::Twist &cmd_vel, double goal_distance,
++                           double slowdown_distance, double minimum_speed,
++                           double maximum_speed) {
++  if (slowdown_distance <= 1e-12 || maximum_speed <= 1e-12 ||
++      cmd_vel.linear.x <= 1e-12 || goal_distance >= slowdown_distance) {
++    return false;
++  }
++
++  const double floor = std::clamp(minimum_speed, 0.0, maximum_speed);
++  const double cap = std::clamp(
++      maximum_speed * std::max(goal_distance, 0.0) / slowdown_distance,
++      floor, maximum_speed);
++  if (cmd_vel.linear.x <= cap) {
++    return false;
++  }
++
++  const double ratio = cap / cmd_vel.linear.x;
++  cmd_vel.linear.x *= ratio;
++  cmd_vel.linear.y *= ratio;
++  cmd_vel.angular.z *= ratio;
++  return true;
++}
++
++double terminalPathCurvature(const nav_msgs::msg::Path &path, double maximum_curvature) {
++  double curvature = 0.0;
++  if (path.poses.size() >= 2) {
++    const PoseSE2 previous(path.poses[path.poses.size() - 2].pose);
++    const PoseSE2 goal(path.poses.back().pose);
++    const double segment_length = (goal.position() - previous.position()).norm();
++    if (segment_length > 1e-9) {
++      curvature = angles::shortest_angular_distance(previous.theta(), goal.theta()) /
++                  segment_length;
++      if (maximum_curvature > 1e-12) {
++        curvature = std::clamp(curvature, -maximum_curvature, maximum_curvature);
++      }
++    }
++  }
++  return curvature;
++}
++
++bool appendForwardGoalExtension(nav_msgs::msg::Path &path, double extension_distance,
++                                double terminal_curvature, double maximum_step) {
++  if (path.poses.empty() || extension_distance <= 1e-12) {
++    return false;
++  }
++
++  const int segments = std::max(
++      1, static_cast<int>(std::ceil(extension_distance / std::max(maximum_step, 1e-3))));
++  const double ds = extension_distance / static_cast<double>(segments);
++  for (int i = 0; i < segments; ++i) {
++    geometry_msgs::msg::PoseStamped extension = path.poses.back();
++    const double heading = PoseSE2(extension.pose).theta();
++    const double next_heading = heading + terminal_curvature * ds;
++    if (std::abs(terminal_curvature) <= 1e-9) {
++      extension.pose.position.x += ds * std::cos(heading);
++      extension.pose.position.y += ds * std::sin(heading);
++    } else {
++      extension.pose.position.x +=
++          (std::sin(next_heading) - std::sin(heading)) / terminal_curvature;
++      extension.pose.position.y +=
++          (-std::cos(next_heading) + std::cos(heading)) / terminal_curvature;
++    }
++    extension.pose.orientation.x = 0.0;
++    extension.pose.orientation.y = 0.0;
++    extension.pose.orientation.z = std::sin(0.5 * next_heading);
++    extension.pose.orientation.w = std::cos(0.5 * next_heading);
++    path.poses.push_back(extension);
++  }
++  return true;
++}
++
+ bool pruneGlobalPlan(const tf2::Transform &plan_to_global,
+                      const geometry_msgs::msg::PoseStamped &robot_pose,
+                      nav_msgs::msg::Path &global_plan, double dist_behind_robot) {
+@@ -408,11 +576,10 @@ std::pair<double, double> convertTwistToAckermann(const geometry_msgs::msg::Twis
+ 
+ void saturateSteeringAngle(geometry_msgs::msg::Twist &cmd_vel, double current_angle,
+                            double steering_rate_max, double wheelbase, double dt) {
+-  auto [cmd_speed, cmd_angle] = convertTwistToAckermann(cmd_vel, wheelbase);
+-  double angle_diff = std::abs(angles::normalize_angle(cmd_angle - current_angle));
+-  double angle_rate = std::abs(angle_diff) / dt;
+-  if (angle_rate > steering_rate_max) {
+-    cmd_angle += std::copysign(steering_rate_max, angle_diff) * dt;
++  auto [cmd_speed, cmd_angle] = convertTwistToAckermann(cmd_vel, wheelbase, current_angle);
++  const double angle_diff = angles::normalize_angle(cmd_angle - current_angle);
++  if (dt > 0.0 && std::abs(angle_diff) / dt > steering_rate_max) {
++    cmd_angle = current_angle + std::copysign(steering_rate_max * dt, angle_diff);
+   }
+   cmd_vel = convertAckermannToTwist(cmd_speed, cmd_angle, wheelbase);
+ }
+@@ -444,32 +611,28 @@ int checkFeasibility(const TimedElasticBand &teb, const ObstacleMap2D &esdf, con
+                      double lookahead) {
+   double progress = 0.0;
+   for (size_t i = 0; i < teb.sizePoses(); i++) {
+-    if (i > 0) {
+-      progress += (teb.pose(i).position() - teb.pose(i - 1).position()).norm();
+-    }
+-    if (progress > lookahead) {
+-      return -1;
+-    }
+-
+-    const auto &pose = teb.pose(i);
+-    const double px = pose.x();
+-    const double py = pose.y();
+-    const double ct = std::cos(pose.theta());
+-    const double st = std::sin(pose.theta());
+-
+-    const auto &circles = fp.circles();
+-    for (const auto &c : circles) {
+-      const double wx = px + ct * c.offset.x() - st * c.offset.y();
+-      const double wy = py + st * c.offset.x() + ct * c.offset.y();
+-
+-      const double dist = esdf.queryDistance(wx, wy) - c.radius;
+-
+-      if (dist > 0.0) {
+-        continue;
+-      } else {
+-        return static_cast<int>(i);
++    const auto &start = teb.pose(i == 0 ? 0 : i - 1);
++    const auto &end = teb.pose(i);
++    const double length = (end.position() - start.position()).norm();
++    const double angle = angles::shortest_angular_distance(start.theta(), end.theta());
++    // Check the swept circle cover between vertices, not only sparse endpoints.
++    const int samples = std::max({1, static_cast<int>(std::ceil(length / 0.025)),
++                                  static_cast<int>(std::ceil(std::abs(angle) / (M_PI / 180.0)))});
++    for (int sample = 0; sample <= samples; ++sample) {
++      const double fraction = static_cast<double>(sample) / samples;
++      if (progress + fraction * length > lookahead) return -1;
++      const Eigen::Vector2d position = start.position() + fraction * (end.position() - start.position());
++      const double yaw = start.theta() + fraction * angle;
++      const double ct = std::cos(yaw), st = std::sin(yaw);
++      for (const auto &c : fp.circles()) {
++        const double wx = position.x() + ct * c.offset.x() - st * c.offset.y();
++        const double wy = position.y() + st * c.offset.x() + ct * c.offset.y();
++        if (esdf.queryDistance(wx, wy) <= c.radius + esdf.cellHalfDiagonal()) {
++          return static_cast<int>(i);
++        }
+       }
+     }
++    progress += length;
+   }
+   return -1;
+ }
+diff --git a/src/homotopy/homotopy_class_planner.cpp b/src/homotopy/homotopy_class_planner.cpp
+index 0768e7d1f6e14f561d2a2ff1f8ab0430bfd293aa..f6b6cf14c6cf0d3d70814f42fecf2e4ed0e71647 100644
+--- a/src/homotopy/homotopy_class_planner.cpp
++++ b/src/homotopy/homotopy_class_planner.cpp
+@@ -53,6 +53,16 @@ void HomotopyClassPlanner::setFixedGoal(bool fix) {
+     base_planner_->setFixedGoal(fix);
+ }
+ 
++void HomotopyClassPlanner::setTerminalWaypoint(const geometry_msgs::msg::Pose &waypoint) {
++  if (base_planner_)
++    base_planner_->setTerminalWaypoint(waypoint);
++}
++
++void HomotopyClassPlanner::clearTerminalWaypoint() {
++  if (base_planner_)
++    base_planner_->clearTerminalWaypoint();
++}
++
+ void HomotopyClassPlanner::setGraphSearch(std::shared_ptr<GraphSearchInterface> graph_search) {
+   graph_search_ = std::move(graph_search);
+ }
+diff --git a/src/planner/optimal_planner.cpp b/src/planner/optimal_planner.cpp
+index 34ff412850f7b72a254dff1952657db1db3e21fb..c0b8067c19665de1a37a966cfe22232fe8a71330 100644
+--- a/src/planner/optimal_planner.cpp
++++ b/src/planner/optimal_planner.cpp
+@@ -8,6 +8,33 @@ namespace nav2_teb_controller {
+ 
+ namespace {
+ 
++Eigen::Vector2d closestPointOnPath(
++    const Eigen::Vector2d &query,
++    const std::vector<Eigen::Vector2d, Eigen::aligned_allocator<Eigen::Vector2d>> &path) {
++  if (path.empty())
++    return query;
++  if (path.size() == 1)
++    return path.front();
++
++  Eigen::Vector2d closest = path.front();
++  double min_squared_distance = std::numeric_limits<double>::max();
++  for (std::size_t i = 1; i < path.size(); ++i) {
++    const Eigen::Vector2d segment = path[i] - path[i - 1];
++    const double squared_length = segment.squaredNorm();
++    const double interpolation =
++        squared_length > 1e-12
++            ? std::clamp((query - path[i - 1]).dot(segment) / squared_length, 0.0, 1.0)
++            : 0.0;
++    const Eigen::Vector2d candidate = path[i - 1] + interpolation * segment;
++    const double squared_distance = (query - candidate).squaredNorm();
++    if (squared_distance < min_squared_distance) {
++      min_squared_distance = squared_distance;
++      closest = candidate;
++    }
++  }
++  return closest;
++}
++
+ #ifdef BENCHMARK_TESTING
+ std::string phaseSuffix(OptimizationPhase phase) {
+   switch (phase) {
+@@ -48,30 +75,23 @@ std::shared_ptr<g2o::SparseOptimizer> DiscreteTEBPlanner::initOptimizer() {
+   // Linear Solver Factory
+   std::unique_ptr<g2o::BlockSolverX> block_solver;
+ 
+-  if (solver_type == "cholmod") {
+-    auto linear_solver =
+-        std::make_unique<g2o::LinearSolverCholmod<g2o::BlockSolverX::PoseMatrixType>>();
+-    linear_solver->setBlockOrdering(true);
+-    block_solver = std::make_unique<g2o::BlockSolverX>(std::move(linear_solver));
+-  } else if (solver_type == "eigen") {
++  // The Arena build uses the portable Eigen backend.  Cholmod/CSparse are
++  // optional system solvers and are deliberately mapped to Eigen when they
++  // are not installed, keeping the runtime option backward compatible.
++  if (solver_type == "cholmod" || solver_type == "csparse" || solver_type == "eigen") {
+     auto linear_solver =
+         std::make_unique<g2o::LinearSolverEigen<g2o::BlockSolverX::PoseMatrixType>>();
+     linear_solver->setBlockOrdering(true);
+     block_solver = std::make_unique<g2o::BlockSolverX>(std::move(linear_solver));
+-  } else if (solver_type == "csparse") {
+-    auto linear_solver =
+-        std::make_unique<g2o::LinearSolverCSparse<g2o::BlockSolverX::PoseMatrixType>>();
+-    linear_solver->setBlockOrdering(true);
+-    block_solver = std::make_unique<g2o::BlockSolverX>(std::move(linear_solver));
+   } else if (solver_type == "dense") {
+     auto linear_solver =
+         std::make_unique<g2o::LinearSolverDense<g2o::BlockSolverX::PoseMatrixType>>();
+     block_solver = std::make_unique<g2o::BlockSolverX>(std::move(linear_solver));
+   } else {
+-    RCLCPP_ERROR(rclcpp::get_logger("optimal_planner"),
+-                 "Unknown solver '%s' - fallback to cholmod", solver_type.c_str());
++    RCLCPP_ERROR(rclcpp::get_logger("optimal_planner"), "Unknown solver '%s' - fallback to eigen",
++                 solver_type.c_str());
+     auto linear_solver =
+-        std::make_unique<g2o::LinearSolverCholmod<g2o::BlockSolverX::PoseMatrixType>>();
++        std::make_unique<g2o::LinearSolverEigen<g2o::BlockSolverX::PoseMatrixType>>();
+     linear_solver->setBlockOrdering(true);
+     block_solver = std::make_unique<g2o::BlockSolverX>(std::move(linear_solver));
+   }
+@@ -104,6 +124,12 @@ bool DiscreteTEBPlanner::plan(const nav_msgs::msg::Path &initial_plan,
+   if (initial_plan.poses.empty())
+     return false;
+ 
++  reference_path_.clear();
++  reference_path_.reserve(initial_plan.poses.size());
++  for (const auto &pose : initial_plan.poses) {
++    reference_path_.emplace_back(pose.pose.position.x, pose.pose.position.y);
++  }
++
+   // read params
+   double v_max_x = params_.FollowPath.robot.v_max_x;
+   double v_max_theta = params_.FollowPath.robot.v_max_theta;
+@@ -162,6 +188,8 @@ bool DiscreteTEBPlanner::plan(const nav_msgs::msg::Path &initial_plan,
+ void DiscreteTEBPlanner::clear() {
+   clearGraph();
+   teb_.clear();
++  reference_path_.clear();
++  via_points_.clear();
+ }
+ 
+ bool DiscreteTEBPlanner::optimizeTEB(int no_inner_iterations, int no_outer_iterations,
+@@ -303,18 +331,26 @@ bool DiscreteTEBPlanner::buildGraph(OptimizationPhase phase) {
+ 
+   // Obstacles — always present in every phase
+   addEdgesESDFObstacles();
+-
+-  // G3 continuity and kinematics — present from Obstacles phase onward
+-  addEdgesGeneric<EdgeG3Continuity, 1>({3, 2, 2, 0, 1},
+-                                       {params_.FollowPath.weights.weight_g3_continuity});
+-  if (robot_model == "diff_drive")
++  // Keep every optimization phase referenced to the latest global path. The
++  // obstacle terms may still move the band away when clearance requires it.
++  AddEdgesViaPoints();
++
++  // Ackermann steering-angle continuity is not a skid-steer/diff-drive
++  // constraint. Those platforms already get angular acceleration and jerk
++  // limits without an artificial steering rack or minimum turning radius.
++  if (robot_model == "ackermann")
++    addEdgesGeneric<EdgeG3Continuity, 1>({3, 2, 2, 0, 1},
++                                         {params_.FollowPath.weights.weight_g3_continuity});
++
++  if (robot_model == "diff_drive" || robot_model == "skid_steer")
+     addEdgesGeneric<EdgeKinematicsDiffDrive, 2>(
+         {2, 0, 1, 0, 2}, {params_.FollowPath.weights.weight_kinematics_nh,
+                           params_.FollowPath.weights.weight_kinematics_forward_drive});
+   else if (robot_model == "ackermann")
+-    addEdgesGeneric<EdgeKinematicsCarlike, 2>(
+-        {2, 0, 1, 0, 2}, {params_.FollowPath.weights.weight_kinematics_nh,
+-                          params_.FollowPath.weights.weight_kinematics_turning_radius});
++    addEdgesGeneric<EdgeKinematicsCarlike, 3>(
++        {2, 0, 1, 0, 3}, {params_.FollowPath.weights.weight_kinematics_nh,
++                          params_.FollowPath.weights.weight_kinematics_turning_radius,
++                          params_.FollowPath.weights.weight_kinematics_forward_drive});
+ 
+   // Kinodynamics group — velocity, dynamics, steering
+   if (phase >= OptimizationPhase::Kinodynamics) {
+@@ -331,22 +367,27 @@ bool DiscreteTEBPlanner::buildGraph(OptimizationPhase phase) {
+     addEdgesGeneric<EdgeSnap, 2>({5, 4, 4, 0, 2},
+                                  {params_.FollowPath.weights.weight_snap_max_x,
+                                   params_.FollowPath.weights.weight_snap_max_theta});
+-    addEdgesGeneric<EdgeSteeringAngleGoal, 1>(
+-        {5, 0, 0, -1, 1}, {params_.FollowPath.weights.weight_zero_steering_angle_goal});
+     addEdgesGeneric<EdgeGoalAngularVelocityZero, 1>(
+         {5, 4, 0, -1, 1}, {params_.FollowPath.weights.weight_goal_angular_vel_zero});
+ 
+-    // Measurement edges (acceleration, steering rate, jerk)
++    // Skid-steer and differential-drive bases have no steering rack. Applying
++    // Ackermann steering angle/rate edges to them suppresses pivot turns and
++    // makes obstacle detours unnecessarily wide.
++    if (robot_model == "ackermann") {
++      addEdgesGeneric<EdgeSteeringAngleGoal, 1>(
++          {5, 0, 0, -1, 1}, {params_.FollowPath.weights.weight_zero_steering_angle_goal});
++      AddEdgesSteeringRate();
++      AddEdgesStartSteeringAngle();
++    }
++
++    // Measurement edges shared by all body models.
+     AddEdgesAcceleration();
+-    AddEdgesSteeringRate();
+-    AddEdgesStartSteeringAngle();
+     AddEdgesJerk();
+ 
+     RCLCPP_DEBUG(rclcpp::get_logger("optimal_planner"),
+                  "DiscreteTEBPlanner: Added measurement edges (phase %d).",
+                  static_cast<int>(phase));
+ 
+-    AddEdgesViaPoints();
+     AddEdgesPreferRotDir();
+   }
+ 
+@@ -902,7 +943,7 @@ void DiscreteTEBPlanner::AddEdgesObstacles() {
+   const double cutoff_buffer = params_.FollowPath.obstacles.cutoff_dist;
+   const auto &raw_fp = costmap_ros_->getRobotFootprint();
+   const double circum_radius = costmap_ros_->getLayeredCostmap()->getCircumscribedRadius();
+-  double cutoff = circum_radius + min_dist + cutoff_buffer;
++  double cutoff = circum_radius + min_dist + cutoff_buffer + esdf_->cellHalfDiagonal();
+ 
+   if (weight_obstacle == 0.0 && weight_inflation == 0.0)
+     return;
+@@ -962,12 +1003,9 @@ void DiscreteTEBPlanner::addEdgesESDFObstacles() {
+     information(i, i) = weight_obstacle * weight_multiplier_;
+   information(dim - 1, dim - 1) = weight_inflation;
+ 
+-  // Tail exclusion: poses within s_excl [m] of the band end cannot bend around obstacles
+-  // (goal/anchor is fixed, too few free poses left to develop a curve). Derived from the
+-  // dynamics radius (v_max_x / max_vel_theta), floored by footprint size + clearance.
+-  const double v_max_x = params_.FollowPath.robot.v_max_x;
+-  const double w_max = params_.FollowPath.robot.v_max_theta;
+-  const double s_excl = std::max(2.0 * v_max_x / std::max(w_max, 1e-6), circum_radius + min_dist);
++  // Only the immediate fixed-anchor neighborhood is excluded. Scaling this
++  // distance by cruise speed hid most of a 5 m window from obstacle costs.
++  const double s_excl = circum_radius + min_dist;
+   const double total_arc = teb_.accumulatedDistance();
+   double arc = 0.0;
+ 
+@@ -997,7 +1035,50 @@ void DiscreteTEBPlanner::addEdgesESDFObstacles() {
+   }
+ }
+ 
+-void DiscreteTEBPlanner::AddEdgesViaPoints() {}
++void DiscreteTEBPlanner::AddEdgesViaPoints() {
++  const double weight = params_.FollowPath.weights.weight_viapoint;
++  const double terminal_weight = params_.FollowPath.weights.weight_terminal_waypoint;
++  if (reference_path_.size() < 2 || teb_.sizePoses() < 3)
++    return;
++
++  if (weight > 0.0) {
++    // Allocate all measurements before assigning their addresses to pooled g2o
++    // edges. The vector remains unchanged until clearGraph() removes the edges.
++    via_points_.resize(teb_.sizePoses() - 2);
++    Eigen::Matrix<double, 1, 1> information;
++    information(0, 0) = weight;
++
++    for (std::size_t i = 1; i + 1 < teb_.sizePoses(); ++i) {
++      via_points_[i - 1] = closestPointOnPath(teb_.pose(i).position(), reference_path_);
++      auto *edge = acquireEdge<EdgeViaPoint>();
++      edge->setVertex(0, pose_vertices_[i]);
++      edge->setViaPoint(&via_points_[i - 1]);
++      edge->setInformation(information);
++      optimizer_->addEdge(edge);
++    }
++  }
++
++  if (has_terminal_waypoint_ && terminal_weight > 0.0) {
++    std::size_t closest_index = 1;
++    double closest_squared_distance =
++        (teb_.pose(closest_index).position() - terminal_waypoint_).squaredNorm();
++    for (std::size_t i = 2; i + 1 < teb_.sizePoses(); ++i) {
++      const double squared_distance =
++          (teb_.pose(i).position() - terminal_waypoint_).squaredNorm();
++      if (squared_distance < closest_squared_distance) {
++        closest_squared_distance = squared_distance;
++        closest_index = i;
++      }
++    }
++    Eigen::Matrix<double, 1, 1> terminal_information;
++    terminal_information(0, 0) = terminal_weight;
++    auto *edge = acquireEdge<EdgeViaPoint>();
++    edge->setVertex(0, pose_vertices_[closest_index]);
++    edge->setViaPoint(&terminal_waypoint_);
++    edge->setInformation(terminal_information);
++    optimizer_->addEdge(edge);
++  }
++}
+ void DiscreteTEBPlanner::AddEdgesPreferRotDir() {}
+ 
+ template <typename EdgeType, int InfoDim, typename... Args>
+diff --git a/src/teb_controller.cpp b/src/teb_controller.cpp
+index 0081c40fb576669692ee0e2d558360f3b5f94448..42e22436cfa132547a7579d6b4573de6dacdfdef 100644
+--- a/src/teb_controller.cpp
++++ b/src/teb_controller.cpp
+@@ -2,12 +2,61 @@
+ 
+ #include <tf2/time.h>
+ 
++#include <algorithm>
++#include <chrono>
++#include <cmath>
++#include <limits>
+ #include <memory>
++#include <sstream>
+ 
+ #include "nav2_teb_controller/teb_profiler.hpp"
+ 
+ namespace nav2_teb_controller {
+ 
++namespace {
++
++double squaredDistanceToPath(const geometry_msgs::msg::Point &query,
++                             const nav_msgs::msg::Path &path) {
++  if (path.poses.empty())
++    return std::numeric_limits<double>::max();
++  if (path.poses.size() == 1) {
++    const double dx = query.x - path.poses.front().pose.position.x;
++    const double dy = query.y - path.poses.front().pose.position.y;
++    return dx * dx + dy * dy;
++  }
++
++  double min_squared_distance = std::numeric_limits<double>::max();
++  for (std::size_t i = 1; i < path.poses.size(); ++i) {
++    const auto &start = path.poses[i - 1].pose.position;
++    const auto &end = path.poses[i].pose.position;
++    const double segment_x = end.x - start.x;
++    const double segment_y = end.y - start.y;
++    const double squared_length = segment_x * segment_x + segment_y * segment_y;
++    const double interpolation =
++        squared_length > 1e-12
++            ? std::clamp(((query.x - start.x) * segment_x + (query.y - start.y) * segment_y) /
++                             squared_length,
++                         0.0, 1.0)
++            : 0.0;
++    const double dx = query.x - (start.x + interpolation * segment_x);
++    const double dy = query.y - (start.y + interpolation * segment_y);
++    min_squared_distance = std::min(min_squared_distance, dx * dx + dy * dy);
++  }
++  return min_squared_distance;
++}
++
++double maximumPathDeviation(const nav_msgs::msg::Path &new_path,
++                            const nav_msgs::msg::Path &old_path) {
++  double max_squared_deviation = 0.0;
++  for (const auto &pose : new_path.poses) {
++    max_squared_deviation =
++        std::max(max_squared_deviation, squaredDistanceToPath(pose.pose.position, old_path));
++  }
++  return std::sqrt(max_squared_deviation);
++}
++
++}  // namespace
++
+ void TEBController::configure(const rclcpp_lifecycle::LifecycleNode::WeakPtr &parent,
+                               std::string name, std::shared_ptr<tf2_ros::Buffer> tf,
+                               std::shared_ptr<nav2_costmap_2d::Costmap2DROS> costmap_ros) {
+@@ -23,6 +72,10 @@ void TEBController::configure(const rclcpp_lifecycle::LifecycleNode::WeakPtr &pa
+ 
+   logger_ = node->get_logger();
+   clock_ = node->get_clock();
++  telemetry_pub_ = node->create_publisher<std_msgs::msg::String>(
++      "/three_d_v1/teb_trace", rclcpp::QoS(100).reliable());
++  telemetry_sequence_ = 0;
++  feasibility_stop_count_ = 0;
+ 
+   // Declare + load all parameters via generated ParamListener
+   param_listener_ =
+@@ -48,11 +101,6 @@ void TEBController::configure(const rclcpp_lifecycle::LifecycleNode::WeakPtr &pa
+         last_ackermann_cmd_ = *msg;
+       });
+ 
+-  // Init Costmap converter
+-  intra_proc_node_ = std::make_shared<rclcpp::Node>("costmap_converter", node->get_namespace(),
+-                                                    rclcpp::NodeOptions());
+-  initCostmapConverter();
+-
+   // All sub-systems take const ref into params_.FollowPath — no copying
+   // Footprint
+   bool use_local_costmap = params_.FollowPath.robot.footprint.use_local_costmap;
+@@ -67,12 +115,13 @@ void TEBController::configure(const rclcpp_lifecycle::LifecycleNode::WeakPtr &pa
+   const double visu_hz = params_.FollowPath.visualization.publish_rate;
+   visualize_update_period_ = rclcpp::Duration::from_seconds(1.0 / visu_hz);
+   // Planner
++  planner_params_ = params_;
+   if (params_.FollowPath.hcp.activate) {
+     RCLCPP_ERROR(logger_,
+                  "TEBController: Homotopy class planning is NOT implemented yet. "
+                  "Disable 'hcp.activate' — falling back to direct planner is not possible either, "
+                  "the HCP placeholder will fail at plan() time.");
+-    auto p = std::make_shared<DiscreteTEBPlanner>(params_, footprint_, costmap_ros_.get());
++    auto p = std::make_shared<DiscreteTEBPlanner>(planner_params_, footprint_, costmap_ros_.get());
+     auto gs = std::make_shared<VisibilityGraphSearch>(0.5, 0.5);  // inflation_radius, robot_radius
+     auto hcp = std::make_unique<HomotopyClassPlanner>(params_, footprint_, costmap_ros_.get());
+     hcp->setBasePlanner(p);
+@@ -81,7 +130,7 @@ void TEBController::configure(const rclcpp_lifecycle::LifecycleNode::WeakPtr &pa
+     teb_planner_ = hcp.get();   // PlannerInterface
+     planner_ = std::move(hcp);  // PlannerBase
+   } else {
+-    auto p = std::make_unique<DiscreteTEBPlanner>(params_, footprint_, costmap_ros_.get());
++    auto p = std::make_unique<DiscreteTEBPlanner>(planner_params_, footprint_, costmap_ros_.get());
+     p->setObstacleMap(&esdf_);
+     teb_planner_ = p.get();   // PlannerInterface
+     planner_ = std::move(p);  // PlannerBase
+@@ -93,31 +142,117 @@ void TEBController::configure(const rclcpp_lifecycle::LifecycleNode::WeakPtr &pa
+ 
+ void TEBController::activate() {
+   visualizer_->on_activate();
++  telemetry_pub_->on_activate();
+   RCLCPP_INFO(logger_, "TEBController activated");
+ }
+ 
+ void TEBController::deactivate() {
++  telemetry_pub_->on_deactivate();
+   RCLCPP_INFO(logger_, "TEBController deactivated");
+ }
+ 
+ void TEBController::cleanup() {
++  telemetry_pub_.reset();
+   RCLCPP_INFO(logger_, "TEBController cleaned up");
+ }
+ 
+ void TEBController::setPlan(const nav_msgs::msg::Path &path) {
++  bool reset = global_plan_.poses.empty() || path.poses.empty();
++  if (!reset) {
++    const auto &old_goal = global_plan_.poses.back().pose.position;
++    const auto &new_goal = path.poses.back().pose.position;
++    const double dx = old_goal.x - new_goal.x;
++    const double dy = old_goal.y - new_goal.y;
++    // Nav2's replanning behavior republishes an equivalent path frequently.
++    // Preserve the TEB warm start for those updates; only a materially changed
++    // goal or frame requires a cold restart.
++    const double path_deviation = maximumPathDeviation(path, global_plan_);
++    reset = (dx * dx + dy * dy) > 0.25 ||
++            path_deviation > params_.FollowPath.trajectory.reinit_path_dist ||
++            global_plan_.header.frame_id != path.header.frame_id;
++  }
++  const double minimum_turning_radius = params_.FollowPath.robot.min_turning_radius;
++  const double maximum_curvature = minimum_turning_radius > 1e-12
++                                       ? 1.0 / minimum_turning_radius
++                                       : 0.0;
++  global_plan_terminal_curvature_ = terminalPathCurvature(path, maximum_curvature);
+   global_plan_ = path;
+-  planner_->clear();
++  if (reset)
++    planner_->clear();
+   RCLCPP_INFO(logger_, "New global plan received (%zu poses)", path.poses.size());
+-  RCLCPP_INFO(logger_, "Force re-init.");
++  RCLCPP_INFO(logger_, "%s", reset ? "Reset TEB trajectory." : "Keep TEB warm start.");
+ }
+ 
+ geometry_msgs::msg::TwistStamped TEBController::computeVelocityCommands(
+     const geometry_msgs::msg::PoseStamped &pose, const geometry_msgs::msg::Twist &velocity,
+-    nav2_core::GoalChecker * /*goal_checker*/) {
++    nav2_core::GoalChecker *goal_checker) {
++  const auto compute_start = std::chrono::steady_clock::now();
+   geometry_msgs::msg::TwistStamped cmd_vel;
+   cmd_vel.header.stamp = clock_->now();
+   cmd_vel.header.frame_id = costmap_ros_->getGlobalFrameID();
+-  auto goal_pose = global_plan_.poses.back();
++  double raw_cmd_v = 0.0;
++  double raw_cmd_w = 0.0;
++  int command_lookahead = 0;
++  double command_forward_projection = 0.0;
++  double command_dt = 0.0;
++  bool forward_only_fallback = false;
++  double terminal_goal_distance = -1.0;
++  double terminal_speed_cap = -1.0;
++  bool terminal_slowdown = false;
++  bool terminal_extension_applied = false;
++  double terminal_extension_curvature = 0.0;
++  bool terminal_waypoint_active = false;
++  double curvature_speed_cap = params_.FollowPath.robot.v_max_x;
++  const auto publish_trace = [this, &cmd_vel, &compute_start, &raw_cmd_v, &raw_cmd_w,
++                              &command_lookahead, &command_forward_projection, &command_dt,
++                              &forward_only_fallback, &terminal_goal_distance,
++                              &terminal_speed_cap, &terminal_slowdown,
++                              &terminal_extension_applied, &terminal_extension_curvature,
++                              &terminal_waypoint_active, &velocity](
++      const char * outcome, bool planner_success, bool diverged,
++      int feasibility_index, std::size_t teb_pose_count) {
++      if (!telemetry_pub_ || !telemetry_pub_->is_activated()) {
++        return;
++      }
++      const auto duration_us = std::chrono::duration_cast<std::chrono::microseconds>(
++          std::chrono::steady_clock::now() - compute_start).count();
++      std_msgs::msg::String trace;
++      std::ostringstream json;
++      json << "{\"sequence\":" << ++telemetry_sequence_
++           << ",\"outcome\":\"" << outcome << "\""
++           << ",\"planner_success\":" << (planner_success ? "true" : "false")
++           << ",\"diverged\":" << (diverged ? "true" : "false")
++           << ",\"feasibility_stop\":" << (feasibility_index >= 0 ? "true" : "false")
++           << ",\"collision_stop\":" << (feasibility_index >= 0 ? "true" : "false")
++           << ",\"feasibility_index\":" << feasibility_index
++           << ",\"feasibility_stop_count\":" << feasibility_stop_count_
++           << ",\"teb_pose_count\":" << teb_pose_count
++           << ",\"raw_cmd_v\":" << raw_cmd_v
++           << ",\"measured_start_v\":" << velocity.linear.x
++           << ",\"optimizer_v_max\":" << planner_params_.FollowPath.robot.v_max_x
++           << ",\"optimizer_time_weight\":" << planner_params_.FollowPath.weights.weight_time_optimal
++           << ",\"raw_cmd_w\":" << raw_cmd_w
++           << ",\"command_lookahead\":" << command_lookahead
++           << ",\"command_forward_projection\":" << command_forward_projection
++           << ",\"command_dt\":" << command_dt
++           << ",\"forward_only_fallback\":"
++           << (forward_only_fallback ? "true" : "false")
++           << ",\"terminal_goal_distance\":" << terminal_goal_distance
++           << ",\"terminal_speed_cap\":" << terminal_speed_cap
++           << ",\"terminal_slowdown\":" << (terminal_slowdown ? "true" : "false")
++           << ",\"terminal_extension\":"
++           << (terminal_extension_applied ? "true" : "false")
++           << ",\"terminal_extension_curvature\":" << terminal_extension_curvature
++           << ",\"terminal_waypoint_active\":"
++           << (terminal_waypoint_active ? "true" : "false")
++           << ",\"terminal_waypoint_weight\":"
++           << params_.FollowPath.weights.weight_terminal_waypoint
++           << ",\"cmd_v\":" << cmd_vel.twist.linear.x
++           << ",\"cmd_w\":" << cmd_vel.twist.angular.z
++           << ",\"compute_duration_us\":" << duration_us << "}";
++      trace.data = json.str();
++      telemetry_pub_->publish(trace);
++    };
+   // Report the completed profiling window at the top of the next tick so that every
+   // block (including "total") of all 100 ticks has been fully recorded (off-by-one fix:
+   // previously the report fired while the current tick's "total" block was still alive).
+@@ -137,12 +272,10 @@ geometry_msgs::msg::TwistStamped TEBController::computeVelocityCommands(
+   // 2. Extract local lookahead window
+   // prune global plan to cut off parts of the past (spatially before the robot)
+   const double prune_dist = params_.FollowPath.trajectory.global_plan_prune_distance;
+-  const double global_plan_lookahead =
+-      params_.FollowPath.trajectory.max_global_plan_lookahead_dist;
+-  double path_length_time_based = velocity.linear.x * 5.0;
+-  double path_length =
+-      std::clamp(1.0 * global_plan_lookahead, path_length_time_based, global_plan_lookahead);
++  const double path_length = params_.FollowPath.trajectory.max_global_plan_lookahead_dist;
+   int goal_idx;
++  bool global_goal_in_window = false;
++  geometry_msgs::msg::Pose original_goal_in_controller_frame;
+   nav_msgs::msg::Path transformed_plan;
+   {
+     PROFILE_BLOCK("prune_trim");
+@@ -165,12 +298,15 @@ geometry_msgs::msg::TwistStamped TEBController::computeVelocityCommands(
+       transformed_plan = transformAndTrimPlan(
+           plan_to_global, global_plan_, pose, *costmap_ros_->getCostmap(),
+           costmap_ros_->getGlobalFrameID(), clock_->now(), path_length, &goal_idx);
++      global_goal_in_window =
++          goal_idx == static_cast<int>(global_plan_.poses.size()) - 1;
+     } catch (const tf2::TransformException &ex) {
+       RCLCPP_DEBUG(logger_, "TF transform failed: %s", ex.what());
+     }
+ 
+     if (transformed_plan.poses.empty()) {
+       RCLCPP_INFO(logger_, "TEBController: Empty plan.");
++      publish_trace("empty_plan", false, false, -2, 0);
+       return cmd_vel;
+     }
+     // Overwrite start with actual robot pose so TEB can use plan as initial trajectory
+@@ -178,14 +314,21 @@ geometry_msgs::msg::TwistStamped TEBController::computeVelocityCommands(
+       transformed_plan.poses.insert(transformed_plan.poses.begin(),
+                                     geometry_msgs::msg::PoseStamped());
+     transformed_plan.poses.front() = pose;
++    if (global_goal_in_window) {
++      original_goal_in_controller_frame = transformed_plan.poses.back().pose;
++      terminal_extension_curvature = global_plan_terminal_curvature_;
++      terminal_extension_applied = appendForwardGoalExtension(
++          transformed_plan, params_.FollowPath.trajectory.terminal_forward_extension,
++          terminal_extension_curvature, 0.05);
++    }
+   }
+ 
+   // Update obstacles
+   costmap_converter_msgs::msg::ObstacleArrayMsg::ConstSharedPtr obstacles_ptr;
+   {
+     PROFILE_BLOCK("obstacles");
+-    if (costmap_converter_)
+-      obstacles_ptr = costmap_converter_->getObstacles();
++    // nullptr selects DiscreteTEBPlanner::extractObstacles(), which reads the
++    // live Nav2 Costmap2D directly and avoids the legacy converter plugin.
+     teb_planner_->updateObstacleContainer(obstacles_ptr);
+   }
+   // Update ESDF
+@@ -206,6 +349,36 @@ geometry_msgs::msg::TwistStamped TEBController::computeVelocityCommands(
+   // configureBackupModes(transformed_plan, goal_idx);
+ 
+   // 3. Plan, wart start or reinit
++  planner_params_ = params_;
++  curvature_speed_cap = pathCurvatureSpeedLimit(
++      transformed_plan, params_.FollowPath.robot.v_max_x, params_.FollowPath.robot.v_max_theta,
++      params_.FollowPath.trajectory.max_lateral_acceleration, params_.FollowPath.robot.a_max_x * 0.5);
++  planner_params_.FollowPath.robot.v_max_x = curvature_speed_cap;
++  const bool terminal_mode = global_goal_in_window &&
++      params_.FollowPath.trajectory.terminal_slowdown_distance > 0.0;
++  if (terminal_mode != terminal_mode_) {
++    planner_->clear();
++    terminal_mode_ = terminal_mode;
++  }
++  if (terminal_mode) {
++    terminal_goal_distance = std::hypot(
++        original_goal_in_controller_frame.position.x - pose.pose.position.x,
++        original_goal_in_controller_frame.position.y - pose.pose.position.y);
++    terminal_speed_cap = std::clamp(
++        params_.FollowPath.robot.v_max_x * terminal_goal_distance /
++            params_.FollowPath.trajectory.terminal_slowdown_distance,
++        std::clamp(params_.FollowPath.trajectory.terminal_min_speed, 0.0,
++                   params_.FollowPath.robot.v_max_x), params_.FollowPath.robot.v_max_x);
++    planner_params_.FollowPath.robot.v_max_x = std::max(
++        0.01, std::min(curvature_speed_cap, terminal_speed_cap));
++    planner_params_.FollowPath.weights.weight_time_optimal *=
++        params_.FollowPath.trajectory.terminal_time_weight_scale;
++    teb_planner_->setTerminalWaypoint(original_goal_in_controller_frame);
++    terminal_waypoint_active =
++        params_.FollowPath.weights.weight_terminal_waypoint > 0.0;
++  } else {
++    teb_planner_->clearTerminalWaypoint();
++  }
+   bool success;
+   {
+     PROFILE_BLOCK("planner_plan");
+@@ -216,8 +389,10 @@ geometry_msgs::msg::TwistStamped TEBController::computeVelocityCommands(
+     success = planner_->plan(transformed_plan, velocity);
+   }
+   if (!success || planner_->hasDiverged()) {
++    const bool diverged = planner_->hasDiverged();
+     planner_->clear();
+     RCLCPP_INFO(logger_, "TEBController: Planner failed.");
++    publish_trace("planner_failed", success, diverged, -2, 0);
+     return cmd_vel;
+   }
+ 
+@@ -232,6 +407,9 @@ geometry_msgs::msg::TwistStamped TEBController::computeVelocityCommands(
+     index = checkFeasibility(teb, esdf_, footprint_, feasibility_check);
+   }
+   const bool stop_cmd = index >= 0;
++  if (stop_cmd) {
++    ++feasibility_stop_count_;
++  }
+ 
+   // 5. Visualize (throttled to the configured publish rate)
+   {
+@@ -254,30 +432,114 @@ geometry_msgs::msg::TwistStamped TEBController::computeVelocityCommands(
+     PROFILE_BLOCK("velocity_output");
+     const bool activate = params_.FollowPath.path_tracker.activate;
+     if (activate && !stop_cmd) {
++      geometry_msgs::msg::Pose pose_tolerance;
++      geometry_msgs::msg::Twist velocity_tolerance;
++      if (global_goal_in_window && goal_checker &&
++          goal_checker->getTolerances(pose_tolerance, velocity_tolerance) &&
++          withinGoalPoseTolerance(pose.pose, original_goal_in_controller_frame, pose_tolerance)) {
++        last_cmd_vel_ = cmd_vel;
++        publish_trace("goal_braking", true, false, index, teb.sizePoses());
++        return cmd_vel;
++      }
+       const double dt_ref = params_.FollowPath.trajectory.dt_ref;
+       const int lookahead = params_.FollowPath.trajectory.control_look_ahead_poses;
+       const double min_look_ahead_time = params_.FollowPath.trajectory.control_min_look_ahead_time;
+       cmd_vel.twist = getVelocityCommand(teb, dt_ref, lookahead, min_look_ahead_time, false);
++      raw_cmd_v = cmd_vel.twist.linear.x;
++      raw_cmd_w = cmd_vel.twist.angular.z;
++      command_lookahead = std::clamp(lookahead, 1, static_cast<int>(teb.sizePoses()) - 1);
++      for (int i = 0; i < command_lookahead; ++i) {
++        command_dt += teb.timeDiff(i);
++      }
++      const Eigen::Vector2d command_delta =
++          teb.pose(command_lookahead).position() - teb.pose(0).position();
++      const Eigen::Vector2d command_heading(
++          std::cos(teb.pose(0).theta()), std::sin(teb.pose(0).theta()));
++      command_forward_projection = command_delta.dot(command_heading);
++
++      // A time-based lookahead may collapse to a backward terminal micro-segment
++      // when its first time difference is already larger than the requested
++      // horizon.  Under a hard no-reverse contract, select a forward-projected
++      // later pose from this same optimized TEB instead of silently zeroing the
++      // command forever at the velocity saturation layer.
++      if (raw_cmd_v < 0.0 && params_.FollowPath.robot.v_max_x_backwards <= 1e-12) {
++        int selected_lookahead = 0;
++        double selected_duration = 0.0;
++        const auto forward_command = getForwardOnlyVelocityCommand(
++            teb, lookahead, false, &selected_lookahead, &selected_duration);
++        if (forward_command.has_value()) {
++          cmd_vel.twist = *forward_command;
++          command_lookahead = selected_lookahead;
++          command_dt = selected_duration;
++          const Eigen::Vector2d selected_delta =
++              teb.pose(static_cast<std::size_t>(selected_lookahead)).position() -
++              teb.pose(0).position();
++          command_forward_projection = selected_delta.dot(command_heading);
++          forward_only_fallback = true;
++        }
++      }
+ 
+       // Saturate velocity
+-      const double v_max_x = params_.FollowPath.robot.v_max_x;
+-      const double v_max_y = params_.FollowPath.robot.v_max_y;
+-      const double v_max_theta = params_.FollowPath.robot.v_max_theta;
+-      const double v_max_x_backwards = params_.FollowPath.robot.v_max_x_backwards;
++      double limit_ratio = 1.0;
++      if (speed_limit_ != nav2_costmap_2d::NO_SPEED_LIMIT) {
++        if (speed_limit_is_percentage_) {
++          limit_ratio = speed_limit_ / 100.0;
++        } else if (params_.FollowPath.robot.v_max_x > 1e-12) {
++          limit_ratio = speed_limit_ / params_.FollowPath.robot.v_max_x;
++        }
++        limit_ratio = std::clamp(limit_ratio, 0.0, 1.0);
++      }
++      const double v_max_x = params_.FollowPath.robot.v_max_x * limit_ratio;
++      const double v_max_y = params_.FollowPath.robot.v_max_y * limit_ratio;
++      const double v_max_theta = params_.FollowPath.robot.v_max_theta * limit_ratio;
++      const double v_max_x_backwards = params_.FollowPath.robot.v_max_x_backwards * limit_ratio;
+       const double steering_rate_max = params_.FollowPath.robot.steering_rate_max;
+       const double wheelbase = params_.FollowPath.robot.wheelbase;
+       const bool use_proportional_saturation =
+           params_.FollowPath.robot.use_proportional_saturation;
+       double current_angle = last_ackermann_cmd_.drive.steering_angle;
+-      saturateVelocity(cmd_vel.twist, v_max_x, v_max_y, v_max_theta, v_max_x_backwards,
++      saturateVelocity(cmd_vel.twist, std::min(v_max_x, curvature_speed_cap), v_max_y, v_max_theta, v_max_x_backwards,
+                        use_proportional_saturation);
+-      // Saturate steering angle
++      if (global_goal_in_window) {
++        terminal_goal_distance = std::hypot(
++            original_goal_in_controller_frame.position.x - pose.pose.position.x,
++            original_goal_in_controller_frame.position.y - pose.pose.position.y);
++        const double slowdown_distance =
++            params_.FollowPath.trajectory.terminal_slowdown_distance;
++        const double minimum_speed = params_.FollowPath.trajectory.terminal_min_speed;
++        if (slowdown_distance > 1e-12) {
++          terminal_speed_cap = std::clamp(
++              v_max_x * terminal_goal_distance / slowdown_distance,
++              std::clamp(minimum_speed, 0.0, v_max_x), v_max_x);
++        }
++        terminal_slowdown = limitVelocityNearGoal(
++            cmd_vel.twist, terminal_goal_distance, slowdown_distance,
++            minimum_speed, v_max_x);
++      }
++      // Apply the output-side rack limiter only to plants that actually expose a
++      // steering actuator. A skid-steer plant may still use the Ackermann graph
++      // edges as a research kinematic contract without pretending it has a rack.
+       auto dt = (clock_->now() - last_cmd_vel_.header.stamp).nanoseconds() / 1e9;
+-      saturateSteeringAngle(cmd_vel.twist, current_angle, steering_rate_max, wheelbase, dt);
++      if (params_.FollowPath.robot.has_steering) {
++        saturateSteeringAngle(cmd_vel.twist, current_angle, steering_rate_max, wheelbase, dt);
++      }
++      // A skid-steer plant has no physical steering-rack feedback.  When its TEB
++      // optimizer deliberately uses the Ackermann model as a research contract,
++      // carry a virtual steering state between ticks so the graph's start/rate
++      // edges do not incorrectly restart from zero on every control cycle.
++      if (!params_.FollowPath.robot.has_steering) {
++        const auto [virtual_speed, virtual_angle] =
++            convertTwistToAckermann(cmd_vel.twist, wheelbase, current_angle);
++        last_ackermann_cmd_.drive.speed = virtual_speed;
++        last_ackermann_cmd_.drive.steering_angle = virtual_angle;
++      }
+     }
+     last_cmd_vel_ = cmd_vel;
+   }
+ 
++  publish_trace(stop_cmd ? "feasibility_stop" : "command", true, false, index,
++                teb.sizePoses());
++
+   return cmd_vel;
+ }
+ 
+@@ -289,36 +551,4 @@ void TEBController::setSpeedLimit(const double &speed_limit, const bool &percent
+                speed_limit_is_percentage_ ? "percentage" : "absolute");
+ }
+ 
+-void TEBController::initCostmapConverter() {
+-  std::string odom_topic = "odom";  // node_.get_parameter();
+-  std::string plugin_name = params_.FollowPath.obstacles.costmap_converter_plugin;
+-  double update_freq = params_.FollowPath.obstacles.costmap_converter_rate;
+-  bool extra_thread = params_.FollowPath.obstacles.costmap_converter_spin_thread;
+-  if (plugin_name.empty()) {
+-    RCLCPP_INFO(logger_, "No costmap converter plugin specified. "
+-                         "All occupied costmap cells are treated as point obstacles.");
+-    return;
+-  }
+-  try {
+-    auto *costmap = costmap_ros_->getCostmap();
+-    costmap_converter_ = costmap_converter_loader_.createSharedInstance(plugin_name);
+-    std::string converter_name = costmap_converter_loader_.getName(plugin_name);
+-    RCLCPP_INFO(logger_, "library path : %s",
+-                costmap_converter_loader_.getClassLibraryPath(plugin_name).c_str());
+-    std::replace(converter_name.begin(), converter_name.end(), ':', '/');
+-
+-    costmap_converter_->setOdomTopic(odom_topic);
+-    costmap_converter_->initialize(intra_proc_node_);
+-    costmap_converter_->setCostmap2D(costmap);
+-    const auto rate = std::make_shared<rclcpp::Rate>(update_freq);
+-    costmap_converter_->startWorker(rate, costmap, extra_thread);
+-    RCLCPP_INFO(logger_, "Costmap conversion plugin %s loaded.", plugin_name.c_str());
+-  } catch (pluginlib::PluginlibException &ex) {
+-    RCLCPP_INFO(logger_,
+-                "The specified costmap converter plugin cannot be loaded. Error message: %s",
+-                ex.what());
+-    costmap_converter_.reset();
+-  }
+-}
+-
+ }  // namespace nav2_teb_controller
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index b90353bb51e7ba8471d7f42c18afcc1929e60c43..74cde7189e3362babe1954579e5a6fecf49082ac 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -14,6 +14,22 @@ target_include_directories(test_edge_path_smoothness PRIVATE ${CMAKE_SOURCE_DIR}
+ ament_target_dependencies(test_edge_path_smoothness rclcpp)
+ target_link_libraries(test_edge_path_smoothness ${PROJECT_NAME})
+ 
++# ── test_teb_utils ───────────────────────────────────────────────────────────
++ament_add_gtest(test_teb_utils
++  unit/core/test_teb_utils.cpp
++)
++target_include_directories(test_teb_utils PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/include_shim)
++ament_target_dependencies(test_teb_utils rclcpp)
++target_link_libraries(test_teb_utils ${PROJECT_NAME})
++
++# ── test_edge_via_point ──────────────────────────────────────────────────────
++ament_add_gtest(test_edge_via_point
++  unit/g2o_types/test_edge_via_point.cpp
++)
++target_include_directories(test_edge_via_point PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/include_shim)
++ament_target_dependencies(test_edge_via_point rclcpp)
++target_link_libraries(test_edge_via_point ${PROJECT_NAME})
++
+ # ── test_edge_shortest_path ───────────────────────────────────────────────────
+ ament_add_gtest(test_edge_shortest_path
+   unit/g2o_types/test_edge_shortest_path.cpp
+diff --git a/test/unit/g2o_types/test_edge_esdf_obstacle.cpp b/test/unit/g2o_types/test_edge_esdf_obstacle.cpp
+index 3d1ed863559b178b6cf812c15bd7d2525c525ef4..4e9e65e267b8e2cc49b16c9d5a05c4822eda10b4 100644
+--- a/test/unit/g2o_types/test_edge_esdf_obstacle.cpp
++++ b/test/unit/g2o_types/test_edge_esdf_obstacle.cpp
+@@ -94,7 +94,7 @@ TEST(EdgeESDFObstacle, OutOfBoundsClampsToBoundary) {
+   edge.computeError();
+ 
+   const double clamped_dist = std::sqrt(8.0 * 8.0 + 8.0 * 8.0) * 0.1;
+-  EXPECT_NEAR(edge.error()[1], 1.7 - clamped_dist, 1e-6);
++  EXPECT_NEAR(edge.error()[1], 1.7 + esdf.cellHalfDiagonal() - clamped_dist, 1e-6);
+ 
+   delete v;
+ }
+@@ -115,12 +115,12 @@ TEST(EdgeESDFObstacle, OnObstacleMaximumError) {
+   edge.setTebConfig(params);
+   edge.computeError();
+ 
+-  // Circle: penaltyBoundFromBelow(0, min_dist+radius=0.3, 0) = 0.3
+-  //         + expm1(5 * (0.3 - 0)) / 5 = (e^1.5 - 1) / 5 ≈ 0.69634
+-  const double expected_circle = 0.3 + std::expm1(5.0 * 0.3) / 5.0;
++  // Distance is measured to the lethal cell center, so the occupied-square
++  // half-diagonal is part of both the soft and hard collision thresholds.
++  const double threshold = 0.3 + esdf.cellHalfDiagonal();
++  const double expected_circle = threshold + std::expm1(5.0 * threshold) / 5.0;
+   EXPECT_NEAR(edge.error()[0], expected_circle, 1e-4);
+-  // Center inflation: penaltyBoundFromBelow(0, 0.5, 0) = 0.5
+-  EXPECT_NEAR(edge.error()[1], 0.5, 1e-9);
++  EXPECT_NEAR(edge.error()[1], 0.5 + esdf.cellHalfDiagonal(), 1e-9);
+ 
+   delete v;
+ }
+@@ -142,12 +142,11 @@ TEST(EdgeESDFObstacle, NearObstaclePartialPenalty) {
+   edge.setTebConfig(params);
+   edge.computeError();
+ 
+-  // penaltyBoundFromBelow(0.15, 0.3, 0) = 0.15
+-  // + expm1(5 * (0.3 - 0.15)) / 5 = (e^0.75 - 1) / 5 ≈ 0.22344
+-  const double expected = 0.15 + std::expm1(5.0 * 0.15) / 5.0;
++  const double dist = esdf.queryDistance(0.8, 1.0);
++  const double penetration = 0.3 + esdf.cellHalfDiagonal() - dist;
++  const double expected = penetration + std::expm1(5.0 * penetration) / 5.0;
+   EXPECT_NEAR(edge.error()[0], expected, 1e-4);
+-  // Center distance 0.15 (bilinear interp at (0.8, 1.0)) < inflation 0.5
+-  EXPECT_NEAR(edge.error()[1], 0.5 - 0.15, 1e-4);
++  EXPECT_NEAR(edge.error()[1], 0.5 + esdf.cellHalfDiagonal() - dist, 1e-4);
+ 
+   delete v;
+ }
+diff --git a/test/unit/g2o_types/test_edge_kinematic_car_like.cpp b/test/unit/g2o_types/test_edge_kinematic_car_like.cpp
+index 0752414885e82d0e4fcd88bc9436ce707af49da7..c78d5ce040aa2ca688f9a95113f34fb11acba626 100644
+--- a/test/unit/g2o_types/test_edge_kinematic_car_like.cpp
++++ b/test/unit/g2o_types/test_edge_kinematic_car_like.cpp
+@@ -97,6 +97,26 @@ TEST(EdgeKinematicsCarlike, WideTurnZeroError) {
+   delete p1;
+ }
+ 
++TEST(EdgeKinematicsCarlike, ReverseMotionPenalized) {
++  teb_controller::Params params;
++  params.FollowPath.robot.min_turning_radius = 0.4;
++
++  VertexPose p1;
++  VertexPose p2;
++  p1.setEstimate(PoseSE2(0.0, 0.0, 0.0));
++  p2.setEstimate(PoseSE2(-0.25, 0.0, 0.0));
++
++  EdgeKinematicsCarlike edge;
++  edge.setTebConfig(params);
++  edge.setVertex(0, &p1);
++  edge.setVertex(1, &p2);
++  edge.computeError();
++
++  EXPECT_DOUBLE_EQ(edge.getError()[0], 0.0);
++  EXPECT_DOUBLE_EQ(edge.getError()[1], 0.0);
++  EXPECT_GT(edge.getError()[2], 0.0);
++}
++
+ 
+ // Analytic Jacobian vs finite differences. Both rows active: non-holonomic
+ // bracket != 0 and turning radius 2.04 < min_turning_radius 2.5.
+diff --git a/test/unit/planner/test_planner_graph_lifecycle.cpp b/test/unit/planner/test_planner_graph_lifecycle.cpp
+index 1de08a3b83454704357823cf7065ea3038ef3ef3..619f33d7b8a17485c37082230edd1ee1db0e8b8a 100644
+--- a/test/unit/planner/test_planner_graph_lifecycle.cpp
++++ b/test/unit/planner/test_planner_graph_lifecycle.cpp
+@@ -13,17 +13,19 @@
+ //   - pooled vertices still owned by the optimizer when SparseOptimizer::clear()
+ //     is called (HyperGraph::clear deletes every owned vertex -> use-after-free)
+ 
++#include <g2o/core/robust_kernel_impl.h>
+ #include <gtest/gtest.h>
+ 
+ #include <cmath>
+ #include <cstddef>
+-
+ #include <geometry_msgs/msg/twist.hpp>
+-#include <g2o/core/robust_kernel_impl.h>
++#include <limits>
+ #include <nav2_costmap_2d/costmap_2d.hpp>
+ #include <nav_msgs/msg/path.hpp>
++#include <numbers>
+ 
+ #include "nav2_teb_controller/core/footprint.hpp"
++#include "nav2_teb_controller/core/teb_utils.hpp"
+ #include "nav2_teb_controller/g2o_types/edge_esdf_obstacle.h"
+ #include "nav2_teb_controller/obstacles/esdf.hpp"
+ #include "nav2_teb_controller/planner/optimal_planner.hpp"
+@@ -45,6 +47,21 @@ nav_msgs::msg::Path makePath(size_t n_poses, double spacing, double y_offset) {
+   return path;
+ }
+ 
++nav_msgs::msg::Path makeArcPath(size_t n_poses, double spacing, double height) {
++  nav_msgs::msg::Path path;
++  path.header.frame_id = "map";
++  path.poses.reserve(n_poses);
++  for (size_t i = 0; i < n_poses; ++i) {
++    geometry_msgs::msg::PoseStamped pose;
++    const double progress = static_cast<double>(i) / static_cast<double>(n_poses - 1);
++    pose.pose.position.x = static_cast<double>(i) * spacing;
++    pose.pose.position.y = height * std::sin(std::numbers::pi * progress);
++    pose.pose.orientation.w = 1.0;
++    path.poses.push_back(pose);
++  }
++  return path;
++}
++
+ teb_controller::Params makeParams() {
+   teb_controller::Params p;
+   p.FollowPath.optimizer.algorithm = "levenberg_marquardt";  // matches the runtime config
+@@ -99,6 +116,147 @@ TEST(PlannerGraphLifecycle, ColdStartWarmTicksGrowthAndReinit) {
+   planner.clear();
+ }
+ 
++// A same-goal update deliberately keeps the warm-started band. The via-point
++// edges must make that old curved band converge toward the new straight path;
++// otherwise the global plan is only a cold-start seed and the detour persists.
++TEST(PlannerGraphLifecycle, SameGoalWarmStartTracksNewStraightPath) {
++  teb_controller::Params params = makeParams();
++  params.FollowPath.weights.weight_viapoint = 50.0;
++  Footprint footprint;
++  DiscreteTEBPlanner planner(params, footprint, nullptr);
++  const geometry_msgs::msg::Twist start_vel;
++
++  ASSERT_TRUE(planner.plan(makeArcPath(30, 0.2, 1.0), start_vel));
++  double curved_max_y = 0.0;
++  for (size_t i = 0; i < planner.getTEB().sizePoses(); ++i)
++    curved_max_y = std::max(curved_max_y, std::abs(planner.getTEB().pose(i).y()));
++  ASSERT_GT(curved_max_y, 0.5);
++
++  nav_msgs::msg::Path straight_path = makeArcPath(30, 0.2, 0.0);
++  ASSERT_TRUE(planner.plan(straight_path, start_vel));
++  double straight_max_y = 0.0;
++  for (size_t i = 0; i < planner.getTEB().sizePoses(); ++i)
++    straight_max_y = std::max(straight_max_y, std::abs(planner.getTEB().pose(i).y()));
++
++  EXPECT_LT(straight_max_y, 0.15);
++  EXPECT_LT(straight_max_y, curved_max_y * 0.25);
++}
++
++TEST(PlannerGraphLifecycle, TerminalWaypointAnchorsAnInteriorBandPose) {
++  teb_controller::Params params = makeParams();
++  params.FollowPath.weights.weight_viapoint = 1.0;
++  params.FollowPath.weights.weight_terminal_waypoint = 1.0e6;
++  params.FollowPath.weights.weight_kinematics_nh = 0.0;
++  params.FollowPath.weights.weight_kinematics_turning_radius = 0.0;
++  params.FollowPath.weights.weight_kinematics_forward_drive = 0.0;
++  Footprint footprint;
++  DiscreteTEBPlanner planner(params, footprint, nullptr);
++
++  nav_msgs::msg::Path path = makeArcPath(30, 0.2, 0.0);
++  geometry_msgs::msg::Pose waypoint;
++  waypoint.position.x = 3.0;
++  waypoint.position.y = 0.5;
++  planner.setTerminalWaypoint(waypoint);
++  ASSERT_TRUE(planner.plan(path, geometry_msgs::msg::Twist()));
++
++  double minimum_distance = std::numeric_limits<double>::max();
++  for (std::size_t i = 1; i + 1 < planner.getTEB().sizePoses(); ++i) {
++    minimum_distance = std::min(
++        minimum_distance,
++        (planner.getTEB().pose(i).position() - Eigen::Vector2d(3.0, 0.5)).norm());
++  }
++  EXPECT_LT(minimum_distance, 0.01);
++}
++
++TEST(PlannerGraphLifecycle, SkidSteerCanOptimizeReversePath) {
++  teb_controller::Params params = makeParams();
++  params.FollowPath.robot.robot_model = "skid_steer";
++  params.FollowPath.robot.v_max_x = 1.0;
++  params.FollowPath.robot.v_max_x_backwards = 0.4;
++  params.FollowPath.robot.v_max_theta = 1.8;
++  params.FollowPath.trajectory.allow_init_backward = true;
++  params.FollowPath.trajectory.overwrite_plan_orientation = true;
++  params.FollowPath.weights.weight_kinematics_nh = 1000.0;
++  params.FollowPath.weights.weight_kinematics_forward_drive = 5.0;
++  params.FollowPath.weights.weight_viapoint = 30.0;
++  Footprint footprint;
++  DiscreteTEBPlanner planner(params, footprint, nullptr);
++
++  nav_msgs::msg::Path reverse_path;
++  reverse_path.header.frame_id = "map";
++  for (size_t i = 0; i < 20; ++i) {
++    geometry_msgs::msg::PoseStamped pose;
++    pose.pose.position.x = -0.2 * static_cast<double>(i);
++    pose.pose.orientation.w = 1.0;
++    reverse_path.poses.push_back(pose);
++  }
++
++  const geometry_msgs::msg::Twist start_vel;
++  ASSERT_TRUE(planner.plan(reverse_path, start_vel));
++  const geometry_msgs::msg::Twist command =
++      getVelocityCommand(planner.getTEB(), 0.3, 2, 0.0, false);
++  EXPECT_LT(command.linear.x, -0.01);
++  EXPECT_NEAR(command.linear.y, 0.0, 1e-12);
++}
++
++TEST(PlannerGraphLifecycle, SkidSteerDetoursAroundObstacleAndReturnsToPath) {
++  teb_controller::Params params = makeParams();
++  params.FollowPath.robot.robot_model = "skid_steer";
++  params.FollowPath.robot.v_max_x = 1.0;
++  params.FollowPath.robot.v_max_x_backwards = 0.4;
++  params.FollowPath.robot.v_max_theta = 1.8;
++  params.FollowPath.weights.weight_kinematics_nh = 1000.0;
++  params.FollowPath.weights.weight_kinematics_forward_drive = 5.0;
++  params.FollowPath.weights.weight_viapoint = 30.0;
++  params.FollowPath.weights.weight_obstacle = 80.0;
++  params.FollowPath.weights.weight_inflation = 8.0;
++  params.FollowPath.obstacles.min_obstacle_dist = 0.2;
++  params.FollowPath.obstacles.inflation_dist = 0.6;
++  params.FollowPath.obstacles.cutoff_dist = 0.2;
++  Footprint footprint(false, "circles", "[[-0.1275, 0.0, 0.25], [0.1275, 0.0, 0.25]]");
++  DiscreteTEBPlanner planner(params, footprint, nullptr);
++
++  nav2_costmap_2d::Costmap2D blocked_map(200, 200, 0.05, -2.0, -5.0);
++  const unsigned int obstacle_x = 80;   // x = 2.0 m
++  const unsigned int obstacle_y = 106;  // y = 0.3 m
++  for (int dy = -3; dy <= 3; ++dy) {
++    for (int dx = -3; dx <= 3; ++dx) {
++      blocked_map.setCost(obstacle_x + dx, obstacle_y + dy, nav2_costmap_2d::LETHAL_OBSTACLE);
++    }
++  }
++  ObstacleMap2D blocked_esdf;
++  blocked_esdf.update(blocked_map);
++  planner.setObstacleMap(&blocked_esdf);
++
++  nav_msgs::msg::Path straight_path;
++  straight_path.header.frame_id = "map";
++  for (size_t i = 0; i < 30; ++i) {
++    geometry_msgs::msg::PoseStamped pose;
++    pose.pose.position.x = 0.2 * static_cast<double>(i);
++    pose.pose.orientation.w = 1.0;
++    straight_path.poses.push_back(pose);
++  }
++
++  const geometry_msgs::msg::Twist start_vel;
++  ASSERT_TRUE(planner.plan(straight_path, start_vel));
++  double min_y_with_obstacle = 0.0;
++  for (size_t i = 0; i < planner.getTEB().sizePoses(); ++i)
++    min_y_with_obstacle = std::min(min_y_with_obstacle, planner.getTEB().pose(i).y());
++  EXPECT_LT(min_y_with_obstacle, -0.1);
++
++  nav2_costmap_2d::Costmap2D clear_map(200, 200, 0.05, -2.0, -5.0);
++  ObstacleMap2D clear_esdf;
++  clear_esdf.update(clear_map);
++  planner.setObstacleMap(&clear_esdf);
++  ASSERT_TRUE(planner.plan(straight_path, start_vel));
++  double max_abs_y_after_clear = 0.0;
++  for (size_t i = 0; i < planner.getTEB().sizePoses(); ++i) {
++    max_abs_y_after_clear =
++        std::max(max_abs_y_after_clear, std::abs(planner.getTEB().pose(i).y()));
++  }
++  EXPECT_LT(max_abs_y_after_clear, 0.15);
++}
++
+ // ESDF obstacle edges with robust kernels across consecutive plans — regression
+ // for the field crash. g2o's OptimizableGraph::Edge::~Edge() DELETES its robust
+ // kernel (the dtor calls the virtual deleting dtor -> operator delete, verified
+@@ -247,4 +405,4 @@ TEST(PlannerGraphLifecycle, AckermannMultiTick) {
+ }
+ 
+ }  // namespace
+-}  // namespace nav2_teb_controller
+\ No newline at end of file
++}  // namespace nav2_teb_controller
+diff --git a/config/jackal_skid_steer_1p2.yaml b/config/jackal_skid_steer_1p2.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..de18c9592a4e02c14c1b4619ca2c81b0841bd77b
+--- /dev/null
++++ b/config/jackal_skid_steer_1p2.yaml
+@@ -0,0 +1,112 @@
++# Merge these node sections into the Nav2 parameter file used for Jackal.
++# The preset was validated with ROS 2 Humble, Nav2 1.1 and a 20 Hz controller.
++controller_server:
++  ros__parameters:
++    controller_frequency: 20.0
++    controller_plugins: ["FollowPath"]
++    FollowPath:
++      plugin: "nav2_teb_controller::TEBController"
++      path_tracker:
++        activate: true
++      trajectory:
++        reinit_dist: 2.0
++        reinit_angle: 3.14159
++        reinit_path_dist: 0.35
++        auto_resize: true
++        dt_ref: 0.30
++        dt_hyst: 0.05
++        min_samples: 3
++        max_samples: 40
++        min_seg_length: 0.025
++        max_seg_length: 0.35
++        max_angle_diff: 0.25
++        overwrite_plan_orientation: true
++        # Turn to face a new route before translating; reverse remains a
++        # feasible optimized escape maneuver after initialization.
++        allow_init_backward: false
++        control_look_ahead_poses: 2
++        max_global_plan_lookahead_dist: 2.5
++        global_plan_prune_distance: 0.25
++        control_min_look_ahead_time: 0.0
++        min_prune_distance: 0.025
++      robot:
++        footprint:
++          use_local_costmap: false
++          model: "circles"
++          points: "[[-0.1275, 0.0, 0.25], [0.1275, 0.0, 0.25]]"
++        robot_model: "skid_steer"
++        wheelbase: 0.50
++        v_max_x: 1.2
++        v_max_x_backwards: 0.4
++        v_max_y: 0.0
++        v_max_theta: 1.8
++        a_max_x: 2.5
++        a_max_y: 0.0
++        a_max_theta: 2.0
++        jerk_max_x: 3.0
++        jerk_max_y: 0.0
++        jerk_max_theta: 4.0
++        min_turning_radius: 0.0
++        has_steering: false
++        use_proportional_saturation: true
++      optimizer:
++        solver: "eigen"
++        algorithm: "levenberg_marquardt"
++        activate: true
++        fast_mode: true
++        no_inner_iterations: 8
++        no_outer_iterations: 4
++        penalty_epsilon: 0.1
++        fix_goal: true
++        free_goal_vel: false
++        verbose: false
++        stepwise_optimization: true
++        early_exit_min_delta: 0.001
++      weights:
++        weight_time_optimal: 1.0
++        weight_shortest_path: 2.0
++        weight_path_smoothness: 4.0
++        weight_viapoint: 30.0
++        weight_v_max_x: 15.0
++        weight_v_max_theta: 10.0
++        weight_a_max_x: 30.0
++        weight_a_max_theta: 40.0
++        weight_kinematics_nh: 1000.0
++        # Strong but finite front-sensor-aware preference for forward travel.
++        weight_kinematics_forward_drive: 100.0
++        weight_g3_continuity: 25.0
++        weight_obstacle: 80.0
++        weight_inflation: 8.0
++      obstacles:
++        include_dynamic_obstacles: false
++        feasibility_check: 2.5
++        min_obstacle_cost: 250
++        inflation_dist: 0.60
++        min_obstacle_dist: 0.20
++        cutoff_dist: 0.20
++        costmap_converter_plugin: ""
++        costmap_converter_rate: 2.0
++        costmap_converter_spin_thread: false
++      visualization:
++        activate: false
++        publish_rate: 10.0
++
++velocity_smoother:
++  ros__parameters:
++    smoothing_frequency: 20.0
++    scale_velocities: false
++    feedback: "CLOSED_LOOP"
++    max_velocity: [1.2, 0.0, 1.8]
++    min_velocity: [-0.4, 0.0, -1.8]
++    max_accel: [2.5, 0.0, 2.0]
++    max_decel: [-2.5, 0.0, -2.0]
++    odom_topic: "odom"
++    odom_duration: 0.1
++    deadband_velocity: [0.0, 0.0, 0.0]
++    velocity_timeout: 0.5
++
++behavior_server:
++  ros__parameters:
++    max_rotational_vel: 1.8
++    min_rotational_vel: 0.4
++    rotational_acc_lim: 2.0
+diff --git a/test/unit/core/test_teb_utils.cpp b/test/unit/core/test_teb_utils.cpp
+new file mode 100644
+index 0000000000000000000000000000000000000000..c4b585b83f23f8da66f750360877bf691e631509
+--- /dev/null
++++ b/test/unit/core/test_teb_utils.cpp
+@@ -0,0 +1,250 @@
++#include <angles/angles.h>
++#include <gtest/gtest.h>
++
++#include <geometry_msgs/msg/twist.hpp>
++#include <nav_msgs/msg/path.hpp>
++#include <nav2_util/geometry_utils.hpp>
++#include <nav2_costmap_2d/cost_values.hpp>
++
++#include "nav2_teb_controller/core/teb_utils.hpp"
++
++namespace nav2_teb_controller {
++namespace {
++
++TEST(TebUtils, ResizePreservesGeometryAtHighSpeed) {
++  TimedElasticBand band;
++  band.addPose(0.0, 0.0, 0.0);
++  for (int i = 1; i <= 10; ++i)
++    band.addPoseAndTimeDiff(PoseSE2(i * .5, 0.0, 0.0), .2);
++  autoResize(band, .3, .05, .025, .3, .15, 3, 50, false);
++  for (size_t i = 1; i < band.sizePoses(); ++i)
++    EXPECT_LE((band.pose(i).position() - band.pose(i - 1).position()).norm(), .3);
++  EXPECT_NEAR(band.accumulatedDistance(), 5.0, 1e-8);
++}
++
++TEST(TebUtils, CurvatureEnvelopeSlowsBeforeBendsAndAllowsStraightCruise) {
++  nav_msgs::msg::Path path;
++  for (int i = 0; i <= 50; ++i) {
++    geometry_msgs::msg::PoseStamped pose;
++    pose.pose.position.x = i * .1;
++    pose.pose.orientation.w = 1.0;
++    path.poses.push_back(pose);
++  }
++  EXPECT_DOUBLE_EQ(pathCurvatureSpeedLimit(path, 2.5, 1.5, .5, 1.25), 2.5);
++  for (size_t i = 0; i < path.poses.size(); ++i) {
++    const double angle = static_cast<double>(i) * .1;
++    path.poses[i].pose.position.x = std::sin(angle);
++    path.poses[i].pose.position.y = 1.0 - std::cos(angle);
++    path.poses[i].pose.orientation = nav2_util::geometry_utils::orientationAroundZAxis(angle);
++  }
++  EXPECT_NEAR(pathCurvatureSpeedLimit(path, 2.5, 1.5, .5, 1.25), std::sqrt(.5), 1e-8);
++  EXPECT_DOUBLE_EQ(pathCurvatureSpeedLimit(path, 2.5, 1.5, 0.0, 1.25), 2.5);
++}
++
++TEST(TebUtils, SweptFeasibilityFindsObstacleBetweenSparseVertices) {
++  nav2_costmap_2d::Costmap2D map(100, 100, .05, -1.0, -2.5);
++  map.setCost(40, 50, nav2_costmap_2d::LETHAL_OBSTACLE);
++  ObstacleMap2D esdf;
++  esdf.update(map);
++  Footprint footprint(false, "circles", "[[0.0, 0.0, 0.1]]");
++  TimedElasticBand band;
++  band.addPose(0.0, 0.0, 0.0);
++  band.addPoseAndTimeDiff(PoseSE2(2.0, 0.0, 0.0), 1.0);
++  EXPECT_EQ(checkFeasibility(band, esdf, footprint, 3.0), 1);
++  EXPECT_EQ(checkFeasibility(band, esdf, footprint, .5), -1);
++}
++
++TEST(TebUtils, FeasibilityTreatsLethalRasterCellAsAreaNotPoint) {
++  nav2_costmap_2d::Costmap2D map(100, 100, .05, 0.0, 0.0);
++  // Cell center is 0.5256 m from the footprint circle center: outside a
++  // 0.50 m circle as a point, but the 0.05 m square itself overlaps it.
++  map.setCost(20, 10, nav2_costmap_2d::LETHAL_OBSTACLE);
++  ObstacleMap2D esdf;
++  esdf.update(map);
++  Footprint footprint(false, "circles", "[[0.0, 0.0, 0.5]]");
++  TimedElasticBand band;
++  band.addPose(0.5, 0.5, 0.0);
++  band.addPoseAndTimeDiff(PoseSE2(0.6, 0.5, 0.0), 0.1);
++  EXPECT_EQ(checkFeasibility(band, esdf, footprint, 1.0), 0);
++}
++
++TEST(TebUtils, GoalBrakingRequiresPositionAndWrappedYawTogether) {
++  geometry_msgs::msg::Pose pose, goal, tolerance;
++  pose.orientation = nav2_util::geometry_utils::orientationAroundZAxis(M_PI - 0.01);
++  goal.orientation = nav2_util::geometry_utils::orientationAroundZAxis(-M_PI + 0.01);
++  tolerance.position.x = 0.11;
++  tolerance.orientation = nav2_util::geometry_utils::orientationAroundZAxis(0.03);
++  pose.position.x = 0.10;
++  EXPECT_TRUE(withinGoalPoseTolerance(pose, goal, tolerance));
++  pose.position.x = 0.12;
++  EXPECT_FALSE(withinGoalPoseTolerance(pose, goal, tolerance));
++  pose.position.x = 0.10;
++  pose.orientation = nav2_util::geometry_utils::orientationAroundZAxis(M_PI - 0.04);
++  EXPECT_FALSE(withinGoalPoseTolerance(pose, goal, tolerance));
++}
++
++TEST(TebUtils, GoalBrakingRejectsUnspecifiedTolerance) {
++  geometry_msgs::msg::Pose pose, goal, tolerance;
++  pose.orientation.w = goal.orientation.w = tolerance.orientation.w = 1.0;
++  tolerance.position.x = -1.0;
++  EXPECT_FALSE(withinGoalPoseTolerance(pose, goal, tolerance));
++  tolerance.position.x = 0.1;
++  EXPECT_FALSE(withinGoalPoseTolerance(pose, goal, tolerance));
++}
++
++nav_msgs::msg::Path makeBackOutThenForwardPath() {
++  nav_msgs::msg::Path path;
++  path.header.frame_id = "map";
++  for (const double x : {0.0, -0.5, -1.0, 1.0}) {
++    geometry_msgs::msg::PoseStamped pose;
++    pose.pose.position.x = x;
++    pose.pose.orientation.w = 1.0;
++    path.poses.push_back(pose);
++  }
++  return path;
++}
++
++TEST(TebUtils, BackwardInitializationUsesFirstPathSegment) {
++  TimedElasticBand teb;
++
++  ASSERT_TRUE(initFromPath(teb, makeBackOutThenForwardPath(), 1.0, 1.8, true, 3, true, true));
++  ASSERT_GE(teb.sizePoses(), 3u);
++
++  // The local goal is in front (+x), but the first path segment is behind.
++  // A skid-steer back-out keeps its body facing +x instead of turning around.
++  EXPECT_NEAR(angles::normalize_angle(teb.pose(1).theta()), 0.0, 1e-9);
++  const geometry_msgs::msg::Twist cmd = getVelocityCommand(teb, 0.3, 1, 0.0, false);
++  EXPECT_LT(cmd.linear.x, 0.0);
++  EXPECT_NEAR(cmd.angular.z, 0.0, 1e-9);
++}
++
++TEST(TebUtils, ForwardOnlyFallbackSelectsLaterForwardPose) {
++  TimedElasticBand teb;
++  teb.addPose(0.0, 0.0, 0.0);
++  teb.addPoseAndTimeDiff(PoseSE2(-0.10, 0.0, 0.0), 1.0);
++  teb.addPoseAndTimeDiff(PoseSE2(-0.05, 0.02, 0.05), 0.4);
++  teb.addPoseAndTimeDiff(PoseSE2(0.10, 0.04, 0.10), 0.4);
++
++  // The normal time threshold collapses a requested three-pose horizon to the
++  // first (backward) segment because dt[0] already exceeds 3 * dt_ref.
++  const geometry_msgs::msg::Twist raw = getVelocityCommand(teb, 0.3, 3, 0.0, false);
++  ASSERT_LT(raw.linear.x, 0.0);
++
++  int selected = 0;
++  double duration = 0.0;
++  const auto forward = getForwardOnlyVelocityCommand(teb, 3, false, &selected, &duration);
++  ASSERT_TRUE(forward.has_value());
++  EXPECT_EQ(selected, 3);
++  EXPECT_NEAR(duration, 1.8, 1e-12);
++  EXPECT_GT(forward->linear.x, 0.0);
++}
++
++TEST(TebUtils, ForwardOnlyFallbackFailsClosedWhenBandIsEntirelyBehind) {
++  TimedElasticBand teb;
++  teb.addPose(0.0, 0.0, 0.0);
++  teb.addPoseAndTimeDiff(PoseSE2(-0.10, 0.0, 0.0), 0.3);
++  teb.addPoseAndTimeDiff(PoseSE2(-0.20, 0.0, 0.0), 0.3);
++
++  EXPECT_FALSE(getForwardOnlyVelocityCommand(teb, 1, false).has_value());
++}
++
++TEST(TebUtils, TerminalSlowdownPreservesCurvature) {
++  geometry_msgs::msg::Twist command;
++  command.linear.x = 0.40;
++  command.angular.z = 0.80;
++
++  EXPECT_TRUE(limitVelocityNearGoal(command, 0.125, 1.0, 0.02, 0.80));
++  EXPECT_NEAR(command.linear.x, 0.10, 1e-12);
++  EXPECT_NEAR(command.angular.z, 0.20, 1e-12);
++  EXPECT_NEAR(command.angular.z / command.linear.x, 2.0, 1e-12);
++}
++
++TEST(TebUtils, TerminalSlowdownHonorsPositiveFloorAndDisabledMode) {
++  geometry_msgs::msg::Twist command;
++  command.linear.x = 0.40;
++  command.angular.z = 0.40;
++  EXPECT_TRUE(limitVelocityNearGoal(command, 0.001, 1.0, 0.02, 0.80));
++  EXPECT_NEAR(command.linear.x, 0.02, 1e-12);
++  EXPECT_NEAR(command.angular.z, 0.02, 1e-12);
++
++  geometry_msgs::msg::Twist disabled = command;
++  EXPECT_FALSE(limitVelocityNearGoal(disabled, 0.001, 0.0, 0.02, 0.80));
++}
++
++TEST(TebUtils, ForwardGoalExtensionPreservesGoalHeading) {
++  nav_msgs::msg::Path path;
++  geometry_msgs::msg::PoseStamped goal;
++  goal.pose.position.x = 1.0;
++  goal.pose.position.y = 2.0;
++  goal.pose.orientation.z = std::sin(M_PI_4);
++  goal.pose.orientation.w = std::cos(M_PI_4);
++  path.poses.push_back(goal);
++
++  EXPECT_TRUE(appendForwardGoalExtension(path, 0.20, 0.0));
++  ASSERT_EQ(path.poses.size(), 5u);
++  EXPECT_NEAR(path.poses.back().pose.position.x, 1.0, 1e-12);
++  EXPECT_NEAR(path.poses.back().pose.position.y, 2.2, 1e-12);
++  EXPECT_NEAR(path.poses.back().pose.orientation.z, goal.pose.orientation.z, 1e-12);
++  EXPECT_FALSE(appendForwardGoalExtension(path, 0.0, 0.0));
++}
++
++TEST(TebUtils, ForwardGoalExtensionContinuesBoundedSignedCurvature) {
++  nav_msgs::msg::Path path;
++  for (int i = 0; i < 2; ++i) {
++    geometry_msgs::msg::PoseStamped pose;
++    const double theta = 0.25 * static_cast<double>(i);
++    pose.pose.position.x = 0.1 * static_cast<double>(i);
++    pose.pose.orientation.z = std::sin(0.5 * theta);
++    pose.pose.orientation.w = std::cos(0.5 * theta);
++    path.poses.push_back(pose);
++  }
++  const double curvature = terminalPathCurvature(path, 2.5);
++  ASSERT_TRUE(appendForwardGoalExtension(path, 0.20, curvature, 0.05));
++  EXPECT_NEAR(curvature, 2.5, 1e-12);
++  EXPECT_NEAR(PoseSE2(path.poses.back().pose).theta(), 0.75, 1e-12);
++}
++
++TEST(TebUtils, ReverseSaturationPreservesCurvatureRatio) {
++  geometry_msgs::msg::Twist cmd;
++  cmd.linear.x = -0.8;
++  cmd.angular.z = 1.0;
++
++  saturateVelocity(cmd, 1.0, 0.0, 1.8, 0.4, true);
++
++  EXPECT_NEAR(cmd.linear.x, -0.4, 1e-12);
++  EXPECT_NEAR(cmd.angular.z, 0.5, 1e-12);
++}
++
++TEST(TebUtils, SteeringRateLimitMovesFromCurrentAngleInSignedDirection) {
++  geometry_msgs::msg::Twist positive;
++  positive.linear.x = 0.5;
++  positive.angular.z = 0.5;
++  saturateSteeringAngle(positive, 0.0, 1.0, 0.5, 0.1);
++  const auto positive_drive = convertTwistToAckermann(positive, 0.5, 0.0);
++  EXPECT_NEAR(positive_drive.second, 0.1, 1e-12);
++
++  geometry_msgs::msg::Twist negative;
++  negative.linear.x = 0.5;
++  negative.angular.z = -0.5;
++  saturateSteeringAngle(negative, 0.0, 1.0, 0.5, 0.1);
++  const auto negative_drive = convertTwistToAckermann(negative, 0.5, 0.0);
++  EXPECT_NEAR(negative_drive.second, -0.1, 1e-12);
++}
++
++TEST(TebUtils, SteeringRateLimitPreservesReachableTargetAngle) {
++  geometry_msgs::msg::Twist command;
++  command.linear.x = 0.5;
++  command.angular.z = 0.1;
++  const auto desired = convertTwistToAckermann(command, 0.5, 0.0);
++  saturateSteeringAngle(command, 0.0, 2.0, 0.5, 0.1);
++  const auto limited = convertTwistToAckermann(command, 0.5, 0.0);
++  EXPECT_NEAR(limited.second, desired.second, 1e-12);
++}
++
++}  // namespace
++}  // namespace nav2_teb_controller
++
++int main(int argc, char **argv) {
++  testing::InitGoogleTest(&argc, argv);
++  return RUN_ALL_TESTS();
++}
+diff --git a/test/unit/g2o_types/test_edge_via_point.cpp b/test/unit/g2o_types/test_edge_via_point.cpp
+new file mode 100644
+index 0000000000000000000000000000000000000000..0a1c9ccd490d0c839244a4e6043bccb007e3c129
+--- /dev/null
++++ b/test/unit/g2o_types/test_edge_via_point.cpp
+@@ -0,0 +1,40 @@
++#include <gtest/gtest.h>
++
++#include <Eigen/Core>
++
++#include "nav2_teb_controller/g2o_types/edge_via_point.h"
++#include "nav2_teb_controller/g2o_types/vertex_pose.h"
++#include "test_jacobian_utils.hpp"
++
++using namespace nav2_teb_controller;
++
++TEST(EdgeViaPoint, ComputesDistanceToReferencePoint) {
++  EdgeViaPoint edge;
++  VertexPose vertex;
++  vertex.setEstimate(PoseSE2(4.0, 6.0, 0.7));
++  const Eigen::Vector2d via_point(1.0, 2.0);
++
++  edge.setVertex(0, &vertex);
++  edge.setViaPoint(&via_point);
++  edge.computeError();
++
++  EXPECT_NEAR(edge.error()[0], 5.0, 1e-12);
++}
++
++TEST(EdgeViaPoint, JacobianMatchesNumeric) {
++  EdgeViaPoint edge;
++  VertexPose vertex;
++  vertex.setEstimate(PoseSE2(2.4, -0.8, 0.3));
++  const Eigen::Vector2d via_point(0.2, 1.1);
++
++  edge.setVertex(0, &vertex);
++  edge.setViaPoint(&via_point);
++  edge.computeError();
++
++  expectAnalyticJacobianMatchesNumericUnary(edge);
++}
++
++int main(int argc, char **argv) {
++  testing::InitGoogleTest(&argc, argv);
++  return RUN_ALL_TESTS();
++}

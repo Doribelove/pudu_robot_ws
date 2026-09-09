@@ -17,7 +17,66 @@ from arena_evaluation.semantic_costmap_r2 import (
 )
 from arena_evaluation.semantic_smac_session import SemanticSmacSession
 from arena_evaluation.semantic_smac_session_r2 import ExactSemanticSmacSessionR2
+from arena_evaluation.semantic_query_defaults import (
+    DEFAULT_MAP_HASH,
+    DEFAULT_QUERY_HASH,
+    DEFAULT_QUERY_IDS,
+    DEFAULT_QUERY_SET_ID,
+    DEFAULT_QUERY_SET_PATH,
+    DEFAULT_SEMANTIC_MAP_HASH,
+    QuerySetContractError,
+    load_query_set,
+)
+from arena_evaluation import two_layer_v2_semantic_r2_benchmark as r2_benchmark
 from test_two_layer_v2_semantic_r1 import cell, fixture
+
+
+def test_default_real_map_query_set_is_frozen_safe_and_strictly_gt50m():
+    queries, intents, metadata = load_query_set(
+        DEFAULT_QUERY_SET_PATH,
+        actual_map_hash=DEFAULT_MAP_HASH,
+        actual_semantic_map_hash=DEFAULT_SEMANTIC_MAP_HASH,
+        require_default_contract=True,
+    )
+    assert metadata["query_set_id"] == DEFAULT_QUERY_SET_ID
+    assert metadata["query_hash"] == DEFAULT_QUERY_HASH
+    assert metadata["query_set_source_mode"] == "map_bound_default"
+    assert tuple(query.query_id for query in queries) == DEFAULT_QUERY_IDS
+    assert len(queries) == len(intents) == 8
+    assert all(intent.footprint_safe and intent.purpose_verified for intent in intents)
+    assert all(
+        float(intent.verification["topology_route_length_m"]) > 50.0
+        for intent in intents
+    )
+    assert all(
+        float(intent.verification["minimum_endpoint_clearance_m"]) >= 1.5
+        for intent in intents
+    )
+
+
+def test_default_query_set_rejects_wrong_active_map_hash():
+    with pytest.raises(QuerySetContractError, match="map hash mismatch"):
+        load_query_set(
+            DEFAULT_QUERY_SET_PATH,
+            actual_map_hash="wrong-map",
+            actual_semantic_map_hash=DEFAULT_SEMANTIC_MAP_HASH,
+            require_default_contract=True,
+        )
+
+
+def test_r2_real_ablation_selects_map_bound_queries_by_default():
+    path, require_default, legacy_gates = r2_benchmark._real_query_set_selection(None, False)
+    assert path == DEFAULT_QUERY_SET_PATH.resolve()
+    assert require_default is True
+    assert legacy_gates is False
+    generated_path, generated_default, generated_legacy = (
+        r2_benchmark._real_query_set_selection(None, True)
+    )
+    assert generated_path is None
+    assert generated_default is False
+    assert generated_legacy is True
+    with pytest.raises(ValueError, match="mutually exclusive"):
+        r2_benchmark._real_query_set_selection(DEFAULT_QUERY_SET_PATH, True)
 
 
 def test_pinned_effective_mapping_has_frozen_multi_source_result():

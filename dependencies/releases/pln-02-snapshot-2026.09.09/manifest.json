@@ -1,0 +1,111 @@
+{
+  "snapshot_id": "pln-02-snapshot-2026.09.09",
+  "scope": "Existing dependency modifications; restore only onto each exact clean base, never stack on historical patches.",
+  "evaluation_base": {
+    "path": "external/arena4_ws/src/arena/evaluation",
+    "url": "https://github.com/voshch/arena-evaluation.git",
+    "commit": "94762429bea19b84cab50a3d0910a736184738a0",
+    "restore": "Overlay the parent repository's tracked evaluation/arena_evaluation and arena_evaluation_msgs source files onto this baseline."
+  },
+  "dependencies": [
+    {
+      "name": "nav2-teb",
+      "path": "external/arena4_ws/src/nav2_teb_controller",
+      "base_commit": "2c5dc1b7b44a523bfce2d29e1c7d48b21b3f3cbb",
+      "url": "https://github.com/danielyousef/nav2_teb_controller.git",
+      "patch": "nav2-teb.patch",
+      "patch_sha256": "36ba8dbec89e46ad9c48a2dfa69d2d7726af45bd02bd6edaf6245ae8636874c2",
+      "expected_files": {
+        "AGENTS.md": "68d37f22926fc153b60deef63a2821438f9c8a2b112f238788ced0691dbb50c4",
+        "CMakeLists.txt": "8c9355c15a25ce293f54c141e4e1116c466b8740b7aef0218c18086b89e9f6eb",
+        "Makefile": "1845406fc225a9755a96d4fc85627761e865e6bb4cb7a42632226f8e71e41dfa",
+        "README.md": "cfbc224c13f4b8fb5b5e7d0ba4966aa2db0b1641ac8fbb1feadff959c5ddabf8",
+        "config/teb_controller_parameters.yaml": "2e32e525d0791a59515158e8a7025266a97850bbdf7b969beff48db4c7105e0c",
+        "doc/architecture.md": "7599ea20eede7dbc57f7d00a5e2f946df90a37a60cd2bf35cbc6d04f1436a1b1",
+        "doc/parameters.md": "74cf57feb39c4a5d16990f44e9d453657b179664cf8492392983855b4f1ee4e6",
+        "doc/status.md": "94132a19c812f8a554e4554ef8cdfb29cd099ea796080cc2689ddb0944a20e6c",
+        "include/nav2_teb_controller/core/footprint.hpp": "9cc571512202db8160cc1c615695aca4790530ad8bd0bc2ef24d4ba9c4008d59",
+        "include/nav2_teb_controller/core/teb_utils.hpp": "dbf87179aa0688717d886ee667955d8b920f797ef05fd9161be0b1a8bc63c42a",
+        "include/nav2_teb_controller/g2o_types/edge_esdf_obstacle.h": "c34e754bac0cc195abcbc22a0093b8551a2000fa424e0091c2cbfc6efdfaf07a",
+        "include/nav2_teb_controller/g2o_types/edge_kinematic_car_like.h": "c5254d61a96ac76fc0e53a5a8d097f4d5fa00cd1739a3c50f30ed60818973d44",
+        "include/nav2_teb_controller/g2o_types/edge_via_point.h": "2fda8b90d85bb35d3f215beb1bfb4ded02f709f43924cdeda2e4019c27a13bfe",
+        "include/nav2_teb_controller/homotopy/homotopy_class_planner.hpp": "80f9d667d9109f5cb66a07b491dea37315afc08d615616559c8a4c68cb786ca2",
+        "include/nav2_teb_controller/obstacles/esdf.hpp": "ffc029dd2e85bdce7d350c889d616af61af700aa2f26438f8135bcb2ad06ab02",
+        "include/nav2_teb_controller/planner/optimal_planner.hpp": "1f11c9b09a1b69f97bb76f3e69f2fcb7a5183bbab88622a0bc78cdceb79d514e",
+        "include/nav2_teb_controller/planner/planner_interface.hpp": "5bd18d0abc9d84b40ab3f93efc1a2a998467d4d01c6c0daa3b844b537eed5da2",
+        "include/nav2_teb_controller/teb_controller.hpp": "32ba3095b68b2c6234f67a106b48d27d626c61c58f092f42d1d33e10c5d81d46",
+        "package.xml": "931cc2d7023c85e12f8cd47a385c3aea89d2e9b674a8d266d27be6b09d2f801c",
+        "src/core/teb_utils.cpp": "45803505314426be8273ec8468a5c7bfed108c51691d0e77ac59939a76e14995",
+        "src/homotopy/homotopy_class_planner.cpp": "eece6e1295e94f36462b52b2405695c149e9d5e6c7c3630bbb8aa11a4d2d99a2",
+        "src/planner/optimal_planner.cpp": "85eb209c210adcf54952450e21053def199d006f091e3a442a858cc9e6a46ac5",
+        "src/teb_controller.cpp": "7e7bfb1e77b9161e1b0e302635de5ed0b62139a40a6167dc33d026ac8f53bac0",
+        "test/CMakeLists.txt": "2aed1e18dac7a11d9b8d143102346247bb7a55f7d8cb3e36a313887f61f3a059",
+        "test/unit/g2o_types/test_edge_esdf_obstacle.cpp": "3a27ba187e37d65a0aefab6cd13e292ad63fb94ed86380cb9eb3e054548b3031",
+        "test/unit/g2o_types/test_edge_kinematic_car_like.cpp": "dd2faed61ce27cbb33bb8bc5e801d27e274a62ebee93180c49e9e447b2c0d925",
+        "test/unit/planner/test_planner_graph_lifecycle.cpp": "24e1d02a794aab4635dabd81eafb747f22a97140e60c7da8514d9350f3bf2660",
+        "config/jackal_skid_steer_1p2.yaml": "acb47be2825e0f7d2b228c22ab5d873c777a9071bad3919f1c6d17a21e6ef52e",
+        "test/unit/core/test_teb_utils.cpp": "b6d6722d832233766a444f866c680d47c1f326f06423909a16dd601dc9916f01",
+        "test/unit/g2o_types/test_edge_via_point.cpp": "4486be83455e82bbdc23f53d006c57c4d432933e4851535a1c4b4ae9117de364"
+      }
+    },
+    {
+      "name": "simulation-setup",
+      "path": "external/arena4_ws/src/arena/simulation-setup",
+      "base_commit": "3f142b25d88ce962c803b57cf20f38985d376dea",
+      "url": "https://github.com/voshch/arena-simulation-setup.git",
+      "patch": "simulation-setup.patch",
+      "patch_sha256": "29e7e676d8836649b8c4a690e397b99d4796b406ab66166d710f42ac59d8a29b",
+      "expected_files": {
+        "arena_simulation_setup/utils/models/urdf.py": "b180cb022fb7ae8e935f4350f4b31edd1cf039614b7590b79cb144c243c2f777",
+        "configs/nav2/controllers/mppi/controller_config.yaml": "b1667f17d3be54e7d07fcd2fba4712effb18f32fe3374d9adad87924a57b6453",
+        "configs/nav2/model_params.yaml": "6f414194706c7c7cfc5e7359295ae95147dc5c9ebcb3382d4cf52c0ad0fcaf96",
+        "configs/nav2/nav2.yaml": "0dbc5858fe0c6ca147766af95658bc11857d1295a100e315a9b738823bc78a5c",
+        "configs/nav2/planners/smac_2d/planner_config.yaml": "05515c46bc847150f0bb9df4101b2fbaef704d4061f896c133eecdcb49364584",
+        "entities/robots/turtlebot/mappings.yaml": "19c1e82655fa356a3ea8c9ba3d703c6984537da8fb9010f369b58c7f0d12ea8d",
+        "entities/robots/turtlebot/model_params.yaml": "daf2a238762517a540cd40b435e4095cb99af9159fff16d389fdf18d6443d88a",
+        "entities/robots/turtlebot/urdf/turtlebot.urdf.xacro": "3ef58bac5d3c9802af9789472d7839c9c52b2e5ccdadb74eb87501f74248d01b",
+        "launch/nav2.launch.py": "7d776fba2f5f948e82869ed28ddae91fc2c99d71d40e9420946ccd2b04b73962",
+        "launch/robot.launch.py": "2501f97ed21f0f113b8e1aff0f4bf477599b2a73dc0e211c145efb57b943134c",
+        "worlds/hospital/worlds/hospital.world": "fe425cf55ed773301c7246fd4f31dab6645fd0a2f28d3ad32fccf7e076031bc7",
+        "worlds/hospital/worlds/hospital_three_floors.world": "eb1f46e994df97d0157b626bb93aae732373e8cabba635f3d9531f768bd7e29a",
+        "worlds/hospital/worlds/hospital_two_floors.world": "976a7093193adcce6e99a395f858df91e87cd0f032ded7242aed04262ce486d3",
+        "configs/nav2/controllers/teb/controller_config.yaml": "dc9d14024088fb0c7b0a24da9149eb203693d232d0b3b4a681c8f0c02d463563"
+      }
+    },
+    {
+      "name": "arena-rosnav",
+      "path": "external/arena4_ws/src/arena/arena-rosnav",
+      "base_commit": "c2ff4a87e8686013b53f1e9cd8b01b3ab04fbce4",
+      "url": "https://github.com/Arena-Rosnav/arena-rosnav.git",
+      "patch": "arena-rosnav.patch",
+      "patch_sha256": "4e315e8dba2a62bab1c538e776b507241cdbb2cdfb3ba9dee927d630ce6c7566",
+      "expected_files": {
+        "arena_bringup/launch/arena.launch.py": "aa107b347100b1bb9b6dc19533283497a298e02256efcb1fbfeb67f7e1c27e2d",
+        "installers/install.sh": "b05a6b238052a0fa74069dc2a2cc4ecb23436dcce60869245dd8ec26f8303e88",
+        "task_generator/package.xml": "9032e9cbbb42ed38ede59edffbce8829b342139714d87295d648829914e15808",
+        "task_generator/task_generator/manager/robot_manager/robot_manager.py": "4b44ae317875664c1456d2fc2c51336f7c3e1503e254638f049be25f216d6dd6",
+        "task_generator/task_generator/manager/world_manager/utils.py": "5ef2817bffbe79088af39e520481df8eff62e3fbb8650ccfc2189b0a15b139ed",
+        "task_generator/task_generator/manager/world_manager/world_manager.py": "5dc1a3d6355b506482f039befeaf31bd28ff0d0b0f1a9934fc55e13f830b4ee0",
+        "task_generator/task_generator/manager/world_manager/world_manager_ros.py": "3ef5441f2515c94465975d3c7ef5462b5f41fe70ddcc52f76d27fbcd4cc797ff",
+        "task_generator/task_generator/node.py": "44672ec3fb7a8fd37dcf08e8962ac79265dd57144aca1ebd8d2fdeef5263b896",
+        "task_generator/task_generator/shared.py": "db45c6ad429d46bfc787fef00f1d9be81bf5ecc97dba6a42198fe6b64ea8332b",
+        "task_generator/task_generator/simulators/human/hunav/hunav.py": "90cde332e4e78900c2d9b6be62140ce1881db44e644f754b1f9e624ea1ede7e0",
+        "task_generator/task_generator/simulators/sim/gazebo_simulator/gazebo_simulator.py": "aecba2ca73090a1f69ddbf04d0fb174c2072d4772e9998a01a6c28f6bb768b27",
+        "task_generator/task_generator/tasks/robots/guided.py": "1e85dd0a8aad37f1b087bce2b186766ed97b4386481b3595c0df48d7bf9e61e4",
+        "tools/colcon_build": "81efc21936fb07a2abc1c535dc69b2db564a2bc5c5b64d0dcd4edbcb2ac104a3",
+        "tools/source.bash": "369dea949d82a51fe543cbc49dcdfafe8885461ea398552fe0375c2dd778f6ac"
+      }
+    },
+    {
+      "name": "nav2-launch",
+      "path": "external/arena4_ws/src/deps/nav2/navigation2",
+      "base_commit": "656ae8d4c56978efbdd446fe85582f2bcd06e920",
+      "url": "git@github.com:Doribelove/navigation2.git",
+      "patch": "nav2-launch.patch",
+      "patch_sha256": "5598ba7d86afdfab836e1348c85c099c4456cb7b99e17c6a8b1b802d4e86b81f",
+      "expected_files": {
+        "nav2_bringup/launch/navigation_launch.py": "8daaaf49300da471cba298c64405baaa2dd617d7ae7a615f1bc88aeec3510258"
+      }
+    }
+  ]
+}

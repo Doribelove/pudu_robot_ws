@@ -1,0 +1,21 @@
+schema_version: PLN-02-2A-V3-R7-SAMPLED-PROGRESS-CONFIG-V1
+architecture_id: 2A-V3
+implementation_revision: r7-sampled-local-progress-strict-final
+protocol_id: PLN-02-2A-V3-R7-SAMPLED-LOCAL-PROGRESS-STRICT-FINAL-V1
+extends_config:
+  path: two_layer_v3_semantic_r6_fast_sweep.yaml
+  sha256: f459583c3765b46267cf4a4d930621393344f69f1a6b598277de002d49c5773f
+predecessor_config:
+  path: two_layer_v3_semantic_r6_fast_sweep.yaml
+  sha256: f459583c3765b46267cf4a4d930621393344f69f1a6b598277de002d49c5773f
+  frozen_result: private_data/pudu_wanda_3f/results/2a_v3_r6_fast_sweep_positive_calibration_20260907T194500Z/result.json
+  frozen_result_sha256: d5ee7457685b1aaf3129372bf32f44429e64bc59e4538db51755bd53855fb362
+  reason: R6 proved dense footprint interpolation redundant for all 739 checked choices, but dense route-progress prefilter still dominated 5.83 s
+mirror_selection:
+  selection_rule: frozen candidate-005 positive from three independent R0 replays; no R7 reselection
+performance_implementation:
+  graph_generation: lazy_guided
+  local_progress_prefilter: native analytic-edge position samples at at-most 0.025 m spacing
+  final_progress_and_naturalness_audit: unchanged dense whole-path audit; fail closed
+stage_gates:
+  stage2_offline_triad: all three fresh sampled-progress requests strict pass before online

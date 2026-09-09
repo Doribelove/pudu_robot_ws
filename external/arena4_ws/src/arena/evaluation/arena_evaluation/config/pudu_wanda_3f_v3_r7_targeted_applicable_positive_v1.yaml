@@ -1,0 +1,15 @@
+schema_version: PLN-02-2A-V3-R7-TARGETED-APPLICABLE-POSITIVE-V1
+architecture_id: 2A-V3
+implementation_revision: r7-sampled-local-progress-strict-final
+protocol_id: PLN-02-2A-V3-R7-SAMPLED-LOCAL-PROGRESS-STRICT-FINAL-V1
+extends_targeted:
+  path: pudu_wanda_3f_v3_r6_targeted_applicable_positive_v1.yaml
+  sha256: 118e3bda774dbfa30d1611ab25a2dcd93f6a8e7bffce05159a2c10525fdd7814
+composition:
+  purpose: identical frozen triad; coarse local progress prefilter plus unchanged strict dense final audit
+  predecessor_targeted_file_sha256: 118e3bda774dbfa30d1611ab25a2dcd93f6a8e7bffce05159a2c10525fdd7814
+  endpoint_change_from_r6: none
+source_evidence:
+  r6_positive_result:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r6_fast_sweep_positive_calibration_20260907T194500Z/result.json
+    sha256: d5ee7457685b1aaf3129372bf32f44429e64bc59e4538db51755bd53855fb362

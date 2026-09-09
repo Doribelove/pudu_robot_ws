@@ -1,0 +1,87 @@
+schema_version: PLN-02-2A-V3-TARGETED-APPLICABLE-POSITIVE-V1
+architecture_id: 2A-V3
+implementation_revision: r0-long-transition-directed-se2-corridor
+protocol_id: PLN-02-2A-V3-R0-LONG-TRANSITION-DIRECTED-SE2-CORRIDOR-V1
+seed: 20260907
+map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+query_hash: e8bc6434a2a5992ef0bf5e459931c2773b18989415cde7094681980ff9ec37e5
+composition:
+  purpose: one newly applicable positive plus the two frozen r3 strict-pass controls
+  replaces_only_query_id: r3-mirror-1-positive
+  inherited_negative_and_south_query_hash: 66212b05ef6c4d16eaedafc1c27866387c3d74aa85bf5ac69bca92487254667d
+  default_query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+queries:
+  - query_id: v3-applicable-mirror-positive
+    start: [-40.600998999999995, -16.683104, 1.5707963267948966]
+    goal: [-40.450998999999996, -0.5331039999999945, 1.5707963267948966]
+    category: lane_mirror_applicable_positive
+    seed: 20260907
+    validation_status: V3_DIRECTED_APPLICABILITY_CERTIFIED
+  - query_id: r3-mirror-2-negative
+    start: [-25.950998999999996, -10.683104, -0.7853981633974483]
+    goal: [-25.750998999999993, -19.133104000000003, -1.5707963267948966]
+    category: lane_mirror_regression
+    seed: 20260903
+    validation_status: R3_STRICT_OFFLINE_ACCEPTANCE_PASSED
+  - query_id: cmp2-02-lane-south
+    start: [-26.350998999999995, 21.066896, -1.5707963267948966]
+    goal: [-25.800998999999997, -33.633104, -1.4876550949064484]
+    category: lane_plain_south
+    seed: 20260904
+    validation_status: R3_STRICT_OFFLINE_ACCEPTANCE_PASSED
+intent_validation:
+  - query_id: v3-applicable-mirror-positive
+    start_semantics: [lane]
+    goal_semantics: [lane]
+    purpose_verified: true
+    verification:
+      source_candidate_id: mirror-candidate-005
+      lane_label: 5
+      lane_semantic_id: 379682499F8A4131783208994841
+      endpoint_euclidean_separation_m: 16.15069657940487
+      route_length_m: 16.460827958670347
+      route_hash: 0189f65fe80e9b4a26afa9deb706d1c197c85d035cfa724e9f2e5e560d8c8d9f
+      undirected_route_hash: 3ff12061fd4483df761e50e06899897919c09d57a468210b3feb652d129ffe8b
+      route_start_distance_m: 1.250999600319676
+      route_end_distance_m: 0.801560977094055
+      finite_graph_state_count: 692
+      finite_graph_edge_count: 43831
+      reachable_coreachable_target_state_count: 190
+      replayable_forward_only_se2_chain: true
+      padded_footprint_collision_free: true
+      ordered_progress_gate_passed: true
+      deterministic_independent_replay_count: 3
+      deterministic_replay_gate_passed: true
+      path_sha256: 38c51a4b8121389ce4157c7508cf8ed27177de7496d3996f0754d0ecf9c61666
+      certificate_hash: a06c2ea3b77c7f4d4e106a21e29ae244f6c8aa7c39a1928efe792658ac5cf589
+  - query_id: r3-mirror-2-negative
+    inherited_from: pudu_wanda_3f_r3_targeted_preflight3_v1.yaml
+    previous_strict_acceptance_gate_passed: true
+    previous_verification_sha256: e4bcd6c9d852cb49a5f86a38cddcecd506319b2f7e2fea659052e9092e197dfe
+  - query_id: cmp2-02-lane-south
+    inherited_from: pudu_wanda_3f_r3_targeted_preflight3_v1.yaml
+    previous_strict_acceptance_gate_passed: true
+    previous_verification_sha256: 7b60ddd9bdba35de4698b1421b25b6fc7b6784d8412ae7c0e3a314353b49a558
+source_evidence:
+  selection_result:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r0_long_mirror_applicability_selection_20260907T110000Z/selection_result.json
+    sha256: 520ae7ccb2d060e7f83c5c7321f4d898a35480cf94d1cd6f7ea9c8fe3e18a08d
+    note: pair selection returned no bidirectional pair; positive certificate is independently frozen under the user's approved single-positive rule
+  deterministic_replay:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r0_candidate005_positive_replay_20260907T113000Z/replay_summary.json
+    sha256: 2ad51678ff192d7380c6ef75a81e154089e8b7c0408012a9104b91f1f6477748
+  r3_strict_controls:
+    path: private_data/pudu_wanda_3f/results/transition_naturalness_triad_takeover_final_20260907T090000Z/gate_results.json
+    sha256: 7112954c9ca1ad8b403e8629dea1fa332eaba9aa60af7b6b4d51666493e4eeb8
+excluded_negative_regressions:
+  - query_id: r3-mirror-1-positive
+    status: NOT_APPLICABLE
+    counts_as_success: false
+    retained_for_regression: true
+    reason: NO_PREGOAL_TARGET_IN_FROZEN_SAMPLED_PROJECTION
+  - query_id: mirror-candidate-005-negative
+    status: NOT_APPLICABLE
+    counts_as_success: false
+    retained_for_regression: true
+    reason: LANE_INSTANCE_BINDING_FAILED

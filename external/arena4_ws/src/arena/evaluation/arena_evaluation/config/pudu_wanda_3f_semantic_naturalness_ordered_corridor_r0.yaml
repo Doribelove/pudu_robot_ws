@@ -1,0 +1,90 @@
+schema_version: pudu_wanda_3f_semantic_naturalness_ordered_corridor_r0
+protocol_id: PLN-02-SEMANTIC-NATURALNESS-ORDERED-CORRIDOR-R0-V1
+status: positive_ordered_corridor_probe_failed_online_not_run
+architecture_id: UNNAMED_SEMANTIC_PLANNER_CANDIDATE
+parent_architecture_id: 2A-V2
+contract_protocol_id: PLN-02-SEMANTIC-ENDPOINT-TRANSITION-R2-V1
+contract_revision: semantic-endpoint-transition-short-full-6m-r2
+
+inputs:
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  targeted_query_hash: 66212b05ef6c4d16eaedafc1c27866387c3d74aa85bf5ac69bca92487254667d
+  selected8_query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+  map_resolution_m: 0.05
+  semantic_sample_spacing_m: 0.025
+  yaw_bins: 48
+  request_poses_frozen: true
+  historical_witness_as_planner_output_allowed: false
+  frozen_path_replay_for_offline_audit_allowed: true
+
+naturalness_audit:
+  purpose: operationalize_the_existing_no_unnecessary_loop_or_doubleback_clause
+  changes_r2_semantic_thresholds: false
+  route_direction: frozen_query_start_to_goal_oriented_l1_route
+  terminal_plane: through_exact_goal_normal_to_terminal_route_tangent
+  terminal_tangent_window_m: 0.53
+  route_endpoint_binding_limit_m: 6.0
+  route_endpoint_binding_limit_role: maximum_extent_only_not_direction_proof
+  terminal_goal_gap_lateral_limit_m: 0.225
+  terminal_goal_gap_lateral_limit_source: padded_footprint_half_width
+  nonzero_terminal_goal_gap_must_follow_forward_terminal_route_ray: true
+  path_projection_numeric_tolerance_m: 1.0e-9
+  topology_projection_numeric_tolerance: one_position_sample_cell
+  counterflow_definition: negative_heading_dot_and_exact_padded_footprint_overlap
+  nonlocal_arc_separation_m: pi_times_minimum_turning_radius
+  backward_progress_failure: contiguous_run_or_cumulative_short_runs_reach_pi_times_minimum_turning_radius
+  shorter_endpoint_attachment_regression: diagnostic_only
+  arbitrary_near_distance_threshold_used: false
+  padded_footprint_half_length_m: 0.265
+  padded_footprint_half_width_m: 0.225
+  require_target_credit_provenance: true
+  missing_route_or_audit_evidence_policy: fail_closed
+  accepted_statuses: [NO_SUSPECT_EXCURSION]
+  detour_justification_acceptance_implemented: false
+  rejected_statuses:
+    - DETOUR_JUSTIFICATION_REQUIRED
+    - INVALID_INPUT
+  failure_codes:
+    - GOAL_PLANE_OVERSHOOT
+    - BACKWARD_ROUTE_PROGRESS
+    - NONLOCAL_REVERSE_FOOTPRINT_OVERLAP
+    - TARGET_CREDIT_AFTER_GOAL_PLANE
+  detour_justification:
+    exact_same_input_effective_master_required: true
+    complete_padded_footprint_required: true
+    forward_only_dubins_required: true
+    minimum_turning_radius_m: 0.40
+    maximum_curvature_1pm: 2.50
+    hard_semantics_required: true
+    soft_semantic_failure_does_not_make_a_safety_detour_necessary: true
+
+ordered_corridor_probe:
+  current_execution_scope: r3-mirror-1-positive_only
+  triad_planner_candidate_claimed: false
+  reason: endpoint_attachment_limit_is_probe_specific_and_not_validated_for_the_other_two_queries
+  station_domain: closed_frozen_route_start_to_goal
+  station_regression_allowed: false
+  goal_plane_overshoot_allowed: false
+  same_lane_instance_required: true
+  candidate_source: request_map_semantic_route_only
+  heading_bins: 48
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  complete_padded_footprint_required: true
+  deterministic_tie_break_required: true
+  finite_graph_failure_is_continuous_infeasibility_proof: false
+
+gates:
+  targeted_query_ids:
+    - r3-mirror-1-positive
+    - r3-mirror-2-negative
+    - cmp2-02-lane-south
+  targeted_offline_required_pass_count: 3
+  online_starts_only_after_targeted_offline_all_pass: true
+  selected8_starts_only_after_targeted_online_all_pass: true
+  failure_policy: fail_closed
+  current_online_status: NOT_RUN_OFFLINE_GATE_FAILED
+  current_selected8_status: NOT_RUN_OFFLINE_GATE_FAILED

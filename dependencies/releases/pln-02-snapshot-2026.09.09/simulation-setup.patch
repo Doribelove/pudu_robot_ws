@@ -1,0 +1,726 @@
+diff --git a/arena_simulation_setup/utils/models/urdf.py b/arena_simulation_setup/utils/models/urdf.py
+index d47789dd902bfd740a8639af9885d4079dc71243..4647eb005a37d446ee38dd6773d342bb9234ae15 100644
+--- a/arena_simulation_setup/utils/models/urdf.py
++++ b/arena_simulation_setup/utils/models/urdf.py
+@@ -4,9 +4,12 @@ import subprocess
+ import sys
+ import tempfile
+ import xml.etree.ElementTree as ET
++from pathlib import Path
+ from typing import Any, Optional
+ 
+ import attrs
++from ament_index_python.packages import (PackageNotFoundError,
++                                         get_package_share_directory)
+ 
+ from . import ITF_ModelLoader, Model, ModelType, _ModelLoader
+ 
+@@ -49,30 +52,120 @@ class ModelLoader_URDF(ITF_ModelLoader):
+                 ),
+             ]).decode("utf-8")
+ 
+-            with open(model_path, 'w') as f:
+-                f.write(model_desc)
+-
+             base_dir = os.path.dirname(model_path)
+-            tree = ET.parse(model_path)
++            tree = ET.ElementTree(ET.fromstring(model_desc))
+             root = tree.getroot()
+ 
+-            prefix = "package://jackal_description"
+-
+-            # Iterate over every element in the XML tree and update 'filename' attributes
++            if model == 'turtlebot':
++                # The upstream Create 3 description defaults to Gazebo
++                # Classic and injects ROS Classic system plugins.  Arena's
++                # TurtleBot description supplies its own Gazebo Harmonic
++                # drive, odometry, joint-state, IMU and lidar systems, so the
++                # legacy plugins are both redundant and unloadable in gz-sim.
++                legacy_plugin_prefixes = (
++                    'libgazebo_ros',
++                    'libign_ros2_control',
++                    'libignition-gazebo-',
++                )
++                for parent in root.iter():
++                    for child in list(parent):
++                        tag = child.tag.rsplit('}', 1)[-1]
++                        filename = child.attrib.get('filename', '')
++                        if tag == 'plugin' and filename.startswith(legacy_plugin_prefixes):
++                            parent.remove(child)
++                            print(f'Removed legacy TurtleBot simulator plugin: {filename}')
++
++                # ODE's trimesh-vs-trimesh contact path overflows continuously
++                # when the two detailed TurtleBot collision meshes touch the
++                # hospital's mesh floor.  Keep the detailed visual meshes, but
++                # use the existing cylindrical Create 3 footprint for physics.
++                # The base already has a 0.164 m cylinder; the bumper gets a
++                # slightly larger primitive so contact sensing still works.
++                for link in root.findall('link'):
++                    link_name = link.attrib.get('name', '')
++                    for collision in list(link.findall('collision')):
++                        geometry = collision.find('geometry')
++                        if geometry is None or geometry.find('mesh') is None:
++                            continue
++                        if link_name == 'shell_link':
++                            link.remove(collision)
++                            print('Removed redundant TurtleBot shell collision mesh')
++                        elif link_name == 'bumper':
++                            geometry.clear()
++                            ET.SubElement(
++                                geometry,
++                                'cylinder',
++                                {'radius': '0.17', 'length': '0.04'},
++                            )
++                            print('Replaced TurtleBot bumper collision mesh with a cylinder')
++
++                # The Create 3 description also enables eleven unbridged
++                # cliff / IR ray sensors at 62 Hz.  They consume most of a CPU
++                # core in the hospital without providing data to Arena Nav2.
++                # Retain exactly the sensors exposed in mappings.yaml and cap
++                # them at rates the 20 Hz hospital physics loop can produce.
++                sensor_rates = {
++                    'bumper_contact_sensor': '20',
++                    'gpu_lidar': '10',
++                    'imu_sensor': '20',
++                    'rgbd_camera': '10',
++                }
++                for parent in root.iter():
++                    for child in list(parent):
++                        if child.tag.rsplit('}', 1)[-1] != 'sensor':
++                            continue
++                        sensor_name = child.attrib.get('name', '')
++                        if sensor_name not in sensor_rates:
++                            parent.remove(child)
++                            print(f'Removed unused TurtleBot sensor: {sensor_name}')
++                            continue
++                        for setting in child:
++                            setting_tag = setting.tag.rsplit('}', 1)[-1]
++                            if setting_tag == 'update_rate':
++                                setting.text = sensor_rates[sensor_name]
++                            elif setting_tag == 'visualize':
++                                setting.text = 'false'
++
++            # Resolve mesh resources for Gazebo / Isaac without rewriting
++            # system-plugin library names, which also use a `filename`
++            # attribute but must remain discoverable through the plugin path.
+             for elem in root.iter():
+-                if 'filename' in elem.attrib:
+-                    original_path = elem.attrib['filename']
+-                    # Remove the specific package prefix if present
+-                    if original_path.startswith(prefix):
+-                        # Remove the prefix and any leading '/'
+-                        new_relative = original_path[len(prefix):].lstrip('/')
+-                        original_path = new_relative
+-                        print(f"Removed prefix: {prefix} -> New relative path: {original_path}")
+-                    # Convert to absolute path if it's not already
+-                    if not os.path.isabs(original_path):
+-                        abs_path = os.path.abspath(os.path.join(base_dir, original_path))
+-                        elem.attrib['filename'] = abs_path
+-                        print(f"Updated relative path to absolute: {original_path} -> {abs_path}")
++                tag = elem.tag.rsplit('}', 1)[-1]
++                if tag != 'mesh' or 'filename' not in elem.attrib:
++                    continue
++
++                original_path = elem.attrib['filename']
++                resolved_path = original_path
++
++                if original_path.startswith('package://'):
++                    package_path = original_path[len('package://'):]
++                    package_name, separator, relative_path = package_path.partition('/')
++                    if not separator:
++                        print(f"Invalid package mesh URI, leaving unchanged: {original_path}", file=sys.stderr)
++                        continue
++                    try:
++                        package_share = get_package_share_directory(package_name)
++                    except PackageNotFoundError:
++                        print(f"Package for mesh URI not found, leaving unchanged: {original_path}", file=sys.stderr)
++                        continue
++                    resolved_path = os.path.join(package_share, relative_path)
++                elif original_path.startswith('file://'):
++                    resolved_path = original_path[len('file://'):]
++                elif '://' in original_path:
++                    # Keep non-file schemes (for example model://) intact.
++                    continue
++                elif not os.path.isabs(original_path):
++                    resolved_path = os.path.join(base_dir, original_path)
++
++                resolved_path = os.path.realpath(os.path.abspath(resolved_path))
++                # URDF accepts URI resources, while a bare absolute filename is
++                # not handled consistently by RViz's resource_retriever / Assimp
++                # path.  A canonical file URI works in both RViz and gz-sim and
++                # also removes the fragile install-space symlink from the path.
++                resolved_uri = Path(resolved_path).as_uri()
++                elem.attrib['filename'] = resolved_uri
++                if resolved_uri != original_path:
++                    print(f"Resolved mesh URI: {original_path} -> {resolved_uri}")
+ 
+             # Write the updated XML tree to a temporary file
+             with tempfile.NamedTemporaryFile(delete=False, suffix=".urdf", mode="wb") as tmp:
+@@ -80,10 +173,13 @@ class ModelLoader_URDF(ITF_ModelLoader):
+                 temp_filepath = tmp.name
+                 print(f"Converted URDF saved to temporary file: {temp_filepath}")
+ 
++            with open(temp_filepath, encoding='utf-8') as f:
++                resolved_model_desc = f.read()
++
+             return Model(
+                 type=ModelType.URDF,
+                 name=model,
+-                description=model_desc,
++                description=resolved_model_desc,
+                 path=temp_filepath
+             )
+ 
+diff --git a/configs/nav2/controllers/mppi/controller_config.yaml b/configs/nav2/controllers/mppi/controller_config.yaml
+index 73b123d604e7305e430248200c3aaacf69c56d70..761931e38e7b6f88ed942cbf26c70ab122c22403 100644
+--- a/configs/nav2/controllers/mppi/controller_config.yaml
++++ b/configs/nav2/controllers/mppi/controller_config.yaml
+@@ -1,10 +1,12 @@
++controller_frequency: 20.0  # Must match the 0.05 s MPPI model step.
++
+ controller_plugins:
+  - FollowPath
+ controller_plugins_dict:
+  FollowPath:
+    plugin: "nav2_mppi_controller::MPPIController"
+    time_steps: 56
+-   model_dt: 0.25
++   model_dt: 0.05
+    batch_size: 2000
+    vx_std: 0.2
+    vy_std: 0.2
+@@ -82,4 +84,4 @@ controller_plugins_dict:
+      offset_from_furthest: 4
+      threshold_to_consider: 0.5
+      max_angle_to_furthest: 1.0
+-     mode: 0
+\ No newline at end of file
++     mode: 0
+diff --git a/configs/nav2/model_params.yaml b/configs/nav2/model_params.yaml
+index b2c8a86fe0ea286f8ae1b89d947d9ee204d0c0d0..7db233f05667230fa215fadc2258df23add807e9 100644
+--- a/configs/nav2/model_params.yaml
++++ b/configs/nav2/model_params.yaml
+@@ -1,3 +1,5 @@
++controller_frequency: 1.0
++
+ observation_sources_string: "scan" # massive bullshit, costmaps still need string param
+ observation_sources:
+   - scan
+@@ -33,4 +35,4 @@ planner_plugins_dict:
+ footprint: "[ [0.1, 0.1], [0.1, -0.1], [-0.1, -0.1], [-0.1, 0.1] ]"
+ 
+ robot_base_frame: 'base_link'
+-robot_odom_frame: 'odom'
+\ No newline at end of file
++robot_odom_frame: 'odom'
+diff --git a/configs/nav2/nav2.yaml b/configs/nav2/nav2.yaml
+index 14f55768cdbd32b05e9781d230d30717910b9342..5ade79dc1dd0dc10a7decc1a1b25960e57eddcf7 100644
+--- a/configs/nav2/nav2.yaml
++++ b/configs/nav2/nav2.yaml
+@@ -64,7 +64,7 @@ bt_navigator_rclcpp_node:
+ controller_server:
+   ros__parameters:
+     use_sim_time: True
+-    controller_frequency: 1.0
++    controller_frequency: ${controller_frequency}
+     min_x_velocity_threshold: 0.001
+     min_y_velocity_threshold: 0.5
+     min_theta_velocity_threshold: 0.001
+@@ -175,7 +175,7 @@ global_costmap:
+       robot_base_frame: ${frame:-}${robot_base_frame:-base_link}
+       use_sim_time: True
+       footprint: ${footprint}
+-      resolution: 0.05
++      resolution: 0.1
+       width: 20
+       height: 20
+       origin_x: -10.0
+@@ -195,7 +195,7 @@ global_costmap:
+       inflation_layer:
+         plugin: "nav2_costmap_2d::InflationLayer"
+         cost_scaling_factor: 3.0
+-        inflation_radius: 0.25
++        inflation_radius: 0.55
+       always_send_full_costmap: True
+   global_costmap_client:
+     ros__parameters:
+@@ -224,26 +224,50 @@ planner_server_rclcpp_node:
+   ros__parameters:
+     use_sim_time: True
+ 
+-recoveries_server:
++behavior_server:
+   ros__parameters:
+     costmap_topic: local_costmap/costmap_raw
+     footprint_topic: local_costmap/published_footprint
+     cycle_frequency: 10.0
+-    recovery_plugins: ["spin", "back_up", "wait"]
++    behavior_plugins: ["spin", "backup", "drive_on_heading", "assisted_teleop", "wait"]
+     spin:
+-      plugin: "nav2_recoveries/Spin"
+-    back_up:
+-      plugin: "nav2_recoveries/BackUp"
++      plugin: "nav2_behaviors/Spin"
++    backup:
++      plugin: "nav2_behaviors/BackUp"
++    drive_on_heading:
++      plugin: "nav2_behaviors/DriveOnHeading"
++    assisted_teleop:
++      plugin: "nav2_behaviors/AssistedTeleop"
+     wait:
+-      plugin: "nav2_recoveries/Wait"
++      plugin: "nav2_behaviors/Wait"
+     global_frame: ${frame:-}${robot_odom_frame:-odom}
+     robot_base_frame: ${frame:-}${robot_base_frame:-base_link}
+     transform_timeout: 0.0
+     use_sim_time: true
+     simulate_ahead_time: 2.0
+-    max_rotational_vel: 1.0
++    max_rotational_vel: 1.8
+     min_rotational_vel: 0.4
+-    rotational_acc_lim: 3.2
++    rotational_acc_lim: 2.0
++
++velocity_smoother:
++  ros__parameters:
++    use_sim_time: True
++    smoothing_frequency: 20.0
++    scale_velocities: false
++    # Arena resets use SetEntityPose, which creates a discontinuity in Gazebo
++    # odometry. CLOSED_LOOP interprets that one-frame jump as real speed and
++    # can command a surge after teleporting. OPEN_LOOP keeps the smoother's
++    # state based on bounded commands and is deterministic across task resets.
++    feedback: "OPEN_LOOP"
++    # Match the Jackal TEB limits exactly so this stage only smooths commands.
++    max_velocity: [1.2, 0.0, 1.8]
++    min_velocity: [-0.40, 0.0, -1.8]
++    max_accel: [2.5, 0.0, 2.0]
++    max_decel: [-2.5, 0.0, -2.0]
++    odom_topic: "odom"
++    odom_duration: 0.1
++    deadband_velocity: [0.0, 0.0, 0.0]
++    velocity_timeout: 0.5
+ 
+ collision_monitor:
+   ros__parameters:
+diff --git a/configs/nav2/planners/smac_2d/planner_config.yaml b/configs/nav2/planners/smac_2d/planner_config.yaml
+index b443231d94ddcd4a5f1bb9e1349d397f46247c23..3406dc4f89481759d515aacb26e4555421cc5f24 100644
+--- a/configs/nav2/planners/smac_2d/planner_config.yaml
++++ b/configs/nav2/planners/smac_2d/planner_config.yaml
+@@ -5,7 +5,7 @@ planner_plugins_dict:
+     tolerance: 0.125
+     downsample_costmap: false
+     downsampling_factor: 1
+-    allow_unknown: true
++    allow_unknown: false
+     max_iterations: 1000000
+     max_on_approach_iterations: 1000
+     max_planning_time: 2.0
+@@ -15,4 +15,4 @@ planner_plugins_dict:
+       max_iterations: 1000
+       w_smooth: 0.3
+       w_data: 0.2
+-      tolerance: 1.0e-10
+\ No newline at end of file
++      tolerance: 1.0e-10
+diff --git a/entities/robots/turtlebot/mappings.yaml b/entities/robots/turtlebot/mappings.yaml
+index 9b037d1a61f232046521657b58e2043ff8e8edbe..b631769c2c37cb4ee13263b446df4bce19ecf864 100644
+--- a/entities/robots/turtlebot/mappings.yaml
++++ b/entities/robots/turtlebot/mappings.yaml
+@@ -43,7 +43,7 @@
+   {
+     "gz_topic": "{world}/model/{robot_name}/link/bumper/sensor/bumper_contact_sensor/contact",
+     "ros_topic": "bumper/contact",
+-    "ros_type": "visualization_msgs/msg/Marker", # Adjust based on actual ROS message type
++    "ros_type": "ros_gz_interfaces/msg/Contacts",
+     "gz_type": "gz.msgs.Contacts",
+     "direction": "[",
+   },
+@@ -87,13 +87,6 @@
+     "gz_type": "gz.msgs.Pose_V",
+     "direction": "[",
+   },
+-  {
+-    "gz_topic": "/model/{robot_name}/tf_static",
+-    "ros_topic": "/tf_static",
+-    "ros_type": "tf2_msgs/msg/TFMessage",
+-    "gz_type": "gz.msgs.Pose_V",
+-    "direction": "[",
+-  },
+   # joint states
+   {
+     "gz_topic": "/model/{robot_name}/joint_states",
+diff --git a/entities/robots/turtlebot/model_params.yaml b/entities/robots/turtlebot/model_params.yaml
+index 2d5aa9e2f5aa881101179d912728f29b82b68485..a7a6a7334a3c23d60a866ad71902ec5dfd29b456 100644
+--- a/entities/robots/turtlebot/model_params.yaml
++++ b/entities/robots/turtlebot/model_params.yaml
+@@ -17,14 +17,14 @@ polygons:
+ polygons_dict:
+   StopPolygon:
+     type: "polygon"
+-    points: "[ [0.1, 0.1], [0.1, -0.1], [-0.1, -0.1], [-0.1, 0.1] ]"
++    points: "[ [0.175, 0.0], [0.124, 0.124], [0.0, 0.175], [-0.124, 0.124], [-0.175, 0.0], [-0.124, -0.124], [0.0, -0.175], [0.124, -0.124] ]"
+     action_type: "stop"
+     min_points: 4
+     visualize: True
+     polygon_pub_topic: "polygon_stop"
+     enabled: True
+ 
+-footprint: "[ [0.1, 0.1], [0.1, -0.1], [-0.1, -0.1], [-0.1, 0.1] ]"
++footprint: "[ [0.175, 0.0], [0.124, 0.124], [0.0, 0.175], [-0.124, 0.124], [-0.175, 0.0], [-0.124, -0.124], [0.0, -0.175], [0.124, -0.124] ]"
+ 
+ actions:
+   continuous:
+@@ -67,5 +67,5 @@ laser:
+   update_rate: 10
+ robot_base_frame: 'base_link'
+ robot_model: turtlebot
+-robot_radius: 0.10
++robot_radius: 0.175
+ robot_sensor_frame: rplidar_link
+diff --git a/entities/robots/turtlebot/urdf/turtlebot.urdf.xacro b/entities/robots/turtlebot/urdf/turtlebot.urdf.xacro
+index a44c6580fb7e53e73688cd2daeeba4c7a62af6c0..b91030ae15be2eb7cf10acfc7eb22da450dcaf65 100644
+--- a/entities/robots/turtlebot/urdf/turtlebot.urdf.xacro
++++ b/entities/robots/turtlebot/urdf/turtlebot.urdf.xacro
+@@ -1,9 +1,9 @@
+ <?xml version="1.0"?>
+ <robot name="turtlebot" xmlns:xacro="http://ros.org/wiki/xacro">
+   <!-- Base create3 model -->
+-  <xacro:include filename="$(find irobot_create_description)/urdf/create3.urdf.xacro">
+-    <xacro:arg name="gazebo" value="ignition"/>
+-  </xacro:include>
++  <!-- xacro:include does not accept child arguments. The Create 3 base keeps
++       its upstream default here; Arena adds its Gazebo Sim systems below. -->
++  <xacro:include filename="$(find irobot_create_description)/urdf/create3.urdf.xacro" />
+   <xacro:include filename="$(find arena_simulation_setup)/entities/robots/turtlebot/urdf/sensors/rplidar.urdf.xacro" />
+   <xacro:include filename="$(find arena_simulation_setup)/entities/robots/turtlebot/urdf/sensors/oakd.urdf.xacro" />
+   <xacro:include filename="$(find arena_simulation_setup)/entities/robots/turtlebot/urdf/sensors/camera_bracket.urdf.xacro" />
+@@ -119,8 +119,9 @@
+     <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+       <left_joint>left_wheel_joint</left_joint>
+       <right_joint>right_wheel_joint</right_joint>
+-      <wheel_separation>0.24</wheel_separation>
+-      <wheel_radius>0.098</wheel_radius>
++      <!-- Match the upstream Create 3 geometry exactly. -->
++      <wheel_separation>0.233</wheel_separation>
++      <wheel_radius>0.03575</wheel_radius>
+       <odom_publish_frequency>50</odom_publish_frequency>
+       <publish_odom>true</publish_odom>
+       <publish_odom_tf>true</publish_odom_tf>
+@@ -164,4 +165,4 @@
+   <gazebo reference="right_ir_link"></gazebo>
+   <gazebo reference="side_left_ir_link"></gazebo>
+   <gazebo reference="ir_omni_link"></gazebo>
+-</robot>
+\ No newline at end of file
++</robot>
+diff --git a/launch/nav2.launch.py b/launch/nav2.launch.py
+index e91e6b0a29e969667870e43dc85a438f6bbef707..815a624219c5714857237157250eb8fcbf86f513 100644
+--- a/launch/nav2.launch.py
++++ b/launch/nav2.launch.py
+@@ -11,6 +11,7 @@ from launch.conditions import IfCondition
+ from launch.launch_description_sources import PythonLaunchDescriptionSource
+ from launch.substitutions import PathJoinSubstitution
+ from launch_ros.actions import Node, SetRemap
++from launch_ros.parameter_descriptions import ParameterValue
+ from launch_ros.substitutions import FindPackageShare
+ 
+ 
+@@ -192,6 +193,18 @@ def generate_launch_description():
+         #     arguments=['0', '0', '0', '0', '0', '0', 'world', 'map'],
+         #     parameters=[{'use_sim_time': use_sim_time.substitution}]
+         # ),
++        Node(
++            package='tf2_ros',
++            executable='static_transform_publisher',
++            name='map_to_odom_truth',
++            namespace=namespace.substitution,
++            arguments=[
++                '0', '0', '0', '0', '0', '0',
++                'map', PathJoinSubstitution([frame.substitution, robot_odom_frame]),
++            ],
++            parameters=[{'use_sim_time': True}],
++            condition=IfCondition(PythonExpression(["'", robot.substitution, "' == 'jackal'"])),
++        ),
+         # TF publishers
+         # Node(
+         #     package="tf2_ros",
+@@ -238,31 +251,42 @@ def generate_launch_description():
+                     'odom_frame_id': PathJoinSubstitution([frame.substitution, robot_odom_frame]),
+                     'base_frame_id': PathJoinSubstitution([frame.substitution, robot_base_frame]),
+                     'scan_topic': first_observation_source_topic,
+-                    'set_initial_pose': True,
+-                    'always_reset_on_initial_pose': True,
+-                    'initial_pose_x': 0.0,
+-                    'initial_pose_y': 0.0,
+-                    'initial_pose_a': 0.0,
+-                    'odom_model_type': 'diff',
+-                    'alpha1': 0.2,
+-                    'alpha2': 0.2,
+-                    'alpha3': 0.2,
+-                    'alpha4': 0.2,
+-                    'min_particles': 200,
++                    'set_initial_pose': False,
++                    'always_reset_initial_pose': True,
++                    'robot_model_type': 'nav2_amcl::DifferentialMotionModel',
++                    # Gazebo provides deterministic ground-truth odometry. The
++                    # factory occupancy image is only an approximation of the
++                    # SDF collision geometry, so injecting synthetic odometry
++                    # noise lets scan matching pull RViz away from Gazebo.
++                    'alpha1': 0.0,
++                    'alpha2': 0.0,
++                    'alpha3': 0.0,
++                    'alpha4': 0.0,
++                    'alpha5': 0.0,
++                    'min_particles': 500,
+                     'max_particles': 2000,
+-                    'pf_err': 0.05,
++                    'pf_err': 0.02,
+                     'pf_z': 0.99,
+-                    'update_min_d': 0.1,
+-                    'update_min_a': 0.2,
+-                    'laser_max_beams': 640,
+-                    'laser_z_hit': 0.95,
+-                    'laser_z_rand': 0.05,
+-                    'laser_sigma_hit': 0.2,
++                    'update_min_d': 0.05,
++                    'update_min_a': 0.05,
++                    'max_beams': 120,
++                    'laser_model_type': 'likelihood_field_prob',
++                    'laser_max_range': 20.0,
++                    'z_hit': 0.95,
++                    'z_rand': 0.05,
++                    'sigma_hit': 0.2,
+                     'laser_likelihood_max_dist': 2.0,
+-                    'recovery_alpha_slow': 0.001,
+-                    'recovery_alpha_fast': 0.1,
+-                    'transform_tolerance': 0.2,
+-                    'tf_broadcast': True,
++                    'do_beamskip': True,
++                    'beam_skip_distance': 0.5,
++                    'beam_skip_threshold': 0.3,
++                    'beam_skip_error_threshold': 0.9,
++                    'recovery_alpha_slow': 0.0,
++                    'recovery_alpha_fast': 0.0,
++                    'transform_tolerance': 0.1,
++                    'tf_broadcast': ParameterValue(
++                        PythonExpression(["'", robot.substitution, "' != 'jackal'"]),
++                        value_type=bool,
++                    ),
+                 }],
+                 remappings=[
+                     ('/map', PathJoinSubstitution([task_generator_node.substitution, 'map'])),
+@@ -274,7 +298,7 @@ def generate_launch_description():
+             Node(
+                 package='nav2_lifecycle_manager',
+                 executable='lifecycle_manager',
+-                name='lifecycle_manager_navigation',
++                name='lifecycle_manager_localization',
+                 output='screen',
+                 parameters=[
+                     {'use_sim_time': True},
+diff --git a/launch/robot.launch.py b/launch/robot.launch.py
+index 12b36f76c3a34cfff3704f4d6710f99e4337f80d..b394dc9906b3378d63a0a5fb6722fad5984900be 100644
+--- a/launch/robot.launch.py
++++ b/launch/robot.launch.py
+@@ -76,9 +76,18 @@ def generate_launch_description():
+         package='arena_evaluation',
+         executable='record',
+         name=PythonExpression(['"data_recorder" + "', namespace.substitution, '".replace("/","_")']),
+-        arguments={
+-            '--dir': record_data_dir.substitution,
+-        }.items(),
++        # Launch arguments are positional for Node; passing a dict's items
++        # produces the invalid token ``--dir<path>`` and makes the recorder
++        # silently fall back to its timestamp directory.
++        arguments=['--dir', record_data_dir.substitution],
++        parameters=[{
++            'use_sim_time': True,
++            'model': robot.substitution,
++            'local_planner': local_planner.substitution,
++            'global_planner': global_planner.substitution,
++            'inter_planner': inter_planner.substitution,
++            'agent_name': robot.substitution,
++        }],
+         condition=launch.conditions.IfCondition(PythonExpression(['bool("', record_data_dir.substitution, '")'])),
+     )
+ 
+diff --git a/worlds/hospital/worlds/hospital.world b/worlds/hospital/worlds/hospital.world
+index 3e70658c8e69dc7bd5a76753e4da5365eda37c3e..755eceaa5342d7ce95b362e06028d7f49b2fd806 100644
+--- a/worlds/hospital/worlds/hospital.world
++++ b/worlds/hospital/worlds/hospital.world
+@@ -1,6 +1,6 @@
+ <?xml version='1.0' encoding='UTF-8'?>
+ <sdf version="1.6">
+-  <world name="world">
++  <world name="default">
+     <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+     <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+     <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+@@ -19,9 +19,10 @@
+   
+     <gravity>0 0 -9.8</gravity>
+     <physics default="0" name="default_physics" type="ode">
+-      <max_step_size>0.001</max_step_size>
++      <!-- 20 Hz physics is sufficient for the 10 Hz pedestrian update. -->
++      <max_step_size>0.05</max_step_size>
+       <real_time_factor>1</real_time_factor>
+-      <real_time_update_rate>1000</real_time_update_rate>
++      <real_time_update_rate>20</real_time_update_rate>
+     </physics>
+     
+     <scene>
+diff --git a/worlds/hospital/worlds/hospital_three_floors.world b/worlds/hospital/worlds/hospital_three_floors.world
+index f01ab278b4c37e8be2078e463a634057f136d45c..56b4f924aed2a03a2bc6adef8f3780b07cb87cc9 100644
+--- a/worlds/hospital/worlds/hospital_three_floors.world
++++ b/worlds/hospital/worlds/hospital_three_floors.world
+@@ -1,11 +1,11 @@
+ <?xml version='1.0' encoding='utf-8'?>
+ <sdf version="1.6">
+-  <world name="world">
++  <world name="default">
+     <gravity>0 0 -9.8</gravity>
+     <physics default="0" name="default_physics" type="ode">
+-      <max_step_size>0.001</max_step_size>
++      <max_step_size>0.05</max_step_size>
+       <real_time_factor>1</real_time_factor>
+-      <real_time_update_rate>1000</real_time_update_rate>
++      <real_time_update_rate>20</real_time_update_rate>
+     </physics>
+     <scene>
+       <ambient>0.6 0.6 0.6 1</ambient>
+diff --git a/worlds/hospital/worlds/hospital_two_floors.world b/worlds/hospital/worlds/hospital_two_floors.world
+index 0ff28f69c6775947d227db55ac79c50a555a80bb..9b2a26efd5503a7187309c1ff4f0340e7cb5e4d4 100644
+--- a/worlds/hospital/worlds/hospital_two_floors.world
++++ b/worlds/hospital/worlds/hospital_two_floors.world
+@@ -1,11 +1,11 @@
+ <?xml version='1.0' encoding='utf-8'?>
+ <sdf version="1.6">
+-  <world name="world">
++  <world name="default">
+     <gravity>0 0 -9.8</gravity>
+     <physics default="0" name="default_physics" type="ode">
+-      <max_step_size>0.001</max_step_size>
++      <max_step_size>0.05</max_step_size>
+       <real_time_factor>1</real_time_factor>
+-      <real_time_update_rate>1000</real_time_update_rate>
++      <real_time_update_rate>20</real_time_update_rate>
+     </physics>
+     <scene>
+       <ambient>0.6 0.6 0.6 1</ambient>
+diff --git a/configs/nav2/controllers/teb/controller_config.yaml b/configs/nav2/controllers/teb/controller_config.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..5caf3e3946557471ddbd3441795bbf67f86f73f3
+--- /dev/null
++++ b/configs/nav2/controllers/teb/controller_config.yaml
+@@ -0,0 +1,110 @@
++controller_frequency: 20.0
++
++controller_plugins:
++  - FollowPath
++
++controller_plugins_dict:
++  FollowPath:
++    plugin: "nav2_teb_controller::TEBController"
++    log_level: "info"
++    path_tracker:
++      activate: true
++    trajectory:
++      reinit_dist: 2.0
++      reinit_angle: 3.14159
++      # Reset warm-started TEB when a same-goal NavFn replan changes route.
++      reinit_path_dist: 0.35
++      auto_resize: true
++      dt_ref: 0.30
++      dt_hyst: 0.05
++      min_samples: 3
++      max_samples: 40
++      min_seg_length: 0.025
++      max_seg_length: 0.35
++      max_angle_diff: 0.25
++      # NavFn orientations can be discontinuous at grid turns. Recompute the
++      # TEB heading from the geometric path so Jackal does not chase noisy yaw.
++      overwrite_plan_orientation: true
++      # Initialize the band facing along the route. Reverse remains available
++      # to the optimizer for local escape maneuvers, but a route that starts
++      # behind the robot now causes a turn-first maneuver instead of a whole
++      # episode of backward driving.
++      allow_init_backward: false
++      # Average two band segments for a less oscillatory velocity command.
++      control_look_ahead_poses: 2
++      # A fixed 2.5 m window is about 2.1 s at 1.2 m/s: long enough to see a
++      # detour, short enough to react inside Hospital corridors.
++      max_global_plan_lookahead_dist: 2.5
++      global_plan_prune_distance: 0.25
++      control_min_look_ahead_time: 0.0
++      min_prune_distance: 0.025
++    robot:
++      footprint:
++        use_local_costmap: false
++        model: "circles"
++        # Two circles conservatively cover the 0.51 x 0.43 m Jackal rectangle
++        # without the previous model's excessive 0.64 m virtual width.
++        points: "[[-0.1275, 0.0, 0.25], [0.1275, 0.0, 0.25]]"
++      robot_model: "skid_steer"
++      wheelbase: 0.50
++      v_max_x: 1.2
++      # Useful for backing out of dead ends while remaining below forward speed.
++      v_max_x_backwards: 0.4
++      v_max_y: 0.0
++      v_max_theta: 1.8
++      a_max_x: 2.5
++      a_max_y: 0.0
++      a_max_theta: 2.0
++      jerk_max_x: 3.0
++      jerk_max_y: 0.0
++      jerk_max_theta: 4.0
++      min_turning_radius: 0.0
++      has_steering: false
++      use_proportional_saturation: true
++    optimizer:
++      solver: "eigen"
++      algorithm: "levenberg_marquardt"
++      activate: true
++      fast_mode: true
++      no_inner_iterations: 8
++      no_outer_iterations: 4
++      penalty_epsilon: 0.1
++      fix_goal: true
++      free_goal_vel: false
++      verbose: false
++      stepwise_optimization: true
++      early_exit_min_delta: 0.001
++    weights:
++      weight_time_optimal: 1.0
++      weight_shortest_path: 2.0
++      weight_path_smoothness: 4.0
++      # Follow NavFn in free space but let obstacle clearance win locally.
++      weight_viapoint: 30.0
++      weight_v_max_x: 15.0
++      weight_v_max_theta: 10.0
++      weight_a_max_x: 30.0
++      weight_a_max_theta: 40.0
++      # Finite rigidity represents skid-steer tire scrub/slip; vy remains zero.
++      weight_kinematics_nh: 1000.0
++      # Front perception is longer than rear perception on Jackal. A strong,
++      # finite preference makes forward travel the normal solution while
++      # preserving controlled reverse when obstacle feasibility requires it.
++      weight_kinematics_forward_drive: 100.0
++      # Ackermann-only in the planner; retained for other robot presets.
++      weight_g3_continuity: 25.0
++      weight_obstacle: 80.0
++      weight_inflation: 8.0
++    obstacles:
++      include_dynamic_obstacles: false
++      # Hard collision checking covers the complete transformed plan window.
++      feasibility_check: 2.5
++      min_obstacle_cost: 250
++      inflation_dist: 0.60
++      min_obstacle_dist: 0.20
++      cutoff_dist: 0.20
++      costmap_converter_plugin: ""
++      costmap_converter_rate: 2.0
++      costmap_converter_spin_thread: false
++    visualization:
++      activate: false
++      publish_rate: 10.0

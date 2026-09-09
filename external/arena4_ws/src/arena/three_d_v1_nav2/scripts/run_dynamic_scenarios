@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+"""Run the frozen-r1 dynamic-obstacle acceptance scenarios."""
+
+from three_d_v1_nav2.dynamic_scenarios import main
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"?>
+<package format="3">
+  <name>two_a_v1_nav2</name>
+  <version>0.1.0</version>
+  <description>Fail-closed Nav2 adapter for frozen 2A-V1-r2.</description>
+  <maintainer email="robot@example.com">Pudu planner research</maintainer>
+  <license>BSD-3-Clause</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav2_core</depend>
+  <depend>nav2_costmap_2d</depend>
+  <depend>nav_msgs</depend>
+  <depend>pluginlib</depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_lifecycle</depend>
+  <depend>tf2_ros</depend>
+  <exec_depend>arena_evaluation</exec_depend>
+  <exec_depend>nav2_bringup</exec_depend>
+  <exec_depend>nav2_teb_controller</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>three_d_v1_nav2</exec_depend>
+  <test_depend>ament_cmake_pytest</test_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+    <nav2_core plugin="${prefix}/two_a_v1_r2_planner_plugin.xml" />
+  </export>
+</package>

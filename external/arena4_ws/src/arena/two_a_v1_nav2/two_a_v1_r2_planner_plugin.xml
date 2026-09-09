@@ -1,0 +1,7 @@
+<library path="two_a_v1_r2_planner">
+  <class name="two_a_v1_nav2/TwoAV1R2Planner"
+         type="two_a_v1_nav2::TwoAV1R2Planner"
+         base_class_type="nav2_core::GlobalPlanner">
+    <description>Requests a frozen 2A-V1-r2 L1/ROI-ACK/L3/canonical-audit path.</description>
+  </class>
+</library>

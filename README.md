@@ -1,5 +1,9 @@
 # PUDU Robot Workspace
 
+当前代码快照：[`pln-02-snapshot-2026.09.09`](docs/releases/PLN-02_2026-09-09.md)。
+3D-V1 默认为 `3D-V1-r2-stable`；2A-V1-r3 与语义 2A-V3 仍是研究版，
+具体准入边界、依赖还原方式和未随 Git 分发的数据见版本说明。
+
 中文启动、停止和功能说明见 [USAGE.md](USAGE.md)。
 Arena4 单次录制、指标计算和绘图见
 [docs/ARENA4_EVALUATION_USAGE.md](docs/ARENA4_EVALUATION_USAGE.md)。

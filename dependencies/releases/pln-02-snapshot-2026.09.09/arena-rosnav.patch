@@ -1,0 +1,1807 @@
+diff --git a/arena_bringup/launch/arena.launch.py b/arena_bringup/launch/arena.launch.py
+index 977c02c750f0994df149bf75bdf5b97e8d67a5ee..f17c6161fd3f6ec9bc361fc3147cabcef9b371ef 100644
+--- a/arena_bringup/launch/arena.launch.py
++++ b/arena_bringup/launch/arena.launch.py
+@@ -2,110 +2,179 @@ import os
+ import typing
+ 
+ import launch
++import launch_ros.actions
+ from ament_index_python.packages import get_package_share_directory
+ from arena_bringup.actions import IsolatedGroupAction
+ from arena_bringup.extensions.NodeLogLevelExtension import SetGlobalLogLevelAction
+ from arena_bringup.future import IfElseSubstitution, PythonExpression
+ from arena_bringup.substitutions import LaunchArgument
+-from launch.actions import LogInfo
++from launch.actions import LogInfo, SetEnvironmentVariable
+ from launch.substitutions import LaunchConfiguration, TextSubstitution
+ 
+-import launch_ros.actions
++
++def _available_configs(root: str, *required_paths: str) -> typing.List[str]:
++    """Return configuration directories which contain every required file."""
++    return sorted(
++        name
++        for name in os.listdir(root)
++        if os.path.isdir(os.path.join(root, name))
++        and all(
++            os.path.isfile(os.path.join(root, name, relative_path))
++            for relative_path in required_paths
++        )
++    )
+ 
+ 
+ def generate_launch_description():
+-    bringup_dir = get_package_share_directory('arena_bringup')
++    bringup_dir = get_package_share_directory("arena_bringup")
++    simulation_setup_dir = get_package_share_directory("arena_simulation_setup")
++
++    robot_dir = os.path.join(simulation_setup_dir, "entities", "robots")
++    world_dir = os.path.join(simulation_setup_dir, "worlds")
++    nav2_dir = os.path.join(simulation_setup_dir, "configs", "nav2")
++
++    available_robots = sorted(
++        name
++        for name in os.listdir(robot_dir)
++        if os.path.isfile(os.path.join(robot_dir, name, "model_params.yaml"))
++        and os.path.isfile(os.path.join(robot_dir, name, "mappings.yaml"))
++        and os.path.isfile(os.path.join(robot_dir, name, "urdf", f"{name}.urdf.xacro"))
++    )
++    available_worlds = _available_configs(world_dir, os.path.join("map", "map.yaml"))
++    worlds_with_geometry = {
++        name
++        for name in available_worlds
++        if os.path.isfile(os.path.join(world_dir, name, "worlds", f"{name}.world"))
++    }
++    available_local_planners = _available_configs(
++        os.path.join(nav2_dir, "controllers"),
++        "controller_config.yaml",
++    )
++    available_global_planners = _available_configs(
++        os.path.join(nav2_dir, "planners"),
++        "planner_config.yaml",
++    )
++    available_inter_planners = _available_configs(
++        os.path.join(nav2_dir, "interplanners"),
++        "interplanner_config.yaml",
++    )
+ 
+     ld_items = []
+     LaunchArgument.auto_append(ld_items)
+ 
+     log_level = LaunchArgument(
+-        name='log_level',
+-        default_value='warn',
+-        choices=['debug', 'info', 'warn', 'error', 'fatal'],
+-        description='Set the log level for all nodes'
++        name="log_level",
++        default_value="warn",
++        choices=["debug", "info", "warn", "error", "fatal"],
++        description="Set the log level for all nodes",
+     )
+ 
+     robot = LaunchArgument(
+-        name='robot',
+-        default_value='jackal',
+-        description='robot model type'
++        name="robot",
++        default_value="jackal",
++        choices=available_robots,
++        description="Robot model. Available: " + ", ".join(available_robots),
+     )
+     inter_planner = LaunchArgument(
+-        name='inter_planner',
+-        default_value='navigate_w_replanning_time',
+-        description='inter planner type (Behavior Tree)'
++        name="inter_planner",
++        default_value="navigate_w_replanning_time",
++        choices=available_inter_planners,
++        description="Nav2 behavior-tree profile. Available: "
++        + ", ".join(available_inter_planners),
+     )
+     local_planner = LaunchArgument(
+-        name='local_planner',
+-        default_value='dwb',
+-        description='local planner type [teb, dwa, mpc, rlca, arena, rosnav, cohan]'
++        name="local_planner",
++        default_value="teb",
++        choices=available_local_planners,
++        description="Nav2 controller profile. Available: "
++        + ", ".join(available_local_planners),
+     )
+     global_planner = LaunchArgument(
+-        name='global_planner',
+-        default_value='navfn',
+-        description='global planner type [navfn]'
++        name="global_planner",
++        default_value="navfn",
++        choices=available_global_planners,
++        description="Nav2 global planner profile. Available: "
++        + ", ".join(available_global_planners),
+     )
+     sim = LaunchArgument(
+-        name='sim',
+-        default_value='dummy',  # todo select first installed simulator
++        name="sim",
++        default_value="dummy",  # todo select first installed simulator
++        choices=["dummy", "gazebo", "isaac"],
++        description="Simulator backend",
+     )
+     headless = LaunchArgument(
+-        name='headless',
+-        default_value='0',
+-        choices=['-1', '0', '1', '2'],
+-        description='-1 = show all environments, 0 = show all, 1 = show only rviz, 2 = show nothing'
++        name="headless",
++        default_value="0",
++        choices=["-1", "0", "1", "2"],
++        description="-1 = show all environments, 0 = show all, 1 = show only rviz, 2 = show nothing",
+     )
+     human = LaunchArgument(
+-        name='human',
+-        description='human simulator to use',
+-        default_value=PythonExpression([str({"gazebo": "hunav", "isaac": "hunav"}), '.get("', sim.substitution, '", "dummy")']),
++        name="human",
++        description="human simulator to use",
++        default_value=PythonExpression(
++            [
++                str({"gazebo": "hunav", "isaac": "hunav"}),
++                '.get("',
++                sim.substitution,
++                '", "dummy")',
++            ]
++        ),
+     )
+     complexity = LaunchArgument(
+-        name='complexity',
+-        default_value='1',
+-        description='1 = Map known, Position known; 2 = Map known, Position unknown (AMCL); 3 = Map unknown, Position unknown (SLAM)'
++        name="complexity",
++        default_value="1",
++        description="1 = Map known, Position known; 2 = Map known, Position unknown (AMCL); 3 = Map unknown, Position unknown (SLAM)",
+     )
+     agent_name = LaunchArgument(
+-        name='agent_name',
++        name="agent_name",
+         default_value=robot.substitution,
+-        description='DRL agent name to be deployed'
+-    )
+-    record_data_dir = LaunchArgument(
+-        name='record_data_dir',
+-        default_value=''
++        description="DRL agent name to be deployed",
+     )
++    record_data_dir = LaunchArgument(name="record_data_dir", default_value="")
+     tm_robots = LaunchArgument(
+-        name='tm_robots',
+-        default_value='explore'
++        name="tm_robots",
++        default_value="explore",
++        choices=["guided", "explore", "random", "scenario"],
++        description="Robot task mode",
++    )
++    world = LaunchArgument(
++        name="world",
++        default_value="map_empty",
++        choices=available_worlds,
++        description="Environment/map. Available: " + ", ".join(available_worlds),
+     )
+     tm_obstacles = LaunchArgument(
+-        name='tm_obstacles',
+-        default_value='random'
++        name="tm_obstacles",
++        # A detailed SDF world already contains its furniture.  Its matching
++        # scenario adds only the intended actors, whereas random mode also
++        # scatters generic shelves over the scene and looks like a second map.
++        default_value=PythonExpression(
++            [
++                str({name: "scenario" for name in worlds_with_geometry}),
++                '.get("',
++                world.substitution,
++                '", "random")',
++            ]
++        ),
++        choices=["parametrized", "random", "scenario", "environment"],
++        description="Obstacle task mode",
+     )
+     tm_modules = LaunchArgument(
+-        name='tm_modules',
+-        default_value='rviz_ui'  # TODO breaks launch if empty
+-    )
+-    world = LaunchArgument(
+-        name='world',
+-        default_value='map_empty',
+-        description='world to load'
++        name="tm_modules",
++        default_value="rviz_ui",  # TODO breaks launch if empty
+     )
+     use_sim_time = LaunchArgument(
+-        name='use_sim_time',
+-        default_value='true',
+-        description='Use simulation clock if true'
++        name="use_sim_time",
++        default_value="true",
++        description="Use simulation clock if true",
+     )
+     env_n = LaunchArgument(
+-        name='env_n',
+-        default_value='1',
+-        description='Number of environments to spawn within simulator'
++        name="env_n",
++        default_value="1",
++        description="Number of environments to spawn within simulator",
+     )
+     env_d = LaunchArgument(
+-        name='env_d',
+-        default_value='50',
+-        description='space between environments'
++        name="env_d", default_value="50", description="space between environments"
+     )
+ 
+     def create_task_generators(
+@@ -127,27 +196,24 @@ def generate_launch_description():
+ 
+         # Log env_n value
+         launch.actions.LogInfo(
+-            msg=[
+-                TextSubstitution(text="env_n value: "),
+-                TextSubstitution(text=str(n))
+-            ]
++            msg=[TextSubstitution(text="env_n value: "), TextSubstitution(text=str(n))]
+         ).execute(context)
+ 
+         if n < 1:
+             return None
+ 
+         task_generators = []
+-        base_namespace = 'task_generator_node'
+-        base_prefix = 'env'
++        base_namespace = "task_generator_node"
++        base_prefix = "env"
+         references = snail_grid(d)
+ 
+         # first task generator
+         task_generators.append(
+             create_task_generator(
+-                headlessness=PythonExpression([headless.substitution, '>1']),
++                headlessness=PythonExpression([headless.substitution, ">1"]),
+                 namespace=base_namespace,
+-                prefix='',
+-                reference=list(next(references))
++                prefix="",
++                reference=list(next(references)),
+             )
+         )
+ 
+@@ -155,10 +221,10 @@ def generate_launch_description():
+         for i in range(1, n):
+             task_generators.append(
+                 create_task_generator(
+-                    headlessness=PythonExpression([headless.substitution, '>-1']),
+-                    namespace=base_namespace + '_' + str(i),
+-                    prefix=base_prefix + str(i) + '_',
+-                    reference=list(next(references))
++                    headlessness=PythonExpression([headless.substitution, ">-1"]),
++                    namespace=base_namespace + "_" + str(i),
++                    prefix=base_prefix + str(i) + "_",
++                    reference=list(next(references)),
+                 )
+             )
+ 
+@@ -166,101 +232,123 @@ def generate_launch_description():
+         launch.actions.LogInfo(
+             msg=[
+                 TextSubstitution(text="Total task_generator nodes spawned: "),
+-                TextSubstitution(text=str(len(task_generators)))
++                TextSubstitution(text=str(len(task_generators))),
+             ]
+         ).execute(context)
+ 
+         return task_generators
+ 
+     def create_task_generator(
+-        headlessness,
+-        namespace: str,
+-        prefix: str,
+-        reference: typing.List[float]
++        headlessness, namespace: str, prefix: str, reference: typing.List[float]
+     ):
+-        return IsolatedGroupAction([
+-            LogInfo(msg=[
+-                TextSubstitution(text="Spawning task_generator with namespace: "),
+-                TextSubstitution(text=namespace)
+-            ]),
+-            launch.actions.IncludeLaunchDescription(
+-                launch.launch_description_sources.PythonLaunchDescriptionSource(
+-                    os.path.join(bringup_dir, 'launch/simulator/human/human.launch.py')
++        return IsolatedGroupAction(
++            [
++                LogInfo(
++                    msg=[
++                        TextSubstitution(
++                            text="Spawning task_generator with namespace: "
++                        ),
++                        TextSubstitution(text=namespace),
++                    ]
+                 ),
+-                launch_arguments={
+-                    'simulator': human.substitution,
+-                    'namespace': namespace,
+-                }.items()
+-            ),
+-            launch.actions.IncludeLaunchDescription(
+-                launch.launch_description_sources.PythonLaunchDescriptionSource(
+-                    os.path.join(
+-                        get_package_share_directory('task_generator'),
+-                        'launch/task_generator.launch.py'
+-                    )
++                launch.actions.IncludeLaunchDescription(
++                    launch.launch_description_sources.PythonLaunchDescriptionSource(
++                        os.path.join(
++                            bringup_dir, "launch/simulator/human/human.launch.py"
++                        )
++                    ),
++                    launch_arguments={
++                        "simulator": human.substitution,
++                        "namespace": namespace,
++                    }.items(),
+                 ),
+-                launch_arguments={
+-                    **sim.dict,
+-                    **human.dict,
+-                    **tm_obstacles.dict,
+-                    **tm_robots.dict,
+-                    **tm_modules.dict,
+-                    **robot.dict,
+-                    **inter_planner.dict,
+-                    **local_planner.dict,
+-                    **global_planner.dict,
+-                    **world.dict,
+-                    **record_data_dir.dict,
+-                    'namespace': namespace,
+-                    'headless': headlessness,
+-                    'reference': str(reference),
+-                    'prefix': prefix,
+-                    'parameter_file': os.path.join(get_package_share_directory('arena_bringup'), 'configs', 'task_generator.yaml'),
+-                }.items(),
+-            )
+-        ])
++                launch.actions.IncludeLaunchDescription(
++                    launch.launch_description_sources.PythonLaunchDescriptionSource(
++                        os.path.join(
++                            get_package_share_directory("task_generator"),
++                            "launch/task_generator.launch.py",
++                        )
++                    ),
++                    launch_arguments={
++                        **sim.dict,
++                        **human.dict,
++                        **tm_obstacles.dict,
++                        **tm_robots.dict,
++                        **tm_modules.dict,
++                        **robot.dict,
++                        **inter_planner.dict,
++                        **local_planner.dict,
++                        **global_planner.dict,
++                        **world.dict,
++                        **record_data_dir.dict,
++                        "namespace": namespace,
++                        "headless": headlessness,
++                        "reference": str(reference),
++                        "prefix": prefix,
++                        "parameter_file": os.path.join(
++                            get_package_share_directory("arena_bringup"),
++                            "configs",
++                            "task_generator.yaml",
++                        ),
++                    }.items(),
++                ),
++            ]
++        )
+ 
+     launch_task_generators = launch.actions.OpaqueFunction(
+         function=create_task_generators,
+         kwargs={
+-            'n_substitution': env_n.substitution,
+-            'd_substitution': env_d.substitution,
++            "n_substitution": env_n.substitution,
++            "d_substitution": env_d.substitution,
+         },
+     )
+ 
+     launch_simulator = launch.actions.IncludeLaunchDescription(
+         launch.launch_description_sources.PythonLaunchDescriptionSource(
+-            os.path.join(bringup_dir, 'launch/simulator/sim/sim.launch.py')
++            os.path.join(bringup_dir, "launch/simulator/sim/sim.launch.py")
+         ),
+         launch_arguments={
+             **use_sim_time.dict,
+-            'simulator': sim.substitution,
++            "simulator": sim.substitution,
+             **world.dict,
+-            'headless': PythonExpression([headless.substitution, '>0']),
++            "headless": PythonExpression([headless.substitution, ">0"]),
+         }.items(),
+     )
+ 
+     world_generator_node = launch_ros.actions.Node(
+-        package='arena_simulation_setup',
+-        executable='world_generator',
+-        name='world_generator',
+-        output='screen',
++        package="arena_simulation_setup",
++        executable="world_generator",
++        name="world_generator",
++        output="screen",
+     )
+ 
+-    ld = launch.LaunchDescription([
+-        *ld_items,
+-        LogInfo(
+-            msg=[
+-                TextSubstitution(text="Starting arena bringup with env_n="),
+-                env_n.substitution,
+-                TextSubstitution(text=" task_generator_node(s)")
+-            ]
+-        ),
+-        SetGlobalLogLevelAction(log_level.substitution),
+-        launch_task_generators,
+-        IsolatedGroupAction([launch_simulator]),
+-        world_generator_node,
+-    ])
++    # Gazebo Transport discovers servers through GZ_PARTITION.  A unique
++    # partition per launch prevents a stale or independently-started gz-sim
++    # process from leaking its world and entities into this Arena session.
++    gazebo_partition = f"arena4_{os.getuid()}_{os.getpid()}"
++
++    ld = launch.LaunchDescription(
++        [
++            *ld_items,
++            SetEnvironmentVariable("GZ_PARTITION", gazebo_partition),
++            LogInfo(
++                msg=TextSubstitution(
++                    text=f"Gazebo transport partition: {gazebo_partition}"
++                )
++            ),
++            LogInfo(
++                msg=[
++                    TextSubstitution(text="Starting arena bringup with env_n="),
++                    env_n.substitution,
++                    TextSubstitution(text=" task_generator_node(s)"),
++                ]
++            ),
++            SetGlobalLogLevelAction(log_level.substitution),
++            launch_task_generators,
++            IsolatedGroupAction([launch_simulator]),
++            world_generator_node,
++        ]
++    )
+     return ld
+ 
+ 
+@@ -294,5 +382,5 @@ def snail_grid(d: float, initial=None):
+         step += 2
+ 
+ 
+-if __name__ == '__main__':
++if __name__ == "__main__":
+     generate_launch_description()
+diff --git a/installers/install.sh b/installers/install.sh
+index 2a7ecdc46dfa0c681914ab9cc6a3347312a3ba06..75c9017035a8605211ef51a8058402247c266fc7 100644
+--- a/installers/install.sh
++++ b/installers/install.sh
+@@ -124,7 +124,8 @@ fi
+ 
+ # vcstool fork
+ python -m pip install git+https://github.com/voshch/vcstool.git
+-alias vcs='$HOME/.pyenv/shims/vcs' # avoid reopening shell
++# poetry_install already activates Arena's virtual environment, where vcs lives.
++# A pyenv shim is not created for Poetry-managed console scripts.
+ 
+ # Getting Packages
+ echo "Installing deps...:"
+diff --git a/task_generator/package.xml b/task_generator/package.xml
+index 661bdfc5b8563232ee61c4baa607006e0f7161e3..3ffc2dd6cbf0768ab4dd2540c48df7a26c023572 100644
+--- a/task_generator/package.xml
++++ b/task_generator/package.xml
+@@ -10,6 +10,7 @@
+ 
+   <depend>ros_gz_sim</depend>
+   <depend>geometry_msgs</depend>
++  <depend>nav2_msgs</depend>
+   <depend>rclcpp</depend>
+   <depend>rclpy</depend>
+   <depend>sensor_msgs</depend>
+diff --git a/task_generator/task_generator/manager/robot_manager/robot_manager.py b/task_generator/task_generator/manager/robot_manager/robot_manager.py
+index 9f4938155c65aca48c2ca6eb803617be64c3cbd6..61f13ae522d6e96a7d7cf9b581f6129570a13eaa 100644
+--- a/task_generator/task_generator/manager/robot_manager/robot_manager.py
++++ b/task_generator/task_generator/manager/robot_manager/robot_manager.py
+@@ -1,7 +1,9 @@
+ import os
++import time
+ import typing
+ 
+ import action_msgs.msg
++import action_msgs.srv
+ import ament_index_python
+ import arena_simulation_setup.entities.robot
+ import geometry_msgs.msg as geometry_msgs
+@@ -46,6 +48,9 @@ class RobotManager(NodeInterface):
+     _goal_pub: rclpy.publisher.Publisher
+     _pub_goal_timer: rclpy.timer.Timer
+     _clear_costmaps_srv: rclpy.client.Client
++    _cancel_navigation_srvs: list[rclpy.client.Client]
++    _reset_cmd_vel_pub: rclpy.publisher.Publisher
++    _reset_cmd_vel_nav_pub: rclpy.publisher.Publisher
+     _is_goal_reached: bool
+     _rate_setup: rclpy.timer.Rate
+     _config: arena_simulation_setup.entities.robot.Robot
+@@ -98,6 +103,13 @@ class RobotManager(NodeInterface):
+         self._robot.extra.setdefault('namespace', self.namespace)
+         self._pose = self._start_pos
+         self._goal_timer = None
++        self._goal_start_time = float("inf")
++        self._known_goal_ids = set()
++        self._ignored_goal_ids = set()
++        self._has_published_goal = False
++        self._reset_goal_timer = None
++        self._pending_goal = None
++        self._reset_stop_ticks_remaining = 0
+ 
+     def _odom_base_transform(self):
+         self.node.do_launch(
+@@ -138,6 +150,37 @@ class RobotManager(NodeInterface):
+             10,
+         )
+ 
++        # A scenario reset teleports the model while Nav2 is still alive.  If
++        # its old action and velocity output are left running, the freshly
++        # positioned robot executes the tail of the preceding command before
++        # the replacement global plan is available.  Keep dedicated reset
++        # publishers for both sides of the velocity smoother so the complete
++        # control chain can be brought to zero before moving the model.
++        self._reset_cmd_vel_nav_pub = self.node.create_publisher(
++            geometry_msgs.Twist,
++            self.namespace("cmd_vel_nav"),
++            10,
++        )
++        self._reset_cmd_vel_pub = self.node.create_publisher(
++            geometry_msgs.Twist,
++            self.namespace("cmd_vel"),
++            10,
++        )
++        self._cancel_navigation_srvs = [
++            self.node.create_client(
++                action_msgs.srv.CancelGoal,
++                self.namespace(action_name, "_action", "cancel_goal"),
++            )
++            for action_name in (
++                "navigate_to_pose",
++                "follow_path",
++                "spin",
++                "backup",
++                "drive_on_heading",
++                "assisted_teleop",
++                "wait",
++            )
++        ]
+         self.node.create_subscription(
+             nav_msgs.Odometry,
+             self.namespace("odom"),
+@@ -153,7 +196,15 @@ class RobotManager(NodeInterface):
+         )
+ 
+         self._launch_robot()
+-        self._odom_base_transform()
++        # Gazebo publishes the moving odom -> base transform. Publishing the
++        # same edge as static for these models leaves TF with two authorities
++        # and can make Nav2 observe a stationary base.
++        gazebo_tf_models = {'jackal', 'turtlebot'}
++        if not (
++            self.node.conf.Arena.SIM.value == Constants.SimSimulator.GAZEBO
++            and self.model_name in gazebo_tf_models
++        ):
++            self._odom_base_transform()
+ 
+         self._robot_radius = self.node.rosparam[float].get(
+             'robot_radius',
+@@ -190,10 +241,129 @@ class RobotManager(NodeInterface):
+         return self._is_goal_reached
+ 
+     def move_robot_to_pos(self, pose: Pose):
+-        pose.position.z += self._config.model_params.z_offset
+-        self._entity_manager.move_robot(name=self.name, pose=pose)
++        # Do not mutate the caller's Pose.  The same object is retained as
++        # ``start_pos`` and guided mode may reuse it; modifying it in place
++        # caused the model z offset to accumulate after every reset.
++        simulator_pose = Pose(
++            position=Position(
++                x=pose.position.x,
++                y=pose.position.y,
++                z=pose.position.z + self._config.model_params.z_offset,
++            ),
++            orientation=Orientation(
++                w=pose.orientation.w,
++                x=pose.orientation.x,
++                y=pose.orientation.y,
++                z=pose.orientation.z,
++            ),
++        )
++        self._entity_manager.move_robot(name=self.name, pose=simulator_pose)
+         self.clearCostmapAroundRobot(5.0)
+ 
++    def clear_goal(self):
++        """Stop republishing a previous goal while staying at the current pose."""
++        if self._goal_timer is not None:
++            self._goal_timer.cancel()
++            self._goal_timer.destroy()
++            self._goal_timer = None
++        if self._reset_goal_timer is not None:
++            self._reset_goal_timer.cancel()
++            self._reset_goal_timer.destroy()
++            self._reset_goal_timer = None
++        self._pending_goal = None
++        self._is_goal_reached = False
++
++    def _cancel_navigation(self, timeout_sec: float = 1.0):
++        """Cancel every Nav2 goal without allowing a reset to block forever."""
++        request = action_msgs.srv.CancelGoal.Request()
++
++        for client in self._cancel_navigation_srvs:
++            if not client.wait_for_service(timeout_sec=0.2):
++                self._logger.warn(
++                    f"Navigation cancel service is not ready: {client.srv_name}"
++                )
++                continue
++
++            future = client.call_async(request)
++            deadline = time.monotonic() + timeout_sec
++            while not future.done() and time.monotonic() < deadline:
++                time.sleep(0.01)
++
++            if not future.done():
++                client.remove_pending_request(future)
++                self._logger.warn(
++                    f"Navigation cancel timed out: {client.srv_name}"
++                )
++                continue
++
++            try:
++                response = future.result()
++                self._logger.info(
++                    f"Navigation state reset via {client.srv_name}: "
++                    f"return_code={response.return_code}, "
++                    f"goals_canceling={len(response.goals_canceling)}"
++                )
++            except Exception as error:
++                self._logger.warn(
++                    f"Navigation cancel failed on {client.srv_name}: {error}"
++                )
++
++    def _publish_reset_stop(self, duration_sec: float):
++        """Hold both velocity-smoother input and chassis output at zero."""
++        stop = geometry_msgs.Twist()
++        deadline = time.monotonic() + duration_sec
++        while time.monotonic() < deadline:
++            self._reset_cmd_vel_nav_pub.publish(stop)
++            self._reset_cmd_vel_pub.publish(stop)
++            time.sleep(0.05)
++
++        # Always publish at least one final pair, including for a zero duration.
++        self._reset_cmd_vel_nav_pub.publish(stop)
++        self._reset_cmd_vel_pub.publish(stop)
++
++    def _reset_navigation_state(self):
++        """Remove commands and action state belonging to the previous task."""
++        self.clear_goal()
++        self._cancel_navigation()
++
++        # Gazebo is paused by TaskGenerator during reset.  Holding both topics
++        # at zero lets cancellation propagate and replaces the command cached
++        # by ros_gz_bridge before the model is teleported.
++        self._publish_reset_stop(0.35)
++
++    def _finish_reset_callback(self):
++        """Keep the resumed simulator stopped, then release the new goal."""
++        self._publish_reset_stop(0.0)
++        self._reset_stop_ticks_remaining -= 1
++        if self._reset_stop_ticks_remaining > 0:
++            return
++
++        if self._reset_goal_timer is not None:
++            self._reset_goal_timer.cancel()
++            self._reset_goal_timer.destroy()
++            self._reset_goal_timer = None
++
++        goal = self._pending_goal
++        self._pending_goal = None
++        if goal is not None:
++            self._logger.info(
++                "Reset stop window completed; publishing the replacement goal"
++            )
++            self._publish_goal(goal)
++
++    def _schedule_goal_after_reset(self, goal: Pose):
++        """Delay the new goal until post-teleport odometry is stable."""
++        self._pending_goal = goal
++        # Sixty 100 Hz ticks hold the chassis for 0.6 s of resumed simulation.
++        # Gazebo odometry can report a one-frame velocity spike after SetPose;
++        # delaying the goal lets that discontinuity and the previous command
++        # drain before the new planner is allowed to control the chassis.
++        self._reset_stop_ticks_remaining = 60
++        self._reset_goal_timer = self.node.create_timer(
++            0.01,
++            self._finish_reset_callback,
++        )
++
+     def clearCostmapAroundRobot(self, reset_distance: float) -> bool:
+         """Clear the costmap around the robot."""
+ 
+@@ -230,24 +400,47 @@ class RobotManager(NodeInterface):
+         start_pos: typing.Optional[Pose],
+         goal_pos: typing.Optional[Pose],
+     ):
++        # The Nav2 status topic is transient-local and can still contain the
++        # previous goal's SUCCEEDED entry while a new scenario is being
++        # installed.  Clear it before moving or publishing the replacement
++        # goal, otherwise TaskGenerator observes the stale success on its next
++        # 0.5 s tick and starts an endless reset loop.
++        had_navigation_goal = self._has_published_goal
++        if had_navigation_goal:
++            self._reset_navigation_state()
++
++        self._is_goal_reached = False
++        self._ignored_goal_ids = self._known_goal_ids.copy()
++
+         if start_pos is not None:
+             self._start_pos = self._environment_manager.realize(start_pos)
+             self.move_robot_to_pos(start_pos)
+ 
++            if had_navigation_goal:
++                # SetEntityPose changes position but does not promise to clear
++                # controller/bridge command state.  Latch a final zero at the
++                # new pose before the simulator is unpaused and a new goal is
++                # allowed to generate commands.
++                self._publish_reset_stop(0.15)
++
+             if self._robot.record_data_dir:
+                 self.node.rosparam[list[float]].set(
+                     self.namespace.robot_ns.ParamNamespace()("start"),
+-                    [self.start_pos.x, self.start_pos.y, self.start_pos.orientation]
++                    [self.start_pos.position.x, self.start_pos.position.y,
++                        self.start_pos.orientation.to_yaw()]
+                 )
+         if goal_pos is not None:
+             self._goal_pos = self._environment_manager.realize(goal_pos)
+-            self._publish_goal(self._goal_pos)
++            if had_navigation_goal:
++                self._schedule_goal_after_reset(self._goal_pos)
++            else:
++                self._publish_goal(self._goal_pos)
+ 
+             if self._robot.record_data_dir:
+                 self.node.rosparam[list[float]].set(
+                     self.namespace.robot_ns.ParamNamespace()("goal"),
+-                    [self.goal_pos.x, self.goal_pos.y,
+-                        self.goal_pos.orientation]
++                    [self.goal_pos.position.x, self.goal_pos.position.y,
++                        self.goal_pos.orientation.to_yaw()]
+                 )
+         return self._pose, self._goal_pos
+ 
+@@ -283,6 +476,9 @@ class RobotManager(NodeInterface):
+             f"Publishing goal: x={goal.position.x}, y={goal.position.y}, orientation={goal.orientation.to_yaw()}")
+ 
+         self._goal_pos = goal
++        self._has_published_goal = True
++        self._is_goal_reached = False
++        self._ignored_goal_ids = self._known_goal_ids.copy()
+ 
+         if self._goal_timer is not None:
+             self._goal_timer.cancel()
+@@ -363,8 +559,27 @@ class RobotManager(NodeInterface):
+         )
+ 
+     def _goal_status_callback(self, data: action_msgs.msg.GoalStatusArray):
+-        last_goal = next(reversed(data.status_list), None)
+-        self._is_goal_reached = last_goal and last_goal.status == action_msgs.msg.GoalStatus.STATUS_SUCCEEDED
++        # Ignore retained action entries belonging to the preceding scenario.
++        # Goal UUIDs are used instead of timestamps because this node's clock
++        # and Nav2's action clock may use different time sources during
++        # startup/reset.
++        statuses = [
++            (tuple(status.goal_info.goal_id.uuid), status)
++            for status in data.status_list
++        ]
++        self._known_goal_ids.update(goal_id for goal_id, _ in statuses)
++        relevant_goal = next(
++            (
++                status for goal_id, status in reversed(statuses)
++                if goal_id not in self._ignored_goal_ids
++            ),
++            None,
++        )
++        self._is_goal_reached = bool(
++            relevant_goal
++            and relevant_goal.status
++            == action_msgs.msg.GoalStatus.STATUS_SUCCEEDED
++        )
+ 
+     def update(self):
+         """
+diff --git a/task_generator/task_generator/manager/world_manager/utils.py b/task_generator/task_generator/manager/world_manager/utils.py
+index cf9b549ff1de27d1b9ecd4e7f0ebee3de4aa3960..fd79f1672025b00974981bc8fefa6d72a63955e1 100644
+--- a/task_generator/task_generator/manager/world_manager/utils.py
++++ b/task_generator/task_generator/manager/world_manager/utils.py
+@@ -7,6 +7,7 @@ from collections.abc import Callable, Collection
+ from typing import Optional, TypeVar
+ 
+ import attrs
++import cv2
+ import nav_msgs.msg
+ import numpy as np
+ import scipy.interpolate
+@@ -250,10 +251,17 @@ class WorldMap:
+             (occupancy_grid.info.height,
+              occupancy_grid.info.width))
+ 
+-        # Normalize data to 0-255 range (0 = occupied, 255 = free)
+-        normalized_data = np.interp(
+-            grid_data, (100, 0), (WorldOccupancy.EMPTY, WorldOccupancy.FULL)).astype(
+-            np.uint8)
++        # Normalize data to 0-255 (0 = occupied, 255 = free).  Avoid
++        # np.interp here: it promotes a 100-million-cell map to a temporary
++        # float64 array before converting it back to uint8.  Integer math
++        # keeps the xlarge maps within a practical memory budget.  ROS uses
++        # -1 for unknown cells; those must remain blocked.
++        clipped = np.clip(grid_data, 0, 100).astype(np.uint16, copy=False)
++        normalized_data = (
++            (100 - clipped) * int(WorldOccupancy.EMPTY)
++            // 100
++        ).astype(np.uint8)
++        normalized_data[grid_data < 0] = WorldOccupancy.FULL
+ 
+         return WorldMap(
+             occupancy=WorldLayers(
+@@ -422,7 +430,38 @@ def occupancy_to_walls(
+     transform: Optional[Callable[[tuple[float, float]], Position]] = None
+ ) -> WorldWalls:
+ 
+-    walls = RLE_2D(grid=WorldOccupancy.not_full(occupancy_grid))
++    # Extract closed free-space contours and simplify sub-cell raster noise.
++    # The previous row/column RLE emitted thousands of short, overlapping
++    # segments for detailed maps; HuNav checks every agent against every wall,
++    # so that made the hospital simulation run far below real time.
++    free_mask = (
++        WorldOccupancy.emptyish(occupancy_grid).astype(np.uint8) * 255
++    )
++    contours, _ = cv2.findContours(
++        free_mask,
++        cv2.RETR_TREE,
++        cv2.CHAIN_APPROX_SIMPLE,
++    )
++
++    # Two grid cells are 0.2 m on the bundled maps: fine enough for navigation
++    # and pedestrian radii, while removing stair-step edges from the PGM.
++    grid_segments: set[
++        tuple[tuple[float, float], tuple[float, float]]
++    ] = set()
++    for contour in contours:
++        points = cv2.approxPolyDP(contour, epsilon=2.0, closed=True).reshape(-1, 2)
++        if len(points) < 2:
++            continue
++        for start, end in zip(points, np.roll(points, -1, axis=0)):
++            # OpenCV points are (column, row); WorldMap.tf_grid2pos expects
++            # (row, column), matching the legacy RLE representation.
++            segment = (
++                (float(start[1]), float(start[0])),
++                (float(end[1]), float(end[0])),
++            )
++            if segment[0] == segment[1]:
++                continue
++            grid_segments.add(tuple(sorted(segment)))
+ 
+     if transform is None:
+         def _transform(p):
+@@ -431,10 +470,10 @@ def occupancy_to_walls(
+ 
+     return [
+         Wall(
+-            Start=transform((wall.Start.x, wall.Start.y)),
+-            End=transform((wall.End.x, wall.End.y)),
++            Start=transform(start),
++            End=transform(end),
+         )
+-        for wall in walls
++        for start, end in sorted(grid_segments)
+     ]
+ 
+ 
+diff --git a/task_generator/task_generator/manager/world_manager/world_manager.py b/task_generator/task_generator/manager/world_manager/world_manager.py
+index 3b28e5803649ce1c4e4bf66289b0788d199db777..e63a37ae38800cacee0a74ba7bb4af67ada15988 100644
+--- a/task_generator/task_generator/manager/world_manager/world_manager.py
++++ b/task_generator/task_generator/manager/world_manager/world_manager.py
+@@ -75,6 +75,7 @@ class WorldManager(NodeInterface):
+         zones: Optional[WorldZones] = None,
+     ):
+         self._detected_walls = None
++        derive_walls = walls is None
+ 
+         if obstacles is None:
+             obstacles = []
+@@ -100,6 +101,13 @@ class WorldManager(NodeInterface):
+             zones=zones,
+         )
+ 
++        # Some mesh-based worlds (notably hospital) ship a navigation map but
++        # no walls.yaml.  HuNav still needs explicit 2-D wall segments for its
++        # social-force collision avoidance, so derive them from the occupied
++        # map boundary instead of silently publishing an empty wall list.
++        if derive_walls:
++            self._world.entities.walls = self.detected_walls
++
+         for obstacle in self.world.entities.obstacles:
+             self.world.map.occupancy.obstacle_occupy(
+                 *self.world.map.tf_posr2rect(
+@@ -358,6 +366,48 @@ class WorldManager(NodeInterface):
+     def _occupancy_to_available(
+             self, occupancy: np.ndarray, safe_dist: float) -> np.ndarray:
+ 
++        # Convolving the complete occupancy grid is useful for ordinary maps,
++        # but it scales poorly for the 10000x10000 maps shipped with Arena4:
++        # convolve2d performs work proportional to cells * kernel_area and can
++        # take many minutes. For large grids, sample random cells and inspect
++        # only the robot's local safety window. The map family has wide open
++        # areas, so a bounded candidate pool is sufficient for the small
++        # number of positions requested during a task reset.
++        cell_count = int(occupancy.shape[0]) * int(occupancy.shape[1])
++        if cell_count > 12_000_000:
++            height, width = occupancy.shape
++            radius = max(1, int(np.ceil(safe_dist)))
++            if height <= 2 * radius or width <= 2 * radius:
++                return np.empty((0, 2), dtype=np.intp)
++
++            free = WorldOccupancy.not_full(occupancy)
++            rng = self.node.conf.General.RNG.value
++            target = min(65536, max(4096, int(np.sqrt(cell_count))))
++            candidates: list[tuple[int, int]] = []
++            batch_size = 4096
++            max_batches = 32
++
++            for _ in range(max_batches):
++                rows = rng.integers(radius, height - radius, size=batch_size)
++                cols = rng.integers(radius, width - radius, size=batch_size)
++                for row, col in zip(rows.tolist(), cols.tolist()):
++                    if free[
++                        row - radius:row + radius + 1,
++                        col - radius:col + radius + 1,
++                    ].all():
++                        candidates.append((row, col))
++                        if len(candidates) >= target:
++                            break
++                if len(candidates) >= target:
++                    break
++
++            if candidates:
++                return np.asarray(candidates, dtype=np.intp)
++
++            # Keep the existing error behavior when the map has no valid
++            # robot-sized free window instead of returning malformed points.
++            return np.empty((0, 2), dtype=np.intp)
++
+         filt_size = int(2 * safe_dist + 1)
+         filt = np.full((filt_size, filt_size), 1) / (filt_size ** 2)
+ 
+diff --git a/task_generator/task_generator/manager/world_manager/world_manager_ros.py b/task_generator/task_generator/manager/world_manager/world_manager_ros.py
+index cba43cd726058db7c71c47b1ecb3a1b0e7b9f135..794d6f933f122c6d3a73198ed76918bcda0d5eb8 100644
+--- a/task_generator/task_generator/manager/world_manager/world_manager_ros.py
++++ b/task_generator/task_generator/manager/world_manager/world_manager_ros.py
+@@ -5,6 +5,7 @@ import time
+ import typing
+ 
+ import arena_simulation_setup.world
++import cv2
+ import launch
+ import launch.actions
+ import lifecycle_msgs.msg
+@@ -23,7 +24,8 @@ from task_generator.shared import Position, Wall
+ from task_generator.utils.time import Time
+ 
+ from .utils import (WorldMap, WorldObstacleConfiguration,
+-                    WorldObstacleConfigurations, WorldWalls, WorldZones, Zone)
++                    WorldObstacleConfigurations, WorldOccupancy, WorldLayers,
++                    WorldWalls, WorldZones, Zone)
+ from .world_manager import WorldManager
+ 
+ _DUMMY_MAP_SHAPE = (1, 1)
+@@ -108,6 +110,9 @@ class WorldManagerROS(MapServerHandler, WorldManager):
+     _cli: rclpy.client.Client
+     _world_name: str
+     _map_name: str | None
++    _map_tmpdir: tempfile.TemporaryDirectory | None
++    _large_map_mode: bool
++    _pending_load_map: typing.Any
+     _callbacks: list[typing.Callable[[], None]]
+ 
+     @classmethod
+@@ -187,9 +192,78 @@ class WorldManagerROS(MapServerHandler, WorldManager):
+ 
+         return map_tmpdir
+ 
++    @staticmethod
++    def _map_cell_count(map_dir: str) -> int:
++        """Read a PGM header without loading its pixel payload."""
++        try:
++            with open(os.path.join(map_dir, 'map.yaml'), 'r') as stream:
++                map_yaml = dict(yaml.safe_load(stream) or {})
++            image_path = os.path.join(map_dir, str(map_yaml['image']))
++            with open(image_path, 'rb') as image:
++                header = image.read(512).split()
++            if len(header) >= 3 and header[0] in (b'P5', b'P2'):
++                return int(header[1]) * int(header[2])
++        except (KeyError, OSError, TypeError, ValueError):
++            pass
++        return 0
++
++    @staticmethod
++    def _local_map_from_yaml(map_yaml: str) -> WorldMap:
++        """Build the task-generator map without a 100 MB ROS message."""
++        with open(map_yaml, 'r') as stream:
++            config = dict(yaml.safe_load(stream) or {})
++        image_path = os.path.join(os.path.dirname(map_yaml), str(config['image']))
++        image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
++        if image is None:
++            raise RuntimeError(f'failed to read map image {image_path}')
++
++        resolution = float(config['resolution'])
++        origin = list(config.get('origin', [0.0, 0.0, 0.0]))
++        occupied_thresh = float(config.get('occupied_thresh', 0.65))
++        free_thresh = float(config.get('free_thresh', 0.196))
++        negate = bool(int(config.get('negate', 0)))
++
++        # nav2_map_server treats pixels between the free and occupied
++        # thresholds as unknown. Unknown cells stay blocked in WorldMap.
++        probability = image.astype(np.float32) / 255.0
++        if not negate:
++            probability = 1.0 - probability
++        normalized = np.zeros(image.shape, dtype=np.uint8)
++        normalized[probability <= free_thresh] = WorldOccupancy.EMPTY
++        normalized[probability >= occupied_thresh] = WorldOccupancy.FULL
++
++        return WorldMap(
++            occupancy=WorldLayers(walls=WorldOccupancy(normalized)),
++            origin=Position(x=origin[1], y=origin[0]),
++            resolution=resolution,
++            time=Time(),
++        )
++
++    def _apply_map(self, world_name: str, world_map: WorldMap) -> None:
++        world_config = arena_simulation_setup.world.World(world_name)
++        obstacles = self._load_obstacles(world_config.map.obstacles)
++        walls = self._load_walls(world_config.map.walls)
++        zones = self._load_zones(world_config.map.zones)
++        self.update_world(world_map, obstacles=obstacles, walls=walls, zones=zones)
++        if walls is None:
++            self._logger.info(
++                f'No walls.yaml for {world_name}; derived '
++                f'{len(self.walls)} HuNav wall segments from the occupancy map'
++            )
++
++        self._map_name = world_name
++        for callback in self._callbacks:
++            try:
++                callback()
++            except Exception as e:
++                self._logger.warning(f'encountered exception in world callback: {repr(e)}')
++
+     def _world_callback(self, value: typing.Any) -> bool:
+         world_name = str(value)
+ 
++        if world_name == self._world_name and self._map_name == world_name:
++            return True
++
+         # if world_name != self._world_name and \
+         #         (simulator := self.node.conf.Arena.SIM.value) in (Constants.Simulator.GAZEBO,):
+         #     raise RuntimeError(
+@@ -205,56 +279,61 @@ class WorldManagerROS(MapServerHandler, WorldManager):
+             tmp_map.name,
+             'map.yaml',
+         )
+-        response = self._cli.call(
+-            nav2_msgs.srv.LoadMap.Request(
+-                map_url=f'{map_yaml}'
+-            )
+-        )
+-
+-        tmp_map.cleanup()
++        request = nav2_msgs.srv.LoadMap.Request(map_url=f'{map_yaml}')
++
++        if self._large_map_mode:
++            # A reliable 100 MB OccupancyGrid cannot be synchronously delivered
++            # to this Python node while it is inside the parameter callback.
++            # Keep the full map in map_server for Nav2, but initialize task
++            # generation from the local raster and let map_server load in the
++            # background for AMCL/costmaps.
++            self._pending_load_map = self._cli.call_async(request)
++            self._apply_map(world_name, self._local_map_from_yaml(map_yaml))
++            if self._map_tmpdir is not None:
++                self._map_tmpdir.cleanup()
++            self._map_tmpdir = tmp_map
++            return True
++
++        response = self._cli.call(request)
+ 
+         if response is None:
++            tmp_map.cleanup()
+             raise RuntimeError(
+                 f'failed to load map for world {world_name}: service timed out')
+ 
+         if response.result > 0:
++            tmp_map.cleanup()
+             raise RuntimeError(
+                 f'failed to load map for world {world_name}: status code {response.result}')
+ 
++        # nav2_map_server can acknowledge LoadMap before all consumers have
++        # opened the YAML/image.  Keep the current shifted map alive until a
++        # later world replaces it instead of deleting it immediately.
++        if self._map_tmpdir is not None:
++            self._map_tmpdir.cleanup()
++        self._map_tmpdir = tmp_map
++
+         return True
+ 
+     def _map_callback(self, costmap: nav_msgs.msg.OccupancyGrid):
+         if self._world.map.time <= costmap.info.map_load_time:
+-
+-            world_config = arena_simulation_setup.world.World(self.world_name)
+-
+-            obstacles = self._load_obstacles(world_config.map.obstacles)
+-            walls = self._load_walls(world_config.map.walls)
+-            zones = self._load_zones(world_config.map.zones)
+-            self.update_world(
+-                WorldMap.from_costmap(costmap),
+-                obstacles=obstacles,
+-                walls=walls,
+-                zones=zones,
+-            )
+-
+-            self._map_name = self.world_name
+-
+-            for callback in self._callbacks:
+-                try:
+-                    callback()
+-                except Exception as e:
+-                    self._logger.warning(f'encountered exception in world callback: {repr(e)}')
++            self._apply_map(self.world_name, WorldMap.from_costmap(costmap))
+ 
+     def _setup_world_callbacks(self):
+ 
+         # retrieving map from map_server
+-        self.node.create_subscription(
+-            nav_msgs.msg.OccupancyGrid,
+-            self.node.service_namespace('map'),
+-            self._map_callback,
+-            1,
+-        )
++        world_name = str(self.node.conf.Arena.WORLD.value)
++        self._large_map_mode = self._map_cell_count(
++            arena_simulation_setup.world.World(world_name).map.path
++        ) > 12_000_000
++
++        if not self._large_map_mode:
++            self.node.create_subscription(
++                nav_msgs.msg.OccupancyGrid,
++                self.node.service_namespace('map'),
++                self._map_callback,
++                1,
++            )
+ 
+         while not self.check_map_server():
+             self.restart_map_server()
+@@ -283,6 +362,9 @@ class WorldManagerROS(MapServerHandler, WorldManager):
+         self.update_world(world_map=WorldMap.from_costmap(_DUMMY_MAP), obstacles=None, walls=[])
+         self._world_name = ''
+         self._map_name = None
++        self._map_tmpdir = None
++        self._large_map_mode = False
++        self._pending_load_map = None
+ 
+     def start(self):
+         self._setup_world_callbacks()
+diff --git a/task_generator/task_generator/node.py b/task_generator/task_generator/node.py
+index 489834cb876f7450410bc08b6833c6d7d59c48ad..6ba818f4eaa3bb9a2e8972da018e7f1b037128f9 100644
+--- a/task_generator/task_generator/node.py
++++ b/task_generator/task_generator/node.py
+@@ -1,3 +1,4 @@
++import os
+ import typing
+ 
+ import arena_simulation_setup.configs.environment
+@@ -167,15 +168,18 @@ class TaskGenerator(NodeInterface.Taskgen_T):
+ 
+         self._simulator.before_reset_task()
+ 
+-        self.get_logger().info("resetting")
++        try:
++            self.get_logger().info("resetting")
+ 
+-        self._task.reset(callback=lambda: False, **kwargs)
++            self._task.reset(callback=lambda: False, **kwargs)
+ 
+-        self._pub_task_reset.publish(Int16(data=self._number_of_resets))
+-        self._number_of_resets += 1
+-        self._send_end_message_on_end()
+-
+-        self._simulator.after_reset_task()
++            self._pub_task_reset.publish(Int16(data=self._number_of_resets))
++            self._number_of_resets += 1
++            self._send_end_message_on_end()
++        finally:
++            # Gazebo is paused before entity moves.  A task or map exception
++            # must not leave the whole simulation frozen with stale TF data.
++            self._simulator.after_reset_task()
+ 
+         self.get_logger().warn("=============")
+         self.get_logger().warn("Task Reset!")
+@@ -241,9 +245,14 @@ class TaskGenerator(NodeInterface.Taskgen_T):
+         request: task_generator_msgs.srv.GetScenarios.Request,
+         response: task_generator_msgs.srv.GetScenarios.Response,
+     ):
+-        response.scenarios = arena_simulation_setup.world.World(
++        scenario_interface = arena_simulation_setup.world.World(
+             request.world or self._world_manager.world_name
+-        ).scenario.list()
++        ).scenario
++        response.scenarios = (
++            scenario_interface.list()
++            if os.path.isdir(scenario_interface.base_dir())
++            else []
++        )
+         return response
+ 
+     def _cb_get_worlds(
+diff --git a/task_generator/task_generator/shared.py b/task_generator/task_generator/shared.py
+index 877240bd023b40c0a521567fdf1b5e4b79b81c2d..fd880260ce8d9e3986dca3af5001fba9db300ce6 100644
+--- a/task_generator/task_generator/shared.py
++++ b/task_generator/task_generator/shared.py
+@@ -82,7 +82,10 @@ class Robot(Robot_):
+         model = str(obj.get("model", rosparam_get(str, "model", "")))
+         agent = str(obj.get("agent", rosparam_get(str, "agent_name", "")))
+         record_data = obj.get(
+-            "record_data_dir", rosparam_get(str, "record_data_dir", None)
++            # ROS 2 cannot declare a string parameter with a None default.
++            # Using an empty string keeps recording disabled by default while
++            # allowing the launch override to reach RobotManager.
++            "record_data_dir", rosparam_get(str, "record_data_dir", "")
+         )
+ 
+         return cls(
+diff --git a/task_generator/task_generator/simulators/human/hunav/hunav.py b/task_generator/task_generator/simulators/human/hunav/hunav.py
+index 92e518783d9c5341066129b61b681f4d97786402..89218f71a910c5671298381cda09a526e9b478f7 100644
+--- a/task_generator/task_generator/simulators/human/hunav/hunav.py
++++ b/task_generator/task_generator/simulators/human/hunav/hunav.py
+@@ -84,7 +84,10 @@ class _PedestrianHelper:
+                         </visual>
+                     </link>
+                     <plugin name="HuNavSystemPluginIGN" filename="libHuNavSystemPluginIGN.so">
+-                        <update_rate>1000.0</update_rate>
++                        <!-- Lower update rate keeps detailed scenes responsive
++                             without running social-force integration every
++                             physics step. -->
++                        <update_rate>10.0</update_rate>
+                         <namespace>{namespace}</namespace>
+                         <!-- <robot_name>jackal</robot_name> -->
+                         <use_gazebo_obs>true</use_gazebo_obs>
+@@ -178,6 +181,7 @@ class HunavHumanSimulator(DummyHumanSimulator):
+     _agents_container: Agents
+     _get_agents_container: Agents
+     _wall_points: list[geometry_msgs.msg.Point]
++    _wall_segments: list[WallSegment]
+ 
+     # Service Names
+     SERVICE_COMPUTE_AGENT = 'compute_agent'
+@@ -201,6 +205,10 @@ class HunavHumanSimulator(DummyHumanSimulator):
+         self._logger.debug("Initializing collections...")
+         self._pedestrians = {}
+         self._wall_points = []
++        # The Gazebo HuNav plugin may request walls before a world with wall
++        # metadata has called _spawn_walls_impl().  Worlds which model their
++        # walls only in SDF legitimately return an empty list here.
++        self._wall_segments = []
+         self._agents_container = Agents()  # Container to hold all registered agents
+         self._get_agents_container = Agents()  # Container specifically just to send the Agent attributes to Hunavsystemplugin
+         self._agents_container.header.frame_id = "map"
+@@ -398,6 +406,15 @@ class HunavHumanSimulator(DummyHumanSimulator):
+     def _spawn_dynamic_obstacles_impl(self, obstacles):
+ 
+         results = []
++        requested_count = len(obstacles)
++        # Detailed human meshes and HuNav state scale roughly linearly with
++        # the number of pedestrians. Keep the first half of the deterministic
++        # scenario order so runs remain reproducible while reducing memory.
++        obstacles = obstacles[:max(1, (requested_count + 1) // 2)]
++        if len(obstacles) != requested_count:
++            self._logger.info(
++                f"Limiting pedestrians from {requested_count} to {len(obstacles)}"
++            )
+ 
+         for obstacle in obstacles:
+             try:
+@@ -511,7 +528,7 @@ class HunavHumanSimulator(DummyHumanSimulator):
+             self._wall_segments.append(segment)
+ 
+         self._logger.info(f"Cached {len(self._wall_segments)} wall segments")
+-        self._logger.info(f"Wallsegments{self._wall_segments} ")
++        self._logger.debug(f"Wall segments: {self._wall_segments}")
+         return True
+ 
+     def _remove_obstacles_impl(self):
+@@ -519,7 +536,14 @@ class HunavHumanSimulator(DummyHumanSimulator):
+         self._logger.info(f"=== REMOVING {len(self._pedestrians)} PEDESTRIANS ===")
+ 
+         # Phase 1: Reset HuNav agents FIRST
+-        success = self._call_delete_actors_service()
++        # On the first reset the Gazebo plugin has not been spawned and there
++        # are no actor entities to remove.  Treat that as an empty successful
++        # cleanup instead of waiting two seconds and reporting a false error.
++        success = (
++            self._call_delete_actors_service()
++            if self._gz_plugin_spawned
++            else True
++        )
+ 
+         if not success:
+             self._logger.error("Failed to delete  HuNav agents from ECM - continuing anyway")
+diff --git a/task_generator/task_generator/simulators/sim/gazebo_simulator/gazebo_simulator.py b/task_generator/task_generator/simulators/sim/gazebo_simulator/gazebo_simulator.py
+index 5689007317d9316ae07857973fa4760310e642d2..e2c225374ed70a544b5a412c258bd29fe6844156 100644
+--- a/task_generator/task_generator/simulators/sim/gazebo_simulator/gazebo_simulator.py
++++ b/task_generator/task_generator/simulators/sim/gazebo_simulator/gazebo_simulator.py
+@@ -1,12 +1,15 @@
+ import itertools
+ import math
++import os
+ import time
+ import traceback
+ 
+ import arena_simulation_setup.entities.robot
++import arena_simulation_setup.world
+ import launch
+ import launch_ros
+ from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
++from nav2_msgs.srv import SetInitialPose
+ from ros_gz_interfaces.msg import Entity as EntityMsg
+ from ros_gz_interfaces.msg import EntityFactory, WorldControl
+ from ros_gz_interfaces.srv import (ControlWorld, DeleteEntity, SetEntityPose,
+@@ -62,19 +65,11 @@ class GazeboSimulator(BaseSim):
+             '/world/default/control',
+         )
+ 
+-        self._logger.info("Waiting for gazebo services...")
+-        services = (
+-            (self._spawn_entity, "spawn entity"),
+-            (self._delete_entity, "delete entity"),
+-            (self._set_entity_pose, "set entity pose"),
+-            (self._control_world, "control world"),
+-        )
+-
+-        # for service, name in services:
+-        #     if not service.wait_for_service(10):
+-        #         raise RuntimeError(f'service {name} ({service.srv_name}) not available')
+-
+-        self._logger.info("All Gazebo services are available now.")
++        # These bridges are queued through ``node.do_launch`` above. Do not
++        # wait here: the task node must return to its launch loop before the
++        # bridge processes can actually be started. Individual operations wait
++        # for their service immediately before use.
++        self._logger.info("Gazebo service bridges queued for launch.")
+ 
+     def __init__(self, namespace):
+         """Initialize GazeboSimulator
+@@ -97,6 +92,8 @@ class GazeboSimulator(BaseSim):
+         self.entities = {}
+         self._walls_entities = []
+         self._wall_counter = itertools.count()
++        self._initial_pose_publishers = {}
++        self._initial_pose_clients = {}
+ 
+     def before_reset_task(self):
+         self._logger.info("Pausing simulation before reset")
+@@ -137,60 +134,11 @@ class GazeboSimulator(BaseSim):
+             if result.success and isinstance((entity := self.entities.get(name, None)), Robot):
+                 entity.pose = pose
+                 self.entities[name] = entity
+-                self._robot_initialpose(entity)
+-
+-                max_attempts = 3
+-                attempt = 1
+-                initial_pose_triggered = False
+-
+-                while attempt <= max_attempts and not initial_pose_triggered:
+-                    self._logger.info(
+-                        f"Attempt {attempt}/{max_attempts}: Triggering initial pose update for robot {name}"
+-                    )
+-                    try:
+-                        self._robot_initialpose(entity)
+-                        initial_pose_triggered = True
+-                        self._logger.info(
+-                            f"Initial pose update for {name} succeeded on attempt {attempt}"
+-                        )
+-                    except Exception as e:
+-                        self._logger.error(
+-                            f"Attempt {attempt}/{max_attempts} failed for {name}: {str(e)}"
+-                        )
+-                        traceback.print_exc()
+-                        if attempt < max_attempts:
+-                            self._logger.info("Waiting 1 second before retrying...")
+-                            time.sleep(1)
+-                        attempt += 1
+-
+-                if not initial_pose_triggered:
++                if not self._robot_initialpose(entity, require_delivery=True):
+                     self._logger.error(
+-                        f"Failed to set initial pose for {name} after {max_attempts} attempts"
++                        f"Failed to deliver the initial pose for {name} to AMCL"
+                     )
+ 
+-                odom_frame = 'odom'
+-
+-                if isinstance(entity, Robot):
+-                    odom_frame = arena_simulation_setup.entities.robot.Robot(entity.model.name).model_params.odom_frame
+-
+-                qx, qy, qz, qw = entity.pose.orientation.x, entity.pose.orientation.y, entity.pose.orientation.z, entity.pose.orientation.w
+-                transform_pub_node = launch_ros.actions.Node(
+-                    package="tf2_ros",
+-                    executable="static_transform_publisher",
+-                    name="map_to_odomframe_publisher",
+-                    arguments=[
+-                        str(entity.pose.position.x), str(entity.pose.position.y), str(entity.pose.position.z),
+-                        str(qx), str(qy), str(qz), str(qw),
+-                        "map",
+-                        entity.frame(odom_frame),
+-                    ],
+-                    parameters=[{'use_sim_time': True}],
+-                )
+-                self.node.do_launch(transform_pub_node)
+-                # time.sleep(1)
+-                # self.node.get_logger().info("Destroying the static_transform_publisher node after 3 seconds.")
+-                # transform_pub_node.destroy_node() # won't work like this, a topic/service to trigger self-destruction
+-
+             return result.success
+ 
+         except Exception as e:
+@@ -224,21 +172,61 @@ class GazeboSimulator(BaseSim):
+             self._logger.info(
+                 f"Spawn position for {entity.name}: x={entity.pose.position.x}, y={entity.pose.position.y}")
+ 
+-            self._spawn_entity.wait_for_service()
+-            self._logger.info(f"Sending spawn request for {entity.name}")
+-            result = self._spawn_entity.call(request)
+-
+-            if result is None:
+-                self._logger.error(
+-                    f"Spawn service call failed for {entity.name}")
+-                return False
++            # The ROS service bridge can become discoverable slightly before
++            # Gazebo's /world/default/create endpoint is ready.  A request in
++            # that gap returns ``success=False`` and used to be accepted as a
++            # permanent failure, leaving the task generator without Jackal and
++            # blocked for the remainder of the 90-second startup check.
++            max_attempts = 10
++            for attempt in range(1, max_attempts + 1):
++                self._logger.info(
++                    f"Sending spawn request for {entity.name} "
++                    f"(attempt {attempt}/{max_attempts})"
++                )
++                future = self._spawn_entity.call_async(request)
++                deadline = time.monotonic() + 3.0
++                while not future.done() and time.monotonic() < deadline:
++                    # The task generator uses a multithreaded executor and
++                    # gives every client its own callback group, so another
++                    # executor thread can complete this future while reset is
++                    # waiting here.
++                    time.sleep(0.05)
++
++                if future.done():
++                    try:
++                        result = future.result()
++                    except Exception as error:
++                        result = None
++                        self._logger.warn(
++                            f"Gazebo spawn request for {entity.name} failed: "
++                            f"{error}"
++                        )
++                else:
++                    self._spawn_entity.remove_pending_request(future)
++                    result = None
++                    self._logger.warn(
++                        f"Gazebo spawn request for {entity.name} timed out "
++                        "after 3 seconds"
++                    )
+ 
+-            self._logger.info(
+-                f"Spawn result for {entity.name}: {result.success}")
++                if result is not None and result.success:
++                    self._logger.info(
++                        f"Spawn result for {entity.name}: True"
++                    )
++                    self.entities[entity.name] = entity
++                    return True
+ 
+-            self.entities[entity.name] = entity
++                if attempt < max_attempts:
++                    self._logger.warn(
++                        f"Gazebo rejected the spawn request for {entity.name}; "
++                        "retrying in 0.5 seconds"
++                    )
++                    time.sleep(0.5)
+ 
+-            return result.success
++            self._logger.error(
++                f"Failed to spawn {entity.name} after {max_attempts} attempts"
++            )
++            return False
+ 
+         except Exception as e:
+             self._logger.error(
+@@ -363,6 +351,24 @@ class GazeboSimulator(BaseSim):
+         self._logger.info("Goal published")
+ 
+     def spawn_walls(self, walls) -> bool:
++        world_name = self.node.conf.Arena.WORLD.value
++        world = arena_simulation_setup.world.World(world_name)
++        baked_world = os.path.join(
++            world.path,
++            'worlds',
++            f'{world_name}.world',
++        )
++        if os.path.isfile(baked_world):
++            # The SDF already contains the physical walls.  BaseHumanSimulator
++            # will still pass these segments to HuNav after this call; spawning
++            # them as boxes here would duplicate the hospital geometry.
++            self.remove_walls()
++            self._logger.info(
++                f'Using {len(walls)} map wall segments for HuNav only; '
++                f'{world_name} already provides physical SDF geometry'
++            )
++            return True
++
+         wall_name = self.node._environment_manager.realize(f"walls_{next(self._wall_counter)}")
+         # wall_positions = [(0, 0), (5, 0), (5, 5), (0, 5), (0, 0)]  # A square wall
+         wall_height = 3.0  # Wall height in meters
+@@ -550,13 +556,63 @@ class GazeboSimulator(BaseSim):
+         # )
+         self.node.do_launch(launch_description)
+ 
+-    def _robot_initialpose(self, robot: Robot):
++    def _robot_initialpose(self, robot: Robot, require_delivery: bool = False) -> bool:
+         pose = PoseWithCovarianceStamped()
+         pose.pose.pose = robot.pose.to_msg()
+         pose.header.frame_id = "map"
+-
+-        self.node.create_publisher(
+-            PoseWithCovarianceStamped,
+-            self.node.service_namespace(robot.name, "initialpose"),
+-            qos_profile=1,
+-        ).publish(pose)
++        # This pose is simulator ground truth, not a noisy RViz estimate.  A
++        # large covariance makes AMCL re-localize against scan matching and
++        # can move the reported pose by tens of centimetres immediately after
++        # reset.  Keep a tiny non-zero covariance so the message remains a
++        # valid probabilistic estimate while preserving the exact reset pose.
++        pose.pose.covariance[0] = 1e-6
++        pose.pose.covariance[7] = 1e-6
++        pose.pose.covariance[35] = math.radians(0.1) ** 2
++
++        topic = self.node.service_namespace(robot.name, "initialpose")
++        publisher = self._initial_pose_publishers.get(robot.name)
++        if publisher is None:
++            publisher = self.node.create_publisher(
++                PoseWithCovarianceStamped,
++                topic,
++                qos_profile=1,
++            )
++            self._initial_pose_publishers[robot.name] = publisher
++
++        if not require_delivery:
++            # The spawn-time publication happens before Nav2 exists. Keep the
++            # publisher alive so discovery is already complete at the task
++            # reset.
++            publisher.publish(pose)
++            return publisher.get_subscription_count() > 0
++
++        service = self.node.service_namespace(robot.name, "set_initial_pose")
++        client = self._initial_pose_clients.get(robot.name)
++        if client is None:
++            client = self.node.create_client(SetInitialPose, service)
++            self._initial_pose_clients[robot.name] = client
++
++        if client.wait_for_service(timeout_sec=5.0):
++            request = SetInitialPose.Request()
++            request.pose = pose
++            response = client.call(request)
++            if response is not None:
++                self._logger.info(
++                    f"AMCL initial pose set for {robot.name}: "
++                    f"x={robot.pose.position.x:.3f}, y={robot.pose.position.y:.3f}, "
++                    f"yaw={robot.pose.orientation.to_yaw():.3f}"
++                )
++                return True
++
++        # Compatibility fallback for AMCL variants without the service. Wait
++        # for topic discovery and repeat the reset pose instead of creating a
++        # one-shot publisher which may be destroyed before delivery.
++        deadline = time.monotonic() + 5.0
++        while publisher.get_subscription_count() == 0 and time.monotonic() < deadline:
++            time.sleep(0.05)
++        if publisher.get_subscription_count() == 0:
++            return False
++        for _ in range(3):
++            publisher.publish(pose)
++            time.sleep(0.1)
++        return True
+diff --git a/task_generator/task_generator/tasks/robots/guided.py b/task_generator/task_generator/tasks/robots/guided.py
+index 0e5976cf8a4210b483014ed9b6edfb82088488c7..13cef0d101a7c880f1bbc115b77e552505b46d29 100644
+--- a/task_generator/task_generator/tasks/robots/guided.py
++++ b/task_generator/task_generator/tasks/robots/guided.py
+@@ -1,4 +1,8 @@
+-from task_generator.shared import Pose
++import math
++
++from arena_simulation_setup.world import World
++from task_generator.shared import Orientation, Pose, PositionRadius
++from task_generator.tasks.robots import TM_Robots
+ from task_generator.tasks.robots.random import TM_Random
+ 
+ 
+@@ -27,6 +31,35 @@ class TM_Guided(TM_Random):
+     _waypoints: list[Pose]
+     _waypoint_states: dict[str, int]
+ 
++    def _get_scenario_starts(self, count: int) -> list[Pose]:
++        """Return deterministic starts from the world's selected scenario.
++
++        Guided mode previously sampled a free cell from the complete occupancy
++        map.  On large worlds such as hospital this often put the robot tens of
++        metres away from Gazebo's initial camera, making a correctly spawned
++        robot look as if it were missing.  Scenario starts are authored to be
++        valid, useful and visible, while the goal is intentionally ignored in
++        guided mode until the operator supplies one from RViz.
++        """
++        scenario_file = "default.json"
++        parameter_name = "task.scenario.file"
++        if self.node.has_parameter(parameter_name):
++            configured = self.node.get_parameter(parameter_name).value
++            if configured:
++                scenario_file = str(configured)
++
++        try:
++            scenario = World(
++                self.node._world_manager.world_name
++            ).scenario(scenario_file).load()
++            return [robot.start for robot in scenario.robots[:count]]
++        except (FileNotFoundError, OSError, ValueError, TypeError) as error:
++            self._logger.warning(
++                f"Could not load guided starts from scenario {scenario_file}: "
++                f"{error}; falling back to free-map sampling"
++            )
++            return []
++
+     def reset(self, **kwargs):
+         """
+         Resets the TM_Guided object.
+@@ -37,7 +70,49 @@ class TM_Guided(TM_Random):
+         Returns:
+             None
+         """
+-        super().reset(**kwargs)
++        # Guided mode needs a random (or supplied) start, but it must not
++        # generate and publish the random goal from TM_Random.reset().  A goal
++        # is added only when the operator uses RViz.
++        TM_Robots.reset(self, **kwargs)
++
++        robot_positions: list[tuple[Pose, Pose]] = list(
++            kwargs.get("ROBOT_POSITIONS", [])
++        )
++        managers = list(self._PROPS.robot_managers.values())
++
++        if not robot_positions:
++            robot_positions.extend(
++                (start, Pose())
++                for start in self._get_scenario_starts(len(managers))
++            )
++
++        biggest_robot = max(
++            (robot.safe_distance for robot in managers), default=0
++        )
++
++        for start, _ in robot_positions:
++            self._PROPS.world_manager.forbid([
++                PositionRadius(
++                    start.position.x, start.position.y, biggest_robot
++                )
++            ])
++
++        missing = max(0, len(managers) - len(robot_positions))
++        if missing:
++            orientations = 2 * math.pi * \
++                self.node.conf.General.RNG.value.random(missing)
++            positions = self._PROPS.world_manager.get_positions_on_map(
++                n=missing,
++                safe_dist=biggest_robot,
++            )
++            robot_positions.extend(
++                (Pose(position, Orientation.from_yaw(orientation)), Pose())
++                for orientation, position in zip(orientations, positions)
++            )
++
++        for manager, (start, _) in zip(managers, robot_positions):
++            manager.reset(start_pos=start, goal_pos=None)
++
+         self._reset_waypoints()
+ 
+     @property
+@@ -118,7 +193,11 @@ class TM_Guided(TM_Random):
+             self._waypoint_states[robot] = 0
+ 
+         for robot in self._PROPS.robot_managers.values():
+-            robot.reset(robot.start_pos, robot.start_pos)
++            # Guided mode must wait for an RViz goal.  Publishing the start
++            # pose as a goal every three seconds makes Nav2 repeatedly plan a
++            # zero-length route.  Do not move the robot a second time here:
++            # RobotManager.reset() has already applied the start pose.
++            robot.clear_goal()
+ 
+         self._waypoints = []
+         self.node.rosparam[list[list[float]]].set(self.PARAM_WAYPOINTS, [])
+diff --git a/tools/colcon_build b/tools/colcon_build
+index 605de4de0ee472ad347fcfd36035fe3e29d99235..930f8ac75f2e0305695979e2edbb726b3f4dd354 100755
+--- a/tools/colcon_build
++++ b/tools/colcon_build
+@@ -40,7 +40,7 @@ ARGS=(
+     "--base-paths ${BASE_PATHS[*]}"
+     "--symlink-install"
+     "--continue-on-error"
+-    "--packages-skip ${OLD_PACKAGES[*]} qt_gui_core rqt qt_gui_cpp rqt_gui_cpp"
++    "--packages-skip ${OLD_PACKAGES[*]} qt_gui_core rqt qt_gui_cpp rqt_gui_cpp nav2_system_tests"
+     "--cmake-args '-DPython3_ROOT_DIR=$(cd "${ARENA_WS_DIR}/src/arena/arena-rosnav" && poetry env info -p) -DBUILD_TESTING=OFF'"
+ )
+ 
+diff --git a/tools/source.bash b/tools/source.bash
+index 47e3f5523c11954b7baa212e5ddc4f767bad0a70..9baa104fe0e3b962f275c2054fbec774788ddf34 100644
+--- a/tools/source.bash
++++ b/tools/source.bash
+@@ -10,7 +10,19 @@ if [ -z ${ARENA_SOURCED+x} ] ; then
+     export GAZEBO_VERSION=${GAZEBO_VERSION:-harmonic}
+     export GZ_VERSION=${GAZEBO_VERSION}
+ 
+-    export FASTRTPS_DEFAULT_PROFILES_FILE=~/.ros/fastdds.xml
++    # Keep the optional Gazebo USD extension available in fresh shells.
++    if [ -d "$ARENA_WS_DIR/tools/OpenUSD/install" ]; then
++        export USD_PATH="$ARENA_WS_DIR/tools/OpenUSD/install"
++        export PATH="$USD_PATH/bin:$PATH"
++        export LD_LIBRARY_PATH="$USD_PATH/lib:${LD_LIBRARY_PATH:-}"
++        export CMAKE_PREFIX_PATH="$USD_PATH:${CMAKE_PREFIX_PATH:-}"
++    fi
++
++    if [ -f "$HOME/.ros/fastdds.xml" ]; then
++        export FASTRTPS_DEFAULT_PROFILES_FILE="$HOME/.ros/fastdds.xml"
++    else
++        unset FASTRTPS_DEFAULT_PROFILES_FILE
++    fi
+     export ROS_DOMAIN_ID=1
+     export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+     export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/ros/${ARENA_ROS_DISTRO}/lib/"
+@@ -47,6 +59,13 @@ if [ -f install/local_setup.bash ] ; then
+     . install/local_setup.bash
+ fi 
+ 
++# Packages extracted into the workspace avoid repeated system authentication.
++arena_local_ros="$ARENA_WS_DIR/tools/local_ros/root/opt/ros/${ARENA_ROS_DISTRO}"
++if [ -d "$arena_local_ros" ]; then
++    . "$arena_local_ros/local_setup.bash"
++fi
++unset arena_local_ros
++
+ if [ -f "$INSTALLED" ] && grep -q "isaac.sh" "$INSTALLED"; then
+     if [ -z ${ISAAC_PATH+x} ] ; then
+         source "$HOME/isaacsim-4.2.0/setup.bash"

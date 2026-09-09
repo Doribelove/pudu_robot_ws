@@ -1,0 +1,12 @@
+<library path="frozen_r1_planner">
+  <class name="three_d_v1_nav2/FrozenR1PathPlanner"
+         type="three_d_v1_nav2::FrozenR1PathPlanner"
+         base_class_type="nav2_core::GlobalPlanner">
+    <description>Returns only SHA-verified, canonical-audited L3 paths produced by frozen 3D-V1-r1.</description>
+  </class>
+  <class name="three_d_v1_nav2/OnlineR1Planner"
+         type="three_d_v1_nav2::OnlineR1Planner"
+         base_class_type="nav2_core::GlobalPlanner">
+    <description>Requests live frozen-r1 L1/L2/L3 planning from an isolated service.</description>
+  </class>
+</library>

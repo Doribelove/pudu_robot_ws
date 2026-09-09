@@ -1,0 +1,72 @@
+schema_version: pudu_wanda_3f_v3_targeted_fair_comparison_v1
+seed: 20260907
+map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+query_hash: e8bc6434a2a5992ef0bf5e459931c2773b18989415cde7094681980ff9ec37e5
+all_endpoints_footprint_safe: true
+all_endpoints_connected: true
+source_targeted_query_set: pudu_wanda_3f_v3_r7_targeted_applicable_positive_v1.yaml
+purpose: Same endpoint/yaw/order inputs for frozen E0, E4-r3 and E5-2A-V3 comparison.
+
+queries:
+  - query_id: v3-applicable-mirror-positive
+    start: [-40.600998999999995, -16.683104, 1.5707963267948966]
+    goal: [-40.450998999999996, -0.5331039999999945, 1.5707963267948966]
+    category: lane_mirror_applicable_positive
+    seed: 20260907
+    validation_status: V3_DIRECTED_APPLICABILITY_CERTIFIED
+  - query_id: r3-mirror-2-negative
+    start: [-25.950998999999996, -10.683104, -0.7853981633974483]
+    goal: [-25.750998999999993, -19.133104000000003, -1.5707963267948966]
+    category: lane_mirror_regression
+    seed: 20260903
+    validation_status: R3_STRICT_OFFLINE_ACCEPTANCE_PASSED
+  - query_id: cmp2-02-lane-south
+    start: [-26.350998999999995, 21.066896, -1.5707963267948966]
+    goal: [-25.800998999999997, -33.633104, -1.4876550949064484]
+    category: lane_plain_south
+    seed: 20260904
+    validation_status: R3_STRICT_OFFLINE_ACCEPTANCE_PASSED
+
+intent_validation:
+  - query_id: v3-applicable-mirror-positive
+    category: lane_mirror_applicable_positive
+    start_semantics: [lane]
+    goal_semantics: [lane]
+    footprint_safe: true
+    connected_component: 22
+    purpose_verified: true
+    verification:
+      start_cell: [2668, 808]
+      goal_cell: [2345, 811]
+      minimum_endpoint_clearance_m: 2.777209520339966
+      topology_route_length_m: 16.460827958670347
+      route_hash: 0189f65fe80e9b4a26afa9deb706d1c197c85d035cfa724e9f2e5e560d8c8d9f
+      applicability_replay_count: 3
+      raw_target_reachable_and_coreachable: true
+  - query_id: r3-mirror-2-negative
+    category: lane_mirror_regression
+    start_semantics: [lane]
+    goal_semantics: [lane]
+    footprint_safe: true
+    connected_component: 22
+    purpose_verified: true
+    verification:
+      start_cell: [2548, 1101]
+      goal_cell: [2717, 1105]
+      minimum_endpoint_clearance_m: 2.4598450660705566
+      topology_route_length_m: 8.482842712474621
+      route_hash: 02437d530b88223b76ef02b1852c49bbf2f369ddec194fbb36b49839b5258c22
+  - query_id: cmp2-02-lane-south
+    category: lane_plain_south
+    start_semantics: [lane]
+    goal_semantics: [lane]
+    footprint_safe: true
+    connected_component: 22
+    purpose_verified: true
+    verification:
+      start_cell: [1913, 1093]
+      goal_cell: [3007, 1104]
+      minimum_endpoint_clearance_m: 2.25
+      topology_route_length_m: 55.00330085889912
+      route_hash: cc9a7ecaa8b061a63ff48adb746f297893db49f580fa83f8d2756945a8dd3742

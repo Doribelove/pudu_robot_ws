@@ -1,0 +1,106 @@
+schema_version: PLN-02-2A-V3-R0-LONG-MIRROR-CONFIG-V1
+architecture_id: 2A-V3
+implementation_revision: r0-long-transition-directed-se2-corridor
+protocol_id: PLN-02-2A-V3-R0-LONG-TRANSITION-DIRECTED-SE2-CORRIDOR-V1
+parent_architecture: 2A-V2-C
+
+parent_config:
+  path: two_layer_v2_semantic_r3.yaml
+  sha256: 367d0d30db025b19e977957d930860b9614cbd9f89c5903c74bb8910db88180f
+
+frozen_bindings:
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  selected8_query_set_id: pudu_wanda_3f_semantic_compare_selected8_r2_v2
+  selected8_query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+  selected8_file_sha256: b3307d4578447131e71db16156cd2f72e9f5042f98bdce0d75d21fe81300738d
+  legacy_targeted_query_hash: 66212b05ef6c4d16eaedafc1c27866387c3d74aa85bf5ac69bca92487254667d
+  legacy_targeted_file_sha256: 2092f57ffc41bca885f783abc17e630ddecd3311035957957c55f873b9225f01
+  source_candidate_pool:
+    path: private_data/pudu_wanda_3f/results/mirror_selection_r3_v1/mirror_selection_result.json
+    sha256: 1701e4189eec9bb197d855508600dde1b138190ede081fe38702a869549d7c22
+    permitted_fields: [candidate_id, lane_label, lane_semantic_id, endpoint_node_ids,
+      minimum_endpoint_clearance_m, directions.direction, directions.start, directions.goal]
+    forbidden_as_v3_evidence: all historical viability, eligibility, path and metric fields
+  legacy_positive_applicability_evidence:
+    manifest_path: private_data/pudu_wanda_3f/results/transition_goal_plane_postprocess_takeover_final_20260907T090000Z/manifest.json
+    manifest_sha256: fdf8ae60611367266747282878bff11056dbfcfbdb86583177ed748a03e6045a
+    result_path: private_data/pudu_wanda_3f/results/transition_goal_plane_postprocess_takeover_final_20260907T090000Z/goal_plane_postprocess.json
+    result_sha256: 9ea134b94dd9cef3c172eb7ab98bb196403bc35c706fc798d2a56ffe4168cd7d
+
+semantic_applicability:
+  raw_semantic_target_unchanged: true
+  require_same_semantic_feature_instance: true
+  require_complete_padded_footprint: true
+  require_static_start_reachable_and_goal_coreachable: true
+  require_target_on_or_before_directed_goal_plane: true
+  require_replayable_forward_only_se2_chain: true
+  absent_intersection_status: NOT_APPLICABLE
+  absent_intersection_counts_as_success: false
+  retain_original_query_as_negative_regression: true
+  yaw_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  padded_footprint: [[0.265, 0.225], [0.265, -0.225], [-0.265, -0.225], [-0.265, 0.225]]
+  numeric_goal_plane_tolerance_m: 0.05
+
+mirror_selection:
+  hypothesis: longer lane-internal travel leaves a non-endpoint semantic transition interval after the approved 6 m exclusions
+  minimum_endpoint_clearance_m: 1.50
+  minimum_euclidean_separation_m: 15.0
+  maximum_euclidean_separation_m: 30.0
+  maximum_l1_endpoint_attachment_distance_m: 2.0
+  require_same_lane_instance: true
+  require_same_undirected_l1_route: true
+  selection_order:
+    - descending minimum endpoint clearance
+    - descending endpoint Euclidean separation
+    - ascending lane semantic ID
+    - ascending endpoint coordinate tuple
+    - ascending source candidate ID
+  selection_rule: first pair in frozen order ranking with independent bidirectional applicability certificates
+  no_reselection_after_freeze: true
+
+ordered_se2_certificate:
+  station_spacing_m: 0.50
+  lateral_sample_spacing_m: 0.25
+  maximum_lateral_probe_m: 6.0
+  maximum_cells_per_station: 9
+  yaw_neighbor_bins: [-1, 0, 1]
+  maximum_station_skip: 4
+  maximum_local_edge_length_m: 3.0
+  maximum_local_edge_ratio: 1.75
+  maximum_labels_per_node: 8
+  maximum_graph_edges: 250000
+  turning_radius_m: 0.401
+  endpoint_attachment_limit_m: 2.0
+  projection_epsilon_m: 0.000001
+  candidate_cell_source: map_cells_in_local_station_slab
+  station_slab_half_width_m: 0.30
+  target_candidate_order: maximum_static_clearance_then_minimum_target_error
+
+r2_semantic_acceptance:
+  short_path_max_m: 12.0
+  long_path_endpoint_exclusion_each_m: 6.0
+  lane_correct_side_ratio_min: 0.80
+  lane_target_band_ratio_min_exclusive: 0.50
+  lane_lateral_error_p50_max_m: 0.50
+  parking_normalized_deviation_p50_max: 0.25
+  parking_center_band_ratio_min_exclusive: 0.50
+
+stage_gates:
+  stage1_new_mirror: both directions applicable and query set frozen before path acceptance
+  deterministic_replay: three fresh independent replays with identical certificate hashes
+  stage2_offline_triad: new mirror positive, new mirror negative and frozen long south all strict pass
+  stage3_online_targeted: only after stage2 3/3
+  stage4_selected8: only after online targeted, exact ACK and cold latency gates
+  exact_effective_content_ack_mismatch_max: 0
+  cold_request_candidate_over_e0_p50_hard_max: 2.0
+  cold_request_candidate_over_e0_p50_target: 1.5
+
+grading:
+  B: offline and online targeted pass, fair three-arm comparison, exact ACK, cold latency, selected8 repeated measurements and all safety gates
+  any_required_gate_missing_or_failed: C

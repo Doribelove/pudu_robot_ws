@@ -1,0 +1,88 @@
+architecture_id: 2A-V3
+implementation_revision: r13-route-phase-multisemantic-state-lattice
+protocol_id: PLN-02-2A-V3-R13-ROUTE-PHASE-MULTISEMANTIC-V1
+schema_version: PLN-02-2A-V3-R13-CONFIG-V1
+status: frozen_for_formal_evaluation
+frozen_at_utc: "2026-09-08T00:30:00Z"
+
+parent_config:
+  path: two_layer_v2_semantic_r3.yaml
+  sha256: 367d0d30db025b19e977957d930860b9614cbd9f89c5903c74bb8910db88180f
+
+query_set:
+  path: pudu_wanda_3f_selected8_gt50m_r2_v2.yaml
+  file_sha256: b3307d4578447131e71db16156cd2f72e9f5042f98bdce0d75d21fe81300738d
+  query_set_id: pudu_wanda_3f_semantic_compare_selected8_r2_v2
+  query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+  preserve_order: true
+
+targeted_query_set:
+  path: pudu_wanda_3f_v3_r10_targeted_applicable_positive_v1.yaml
+  file_sha256: 61fd74978adc99df275ecb3ee1881fc36768e385b0561adf7e6ebdb5d601ddaf
+  query_hash: e8bc6434a2a5992ef0bf5e459931c2773b18989415cde7094681980ff9ec37e5
+  preserve_order: true
+  source_revision: r10-local-station-prefilter-strict-final
+
+frozen_bindings:
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  heading_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  exact_endpoint_poses: true
+  semantic_contract_revision: semantic-endpoint-transition-short-full-6m-r2
+
+route_phase_policy:
+  station_spacing_m: 0.50
+  station_slab_half_width_m: 0.20
+  maximum_lateral_probe_m: 6.0
+  maximum_cells_per_station: 9
+  yaw_neighbor_bins: [-1, 0, 1]
+  maximum_station_skip: 3
+  maximum_local_edge_length_m: 2.75
+  maximum_local_edge_ratio: 2.0
+  endpoint_attachment_limit_m: 0.75
+  turning_radius_m: 0.401
+  projection_epsilon_m: 0.000001
+  valid_successors_per_target_layer: 4
+  live_labels_per_state: 8
+  maximum_expanded_labels: 12000
+  maximum_goal_candidates: 48
+  # Search-order term only: the admissibility and final path gates do not use
+  # it.  A low value caused a 56 m single-lane request to exhaust the bounded
+  # label budget before reaching the goal although the same graph had a strict
+  # witness; retain the evidence-backed forward-progress ordering from r13-v1.
+  progress_priority_per_m: 55.0
+  short_route_max_m: 25.0
+  short_route_progress_priority_per_m: 1.0
+  phase_probe_radius_m: 0.50
+  path_length_route_ratio_max: 1.25
+  path_length_route_slack_m: 2.0
+  lane_wrong_weight: 2000.0
+  lane_outside_target_weight: 1000.0
+  parking_outside_center_weight: 1000.0
+  semantic_error_weight: 2.0
+  phase_transition_layer_tolerance: 2
+
+calibration_gate:
+  scope: targeted_strict_and_frozen_selected8_safe_system_preflight
+  offline_first: true
+  all_queries_required: true
+  historical_paths_allowed_as_planner_input: false
+  targeted_exact_r2_semantic_gate: true
+  selected8_final_valid_gate: true
+  selected8_safe_fallback_may_not_count_as_semantic_success: true
+  full_path_safety_gate: true
+  ordered_progress_and_revisit_gate: true
+  online_not_allowed_until_offline_targeted_calibration_passes: true
+
+calibration_evidence:
+  targeted_positive: private_data/pudu_wanda_3f/results/2a_v3_r13_targeted_positive_lengthadaptive_calibration_20260907T210000Z
+  targeted_negative: private_data/pudu_wanda_3f/results/2a_v3_r13_route_phase_target_negative_calibration_20260907T173500Z
+  targeted_long_south: private_data/pudu_wanda_3f/results/2a_v3_r13_route_phase_target_south_progress_calibration_v2_20260907T174500Z
+  online_targeted_exact_preflight: private_data/pudu_wanda_3f/results/2a_v3_r13_online_targeted_seam_repair_preflight_v12_20260908T001000Z
+  online_selected8_exact_preflight: private_data/pudu_wanda_3f/results/2a_v3_r13_online_selected8_seam_repair_preflight_v13_20260908T002000Z
+  same_round_e0_e4_selected8_preflight: private_data/pudu_wanda_3f/results/2a_v3_r13_selected8_e0_e4_preflight_20260907T223000Z

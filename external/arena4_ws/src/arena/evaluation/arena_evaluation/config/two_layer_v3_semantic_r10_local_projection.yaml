@@ -1,0 +1,20 @@
+schema_version: PLN-02-2A-V3-R10-LOCAL-PROJECTION-CONFIG-V1
+architecture_id: 2A-V3
+implementation_revision: r10-local-station-prefilter-strict-final
+protocol_id: PLN-02-2A-V3-R10-LOCAL-STATION-PREFILTER-STRICT-FINAL-V1
+extends_config:
+  path: two_layer_v3_semantic_r7_sampled_progress.yaml
+  sha256: be39105687d1053355a3322e290faf63b499b0e8202d62d3175350d693610094
+predecessor_config:
+  path: two_layer_v3_semantic_r7_sampled_progress.yaml
+  sha256: be39105687d1053355a3322e290faf63b499b0e8202d62d3175350d693610094
+  frozen_result: private_data/pudu_wanda_3f/results/2a_v3_r10_local_projection_positive_calibration_20260907T125000Z/result.json
+  frozen_result_sha256: 762e61d6e04b6a3b0c097cbce898a9099d4eecb5314fc0b8ffca977c9fe3bb7b
+  reason: Calibration under the r7 contract proved local station projection preserves exact path and controls while reducing positive planning wall from 2.933 s to 1.252 s.
+performance_implementation:
+  graph_generation: lazy_guided
+  local_progress_prefilter: project only against the source-to-target route station window plus 0.25 m
+  local_prefilter_scope: permissive_search_filter_only
+  final_progress_and_naturalness_audit: unchanged dense whole-path global-route projection; fail closed
+stage_gates:
+  stage2_offline_triad: all three fresh local-projection requests strict pass before optimized online rerun

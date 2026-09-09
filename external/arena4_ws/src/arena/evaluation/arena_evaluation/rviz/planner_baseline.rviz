@@ -1,0 +1,187 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz_default_plugins/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Name: Grid
+      Plane: XY
+      Reference Frame: map
+    - Alpha: 0.85
+      Class: rviz_default_plugins/Map
+      Color Scheme: map
+      Draw Behind: true
+      Enabled: true
+      Name: Hospital 0.05 m
+      Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz_default_plugins/Path
+      Color: 25; 115; 232
+      Enabled: true
+      Head Diameter: 0.18
+      Head Length: 0.12
+      Length: 0.15
+      Line Style: Lines
+      Line Width: 0.16
+      Name: Baseline path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0.04
+      Pose Style: None
+      Radius: 0.03
+      Shaft Diameter: 0.06
+      Shaft Length: 0.08
+      Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /baseline_visualization/path
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz_default_plugins/Path
+      Color: 190; 70; 205
+      Enabled: true
+      Head Diameter: 0.10
+      Head Length: 0.08
+      Length: 0.10
+      Line Style: Lines
+      Line Width: 0.24
+      Name: L1 topology selected route
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0.06
+      Pose Style: None
+      Radius: 0.03
+      Shaft Diameter: 0.04
+      Shaft Length: 0.06
+      Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /baseline_visualization/topology_route
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz_default_plugins/Path
+      Color: 30; 175; 215
+      Enabled: true
+      Head Diameter: 0.10
+      Head Length: 0.08
+      Length: 0.10
+      Line Style: Lines
+      Line Width: 0.20
+      Name: L2 grid path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0.09
+      Pose Style: None
+      Radius: 0.03
+      Shaft Diameter: 0.04
+      Shaft Length: 0.06
+      Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /baseline_visualization/grid_path
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz_default_plugins/Path
+      Color: 255; 135; 25
+      Enabled: true
+      Head Diameter: 0.12
+      Head Length: 0.10
+      Length: 0.12
+      Line Style: Lines
+      Line Width: 0.28
+      Name: L3 kinematic final path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0.12
+      Pose Style: None
+      Radius: 0.03
+      Shaft Diameter: 0.05
+      Shaft Length: 0.07
+      Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /baseline_visualization/kinematic_path
+    - Alpha: 1
+      Axes Length: 0.7
+      Axes Radius: 0.08
+      Class: rviz_default_plugins/Pose
+      Color: 36; 170; 84
+      Enabled: true
+      Head Length: 0.3
+      Head Radius: 0.15
+      Name: Start
+      Shaft Length: 0.7
+      Shaft Radius: 0.07
+      Shape: Arrow
+      Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /baseline_visualization/start
+    - Alpha: 1
+      Axes Length: 0.7
+      Axes Radius: 0.08
+      Class: rviz_default_plugins/Pose
+      Color: 220; 52; 48
+      Enabled: true
+      Head Length: 0.3
+      Head Radius: 0.15
+      Name: Goal
+      Shaft Length: 0.7
+      Shaft Radius: 0.07
+      Shape: Arrow
+      Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /baseline_visualization/goal
+  Enabled: true
+  Global Options:
+    Background Color: 245; 246; 248
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+  Views:
+    Current:
+      Angle: 0
+      Class: rviz_default_plugins/TopDownOrtho
+      Name: Top Down
+      Scale: 55
+      Target Frame: map
+      X: 0
+      Y: -8
+Window Geometry:
+  Height: 900
+  Width: 1400

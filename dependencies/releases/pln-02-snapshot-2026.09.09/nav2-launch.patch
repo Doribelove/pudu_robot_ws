@@ -1,0 +1,36 @@
+diff --git a/nav2_bringup/launch/navigation_launch.py b/nav2_bringup/launch/navigation_launch.py
+index ee11f1eeda032ff7435bc9b3dd38bfce7e3af9a5..0fcbdd577213c6eac1445ff479c98d41496b665e 100644
+--- a/nav2_bringup/launch/navigation_launch.py
++++ b/nav2_bringup/launch/navigation_launch.py
+@@ -183,14 +183,6 @@ def generate_launch_description():
+                 arguments=['--ros-args', '--log-level', log_level],
+                 remappings=remappings +
+                         [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
+-            Node(
+-                package='nav2_collision_monitor',
+-                executable='collision_monitor',
+-                name='collision_monitor',
+-                output='screen',
+-                emulate_tty=True,  # https://github.com/ros2/launch/issues/188
+-                # hard code parameter state_topic to collision_monitor_state
+-                parameters=[configured_params],),
+             Node(
+                 package='nav2_lifecycle_manager',
+                 executable='lifecycle_manager',
+@@ -261,16 +253,6 @@ def generate_launch_description():
+                             {'use_sim_time': use_sim_time,
+                              'autostart': autostart,
+                              'node_names': lifecycle_nodes}]),
+-            ComposableNode(
+-                package='nav2_collision_monitor',
+-                plugin='nav2_collision_monitor::CollisionMonitorNode',
+-                name='collision_monitor',
+-                parameters=[configured_params],
+-                remappings=remappings + [
+-                    ('/cmd_vel', '/cmd_vel_nav'),
+-                    # ('/scan', '/your/scan/topic')
+-                ],
+-            ),
+         ],
+     )
+ 

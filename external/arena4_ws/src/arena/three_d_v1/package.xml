@@ -2,8 +2,8 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>arena_3d_v1</name>
-  <version>1.0.0</version>
-  <description>Independent dynamic 3D-V1 layered planner research package.</description>
+  <version>1.2.0</version>
+  <description>3D-V1-r2-stable global planner with explicit legacy research runners.</description>
   <maintainer email="robot@example.com">Pudu planner research</maintainer>
   <license>BSD-3-Clause</license>
   <buildtool_depend>ament_python</buildtool_depend>

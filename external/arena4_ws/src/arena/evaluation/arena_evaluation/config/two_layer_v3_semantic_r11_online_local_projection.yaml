@@ -1,0 +1,74 @@
+schema_version: PLN-02-2A-V3-R11-ONLINE-CONFIG-V1
+architecture_id: 2A-V3
+implementation_revision: r11-online-local-projection
+protocol_id: PLN-02-2A-V3-R11-ONLINE-LOCAL-PROJECTION-V1
+parent_revision: r9-online-path-content-ack
+
+predecessor_online_config:
+  path: two_layer_v3_semantic_r9_online_content_ack.yaml
+  sha256: 6164e4328d135de9955d01aa7b2d5972bc5e3cb3874459534eda89c83fde8d0b
+  frozen_result: private_data/pudu_wanda_3f/results/2a_v3_r9_online_targeted_20260907T123148Z/final_result.json
+  predecessor_outcome: correctness_and_exact_ACK_passed_but_same_round_latency_ratio_3.02x_failed
+
+algorithm_config:
+  path: two_layer_v3_semantic_r10_local_projection.yaml
+  sha256: 703ea297bad9593a2704d043b9d55107ebf7945ee883a6f18322abd250d4b74e
+targeted_query_set:
+  path: pudu_wanda_3f_v3_r10_targeted_applicable_positive_v1.yaml
+  sha256: 61fd74978adc99df275ecb3ee1881fc36768e385b0561adf7e6ebdb5d601ddaf
+
+offline_gate_evidence:
+  v3-applicable-mirror-positive:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r10_offline_positive_20260907T125700Z/result.json
+    sha256: 7ae4bcb514b0c98c8e71c1696498932a26ad4fc145f7d5e14e52b8128884a041
+  r3-mirror-2-negative:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r10_offline_negative_20260907T125800Z/result.json
+    sha256: c2f11ebe4bcea383d87d269f098a2b86c93fb81c244cad3c85fba868a90e4243
+  cmp2-02-lane-south:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r10_offline_south_20260907T125900Z/result.json
+    sha256: 4b91fa139b8ed2d33462d33509f7cee2460c2f47cf67e70c859c181edc78d2b0
+
+online_interface:
+  planner_arm: E5-2A-V3
+  planner_algorithm: independent_directed_se2_state_lattice
+  pinned_smac_role: interface_audit_and_frozen_E0_E4_comparator_only
+  effective_cost_source: nav2_global_master_costmap_service_after_exact_ack
+  path_message: nav_msgs/Path
+  path_topic: /pln02_2a_v3/global_path
+  path_ack_identity: canonical_defined_message_fields_excluding_cdr_padding
+  preserve_raw_serialization_hashes_as_diagnostic: true
+  require_exact_content_local_echo: true
+  exact_ack_timeout_s: 2.0
+  fixed_settle_s: 0.0
+  ros_domain_id: 190
+
+immutable_motion_contract:
+  yaw_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  padded_footprint: [[0.265, 0.225], [0.265, -0.225], [-0.265, -0.225], [-0.265, 0.225]]
+
+targeted_gate:
+  require_all_queries: true
+  require_r0: true
+  lane_correct_side_ratio_min: 0.80
+  lane_target_band_ratio_min_exclusive: 0.50
+  lane_lateral_error_p50_max_m: 0.50
+  collision_violations_max: 0
+  kinematic_violations_max: 0
+  hard_semantic_violations_max: 0
+  no_stopping_goal_violations_max: 0
+  reverse_distance_max_m: 0.0
+  rotate_in_place_max: 0
+  maximum_curvature_1pm: 2.50
+  exact_ack_mismatch_max: 0
+  candidate_over_e0_cold_p50_hard_max: 2.0
+  candidate_over_e0_cold_p50_target: 1.5
+
+stage_gates:
+  selected8: only_after_online_targeted_exact_ack_safety_and_latency_pass
+  historical_path_as_planner_input: forbidden
+  failed_ack_behavior: fail_closed_no_path_publication

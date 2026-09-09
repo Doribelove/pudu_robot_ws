@@ -1,0 +1,2004 @@
+{
+  "snapshot_id": "pln-02-snapshot-2026.09.09",
+  "base_commit": "ed25b1767976ecb48086bfa429b2b5a3a49d7226",
+  "scope": "Changed or newly tracked project source, tests, configuration and existing reports; release metadata and dependency patches are separately indexed.",
+  "files": [
+    {
+      "path": "docs/PLN-02_2A_V1_R3_RUNTIME_CONTRACT_CORRECTION_20260909.md",
+      "bytes": 2119,
+      "sha256": "381a699fb7a80403ca8bf9598ba70098299eb5e15b457ba2a3ceb0c36cd6f8d8",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_2A_V3_SMAC_INTERFACE_AUDIT.md",
+      "bytes": 3540,
+      "sha256": "75d868e0ec0b824529b9ea7794915bc6e00e4e8d3e360d87a955cadee3dd4126",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_3D_V1_R2_PRODUCTION_ACCEPTANCE_FINAL_REPORT.md",
+      "bytes": 18128,
+      "sha256": "732862b47f048e7345ce4fb9b873591e7a9be24c95e788fd35568b2e20e15182",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_3D_V1_STABLE_PRODUCTION_BASELINE.md",
+      "bytes": 15007,
+      "sha256": "cebdb91ed6d26968c8556caf404ab2d01c720ed3047de53c1ce4e0a147833a38",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_3D_V1_VERSION_INDEX.md",
+      "bytes": 1550,
+      "sha256": "7fbd23fa4c1006030f5171d0d471bbf344b7ee5d0bee821f1e565766195a90f3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_ARCHITECTURE_2A_V2_R3.md",
+      "bytes": 12401,
+      "sha256": "d2f405cec26a48a47a7bd404e23f2c236e8d1587a1eed9fa80739d2b3d596ac7",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_ARCHITECTURE_2A_V2_R3_RESEARCH_PLAN.md",
+      "bytes": 11181,
+      "sha256": "86726cc8d4d7893af2c314c349410aa1167b94de0e3c2d9f589f275bbe5749b3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_ARCHITECTURE_2A_V2_R4.md",
+      "bytes": 10590,
+      "sha256": "7862281a20d1f9810081ec957c0b973462694db3cef926a086eb409788542fe0",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_ARCHITECTURE_2A_V3.md",
+      "bytes": 12359,
+      "sha256": "1518935cbfa94bee34baff7bf13b33c7e8a1a893704d71eed869aefabc9048b2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_ARCHITECTURE_2A_V3_R14.md",
+      "bytes": 12656,
+      "sha256": "a2774ccedd6816d296fbece62b48bd4a622076acce663e28c4425aa401dd3ddf",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_ARCHITECTURE_2A_V3_R15.md",
+      "bytes": 7970,
+      "sha256": "4cb166d39f1ba19db4ade5a557044b97a94f6c33249fb2aca93988b478fab209",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_ARCHITECTURE_2A_V3_R16.md",
+      "bytes": 6785,
+      "sha256": "7b9fb56f853025a55874821cc6a43c5e10b3db7e55907ff7826f2b5c3375e21e",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_ARCHITECTURE_2A_V3_R17.md",
+      "bytes": 9083,
+      "sha256": "c6ac7adb4cac7e1caecefa6aa05d53316606c3454af5d7ca41cceaeedc0bd365",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_ARCHITECTURE_2A_V3_R19.md",
+      "bytes": 14593,
+      "sha256": "c85a573489beff9bbd61fbf31029549c23d886d79ae381b6e08c699bb6a5611b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_CONSTRAINED_FEASIBILITY_R0.md",
+      "bytes": 14565,
+      "sha256": "a1ed209862f35bc869f8e17f699c36101ea001a8a35a744f6aff5a2dd1e40ef4",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_NEXT_ARCHITECTURE_EXPLORATION_R1.md",
+      "bytes": 10074,
+      "sha256": "ea456834dcb5bacb184e6c360bd131c7ca7162748fadd64d3370e93cac668316",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_NEXT_ARCHITECTURE_EXPLORATION_R2.md",
+      "bytes": 6946,
+      "sha256": "e9c7aeaef6d02af90817e5fb532a6cc1d054e083ea3fd9fc72cde8a1f6e426d1",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_NEXT_STAGE_CONTRACT_SENSITIVITY_R0.md",
+      "bytes": 3916,
+      "sha256": "63798988999b194c01225cc43366d97db5595999fdc3500e2c37f1fdd97def52",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_SEMANTIC_ENDPOINT_TRANSITION_CONTRACT_R1.md",
+      "bytes": 6666,
+      "sha256": "76020610086795085b5dba055eca03dd55f13b1a5248ab07728e16c5d3a312c9",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_SEMANTIC_HANDOFF_20260907.md",
+      "bytes": 14550,
+      "sha256": "0a87f51ecc56d815c07bcb9bfa674d6a8eea263e0c4eff12e87931b37dbbfa0a",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_SEMANTIC_SELECTED8_QUERY_SET.md",
+      "bytes": 5944,
+      "sha256": "e05bb4fc10b7257b2a08b778502523832883bac255be4f44c77e691ed9e8c03e",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_SEMANTIC_SELECTED8_QUERY_SET_GT50M.md",
+      "bytes": 4497,
+      "sha256": "d67916b7a2c230690634facd7c44def67f6fe3fb0400aee8888c81c2822d3af2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_SEMANTIC_STATIC_PLANNER_TAKEOVER_R0.md",
+      "bytes": 16287,
+      "sha256": "b41b2e3797634c64de14e9f04dd31384b84cff684ece9944107063e5cebd5e9b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_SEMANTIC_TRANSITION_CONTRACT_R2.md",
+      "bytes": 6805,
+      "sha256": "3ab5aa79256bed811d747788231b3bdae95e87a2b801ffda61240d6a9ad1ff20",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "docs/PLN-02_SEMANTIC_TRANSITION_PREFLIGHT_R1.md",
+      "bytes": 8159,
+      "sha256": "45ac8e26d915c379cb2290b9b1829f3bab04258fb9d537593fe862d219ceba8b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/AGENTS.md",
+      "bytes": 8107,
+      "sha256": "cb27a12adba5fc9ec75ce0c571e4ef4bfaaf8506de56eca078c29bf9fd62987f",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/exact_ack_r3.py",
+      "bytes": 34354,
+      "sha256": "fe7cb4ed7c8c4f6d24ed6d0313959c0dd67ee7a351bda40a422c6a1be5d9efe5",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/reachable_endpoint_r3.py",
+      "bytes": 38063,
+      "sha256": "1af61399f1a13d6d416db0532c3d00cff354eddd4e442e8df14d1a4e225a54c3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/regional_preference_r3.py",
+      "bytes": 48764,
+      "sha256": "26fc79a38bc5139deafc99e21327c935223dda0d002ec716441c433109b09063",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/reusable_tile_preparation_r3.py",
+      "bytes": 2860,
+      "sha256": "0aff5c2482f2e41eb7473022842af6fe68b665f77a701b6d9ec338d162370518",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/se2_semantic_guide.py",
+      "bytes": 41725,
+      "sha256": "59cdc3ff3ffd81f98d67ddf61ae57d359848bec42e381fc1b8ef1b670c0eb553",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_applicability_replay_v3.py",
+      "bytes": 6899,
+      "sha256": "4c07332313c2646917ef7702b26995ed622e7802f4c4aacd738ffde90bf2c41a",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_applicability_v3.py",
+      "bytes": 42660,
+      "sha256": "962805f1fa9b9616228db287069704b3c313658478f1810e07b87deb4b7f70ca",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_architecture_explorer.py",
+      "bytes": 30766,
+      "sha256": "c066c0f9d5dc3b2b088acd44e3dc6346f5962063ffb18c01c074a545b58ef827",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_constraint_core.py",
+      "bytes": 19219,
+      "sha256": "ed650651e46ae6d151ffa116949be3c7c27884a24879aa8f08df4170fd7fa07a",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_constraint_independent.py",
+      "bytes": 26836,
+      "sha256": "a6f0b054573d25928b43c2f5954591fa2fa34055cf6098fcb4e5ddab298e5098",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_constraint_lattice.py",
+      "bytes": 20139,
+      "sha256": "cd68d70da4abcef4c4fae93e3dea1829639229072ef5f7b9db5dd36b4213b8e2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_constraint_study.py",
+      "bytes": 11354,
+      "sha256": "25b70e6ca3273d9f60b8e55c391d1b93a2f87c86fe9d9af374dc14869930ba00",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_constraint_verify.py",
+      "bytes": 4732,
+      "sha256": "bf4281d2c80c4b832ae8ca6aea9a7ce100f0cfad35a321ee039f96281bd3347e",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_contract_sensitivity.py",
+      "bytes": 5585,
+      "sha256": "96b44e3e9889eca86fd0f3555776795695c2b540e7a09bb999dacc3e6c47a53f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_corridor_visibility.py",
+      "bytes": 14181,
+      "sha256": "8fbc03760625ca6a44560aa14eff9a169372098bef9eef265b02fad7cad8ef51",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_endpoint_transition_analysis.py",
+      "bytes": 8701,
+      "sha256": "5d406df25315cf3f854133d9b9bee6082fb5c8c4088f5160148622e6e5f4e9e7",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_goal_reachability_r19.py",
+      "bytes": 11331,
+      "sha256": "a4ebc2cbe09261407dd9f2e38956aea2235c67cfb73b7b8069d60274074148f8",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_parking_aisle_r17.py",
+      "bytes": 11177,
+      "sha256": "6612dd56409ba13b3f5eef71b07af151d3ee982b4799fb636afdbbfd29bc4bb2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_parking_applicability_r16.py",
+      "bytes": 10993,
+      "sha256": "822933a54f4a095155de99eeeb87695cb68587700c6511204404a399755ce14c",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_parking_reference_r15.py",
+      "bytes": 13188,
+      "sha256": "fb6e6d7792e89ff1002b6a20d1f782bdbe5e8b921a3f5fe40a10c9e717df4612",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_parking_reference_v3.py",
+      "bytes": 19936,
+      "sha256": "7b47306dd5662cfc8e5d4d935d95196dba556f41edee99b7952815b92c5bb291",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_path_necessity_audit.py",
+      "bytes": 22474,
+      "sha256": "95abbbc4dab11058780a14d44c6b5f328558d21afd601a5f7b680af32a066b1a",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_path_revisit_audit.py",
+      "bytes": 3104,
+      "sha256": "15f2a3ee0b2c58d35a6f290caa978ab2d115796f10aaad692a48dc63fda81184",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_positive_contract_sensitivity.py",
+      "bytes": 7987,
+      "sha256": "406395030bb071c9275971cf61e3c3056c8d79b0c10e3450bbaee820cf9788ac",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_positive_transition_audit.py",
+      "bytes": 4663,
+      "sha256": "2cd6977ae95632bf713fbc1fc67a32932a4be404727c2c00edfd8b930e882f3e",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_query_defaults.py",
+      "bytes": 6613,
+      "sha256": "8418a51cc630a9467374ab670794c4ccda3ff5987acdf3c3896472b5f1b8f844",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_query_expansion_v3.py",
+      "bytes": 13701,
+      "sha256": "06e33f6ed8327f1f40d769b2a42751fba93285d421a65d1ca08bdeeece1ce25d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_route_phase_compact_r14.py",
+      "bytes": 11716,
+      "sha256": "29a5c23ed102d65c22ce7e4b7e88ebdcf888d0896299ace86c4ece1b5750fa0b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_route_phase_r16.py",
+      "bytes": 6408,
+      "sha256": "81033662f563bb219e397bb90cb33bfdba083f8242312532db662f21cf9ba346",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_route_phase_r18.py",
+      "bytes": 5030,
+      "sha256": "801dcd0dad20ea158b68e109d69992f87f57adb21d8e8a30664f58c20819ce04",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_route_phase_v3.py",
+      "bytes": 71308,
+      "sha256": "b902382de12079077b867a71b4c61aba0109b02c1e96398e7bd8ee4a38c602ec",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_smac_session_r2.py",
+      "bytes": 21648,
+      "sha256": "b12368764063c4aa7b57cddb62cd464dca674ac417f0997d6e1d1df9a07986b4",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_static_cache_v3.py",
+      "bytes": 13538,
+      "sha256": "1b8469fd550a23ec81d060f40df018b4dc0eb1556bbc35e542c7c560a819c2f1",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_candidate_verify.py",
+      "bytes": 5991,
+      "sha256": "caf6b110898385669d6172a3385da085a9269f9ea4cfd08a9d52cc04be1b6ff7",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_contract.py",
+      "bytes": 10466,
+      "sha256": "a287b45c374cb0a3813c238ea648b206780853d01bd739bc830ff060bf913c12",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_goal_plane_postprocess.py",
+      "bytes": 11968,
+      "sha256": "00fa13111efc0593e065f9edf879f207e6c795ab90e1784838935565655736b9",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_goal_plane_topology.py",
+      "bytes": 11791,
+      "sha256": "298d3ae2b0f1e9efcf5e52b665a895ec6d015213154b00cc42ceae5cd28f85cf",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_hybrid_probe.py",
+      "bytes": 6591,
+      "sha256": "b4508df321542d2fdc8767b62cab7f09d219a66086501f0735ee8054d893039b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_lazy_corridor.py",
+      "bytes": 13042,
+      "sha256": "5b9ef46073b9bf43033bd3b71ae84997c7d2774413e496cd6e889b5d60b0a239",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_naturalness_aggregate.py",
+      "bytes": 23547,
+      "sha256": "895ab0557643d1be5a02e6fa3a800d76fe09347c38fe86693abbcd56445a5dcb",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_naturalness_verify.py",
+      "bytes": 25917,
+      "sha256": "ca55bbdd9590498bb0bc51628a4a825b52232bb08d1d74b50cc061ec3e10000b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_negative_probe.py",
+      "bytes": 10655,
+      "sha256": "9f5e98ee740a497e96ec21b0f1f7de5f8825979aea5468e7ff6ed681586ed84a",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_online_adapter.py",
+      "bytes": 16481,
+      "sha256": "de68a23342c54bf04bca3fbdaaf5395b5d0013cbaadf870f57543fd168197390",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_optimize.py",
+      "bytes": 13557,
+      "sha256": "daf09748e89230b3a52c8888141b5ffe92986a625565037b9594c2ab9e8cab8e",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_ordered_corridor.py",
+      "bytes": 46248,
+      "sha256": "c13c600687af28c934ca8681c63eb20116d576507ab59e86b21bb9cfb32b59ce",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_preflight.py",
+      "bytes": 12688,
+      "sha256": "a02e8ef0666d3da511f4e28ca4d42a716e2e3caca28996da50dc9df22c03c08a",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_r2_preflight.py",
+      "bytes": 10030,
+      "sha256": "c4cb8698bdea29e6346e44c563c761b288933826a51d1445992a98b65583948f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_roadmap.py",
+      "bytes": 13005,
+      "sha256": "9277c983bb40d7300edddd96d8b003126695b502f169d9222c1e30552725697f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_transition_se2_chain_reachability.py",
+      "bytes": 39255,
+      "sha256": "2b50691a938d629d3079ebfaa535425e76339c22e68cea2652b1c3e1c22cc20d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_v3_ack_r14.py",
+      "bytes": 13326,
+      "sha256": "b3c32ecfc5f32887386be9ece07991682d9563fa7d0c45cb114f1d44343955f3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_v3_ack_r15.py",
+      "bytes": 2298,
+      "sha256": "0487a698e0486df4d539cf29736b4c7bcccf607e7eecff13d5ffbe14609cd5ea",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/semantic_v3_online_session.py",
+      "bytes": 9387,
+      "sha256": "1c198fe23c7da743b336deebba6badee33fe2996f240ecc2f61f79115e0a4160",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/smac_contract_r3.py",
+      "bytes": 4301,
+      "sha256": "fc4b1bab0d5c1b9bbebdcd77f318cce81c825e39e9f53953b3d10dde4496d8ab",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/static_feasibility_r3.py",
+      "bytes": 4180,
+      "sha256": "a340579403329993dbd885385afed1424fe3ed3e59a72648857d0e7ed528a0ec",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/tiled_topology_r3.py",
+      "bytes": 24341,
+      "sha256": "dfc7bd050517519bfb88631ef4d83ab01c8cbffc2b9c3fdf4ed1a4869fff81c7",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v1_r3_benchmark.py",
+      "bytes": 24163,
+      "sha256": "031782d0809ee45d0c161d49ae71b647ec4ff7d5bc72914a4e7b2c71f39f6e58",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v2_semantic_r2_benchmark.py",
+      "bytes": 22071,
+      "sha256": "57e138d810c7bbb79b52f26700bf17004a45d62f46b4f3bd880dbebf75265138",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v2_semantic_r3_benchmark.py",
+      "bytes": 32748,
+      "sha256": "885844c38a0486dda6a0752265093d7199a39336dedbe631cba97bad0ec148d0",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v2_semantic_r4_benchmark.py",
+      "bytes": 27599,
+      "sha256": "6551b49263bb1b9fd958f185df00bb3e2cfa143cdd8830c1867f69cd9fea099c",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v2_semantic_transition_r1_benchmark.py",
+      "bytes": 4676,
+      "sha256": "7b6365e7e31a992f3115d9afe9a81df55ea4d2fdbc972b5946b78b44be33ccfd",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_online.py",
+      "bytes": 26099,
+      "sha256": "f27d89ae3c76e80980121c3b2bd7d66e98356cab423e01c8aed54b224ad88b05",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r0_benchmark.py",
+      "bytes": 20264,
+      "sha256": "78fe0311f8fc5cbaa97632b87687d23182af791ae6844f831bd321f32e7c5db7",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r13_benchmark.py",
+      "bytes": 26191,
+      "sha256": "f8ac58eaf5747dcf057d54a9c5c7eda567ab30b08c1966e34be18d359a627dac",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r13_online.py",
+      "bytes": 42705,
+      "sha256": "1ecddca68df9614bea3aacc74c4c16c0a72e945da65a3392aa2ae01c2c34b2c5",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r13_report.py",
+      "bytes": 17820,
+      "sha256": "86645dbb2ca2e58d4dbd25161e6958e05c05f384d3d2631a6eac9440be056517",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r14_benchmark.py",
+      "bytes": 11912,
+      "sha256": "ff0932a08141f35ce0fab22a8b8f4755c893bb92b3a6ca9f5a0f6d14e092ba70",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r14_expanded.py",
+      "bytes": 46566,
+      "sha256": "1ad4d93b64c22d749103df27350578004def390d8d4085c912e0803b751026ac",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r14_online.py",
+      "bytes": 7170,
+      "sha256": "05e135a464b11d8fed2facab1941aabab62c71e80ca0a815257083a52412cb87",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r15_fast.py",
+      "bytes": 29985,
+      "sha256": "13e962481c1655eeed88092106831ec0c8dbd80df28a47194761e213447226f8",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r16_applicability.py",
+      "bytes": 15592,
+      "sha256": "8b612aab388bdc8477c01bd7de4110baa108c12343ff090e2e2b44097bb30737",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r17_parking_aisle.py",
+      "bytes": 20551,
+      "sha256": "f7fb9cd0d966ca1addbadba3056aaa42f33c25f4b73d686164c4a7d4211d0039",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r19.py",
+      "bytes": 11486,
+      "sha256": "d05e3f73fa45f0b7329f5d00aa9f05cb448bf90250a9e8929b42790984b78069",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/arena_evaluation/two_layer_v3_semantic_r19_evidence.py",
+      "bytes": 9698,
+      "sha256": "26bf07639acbda75adba7ee09aae37e25e7c13f95f9b4e6c0149cdba9cd5d6d1",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_r3_frozen_mirror_query_v1.yaml",
+      "bytes": 2613,
+      "sha256": "8c8f71b3ea4dff307fae39b296431d66a570af99ba229c99becf308433d22093",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_r3_mirror_selection_policy_v1.yaml",
+      "bytes": 2084,
+      "sha256": "ce89c5178790f60f06da582139f80f89f6de835b1597d5402ea8b6011443b581",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_r3_mirror_selection_policy_v2.yaml",
+      "bytes": 2216,
+      "sha256": "3665ad7e87cd433416af40e9b9b161cb141d9bf7f4be97ccadb8d0c3488f4e83",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_r3_mirror_selection_policy_v3.yaml",
+      "bytes": 2334,
+      "sha256": "ebe14afb4a7383d15dec40a25931794f3fa32ee8042d2a30911c7ab236b3d436",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_r3_targeted_preflight3_v1.yaml",
+      "bytes": 3292,
+      "sha256": "2092f57ffc41bca885f783abc17e630ddecd3311035957957c55f873b9225f01",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_selected8_gt50m_r2_v2.yaml",
+      "bytes": 10701,
+      "sha256": "b3307d4578447131e71db16156cd2f72e9f5042f98bdce0d75d21fe81300738d",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_semantic_endpoint_transition_r1.yaml",
+      "bytes": 4144,
+      "sha256": "d436e943a0f10eef00c30aa67915c450b49b76e3b077145fd52b0534f765b795",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_semantic_endpoint_transition_r2.yaml",
+      "bytes": 7769,
+      "sha256": "4e63f5af208bc70909104a110ad1175efe6488ca5d7d1557de3451404f3cc994",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_semantic_naturalness_ordered_corridor_r0.yaml",
+      "bytes": 4006,
+      "sha256": "86b2cd52122260b3dbf833f724a2ef30b12cdafc0a7f1674eacdd0764841e354",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_r10_targeted_applicable_positive_v1.yaml",
+      "bytes": 792,
+      "sha256": "61fd74978adc99df275ecb3ee1881fc36768e385b0561adf7e6ebdb5d601ddaf",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_r14_expanded32_v2.yaml",
+      "bytes": 31642,
+      "sha256": "d581763605e7830d1b72d2503d75a996646a7155b698bdedd0dd10f9f41b83e2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_r14_expanded40_v1.yaml",
+      "bytes": 39125,
+      "sha256": "482f72dbb30d864589eeb55c1d40aae2bafb6306ccccb21869bf85d3a5c16da1",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_r1_targeted_applicable_positive_v1.yaml",
+      "bytes": 3394,
+      "sha256": "068b86e8ed3283840ea19f603476e1995e7f1ef62586bd3bf67e854f4a7f35f3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_r2_targeted_applicable_positive_v1.yaml",
+      "bytes": 3609,
+      "sha256": "f7faf80fb9bd6afe88d7296e38cba3dd282d7be93794570316c318c32172a9bf",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_r3_targeted_applicable_positive_v1.yaml",
+      "bytes": 3579,
+      "sha256": "e8f5bb4dd13bb3cac0ce59ba037feefaa8ca7a981c2c0c2f55766efa8b4ca93d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_r4_targeted_applicable_positive_v1.yaml",
+      "bytes": 3642,
+      "sha256": "4fe895c0730d38f6ffc72c6da3b6e6ebd00457a91d9753b3fa2409f31a515c33",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_r5_targeted_applicable_positive_v1.yaml",
+      "bytes": 794,
+      "sha256": "df29de0cdff76e394fa06f26e12b3ab221dc2f6790bd24446bac96ddffc0fe57",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_r6_targeted_applicable_positive_v1.yaml",
+      "bytes": 1274,
+      "sha256": "118e3bda774dbfa30d1611ab25a2dcd93f6a8e7bffce05159a2c10525fdd7814",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_r7_targeted_applicable_positive_v1.yaml",
+      "bytes": 861,
+      "sha256": "8d9fb715bc0a5e40b271cf4a8751fce022340f20747b35082995a867c84f8ba5",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_targeted_applicable_positive_v1.yaml",
+      "bytes": 4583,
+      "sha256": "38d2abc35a9c888252e1485fa7719c68e9d7d2566dc89ce1123886592ea801ac",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_v3_targeted_fair_comparison_v1.yaml",
+      "bytes": 2943,
+      "sha256": "93c73cfae5e3f5e1183831e5ac6e6ea75c0764419ec9412ba91bc0ddd0dee576",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/semantic_constraint_feasibility_r0.yaml",
+      "bytes": 4056,
+      "sha256": "24e73b925f211080fe2424b711b5bb9ae64e6eef4b0feb067f470741dfdfb7ce",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v1_r3_reachable_endpoint.yaml",
+      "bytes": 2156,
+      "sha256": "2457b6abcf7181420088cdd8ed6ccf3c2bd6c3ebbcc3aa4bf67eb471c255ef61",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v1_r3_transport.xml",
+      "bytes": 910,
+      "sha256": "b4df4e2315c699e7f4ff7486d2e0f7433f52ce0533366b6ad28d2c847e46a4e8",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v2_semantic_r3.yaml",
+      "bytes": 6268,
+      "sha256": "367d0d30db025b19e977957d930860b9614cbd9f89c5903c74bb8910db88180f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v2_semantic_r3_calibration_freeze.yaml",
+      "bytes": 2131,
+      "sha256": "132d7f78d18fed6f5b0b08a35f47ea99422538010131e3ad79aee79936b1dc5f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v2_semantic_r4.yaml",
+      "bytes": 2683,
+      "sha256": "ee1ad37df52f1dbfa0400a635900f63ba67686bc9abf1fc2d58a8948ce4523ac",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r0.yaml",
+      "bytes": 4695,
+      "sha256": "0647117f03a53465fff8c128b1cf6e71306446fa4cddf255e44c2567a8072021",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r0_long_mirror.yaml",
+      "bytes": 5125,
+      "sha256": "f7ed34a32d3271f23db05faf432937bc74fff004759b5ab7621b65aa6555c10b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r0_map_cell_corridor.yaml",
+      "bytes": 4890,
+      "sha256": "fd75cf4554741bfa7bb0830b52f4cca4e9ec2cf4a74fba7c84f62352bf30ac26",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r10_local_projection.yaml",
+      "bytes": 1349,
+      "sha256": "703ea297bad9593a2704d043b9d55107ebf7945ee883a6f18322abd250d4b74e",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r11_online_local_projection.yaml",
+      "bytes": 3073,
+      "sha256": "b43e31dc8a53206ac9e043c77c4a38e7a82cf5ea24dabcea592f0d213f9f7a04",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r12_online_memory_request.yaml",
+      "bytes": 1072,
+      "sha256": "6756e1fd5c262ad95735b3e680af32c5259ae884f537d7acc17a2582535e6738",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r13_online.yaml",
+      "bytes": 3532,
+      "sha256": "9f71b585e288d9a0c01a657b1aba1000c765867dc18bbd6fa0a7e261cfe1cedb",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r13_route_phase.yaml",
+      "bytes": 3944,
+      "sha256": "c6cf6d098d90ad85bc4029345d12660a971ada06c1638fe73eb2e32dc9fb8824",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r14_engineering.yaml",
+      "bytes": 3263,
+      "sha256": "51a690266e00374abd0f54746544d7813262b2c1993f4fbab847278ea5a74128",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r14_expanded.yaml",
+      "bytes": 1645,
+      "sha256": "503f7c7419cac0c17f3b5f44f91e988beebb12b71bd4978ad677652ad02b0da6",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r14_online.yaml",
+      "bytes": 1632,
+      "sha256": "c6c9c7341509cb44531ce0d9f3f6d74b255b312845300396e5fde047c5936a9a",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r15_fast.yaml",
+      "bytes": 2451,
+      "sha256": "4c4202c7c68693e70192907bff1459133d20475aea42cfe35f4453d592744dab",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r16_applicability.yaml",
+      "bytes": 1573,
+      "sha256": "eb234a989d67fdf3849f43ca593683829072ff71c277ae684ca7100444d88a03",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r16_applicability_heldout9.yaml",
+      "bytes": 1927,
+      "sha256": "12f3247185114bb04c6c74306c5edea42b96b9cc198923fa7749ccb8786ab329",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r17_parking_aisle.yaml",
+      "bytes": 2882,
+      "sha256": "dc99fe3a87e25871b3b151dab1dea757b3f5f9c27b8200353e9405742c7fc64c",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r19_goal_reachability.yaml",
+      "bytes": 783,
+      "sha256": "41ff38c007735ce1956e8c48db5b792a01965d50d5d7d7ad22729cc3f8f8cff4",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r19_terminal_attachment.yaml",
+      "bytes": 936,
+      "sha256": "5c003bc2a5a4ee81c6afe486c95c379e1dd926ac675f7b2384e731c7d4cf7ba5",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r1_endpoint_graft.yaml",
+      "bytes": 5362,
+      "sha256": "fbd272e8cd8bc750f141cd8814579f54d813012aca62a802b63c2df64d103234",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r2_prefilter_compact.yaml",
+      "bytes": 5576,
+      "sha256": "f8525ea4a4adc102426f4374a5bd4d66591bfaa2f06dcb4620950cc4079a0334",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r3_lazy.yaml",
+      "bytes": 5932,
+      "sha256": "e8d8b819a33f78b2689f87344d92a95eac585964a4979cada80a206cb5076873",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r4_bounded_lazy.yaml",
+      "bytes": 5988,
+      "sha256": "b81b0dbb011d3a2a054487177789f41c5023e3e444c38df76bf1c88846a5361f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r5_narrow_lazy.yaml",
+      "bytes": 1375,
+      "sha256": "2604ce0606762256973562189db6505edb26f8fed879ab6d314a0e00b2af7518",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r6_fast_sweep.yaml",
+      "bytes": 1299,
+      "sha256": "f459583c3765b46267cf4a4d930621393344f69f1a6b598277de002d49c5773f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r7_sampled_progress.yaml",
+      "bytes": 1319,
+      "sha256": "be39105687d1053355a3322e290faf63b499b0e8202d62d3175350d693610094",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r8_online.yaml",
+      "bytes": 1943,
+      "sha256": "c9dd41750ab8df9a4d86fc5697e80b7cc11c0bcaaff5c5b49d712182edc90bcb",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/config/two_layer_v3_semantic_r9_online_content_ack.yaml",
+      "bytes": 2404,
+      "sha256": "6164e4328d135de9955d01aa7b2d5972bc5e3cb3874459534eda89c83fde8d0b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/rviz/planner_baseline.rviz",
+      "bytes": 4562,
+      "sha256": "4b5e4fb98a57768650153cc70bd70e74a85e89f80796372557e0767028140f8c",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/setup.py",
+      "bytes": 9926,
+      "sha256": "54f412d9dc940e6147d6d72fd6113ac0c428b3d4d9f1c50b76290cc5251f13d4",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/src/endpoint_geometry_r3.cpp",
+      "bytes": 8627,
+      "sha256": "e21331eff20ca3cab2ca2a94cab1f26398cdb9299645cdc4233b4ebab29b33e6",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/src/nav2_effective_costmap.cpp",
+      "bytes": 9308,
+      "sha256": "0b460919d3faf6953c9287323004813554824bb2f84f1e5a3ddaa633a64e47bb",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_detour_budget_r3.py",
+      "bytes": 3682,
+      "sha256": "702d1a394e1642dd01a8964f0d573398af573c7284ddd2692cc366eb72c0c367",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_endpoint_geometry_r3.py",
+      "bytes": 2280,
+      "sha256": "24a44dda6db8eff7dbb7996294f134dd34d515ad33d9bc8d70bd2ed626debabb",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_exact_ack_r3.py",
+      "bytes": 40751,
+      "sha256": "610626245e49d55db090fa4df446780abbdd2a445f189111d861b48ee6b19b74",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_next2_data_paths_r3.py",
+      "bytes": 7268,
+      "sha256": "c0c8bab937ecbb09bfca8f75662018598b41503973a193e26f482e2f77839f90",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_reachable_endpoint_r3.py",
+      "bytes": 28110,
+      "sha256": "22e3c80b97969210b75d4cc73f10f825d60d0a66b6341510ae5c8a463db19c42",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_applicability_v3.py",
+      "bytes": 6947,
+      "sha256": "fb77fd2b5e0dae514654e2b611591f198042388dd1a80d61a501c101d472427c",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_architecture_explorer.py",
+      "bytes": 992,
+      "sha256": "dfcc8e5314ba21f050cb18f271792d096f5368cad276dc0c202ea4e28a9a5935",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_constraint_feasibility.py",
+      "bytes": 7488,
+      "sha256": "fedc71a5b332e0553c2241a255f4ad2e4199b21c281b3ab48fe22fa625aacb26",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_goal_reachability_r19.py",
+      "bytes": 9133,
+      "sha256": "96690354bc323298b4e3d2c9e9f47c0851bb6c7db1e502814b49c6eadd3884eb",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_path_necessity_audit.py",
+      "bytes": 10885,
+      "sha256": "3c85bca5b020db345fbb6f381d76142df4df870cddf4885dfa271dfb02aa57fc",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_path_revisit_audit.py",
+      "bytes": 1309,
+      "sha256": "278f2ad3d78a35829d80c367c72aa645e60608d2a1cd88a579dff47b44bac8d3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_route_phase_r18.py",
+      "bytes": 2258,
+      "sha256": "f4439bf6035b8ddb6f5689914222f53cfaae9c9f047aca961953b7304ca0417e",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_candidates.py",
+      "bytes": 1564,
+      "sha256": "c4803f1af5a05e5b20dd410f46f44dad49a84be480d2bd5d140b2676418866fe",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_contract.py",
+      "bytes": 3713,
+      "sha256": "22f1cbe3d7475553b63b4af4bc6c81d622abbfccf05925d4c119e3a3c82fd46b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_goal_plane_postprocess.py",
+      "bytes": 2112,
+      "sha256": "9f29073b48829274ec640bc9b988430c36f074bd21e9c2e84a74fd0a7bc400dd",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_goal_plane_topology.py",
+      "bytes": 2765,
+      "sha256": "61bc6fa4f02b04121cbda58d8925c7e7cefb298c36b720a5adb7c0c13639423d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_naturalness_aggregate.py",
+      "bytes": 13951,
+      "sha256": "be94d9cd7d3e73fcc148190cf57e3fc6b1e5d0255c44fb30ef35fb48aff92ed2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_naturalness_verify.py",
+      "bytes": 10975,
+      "sha256": "9b09a4d7749693b2c3a28de80ba4df5336b0b704b572fd79a6ecab7a7c8c3ac4",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_negative_probe.py",
+      "bytes": 774,
+      "sha256": "590e05bbcd0f458715738d564fb64b6f1fd83a93fbb918b2b66516c2b1a273c2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_online_adapter.py",
+      "bytes": 1773,
+      "sha256": "65cc8d4421dce10270cb7063d99e871d7b6cf0ca61f7cbdceb8e5a0fe19b06a5",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_ordered_corridor.py",
+      "bytes": 12797,
+      "sha256": "61a35af971510deeff9f0bd77490e96720ee4bcc70a323fc61cf0fc221d39e5d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_preflight.py",
+      "bytes": 1966,
+      "sha256": "ab566de6f600c980eef6f695d03e48144f4e66c68091e8eeca48df5addfbd908",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_r2_preflight.py",
+      "bytes": 2299,
+      "sha256": "5aa4702de9215150edf33385aeaf4efa387f3898c2b8def4fd08e7f8bd0b9622",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_roadmap.py",
+      "bytes": 1482,
+      "sha256": "f52e12aa390bda669f955744e73e5c831cd6a5f9b66bf2b5c50a7355ed426e49",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_semantic_transition_se2_chain_reachability.py",
+      "bytes": 13843,
+      "sha256": "65b5bbff5d1b4d8ab7e7bdb34e8167bab2884820cf3e21d4018539e37f4a1d8c",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_smac_contract_r3.py",
+      "bytes": 3579,
+      "sha256": "d60027d62788c7a00c168c4b3a5838730a59a9472b7ae97254ac695d27f0f5d3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_static_feasibility_r3.py",
+      "bytes": 2541,
+      "sha256": "b43a0e665305b43241844070d2dfab18036f61bb427092446b0512d84d37f6a9",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_tiled_topology_r3.py",
+      "bytes": 20619,
+      "sha256": "e125a41b8bcee61200086d1d79ddbbb9a438cb44bca52f0b0799acce13089e3f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v1_r3_benchmark.py",
+      "bytes": 23401,
+      "sha256": "646e1d9cb74b4991c398728356dd2c81e81ee739d974419c9ad356c2541db8dc",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v2_semantic_r2.py",
+      "bytes": 14342,
+      "sha256": "f1171ea682c039f9510425e053a266131ce2941eb40e99a3d155b1225a29519a",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v2_semantic_r3.py",
+      "bytes": 8406,
+      "sha256": "eb2dd410ffc8fc13ede51d08c8e8a3504d0d9db2b418f750a5cf9a2cdd63a65b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v2_semantic_r4.py",
+      "bytes": 5973,
+      "sha256": "3d4f3a2bd7535b7971fb24875da56056b3dcb89459606692794e9596269504eb",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v2_semantic_transition_r1_benchmark.py",
+      "bytes": 2577,
+      "sha256": "af0374cdad283491e6f3aef70de2b48dc6fe0cc50948339c63179225abbe75f2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v3_semantic_online.py",
+      "bytes": 5871,
+      "sha256": "568d0d6e6e2ed57a3c1e22849a8ec6b8bf0775096f321443fd542847dd264441",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v3_semantic_r0.py",
+      "bytes": 1778,
+      "sha256": "877da9a359d1a172669ff7ed8a59cbe226729715f80add4913bce9a910a6d263",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v3_semantic_r13.py",
+      "bytes": 8646,
+      "sha256": "59cab7da4121204f0f235c358b2d14ab4a96cfd6569be7abf23b5c8f30911b6d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v3_semantic_r14.py",
+      "bytes": 8680,
+      "sha256": "3216d6a351ee0197c6e4d1a5bc180a0386a49ae0d6bc72bb23b241e1ba7e1659",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v3_semantic_r15.py",
+      "bytes": 7108,
+      "sha256": "8d066a9e89a7e54af96ce59063b47f2c81f15ac4bad0e9164fb0533b25a6f06a",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v3_semantic_r16.py",
+      "bytes": 4371,
+      "sha256": "72cd65863b3f6180b34d8743e61301b14825cc562c7df389b617b55fbd769984",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation/test/test_two_layer_v3_semantic_r17.py",
+      "bytes": 3629,
+      "sha256": "cc793f80fb371653e845d30d20dac24f38b3a1fbda8a3ea97b1b49c99d103b26",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation_msgs/CMakeLists.txt",
+      "bytes": 520,
+      "sha256": "d843036c84d537b777383ff67ebcfe61e0272f1c5efe28a90ed1811954cac017",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation_msgs/package.xml",
+      "bytes": 1220,
+      "sha256": "c73ac49b08a3e99e00f13db0ef966a450bdb2227fbaaf97097245811ccad5194",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/evaluation/arena_evaluation_msgs/srv/ChangeDirectory.srv",
+      "bytes": 27,
+      "sha256": "ab504c0734491e1957690f6b03a0bc63275299b21d3aea4fefdeb1faa283fea7",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/README.md",
+      "bytes": 526,
+      "sha256": "67012aa80873f55fbbfb4e6cfc29a8f1c651c778206ef0237fdd663d19c8d064",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/__init__.py",
+      "bytes": 1581,
+      "sha256": "3da0292b0203f5c49cf7944cdd7c32dffc71614c49d3a7b9e24c21d63600ade8",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/production_cache.py",
+      "bytes": 19892,
+      "sha256": "47f5bd8918e36a223d7c619dd3146a14e1e24c86c5a2ba3ed0c7b1dde5973e89",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/production_cli.py",
+      "bytes": 4340,
+      "sha256": "b60ce27b5d6550149ce5f21640b24fef28f660cee3ee2dc8397b3c14adc1113f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/production_io.py",
+      "bytes": 7599,
+      "sha256": "2308085e87965e4ba796a232ab271ecd5d0b20dbc2d0b661626c01c9c224812f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/production_runtime.py",
+      "bytes": 7518,
+      "sha256": "2a1a8d0b1a78a1f4d679d6a182f5d69d7e4ca01b404f031bf05530f75b226a89",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/production_validation.py",
+      "bytes": 8922,
+      "sha256": "51428261baffabcd47d8edd8633f023ca87c41bc13ca6b6e8fe6ce4b4449e671",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/r2_cache_prebuild.py",
+      "bytes": 6940,
+      "sha256": "1faa049fb70be63f6d90c2e5cb7186351823af20315c90c15cfc03fc8365967d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/r2_pipeline.py",
+      "bytes": 8460,
+      "sha256": "87b6f760241e2c0f4e471a811fdd26a1a2e22b6cc837b624c5212c42a216695c",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/r2_profile.py",
+      "bytes": 15192,
+      "sha256": "d74132d9bdb1cf5fc58a0ee4a87ae5cc14678c6b9a4437851e1f711c9586ab8f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/r2_soak.py",
+      "bytes": 9080,
+      "sha256": "a9e985fbcaa65b303d9720207b805c662b61134601947f2d7bd0b66db3bf00a6",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/r2_stage_a.py",
+      "bytes": 39956,
+      "sha256": "846dca5cce486f71437555d515f0a7365517c12c0625e2cc3bd535f8e77a8cf3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/r2_stage_b.py",
+      "bytes": 22066,
+      "sha256": "d066625779a4615a43cb5f5871fdebd266e9bba9c234c1ea4edfb224c2949cb3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/r2_state_lifecycle.py",
+      "bytes": 25118,
+      "sha256": "f9f8fb393a89e6916b4fdbd1c6d02b19fcdfa03c0e27002e46b81af640ffb434",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/stable_acceptance.py",
+      "bytes": 17315,
+      "sha256": "6e877b9ed48a4e74d674216ee702768d3fde6abd43589e68910da29459e1ef2b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/stable_contract.py",
+      "bytes": 5060,
+      "sha256": "8b45abf048c2de371cab5585298c38bf8f7ab9673fcd1288907a56b0379c18a6",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/stable_pipeline.py",
+      "bytes": 7762,
+      "sha256": "4802524ef1b0a300d1b663fd14d22c156d9a564d92f91fa671ac5bd5ee4efa39",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/config/three_d_v1_r2_production_acceptance.yaml",
+      "bytes": 2563,
+      "sha256": "8beb87502d2fd7aa6644615da0057668909ed596ffead55127db2092c4e0370d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/config/three_d_v1_stable.yaml",
+      "bytes": 3560,
+      "sha256": "073e4fbdbf7b52a0dffc1fe5f0b2a198cc49d558463f0cce55d7f46ecd4dae00",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/docs/THREE_D_V1_MIGRATION_AND_ROLLBACK.md",
+      "bytes": 1206,
+      "sha256": "d6ebfc6da85a5b06574304372b8323a0f4d128772d24e11d18fee0cf1d698f78",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/docs/THREE_D_V1_STABLE_RUNTIME.md",
+      "bytes": 2269,
+      "sha256": "ed83dadea95c4a8b83bad19cc52d00e0de0aac01ef4391140d95394f3cd12b9f",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/docs/THREE_D_V1_VERSION_POLICY.md",
+      "bytes": 1152,
+      "sha256": "9325a6ce5b1f5971987d6e2bb445daf2f403fcd48e54b3f4640b8987276e6226",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/package.xml",
+      "bytes": 730,
+      "sha256": "409bde6e1c1f612d0c771816540a6fca2d818436277737dbb8cb35f7e19ff7ad",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/setup.py",
+      "bytes": 2508,
+      "sha256": "6e0b6ce09d71fc89d4701746052bf091179ff84d620fdde4856bb4cb211442d1",
+      "already_tracked": true,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/test/test_production_default.py",
+      "bytes": 7848,
+      "sha256": "b7578c75b37aeeae519598d002f851b1ad55c1c4050081548919b324bff9aa07",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/test/test_production_equivalence.py",
+      "bytes": 5563,
+      "sha256": "25c781fbba5df4390854b3d38202dbab4c9dfb9be81b7ebb25defafb73e41f81",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/test/test_r2_pipeline.py",
+      "bytes": 4942,
+      "sha256": "2e36932aed331986796831b311c00b8861a548fe54a24e45a950c9ea44429e55",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1/test/test_r2_state_lifecycle.py",
+      "bytes": 5768,
+      "sha256": "846a5b38b575bd146d81c60c5db8b9789edc444131217cbfbd71bf602af5ece9",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/CMakeLists.txt",
+      "bytes": 2770,
+      "sha256": "14dcbf59e96452bdc1b4d5574cde96fc6a54e23864ea05782674fcf8ed29a943",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/behavior_trees/navigate_frozen_r1_once.xml",
+      "bytes": 490,
+      "sha256": "b7140fcf17f3960359ebb3e32048383e4ca13c02cc67170b3091aca3fc7e57c2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/behavior_trees/navigate_online_r1.xml",
+      "bytes": 400,
+      "sha256": "bf4118fd9ddf6d00fca5b27d63261580bea8fdece39fe2afcba1d8bc1292021b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/config/nav2_seq8.yaml",
+      "bytes": 12612,
+      "sha256": "0faf7fa37198dd3f966829cf93bad62ba2b46f772090a0135679ab7f51f95561",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/frozen_r1_planner_plugin.xml",
+      "bytes": 589,
+      "sha256": "4a9732c3eab5961680faf90f04827ee6112686ccdbc977ddd67a6672bccac6c6",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/include/three_d_v1_nav2/frozen_r1_planner.hpp",
+      "bytes": 1968,
+      "sha256": "62db65972bc8abf5cd64e23b242524d83c77bb5e6b867d4f6cd6487f2f67de45",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/include/three_d_v1_nav2/online_r1_planner.hpp",
+      "bytes": 882,
+      "sha256": "4fbbb29bec1eae43a03f3dd1485d3842395ec9a3d5e9c0837e105640b7d8342b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/launch/seq8_sim.launch.py",
+      "bytes": 11668,
+      "sha256": "9f1dadfdfd14993e3fcfb4574b746d11c5c5fc8a642998b1f7ad42df9e4a18e2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/package.xml",
+      "bytes": 1908,
+      "sha256": "1789a8b037274fb01c8d7146978ab9b5cccce71c87d8ba601ba64f99919b9544",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/resource/three_d_v1_nav2",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/rviz/seq8.rviz",
+      "bytes": 2272,
+      "sha256": "089d56ee04eecc0f80a579ba0e92d71a9af7f61eabc8636bb44f5c1e7f2ac0ad",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/scripts/cmd_vel_guard",
+      "bytes": 110,
+      "sha256": "8048c28028d26c7a59ddab9c354014fd73770be399821c544377609b656d7b4b",
+      "already_tracked": false,
+      "executable": true
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/scripts/moving_obstacle",
+      "bytes": 112,
+      "sha256": "cb17b95bb3b1fc504fbf91aed3eef332b0073cd952f938ead2203f6c981ff72a",
+      "already_tracked": false,
+      "executable": true
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/scripts/online_r1_bridge",
+      "bytes": 105,
+      "sha256": "c530393810119ee1a4f977a4dca394ee5915e5c39deb3e53bbf057b5c92696a0",
+      "already_tracked": false,
+      "executable": true
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/scripts/prepare_path_bank",
+      "bytes": 101,
+      "sha256": "9daec0f478030ae93a6e920d75718a6c38662828c9d427a94a01e3d6a42601a1",
+      "already_tracked": false,
+      "executable": true
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/scripts/run_dynamic_scenarios",
+      "bytes": 196,
+      "sha256": "1559cf2170aadd53b3d918673f8e2018e27b0020975d8efb22df85e343587052",
+      "already_tracked": false,
+      "executable": true
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/scripts/seq8_mission",
+      "bytes": 104,
+      "sha256": "a28c3473c9c7210065e30f009baa586d27a8e6aec339ba74cea7a3521b4fa72b",
+      "already_tracked": false,
+      "executable": true
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/scripts/truth_localization",
+      "bytes": 115,
+      "sha256": "f9c97d3a18c20f2f83d4fc5b0305db8bcd165c3e6a7c258dbf179d557295c395",
+      "already_tracked": false,
+      "executable": true
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/src/frozen_r1_planner.cpp",
+      "bytes": 13466,
+      "sha256": "36256e01c8f29813f95f8eb546ac5208601962861cf967956437f2271de44320",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/src/online_r1_planner.cpp",
+      "bytes": 1982,
+      "sha256": "9764cd2fb582dde9fa25541283917168ad8338eca95cd7bc60d00c4147aef5bb",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/test/test_contracts.py",
+      "bytes": 2820,
+      "sha256": "d8d220e3fcfddc2fe8126e4dcd4f99a8079188a655b06d80544952d64684fd36",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/test/test_guard.py",
+      "bytes": 5516,
+      "sha256": "b2e2a240df49c73c4c113af238f44c2165b5bf6e231e1cc0c88b6633992392c3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/test/test_mission_state.py",
+      "bytes": 2415,
+      "sha256": "d872b182a8d7344bb2b18d0f774ed1cddbbc0c4324d317b33544baec10d2c359",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/test/test_moving_obstacle.py",
+      "bytes": 1650,
+      "sha256": "ff4c761daca89bbab3150a2059e39d45aa42c2658d53769f7547294fdd5f43b3",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/test/test_online_bridge.py",
+      "bytes": 3095,
+      "sha256": "d2f11bd4afea0c8284876cab71e067850550fb8ae38025d128a2a2a8ba177440",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/test/test_ros_guards.py",
+      "bytes": 1342,
+      "sha256": "59c3c35779fb904b5f1233e5fce88e554acb31949318f56b3fac2fb9cf05681d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/test/test_runtime_safety.py",
+      "bytes": 1123,
+      "sha256": "5df727cea5a622dc8d47ed9daa8c17ffec6fa8e8b85fff563400dceab9f7a3df",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/__init__.py",
+      "bytes": 182,
+      "sha256": "63090192caf677357cc4c7232b1eacbbf01f5d812a4d31f1502c868b8061c831",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/cmd_vel_guard_node.py",
+      "bytes": 9053,
+      "sha256": "676b7400dd3aa803d1ae6d61e33535b23a27c52a3ca0382bfc8be72482f0ca43",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/contracts.py",
+      "bytes": 10437,
+      "sha256": "085699dbc8fb4f62c4ef0c695c5f67ea56cc4e324afcde538edb74b81554c8df",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/dynamic_scenarios.py",
+      "bytes": 24129,
+      "sha256": "2cc6daa96d695cdb0cabb6d83b7319dffd9ad479ee5a5a39a70792af08a974ed",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/guard_core.py",
+      "bytes": 6117,
+      "sha256": "a6cd642db2d249b33f4f8d1c04d836725ae0200ce14a873d35a40f65c9ca036b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/mission_node.py",
+      "bytes": 47845,
+      "sha256": "91a3e798fcd46e28fc08ff9b6797660625906fcc20b5009c6c5acb1be42490f0",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/mission_state.py",
+      "bytes": 4392,
+      "sha256": "edbd84e05e8b02d04188962ac06fae98d2370ecfef3e772d8bdd8eff5c862113",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/moving_obstacle_node.py",
+      "bytes": 23131,
+      "sha256": "563ea5e80ff2c06bc21f1a5b8a4bbd64a9eb3e2bdff5afca6bdb9c7ab0751149",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/online_bridge.py",
+      "bytes": 16582,
+      "sha256": "220e25e97f5cf3a0333c149709e315623f2b68973bf664d96adf8db5416c8f88",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/path_bank.py",
+      "bytes": 17796,
+      "sha256": "4dd2b67a849ae6cea8f5a3eb5fc19aea9139f6210bbdaee3b9911ef00d7e7a59",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/runtime_safety.py",
+      "bytes": 5279,
+      "sha256": "cbda7364c3035c6696717055fc0055fe823c9b019e8976ad78135af3b80fa829",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/strict_l2_ab.py",
+      "bytes": 55519,
+      "sha256": "4d2ef748ce0cd0596a0b615d4bb35630af44a9e811ecc5916456a14422d9389d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/three_d_v1_nav2/three_d_v1_nav2/truth_localization_node.py",
+      "bytes": 2424,
+      "sha256": "f5761b88c1da9c0de90017aa9d5c502e48a4eeb0aca9d362d9341fb2c7e84284",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/CMakeLists.txt",
+      "bytes": 1680,
+      "sha256": "e4fc0724335055427c27935ba4a65b56a67a71fd13b55a64ae2676b23a8229d2",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/behavior_trees/navigate_online_r2.xml",
+      "bytes": 404,
+      "sha256": "d1b22b201713e682ac55591c021214c982b60ec68013ff939be175d0e77ba729",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/config/nav2_seq8.yaml",
+      "bytes": 12606,
+      "sha256": "0a6a6e3dbcc60d5596f183768c393481c9f38d6b84f55335b95666114c5b2878",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/include/two_a_v1_nav2/two_a_v1_r2_planner.hpp",
+      "bytes": 878,
+      "sha256": "e9f3ff7c9331d51627c166a7b64b7d8646b11b341fb1b579f2d3fde2da144163",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/launch/seq8_sim.launch.py",
+      "bytes": 10032,
+      "sha256": "898561b6e9fc7fa98def0458f821dff6739aa7f2755dc1a8687c88326c70c46b",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/package.xml",
+      "bytes": 1115,
+      "sha256": "fdeedfbc50a9aa9261e620c5ddb5401d16c5015dcb4d4cbee9a091a36f21e8f7",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/scripts/online_r2_bridge",
+      "bytes": 103,
+      "sha256": "7c5fa0110af04eb87072dcc320a706d45229b84545cc3f8c36960f0bf32b82cc",
+      "already_tracked": false,
+      "executable": true
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/scripts/prepare_path_bank",
+      "bytes": 99,
+      "sha256": "7a8798635edfa42370587979f54ccaf1ab9bfd322c78039da436f3adbabd91d9",
+      "already_tracked": false,
+      "executable": true
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/src/two_a_v1_r2_planner.cpp",
+      "bytes": 1835,
+      "sha256": "4e6774b41dd89bc62bdef15b774bc28cccaf33e9375aa7f5356a3c1c332c5687",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/test/test_contracts.py",
+      "bytes": 253,
+      "sha256": "fa44232ea2d3d27d0960c77be4b3d62cff6e304d5a9d6461633e49fe1a9c9f5c",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/two_a_v1_nav2/__init__.py",
+      "bytes": 129,
+      "sha256": "faaea58cb380536ce780a56535ee4932176192b94cf1cd1dbe65bca5a109b22e",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/two_a_v1_nav2/contracts.py",
+      "bytes": 6171,
+      "sha256": "d2484eabff0b08feea6e3f10a8d02e41486ebe34f70bf480a9319699d8d2494d",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/two_a_v1_nav2/core.py",
+      "bytes": 7080,
+      "sha256": "b853037735461533bc9e2954ac2223350915c12d42c5734f71be4e7d19dc465e",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/two_a_v1_nav2/frozen_runtime.py",
+      "bytes": 1538,
+      "sha256": "993ed46af3cebe576af11a51199cf8ffff779756c73ea222e22682650a4dea69",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/two_a_v1_nav2/online_bridge.py",
+      "bytes": 9556,
+      "sha256": "a453731459b5c3a0c2bb8d012e0192bbd81514567eac4496bbd5e14f811f9456",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/two_a_v1_nav2/path_bank.py",
+      "bytes": 8785,
+      "sha256": "b135e4eaa798fb58ba2f2fe1d5719406692e123ba1f7d0d1ada3065ff8e9f122",
+      "already_tracked": false,
+      "executable": false
+    },
+    {
+      "path": "external/arena4_ws/src/arena/two_a_v1_nav2/two_a_v1_r2_planner_plugin.xml",
+      "bytes": 299,
+      "sha256": "c55c2e21b7a354c6fbf8ee2eaa89c3cf35fd8d7262168491bc5c14b8c4af9e08",
+      "already_tracked": false,
+      "executable": false
+    }
+  ],
+  "excluded": [
+    "private_data/",
+    "experiments/",
+    "artifacts/",
+    "build/install/log",
+    "*.so/*.o/*.pyc",
+    "maps/videos/bags",
+    "nested Git metadata"
+  ]
+}

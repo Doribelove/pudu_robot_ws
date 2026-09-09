@@ -1,0 +1,53 @@
+schema_version: PLN-02-2A-V2-R3-CALIBRATION-FREEZE-V1
+architecture_id: 2A-V2
+implementation_revision: r3-lane-relative-viability-guide
+protocol_id: PLN-02-2A-V2-R3-LANE-VIABILITY-GUIDE-V1
+frozen_before_ros_preflight: true
+
+bindings:
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  default_query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+  mirror_query_hash: 615dc7e7d866447d059e416f7602240edc8a7b94e112d7155168b800e1f2ce50
+  mirror_selection_policy_sha256: ebe14afb4a7383d15dec40a25931794f3fa32ee8042d2a30911c7ab236b3d436
+  mirror_selection_result_sha256: da0bf7cc8fa0e967880cf73d90a516676851d337e73c7672e8f522a390f408b1
+
+guide_policy:
+  station_spacing_m: 0.40
+  lateral_sample_spacing_m: 0.10
+  beam_width: 160
+  maximum_curvature_1pm: 2.50
+  target_right_boundary_distance_m: 0.40
+  target_error_gate_m: 0.50
+  correct_side_ratio_gate: 0.80
+  cost_cap: 64
+  static_clearance_m: 0.404
+
+calibration_evidence:
+  beam_640_result: offline_direction_r3_fast_witness_default8_v7
+  beam_160_result: offline_direction_r3_beam160_calibration_v8
+  classification_parity_across_default_8: true
+  long_viable_query_guide_build_ms_beam_640: 626.0
+  long_viable_query_guide_build_ms_beam_160: 373.8
+  mirror_selection_result: mirror_selection_r3_v3
+  frozen_mirror_offline_result: offline_direction_r3_frozen_mirror_v2
+  frozen_mirror_guide_build_ms: [83.766908, 84.646158]
+
+gates:
+  constructive_guide_build_ms_max: 500.0
+  online_correct_side_ratio_min: 0.80
+  online_target_error_p50_max_m: 0.50
+  online_required_relaxation: R0
+  hard_exact_mismatch_max: 0
+  soft_exact_mismatch_max: 0
+  stale_roi_cells_max: 0
+  collision_violation_max: 0
+  kinematic_violation_max: 0
+  hard_semantic_violation_max: 0
+  no_stopping_goal_violation_max: 0
+  cold_e4_over_e0_max: 2.0
+
+negative_controls:
+  - query_id: cmp2-01-lane-north
+    expected_offline_classification: DIRECTED_ONLINE_METRIC_PAIR_INFEASIBLE
+    treatment: retain as source-semantic/static-geometry negative; never count as a passing mirror

@@ -1,0 +1,14 @@
+schema_version: PLN-02-2A-V3-R10-TARGETED-APPLICABLE-POSITIVE-V1
+architecture_id: 2A-V3
+implementation_revision: r10-local-station-prefilter-strict-final
+protocol_id: PLN-02-2A-V3-R10-LOCAL-STATION-PREFILTER-STRICT-FINAL-V1
+extends_targeted:
+  path: pudu_wanda_3f_v3_r7_targeted_applicable_positive_v1.yaml
+  sha256: 8d9fb715bc0a5e40b271cf4a8751fce022340f20747b35082995a867c84f8ba5
+composition:
+  purpose: identical frozen triad; bounded local station projection for edge prefilter with unchanged global final audit
+  endpoint_change_from_r7: none
+source_evidence:
+  r10_positive_calibration:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r10_local_projection_positive_calibration_20260907T125000Z/result.json
+    sha256: 762e61d6e04b6a3b0c097cbce898a9099d4eecb5314fc0b8ffca977c9fe3bb7b

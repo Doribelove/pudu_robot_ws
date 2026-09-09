@@ -1,0 +1,50 @@
+schema_version: PLN-02-2A-V2-R3-MIRROR-SELECTION-V2
+architecture_id: 2A-V2
+implementation_revision: r3-lane-relative-viability-guide
+purpose: freeze one calibration-independent, physically valid directed mirror pair
+
+bindings:
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  source_query_set_id: pudu_wanda_3f_semantic_compare_selected8_r2_v2
+  source_query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+
+candidate_generation:
+  endpoint_pool: footprint-safe topology nodes inside each source lane instance
+  longitudinal_axis: deterministic principal component, sign fixed toward positive dominant world axis
+  longitudinal_quantiles: [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90]
+  quantile_representative: maximum-clearance topology node within 2.5 m longitudinally
+  pair_construction: consecutive distinct quantile representatives, evaluated in both directions
+  require_same_source_lane_instance: true
+  minimum_endpoint_clearance_m: 1.50
+  minimum_euclidean_separation_m: 15.0
+  maximum_euclidean_separation_m: 60.0
+  maximum_l1_endpoint_attachment_distance_m: 0.50
+  minimum_certified_l1_route_length_m: 15.0
+  require_same_static_free_component: true
+  require_route_lane_station_fraction: 0.90
+  require_same_undirected_l1_route: true
+  heading_source: oriented selected-L1-route endpoint tangent
+
+eligibility:
+  viability_certificate_required_both_directions: true
+  correct_side_ratio_min: 0.85
+  target_band_station_ratio_min: 0.60
+  target_lateral_error_p50_max_m: 0.50
+  maximum_curvature_1pm: 2.50
+  static_collision_count: 0
+  hard_semantic_violation_count: 0
+  no_stopping_goal_violation_count: 0
+
+selection_order:
+  - descending minimum bidirectional correct-side certificate margin
+  - descending minimum bidirectional target-band certificate margin
+  - descending minimum endpoint clearance
+  - descending route length
+  - ascending lane semantic ID
+  - ascending endpoint coordinate tuple
+
+usage:
+  classification: mirror-query calibration and regression only
+  formal_performance_claims: false
+  freeze_after_first_complete_enumeration: true
