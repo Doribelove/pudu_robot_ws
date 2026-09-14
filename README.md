@@ -4,7 +4,10 @@
 3D-V1 默认为 `3D-V1-r2-stable`；2A-V1-r3 与语义 2A-V3 仍是研究版，
 具体准入边界、依赖还原方式和未随 Git 分发的数据见版本说明。
 
+独立研究主线 [STL-V0：语义规则、可行空间集合与路线轨迹联合求解](docs/PLN-02_ARCHITECTURE_STL_V0.md) 已建立，当前为离线研究原型。 最新 [r2 实验报告](docs/PLN-02_STL_V0_R2_PERFORMANCE_AND_REFINEMENT.md) 记录构图降耗与曲线细分结果。
+
 中文启动、停止和功能说明见 [USAGE.md](USAGE.md)。
+2026-09-14 的 [源码交付清单](docs/PLN-02_PROJECT_SNAPSHOT_20260914.md) 新增 r3 静态服务、STL-V0-r2 与 [3YD-V1 语义双地图静态研究版](research/3yd_v1/README.md)；研究版不替代生产默认，私有地图与实验缓存不随 Git 分发。
 Arena4 单次录制、指标计算和绘图见
 [docs/ARENA4_EVALUATION_USAGE.md](docs/ARENA4_EVALUATION_USAGE.md)。
 超大地图 A2B 课题的 P0 冻结口径见

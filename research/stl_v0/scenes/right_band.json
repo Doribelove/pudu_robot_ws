@@ -1,0 +1,82 @@
+{
+  "name": "STL-V0 right band",
+  "start": [
+    0,
+    0,
+    0
+  ],
+  "goal": [
+    8,
+    0,
+    0
+  ],
+  "regions": [
+    {
+      "id": "entry",
+      "bounds": [
+        -1,
+        -2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "lane",
+      "bounds": [
+        1,
+        -2,
+        7,
+        2
+      ],
+      "labels": [
+        "right_lane"
+      ],
+      "halfspaces": [
+        [
+          0,
+          1,
+          -0.4
+        ]
+      ],
+      "direction": [
+        0,
+        0.7853981633974483
+      ]
+    },
+    {
+      "id": "exit",
+      "bounds": [
+        6,
+        -2,
+        9,
+        2
+      ]
+    }
+  ],
+  "task": {
+    "horizon_s": 80.0,
+    "always": [
+      {
+        "predicate": "safe"
+      },
+      {
+        "predicate": "avoid_labels",
+        "labels": []
+      }
+    ],
+    "ordered_eventually": [
+      {
+        "label": "right_lane",
+        "window_s": [
+          0,
+          40
+        ]
+      }
+    ]
+  },
+  "metadata": {
+    "phase": "controlled-synthetic",
+    "region_contract": "declared feasible center boxes, already body inflated",
+    "full_R2_semantics": false
+  }
+}

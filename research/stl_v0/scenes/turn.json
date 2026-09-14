@@ -1,0 +1,51 @@
+{
+  "name": "STL-V0 turn",
+  "start": [
+    0,
+    0,
+    0
+  ],
+  "goal": [
+    5,
+    5,
+    1.5707963267948966
+  ],
+  "regions": [
+    {
+      "id": "west",
+      "bounds": [
+        -1,
+        -1,
+        5,
+        2
+      ]
+    },
+    {
+      "id": "north",
+      "bounds": [
+        3,
+        -1,
+        6,
+        6
+      ]
+    }
+  ],
+  "task": {
+    "horizon_s": 80.0,
+    "always": [
+      {
+        "predicate": "safe"
+      },
+      {
+        "predicate": "avoid_labels",
+        "labels": []
+      }
+    ],
+    "ordered_eventually": []
+  },
+  "metadata": {
+    "phase": "controlled-synthetic",
+    "region_contract": "declared feasible center boxes, already body inflated",
+    "full_R2_semantics": false
+  }
+}

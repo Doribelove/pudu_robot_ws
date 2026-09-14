@@ -553,7 +553,7 @@ def test_reliable_update_transport_remains_separate_from_exact_content_ack():
 def test_xml_scopes_static_update_reader_and_lifecycle_replies_and_bounds_history():
     import xml.etree.ElementTree as ET
     from pathlib import Path
-    xml=Path(__file__).resolve().parents[1]/'config/two_layer_v1_r3_transport.xml'
+    xml=_transport_xml_path()
     root=ET.parse(xml).getroot();ns={'p':'http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles'}
     profiles=list(root)
     prefix='{http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles}'
@@ -805,7 +805,7 @@ def test_native_snapshot_cadence_can_supply_two_fresh_frames_within_60ms(monkeyp
 def test_lifecycle_reply_profile_covers_bounded_response_reader_discovery(node):
     import xml.etree.ElementTree as ET
     from pathlib import Path
-    root=ET.parse(Path(ack.__file__).resolve().parents[1]/"config/two_layer_v1_r3_transport.xml").getroot()
+    root=ET.parse(_transport_xml_path()).getroot()
     ns={"d":"http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles"}
     profile=root.find(f"d:publisher[@profile_name='rr/{node}/change_stateReply']",ns)
     assert profile is not None, "Default100ms discovery race drops the lifecycle response"
@@ -819,7 +819,7 @@ def test_lifecycle_reply_profile_covers_bounded_response_reader_discovery(node):
 def test_lifecycle_discovery_profile_is_scoped_away_from_online_services():
     import xml.etree.ElementTree as ET
     from pathlib import Path
-    root=ET.parse(Path(ack.__file__).resolve().parents[1]/"config/two_layer_v1_r3_transport.xml").getroot()
+    root=ET.parse(_transport_xml_path()).getroot()
     ns={"d":"http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles"}
     allowed={"rr/map_server/change_stateReply","rr/planner_server/change_stateReply"}
     publishers=root.findall("d:publisher",ns)
@@ -828,3 +828,36 @@ def test_lifecycle_discovery_profile_is_scoped_away_from_online_services():
     assert len(subscribers)==1 and subscribers[0].attrib=={"profile_name":"/map_updates"}
     assert subscribers[0].find("d:topic/d:historyQos/d:depth",ns).text=="512"
     assert subscribers[0].find("d:qos/d:reliability/d:kind",ns).text=="RELIABLE"
+
+
+def _transport_xml_path():
+    # Use the same source/install lookup as ExactAckSmacSession.
+    from pathlib import Path
+    source=Path(ack.__file__).resolve().parents[1]/'config/two_layer_v1_r3_transport.xml'
+    if source.is_file():return source
+    from ament_index_python.packages import get_package_share_directory
+    return Path(get_package_share_directory('arena_evaluation'))/'config/two_layer_v1_r3_transport.xml'
+
+
+@pytest.mark.parametrize('confirmed,remaining,expected,updates',[
+    (.5,3.0,1.5,1), (.5,2.4,1.0,1), (.5,1.9,.5,0), (2.,3.8,2.,0),
+])
+def test_budget_reuse_does_not_starve_smoothing_when_upgrade_fits(monkeypatch,tmp_path,confirmed,remaining,expected,updates):
+    # Real xlarge600/A2B-04 regression: a cached 0.5s native budget
+    # was retained although 1.5s fit; heuristic+search consumed >0.5s,
+    # leaving the native smoother no time while the request retained ~2s.
+    session,_,clock=_fake_session(monkeypatch,tmp_path,[np.zeros((3,3),np.uint8)]*2)
+    session._confirmed_server_budget=confirmed
+    session.request_deadline=clock.now+remaining
+    requests=[]
+    def update(request):
+        requests.append(request)
+        return SimpleNamespace(done=lambda:True,result=lambda:SimpleNamespace(
+            results=[SimpleNamespace(successful=True)]))
+    session._budget_client=SimpleNamespace(wait_for_service=lambda **kw:True,call_async=update)
+    assert session._set_server_budget(remaining)==expected
+    assert len(requests)==updates
+    assert session._confirmed_server_budget==expected
+    if updates:
+        assert requests[0].parameters[0].value.double_value==expected
+        assert not session._budget_state_uncertain

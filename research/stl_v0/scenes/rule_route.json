@@ -1,0 +1,85 @@
+{
+  "name": "STL-V0 rule changes route",
+  "start": [
+    0,
+    0,
+    0
+  ],
+  "goal": [
+    8,
+    0,
+    0
+  ],
+  "regions": [
+    {
+      "id": "start",
+      "bounds": [
+        -1,
+        -2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "upper",
+      "bounds": [
+        1,
+        1,
+        7,
+        3
+      ],
+      "labels": [
+        "hazard"
+      ]
+    },
+    {
+      "id": "lower",
+      "bounds": [
+        1,
+        -3,
+        7,
+        -1
+      ],
+      "labels": [
+        "inspection"
+      ]
+    },
+    {
+      "id": "goal",
+      "bounds": [
+        6,
+        -2,
+        9,
+        2
+      ]
+    }
+  ],
+  "task": {
+    "horizon_s": 80.0,
+    "always": [
+      {
+        "predicate": "safe"
+      },
+      {
+        "predicate": "avoid_labels",
+        "labels": [
+          "hazard"
+        ]
+      }
+    ],
+    "ordered_eventually": [
+      {
+        "label": "inspection",
+        "window_s": [
+          0,
+          40
+        ]
+      }
+    ]
+  },
+  "metadata": {
+    "phase": "controlled-synthetic",
+    "region_contract": "declared feasible center boxes, already body inflated",
+    "full_R2_semantics": false
+  }
+}

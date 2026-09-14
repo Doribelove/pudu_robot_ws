@@ -1,0 +1,13 @@
+{
+  "frozen_at": "2026-09-14T03:25:12.804132+00:00",
+  "l2_weight": 2.0,
+  "l3_reference_cap": 140,
+  "saturation_distance_m": 2.0,
+  "selection": "initial preregistered values; no weight search performed",
+  "development_controlled_right_band_A": 0.0,
+  "development_controlled_right_band_B": 0.0,
+  "development_controlled_right_band_C": 1.0,
+  "controlled_left_right_mean_shift_m": 2.437011562674671,
+  "heldout_solver_runs_before_freeze": 0,
+  "acceptance_sha256": "b63e35372e06ccd3b7c19c5af8d01780d370460908b77fe33f0c0b79af7fc265"
+}

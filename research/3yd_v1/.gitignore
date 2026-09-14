@@ -1,0 +1,10 @@
+build/
+cache/
+results/
+data/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.so
+config/queries.yaml
+config/acceptance.yaml

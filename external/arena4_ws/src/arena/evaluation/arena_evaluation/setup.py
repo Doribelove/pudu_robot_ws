@@ -48,6 +48,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+        'static_planner_service = arena_evaluation.static_planner_service_cli_r3:main',
         'two_layer_v1_r3_benchmark = arena_evaluation.two_layer_v1_r3_benchmark:main',
         'record = arena_evaluation.data_recorder_node:main',
         'metrics = arena_evaluation.get_metrics:main',

@@ -17,11 +17,16 @@ import math
 import os
 from pathlib import Path
 import struct
+import tempfile
 import time
 from types import SimpleNamespace
 import numpy as np
 from .unified_four_backends_smoke import SmacSession, PlanResult
 from .smac_contract_r3 import frozen_planner_overrides, read_runtime_contract
+from .sealed_snapshot_r3 import SealedGrid
+
+SERVER_BUDGET_REUSE_FLOOR_S = 1.0
+SERVER_BUDGET_REUSE_POLICY = 'smoothing_floor_before_rebuild_gain_v2'
 
 
 @contextmanager
@@ -43,6 +48,7 @@ def defer_transport_gc():
 
 
 def grid_hash(grid):
+    if isinstance(grid,SealedGrid):return grid.sha256
     # Hash the same complete C-order bytes without materializing a second
     # full grid when the input is already contiguous. Strided inputs still
     # receive the same canonical contiguous conversion as before.
@@ -96,6 +102,7 @@ class Publication:
     expected_shape: tuple
     map_hash: str
     request_id: str
+    backend_context: str = ""
 
     @property
     def hash(self):
@@ -254,6 +261,12 @@ class AtomicReadbackBuffer:
         return None
 
 
+def master_snapshot_frequency(cells):
+    """Bound complete-master payload to 300 MB/s and the original 40 Hz cap."""
+    if cells<=0:raise ValueError('positive map size required')
+    return min(40.,300_000_000./cells)
+
+
 class ExactAckSmacSession(SmacSession):
     def __init__(self,*args,**kwargs):
         kwargs['planner_parameter_overrides']=frozen_planner_overrides(kwargs.get('planner_parameter_overrides'))
@@ -271,7 +284,13 @@ class ExactAckSmacSession(SmacSession):
         self.transport_profile_hash=hashlib.sha256(transport.read_bytes()).hexdigest()
         import yaml
         params=yaml.safe_load(self.params_file.read_text())
-        params['global_costmap']['global_costmap']['ros__parameters']['publish_frequency']=40.
+        params['global_costmap']['global_costmap']['ros__parameters'].setdefault('static_layer',{})['plugin']='pln_transactional_costmap/TransactionalStaticLayer'
+        self._snapshot_directory=tempfile.TemporaryDirectory(prefix='pln-snapshot-')
+        self._snapshot_path=Path(self._snapshot_directory.name)/'master.sock'
+        params['global_costmap']['global_costmap']['ros__parameters']['static_layer']['snapshot_socket']=str(self._snapshot_path)
+        params['global_costmap']['global_costmap']['ros__parameters']['publish_frequency']=master_snapshot_frequency(
+            self.ctx.hospital_map.height*self.ctx.hospital_map.width)
+        self._sealed_client=None;self._consumed_manifest=None
         self.params_file.write_text(yaml.safe_dump(params,sort_keys=False))
         self.smac_config_hash=hashlib.sha256(self.params_file.read_bytes()).hexdigest()
         self._atomic_buffer=AtomicReadbackBuffer(self.ctx.hospital_map)
@@ -287,9 +306,18 @@ class ExactAckSmacSession(SmacSession):
         self.runtime_safety_contract=None
         self.trace_file=self.params_file.parent/'exact_ack.jsonl'
         self._enforce_server_budget=True;self._budget_client=None;self._unresolved_timeout=False
+        self._transfer_id=0;self._receipt_subscription=None;self._transfer_receipts=deque(maxlen=8)
+        self._transaction_ack_deadline=None
 
     def start(self):
         super().start()
+        from .sealed_snapshot_r3 import SealedSnapshotClient
+        self._sealed_client=SealedSnapshotClient(self._snapshot_path,self.ctx.hospital_map,self.planner_pid)
+        from std_msgs.msg import String
+        from rclpy.qos import QoSProfile,QoSReliabilityPolicy
+        self._receipt_subscription=self.client.node.create_subscription(
+            String,'/map_transaction_receipt',lambda msg:self._transfer_receipts.append(msg.data),
+            QoSProfile(depth=8,reliability=QoSReliabilityPolicy.RELIABLE))
         from .unified_four_backends_smoke import FOOTPRINT
         self.runtime_safety_contract=read_runtime_contract(self,FOOTPRINT)
         with (self.params_file.parent/'runtime_safety_contract.json').open('x') as stream:
@@ -318,12 +346,22 @@ class ExactAckSmacSession(SmacSession):
             self._confirmed_server_budget=5.
         finally:self.client.node.destroy_client(client)
 
+    def _start_atomic_readback(self):
+        if getattr(self,'_sealed_client',None) is not None:return
+        if getattr(self,'_atomic_subscription',None) is not None:return
         from nav2_msgs.msg import Costmap
-        from rclpy.qos import QoSProfile,QoSDurabilityPolicy
+        from rclpy.qos import QoSProfile,QoSDurabilityPolicy,QoSReliabilityPolicy
         self._atomic_subscription=self.client.node.create_subscription(
             Costmap,'/global_costmap/costmap_raw',self._receive_atomic_snapshot,
             QoSProfile(depth=2,reliability=QoSReliabilityPolicy.RELIABLE,
                        durability=QoSDurabilityPolicy.TRANSIENT_LOCAL),raw=True)
+
+    def _stop_atomic_readback(self):
+        if getattr(self,'_sealed_client',None) is not None:self._sealed_client._pending.clear()
+        if getattr(self,'_atomic_subscription',None) is not None:
+            self.client.node.destroy_subscription(self._atomic_subscription)
+            self._atomic_subscription=None
+        if hasattr(self,'_atomic_buffer'):self._atomic_buffer.frames.clear()
 
     def _receive_atomic_snapshot(self,message):
         try:self._atomic_buffer.push(message)
@@ -332,6 +370,10 @@ class ExactAckSmacSession(SmacSession):
             self._trace({'event':'readback_error','source':'atomic_master_topic','error':str(exc)})
 
     def _server_costmap_snapshot(self,deadline):
+        if getattr(self,'_sealed_client',None) is not None:
+            value=self._sealed_client.read(self._consumed_manifest,deadline)
+            self._trace({'event':'sealed_snapshot_read',**self._sealed_client.last_metadata})
+            return value
         while time.monotonic()<deadline:
             value=self._atomic_buffer.consume()
             if value is not None:
@@ -347,10 +389,36 @@ class ExactAckSmacSession(SmacSession):
             self._atomic_subscription=None
         self._atomic_buffer.frames.clear()
         super().close()
+        if hasattr(self,'_snapshot_directory'):self._snapshot_directory.cleanup()
+
+    def prepare_ready_baseline(self, timeout_s=90.):
+        """Establish a query-independent closed overlay before accepting requests.
+
+        The immutable static map is unchanged. Every query still needs its own
+        two complete exact observations after opening its corridor. Initialization
+        has a separate bounded window, recorded outside the 7-second request.
+        """
+        if not math.isfinite(timeout_s) or timeout_s <= 0:
+            raise ValueError('READY baseline timeout must be positive and finite')
+        started=time.monotonic()
+        self.begin_request('READY:closed-baseline',started+timeout_s)
+        self._ready_ack_window_s=timeout_s
+        self._current_grid=None
+        try:
+            info=self.update_local_mask(np.zeros((self.ctx.hospital_map.height,
+                                                 self.ctx.hospital_map.width),bool))
+            info.update(ready_baseline_wall_ms=(time.monotonic()-started)*1000,
+                        ready_baseline_kind='query_independent_all_blocked_overlay',
+                        query_dependent=False,planner_search_started=False)
+            self.ready_baseline_receipt=info
+            return dict(info)
+        finally:
+            del self._ready_ack_window_s
 
     def begin_request(self, request_id, deadline):
         self.request_id=str(request_id);self.request_deadline=float(deadline)
         self.last_exact_ack=None;self.active_publication=None;self._costmap_state_trusted=False
+        self._transaction_ack_deadline=None
         self._budget_diagnostics={};self._snapshot_errors=0
         self._local_mask_info={'costmap_update_acknowledged':False,
                                'costmap_ack_status':'transaction_not_verified',
@@ -397,13 +465,21 @@ class ExactAckSmacSession(SmacSession):
         """One update topic, deterministic overlapping <=64KiB source chunks."""
         self._atomic_buffer.reset_floor(self.client.node.get_clock().now().nanoseconds)
         ser=pub=0.;cells=messages=0;boxes=[];height,width=source.shape;side=224
+        transactional=hasattr(self,'_transfer_id')
+        if transactional:
+            self._transfer_id+=1;transfer_id=self._transfer_id;digest=hashlib.sha256()
+            self._transfer_receipts.clear()
         for x0,y0,w,h in dirty_chunk_boxes(dirty,side,overlap):
             if time.monotonic()>=self.request_deadline:raise ExactAckFailure('REQUEST_DEADLINE_PUBLICATION')
             x1=x0+w;y1=y0+h
             begin=time.monotonic();msg=self.OccupancyGridUpdate();msg.header.frame_id='map'
             msg.header.stamp=self.client.node.get_clock().now().to_msg()
+            if transactional:
+                msg.header.stamp.sec=transfer_id//10**9;msg.header.stamp.nanosec=transfer_id%10**9
             msg.x=x0;msg.y=y0;msg.width=x1-x0;msg.height=y1-y0
             msg.data=array('b',np.ascontiguousarray(source[y0:y1,x0:x1]).tobytes())
+            if transactional:
+                digest.update(struct.pack('<4I',x0,y0,x1-x0,y1-y0));digest.update(msg.data.tobytes())
             ser+=(time.monotonic()-begin)*1000;begin=time.monotonic()
             self._local_update_publisher.publish(msg)
             # Publishing progresses in native DDS; pump ready callbacks without
@@ -412,10 +488,46 @@ class ExactAckSmacSession(SmacSession):
             self.client.executor.spin_once(timeout_sec=0.)
             pub+=(time.monotonic()-begin)*1000;cells+=(y1-y0)*(x1-x0);messages+=1
             boxes.append([x0,y0,x1-x0,y1-y0])
-        return {'serialization_ms':ser,'publication_ms':pub,'cells':cells,'messages':messages,'chunks':boxes}
+        stats={'serialization_ms':ser,'publication_ms':pub,'cells':cells,'messages':messages,'chunks':boxes}
+        if transactional:
+            # The server receipt confirms source consumption, never effective ACK.
+            manifest={'version':1,'transfer_id':transfer_id,'messages':messages,'bytes':cells,
+                      'chunks_sha256':digest.hexdigest(),'publication':asdict(self.active_publication)}
+            payload=json.dumps(manifest,sort_keys=True,separators=(',',':'))
+            marker=self.OccupancyGridUpdate();marker.header.frame_id='map'
+            marker.header.stamp.sec=transfer_id//10**9;marker.header.stamp.nanosec=transfer_id%10**9
+            marker.data=array('b',payload.encode())
+            started=time.monotonic()
+            if self._transaction_ack_deadline is None:
+                self._transaction_ack_deadline=min(self.request_deadline,started+getattr(self,'_ready_ack_window_s',3.))
+            self._local_update_publisher.publish(marker)
+            while payload not in self._transfer_receipts and time.monotonic()<self._transaction_ack_deadline:
+                self.client.executor.spin_once(timeout_sec=min(.005,max(0.,self._transaction_ack_deadline-time.monotonic())))
+            consumed=payload in self._transfer_receipts
+            stats.update(source_consumption_wait_ms=(time.monotonic()-started)*1000,
+                         transfer_id=transfer_id,source_consumption_verified=consumed)
+            self._trace({'event':'source_transaction_receipt',**stats,'manifest':manifest})
+            if not consumed:raise ExactAckFailure('SOURCE_TRANSACTION_NOT_CONSUMED')
+            self._consumed_manifest=payload
+            self._atomic_buffer.reset_floor(self.client.node.get_clock().now().nanoseconds)
+        return stats
 
     def update_local_mask(self,allowed_mask,**kwargs):
+        try:
+            return self._update_local_mask_transaction(allowed_mask,**kwargs)
+        except BaseException:
+            self._current_grid=None
+            raise
+        finally:
+            # A static single-writer map needs fresh readbacks during an ACK,
+            # not a continuous stream during connectors or the Smac action.
+            # Every later transaction subscribes again and requires two new
+            # complete exact frames after its own publication floor.
+            self._stop_atomic_readback()
+
+    def _update_local_mask_transaction(self,allowed_mask,**kwargs):
         started=time.monotonic();self.last_exact_ack=None;self._costmap_state_trusted=False
+        self._transaction_ack_deadline=None
         self._local_mask_info={'costmap_update_acknowledged':False,'costmap_ack_mismatch_cells':None,
                                'request_id':self.request_id,'planner_search_started':False}
         mask,source=self._grid_for_mask(allowed_mask);build=time.monotonic()
@@ -426,13 +538,14 @@ class ExactAckSmacSession(SmacSession):
         bbox=dirty_bbox(dirty)
         self.publication_sequence+=1
         token=Publication(self.publication_sequence,grid_hash(source),bbox,expected.sha256,source.shape,
-                          self.ctx.map_sha256,self.request_id)
+                          self.ctx.map_sha256,self.request_id,getattr(self,"backend_context_binding",""))
         self.active_publication=token
         self._trace({'event':'publication_created','publication':asdict(token),'expected_build_ms':expected_ms})
         stats=self._publish_chunks(source,dirty)
+        if hasattr(self,'_atomic_subscription'):self._start_atomic_readback()
         repairs=repair_cells=repair_chunks=0;repair_ms=readback_ms=scan_ms=0.;readback_errors=0;last=None
         stable=0;fallback=False;repair_history=[]
-        ack_started=time.monotonic();ack_deadline=min(self.request_deadline,ack_started+3.)
+        ack_started=time.monotonic();ack_deadline=getattr(self,'_transaction_ack_deadline',None) or min(self.request_deadline,ack_started+getattr(self,'_ready_ack_window_s',3.))
         # A readback can observe the master while the inflation worker is still
         # processing queued updates. Wait a bounded processing interval before
         # spending a repair; equality itself is never inferred from elapsed time.
@@ -445,7 +558,9 @@ class ExactAckSmacSession(SmacSession):
             try:server,_response_time=self._server_costmap_snapshot(ack_deadline)
             except RuntimeError as exc:
                 readback_ms+=(time.monotonic()-rb)*1000;readback_errors+=1
-                self._trace({'event':'readback_error','error':str(exc)});continue
+                self._trace({'event':'readback_error','error':str(exc)})
+                if getattr(self,'_sealed_client',None) is not None:break
+                continue
             readback_ms+=(time.monotonic()-rb)*1000;sc=time.monotonic()
             last=compare_exact(token,self.active_publication,expected,server)
             scan_ms+=(time.monotonic()-sc)*1000;self._trace({'event':'readback',**last})
@@ -465,8 +580,9 @@ class ExactAckSmacSession(SmacSession):
                     repair_ms+=(time.monotonic()-rb)*1000;fallback=True;repair_history.append(info)
                     self._trace({'event':'full_update_fallback','publication':asdict(token),'stats':info})
                     repair_not_before=time.monotonic()+settle_s
+            del server  # Release consumed mmap before another pair can be received.
             self.client.executor.spin_once(timeout_sec=min(.01,max(0.,ack_deadline-time.monotonic())))
-        success=stable>=2 and last is not None and last['acknowledged']
+        success=stable>=2 and last is not None and last['acknowledged'] and time.monotonic()<=ack_deadline
         total=(time.monotonic()-started)*1000
         self._local_mask_info={
             'costmap_update_acknowledged':success,'costmap_ack_status':'exact_verified' if success else 'exact_failed_closed',
@@ -477,15 +593,17 @@ class ExactAckSmacSession(SmacSession):
             'stale_cells':last['stale_cells'] if last else None,'hash_mismatch':last['hash_mismatch'] if last else None,
             'sequence_mismatch':last['sequence_mismatch'] if last else None,
             'readback_error':readback_errors+getattr(self,'_snapshot_errors',0),
-            'server_readback_source':'native_mutex_protected_costmap_raw',
-            'server_snapshot_index':getattr(getattr(self,'_atomic_buffer',None),'last_index',None),
-            'server_snapshot_stamp_ns':getattr(getattr(self,'_atomic_buffer',None),'last_stamp_ns',None),
+            'server_readback_source':'native_mutex_sealed_memfd' if getattr(self,'_sealed_client',None) else 'native_mutex_protected_costmap_raw',
+            'server_snapshot_index':getattr(getattr(self,'_sealed_client',None) or getattr(self,'_atomic_buffer',None),'last_index',None),
+            'server_snapshot_stamp_ns':getattr(getattr(self,'_sealed_client',None) or getattr(self,'_atomic_buffer',None),'last_stamp_ns',None),
             'costmap_ack_repair_count':repairs,'costmap_ack_repair_cells':repair_cells,'repaired_chunks':repair_chunks,
             'full_update_fallback':fallback,'repair_history':repair_history,
             'roi_build_ms':(build-started)*1000,'expected_effective_build_ms':expected_ms,
             'expected_effective_cache_hit':getattr(self,'_expected_cache_hit',False),
             'expected_effective_cache_bytes':getattr(self,'_expected_cache_bytes',0),
             'repair_processing_grace_s':settle_s,
+            'source_consumption_wait_ms':stats.get('source_consumption_wait_ms',0.),
+            'source_consumption_verified':stats.get('source_consumption_verified',False),
             'serialization_ms':stats['serialization_ms'],'publication_ms':stats['publication_ms'],
             'costmap_ack_wait_ms':(time.monotonic()-ack_started)*1000,'readback_ms':readback_ms,
             'mismatch_scan_ms':scan_ms,'repair_ms':repair_ms,'local_map_update_ms':total,
@@ -495,7 +613,10 @@ class ExactAckSmacSession(SmacSession):
             'local_map_update_fallback':fallback,'local_map_update_fallback_reason':'exact_mismatch' if fallback else '',
             'applied_mask_hash':token.source_grid_hash,'expected_mask_hash':token.source_grid_hash}
         self._trace({'event':'transaction_complete',**self._local_mask_info})
-        if not success:raise ExactAckFailure('EXACT_ACK_FAILED_CLOSED')
+        if not success:
+            # A failed partial publication invalidates the previous source baseline.
+            self._current_grid=None
+            raise ExactAckFailure('EXACT_ACK_FAILED_CLOSED')
         self._current_grid=source.copy();self._current_allowed_mask=mask.copy();self._costmap_state_trusted=True
         self.last_exact_ack=token
         return dict(self._local_mask_info)
@@ -509,14 +630,21 @@ class ExactAckSmacSession(SmacSession):
         reserve=max(1.25,getattr(self,'_budget_update_peak_s',0.)+.3)
         budget=min(5.,math.floor(max(0.,remaining-reserve)*2.)/2.)
         confirmed=getattr(self,'_confirmed_server_budget',None)
-        # Rebuilding Smac's lookup table merely to gain half a second is
-        # counterproductive. Keep a confirmed fitting budget unless the
-        # potential upgrade exceeds the measured/conservative rebuild reserve.
-        # A limit which no longer fits must still be reduced and confirmed.
-        if confirmed is not None and confirmed<=remaining-.3 and budget-confirmed<=reserve:
+        # The native limit includes heuristic preparation and smoothing. A
+        # cached 0.5s limit can exhaust smoothing time even when this request
+        # can afford a larger limit. Prefer the available >=1s budget in that
+        # case; retain the rebuild-gain rule for other fitting confirmations.
+        # This is an opportunistic reuse floor, not permission to exceed the
+        # remaining deadline or to raise the native iteration limit.
+        upgrade_for_smoothing=(confirmed is not None and
+                               confirmed<SERVER_BUDGET_REUSE_FLOOR_S<=budget)
+        if (confirmed is not None and confirmed<=remaining-.3 and
+                budget-confirmed<=reserve and not upgrade_for_smoothing):
             self._budget_diagnostics={'server_budget_cache_hit':True,'server_budget_update_ms':0.,
                                       'smac_remaining_budget_s':confirmed,
-                                      'server_budget_reuse_policy':'upgrade_gain_exceeds_rebuild_reserve_v1',
+                                      'server_budget_reuse_policy':SERVER_BUDGET_REUSE_POLICY,
+                                      'server_budget_reuse_floor_s':SERVER_BUDGET_REUSE_FLOOR_S,
+                                      'server_budget_upgrade_for_smoothing':False,
                                       'server_budget_upgrade_gain_s':max(0.,budget-confirmed),
                                       'server_budget_rebuild_reserve_s':reserve}
             self._trace({'event':'server_search_budget','budget_s':confirmed,**self._budget_diagnostics})
@@ -551,7 +679,10 @@ class ExactAckSmacSession(SmacSession):
         self._confirmed_server_budget=budget;self._budget_state_uncertain=False
         self._budget_update_peak_s=max(getattr(self,'_budget_update_peak_s',0.),elapsed)
         self._budget_diagnostics={'server_budget_cache_hit':False,'server_budget_update_ms':elapsed*1000,
-                                  'smac_remaining_budget_s':budget}
+                                  'smac_remaining_budget_s':budget,
+                                  'server_budget_reuse_policy':SERVER_BUDGET_REUSE_POLICY,
+                                  'server_budget_reuse_floor_s':SERVER_BUDGET_REUSE_FLOOR_S,
+                                  'server_budget_upgrade_for_smoothing':upgrade_for_smoothing}
         self._trace({'event':'server_search_budget','budget_s':budget,**self._budget_diagnostics})
         return budget
 

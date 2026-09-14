@@ -1,0 +1,25 @@
+{
+  "version": "3YD-V1",
+  "named_on": "2026-09-14",
+  "experiment_arm": "topology_015",
+  "baseline_version": "3YD-V0-r0",
+  "baseline_arm": "baseline",
+  "intermediate_control_arm": "topology_005",
+  "scope": "validated_static_planning_experiment",
+  "architecture": {
+    "L1": "lightweight_semantic_topology_with_candidate_directed_transitions",
+    "L2_primary_resolution_m": 0.15,
+    "L2_fallback_resolution_m": 0.05,
+    "L2_fallback_scope": "entire_selected_topology_route_region",
+    "L3_base_resolution_m": 0.05,
+    "L3_smac_and_vehicle_model": "unchanged_from_baseline",
+    "L2_reference_to_L3": "soft_cost"
+  },
+  "dynamic_multiresolution_loop_implemented": false,
+  "automatic_alternative_topology_retry_implemented": false,
+  "implementation_manifest": "report/FINAL_IMPLEMENTATION_FREEZE.json",
+  "query_run_manifest": "report/IMPLEMENTATION_FREEZE.json",
+  "performance_data": "report/performance.json",
+  "path_quality_data": "report/path_quality.json",
+  "naming_change_scope": "version_metadata_and_current_documentation_only"
+}

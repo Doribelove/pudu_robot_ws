@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+STL_V0_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+export PYTHONPATH="$STL_V0_ROOT"
+exec "${STL_V0_PYTHON:-/usr/bin/python3}" -m stl_v0 "$@"

@@ -1,0 +1,51 @@
+{
+  "name": "STL-V0 straight",
+  "start": [
+    0,
+    0,
+    0
+  ],
+  "goal": [
+    8,
+    0,
+    0
+  ],
+  "regions": [
+    {
+      "id": "a",
+      "bounds": [
+        -1,
+        -1,
+        4.5,
+        1
+      ]
+    },
+    {
+      "id": "b",
+      "bounds": [
+        3.5,
+        -1,
+        9,
+        1
+      ]
+    }
+  ],
+  "task": {
+    "horizon_s": 80.0,
+    "always": [
+      {
+        "predicate": "safe"
+      },
+      {
+        "predicate": "avoid_labels",
+        "labels": []
+      }
+    ],
+    "ordered_eventually": []
+  },
+  "metadata": {
+    "phase": "controlled-synthetic",
+    "region_contract": "declared feasible center boxes, already body inflated",
+    "full_R2_semantics": false
+  }
+}

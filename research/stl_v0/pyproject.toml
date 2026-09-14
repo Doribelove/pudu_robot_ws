@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pudu-stl-v0"
+version = "0.3.0"
+description = "Independent STL-V0 static semantic trajectory research"
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "PyYAML", "Pillow", "matplotlib"]
+
+[project.scripts]
+stl_v0 = "stl_v0.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["stl_v0*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
