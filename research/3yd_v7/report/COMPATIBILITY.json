@@ -1,0 +1,10 @@
+{
+  "historical_r0_output_checked": 270,
+  "historical_r0_output_changed": [],
+  "baseline_source_untouched": true,
+  "source_changes": [
+    "src/three_yd_v5/topology.py",
+    "src/three_yd_v5/free_space_topology.py"
+  ],
+  "l2_l3_sources_unchanged": true
+}

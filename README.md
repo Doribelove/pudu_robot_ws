@@ -1,5 +1,9 @@
 # PUDU Robot Workspace
 
+**3YD 支线最新版本：** [3YD-V7-r1（2026-09-30）](research/3yd_v7/README.md)，
+源码交付在 `3YD` 分支；支持语义／无语义双模式，L1-only 九图 270/270 有效，
+完整导航尚未全量验收。详见 [交付备注](docs/3YD_V7_20260930.md)。
+
 当前代码快照：[`pln-02-snapshot-2026.09.09`](docs/releases/PLN-02_2026-09-09.md)。
 3D-V1 默认为 `3D-V1-r2-stable`；2A-V1-r3 与语义 2A-V3 仍是研究版，
 具体准入边界、依赖还原方式和未随 Git 分发的数据见版本说明。
