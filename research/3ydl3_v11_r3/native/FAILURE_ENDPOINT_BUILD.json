@@ -1,0 +1,24 @@
+{
+  "source_origin": "/home/robot/workspaces/3ydl3_v10_r6_localfix_20261014/experiments/development_snapshot_20261015/native/endpoint_seed.cpp",
+  "origin_sha256": "a929b3bbc7e64d4d2244d5c628a6f62ea9a25cc95667a0c107412644bd64c0f2",
+  "purpose": "bounded local initialization only, full original spline audit required",
+  "compiler": "g++ -O3 -shared -fPIC -std=c++17 failure_endpoint.cpp -o libfailure_endpoint.so",
+  "additional_libraries": {
+    "failure_heading.cpp": {
+      "sha256": "72f6cc4ef8a4f9034faa0a19a7b31b7e0c2f6a1001784349ba4728c7d81255a2",
+      "diagnostic_stage": true
+    },
+    "libfailure_heading.so": {
+      "sha256": "b6607530151f470fc3848d9f91b223ef5c5e090f40d7300c20be84df8fc081fa",
+      "diagnostic_stage": true
+    },
+    "curve_rectangles_center.cpp": {
+      "sha256": "641b1855153ee59403d8e9c8fcd39199e97091902e9c79949ac43c1875e62401",
+      "diagnostic_stage": true
+    },
+    "libcurve_rectangles_center.so": {
+      "sha256": "222fc89a18d9475866e7c93f971cf5e6e285bb77c4ce668a4cc87c6579249ad1",
+      "diagnostic_stage": true
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<!-- Plan once for each immutable goal. No spin/back-up recovery is permitted. -->
+<root main_tree_to_execute="MainTree">
+  <BehaviorTree ID="MainTree">
+    <PipelineSequence name="NavigateFrozenR1">
+      <GoalUpdatedController>
+        <ComputePathToPose goal="{goal}" path="{path}" planner_id="FrozenR1"/>
+      </GoalUpdatedController>
+      <FollowPath path="{path}" controller_id="FollowPath" goal_checker_id="stopped_goal_checker"/>
+    </PipelineSequence>
+  </BehaviorTree>
+</root>

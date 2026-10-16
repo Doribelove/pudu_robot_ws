@@ -1,0 +1,70 @@
+{
+  "schema": "3yd-static-baseline-v1",
+  "version": "3YD-V5-r11",
+  "configuration": "AB",
+  "status": "frozen",
+  "frozen_on": "2026-09-22",
+  "authorized_by": "user explicitly froze r11 as the current static planning baseline",
+  "workspace": "/home/robot/workspaces/3yd_v5_r11_20260922",
+  "release_directory": "/home/robot/workspaces/3yd_frozen_baselines/3YD-V5-r11-AB_20260922",
+  "manifest": "/home/robot/workspaces/3yd_frozen_baselines/3YD-V5-r11-AB_20260922/manifest.json",
+  "archive": "/home/robot/workspaces/3yd_frozen_baselines/3YD-V5-r11-AB_20260922/snapshot.tar.gz",
+  "environment": {
+    "THREEYD_R11_MODE": "AB",
+    "THREEYD_R10_MODE": "ABC",
+    "THREEYD_R9_OPTIMIZE": "1",
+    "THREEYD_R9_MEMORY_PROFILE": "balanced"
+  },
+  "experimental_not_default": [
+    "r11 C storage crop"
+  ],
+  "scope": "static planning; Mengjia fixed Q01-Q10 and documented robustness tests; no dynamic or multi-map acceptance inferred",
+  "formal_results": "/home/robot/workspaces/3yd_v5_r11_20260922/results/r11_AB_formal_10x3/runs.jsonl",
+  "formal_results_sha256": "9be719b0694785dd2f3fd5f548866c5a1c37a64642af53c15326f5dd6795e238",
+  "acceptance": {
+    "formal_strict": [
+      30,
+      30
+    ],
+    "interleaved_strict": [
+      50,
+      50
+    ],
+    "perturbed_strict": [
+      10,
+      10
+    ],
+    "path_right_ACK_parity": true,
+    "python_tests": 41,
+    "native_equivalence_cases": 800
+  },
+  "metrics": {
+    "overall_median_s": 1.1776100615388714,
+    "first_query_median_s": 3.6898001609370112,
+    "repeat_query_median_s": 0.9530584255699068,
+    "p95_s": 5.850456300564109,
+    "rss_median_gib": 2.306459426879883,
+    "rss_peak_gib": 2.450664520263672,
+    "l3_planner_pss_median_gib": 0.39868640899658203
+  },
+  "contracts": {
+    "l2_resolution_m": 0.15,
+    "l2_state": [
+      "x",
+      "y"
+    ],
+    "inward_soft_target_m": 0.3,
+    "l3_resolution_m": 0.05,
+    "l3_normal_neighborhood_m": 0.8,
+    "l3_corner_neighborhood_m": 1.2,
+    "vehicle": [
+      0.265,
+      0.225,
+      0.4
+    ],
+    "full_map_fallback": false,
+    "strict_audit": "unchanged",
+    "storage": "full map; original world origin"
+  },
+  "future_changes": "create a new workspace/version; preserve frozen source, inputs, native libraries and formal raw results"
+}

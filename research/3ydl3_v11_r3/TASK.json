@@ -1,0 +1,71 @@
+{
+  "version": "3YDL3-V11-r3",
+  "parent": "/home/robot/workspaces/3ydl3_v11_r2_tailperf_20261016",
+  "status": "complete",
+  "user_change": "After exact planning failure only: start and goal position tolerance 0.20 m and wrapped heading tolerance 30 degrees each. Preserve min turning radius 0.40 m, vehicle footprint and all collision/traffic/continuous certificates. No 0.30 m radius change.",
+  "policy": {
+    "schema": "endpoint-tolerance-v1",
+    "enabled": true,
+    "position_m": 0.2,
+    "yaw_deg": 30.0,
+    "max_attempts": 8,
+    "exact_first": true,
+    "min_turn_radius_m": 0.4,
+    "total_request_budget_s": 30.0,
+    "new_l3_budget_s": 15.0,
+    "scope": "start_and_goal_position_and_heading",
+    "position_metric": "Euclidean distance from original requested pose",
+    "yaw_metric": "absolute wrapped angle from original requested pose",
+    "endpoint_candidates_are_not_connectors": true
+  },
+  "acceptance": {
+    "preserve_exact_99": true,
+    "target_policy_successes": 300,
+    "maps": 10,
+    "Q_per_map": 10,
+    "rounds": 3,
+    "preserve_original_99_navigation_median_and_p95": true,
+    "preserve_original_99_tree_rss_median": true,
+    "original_99_navigation_median_reduction_min": 0.05,
+    "original_99_navigation_p95_reduction_min": 0.05,
+    "original_99_tree_rss_median_reduction_min": 0.05
+  },
+  "timing": "each Q first navigation including all rejected attempts, endpoint search, L1/L2/L3, real ACK and final audit; excludes map/init/startup/export",
+  "goal_tracker_note": "Acceptance state is based on this complete experiment; tool goal completion is recorded separately after delivery checks.",
+  "workspace": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016",
+  "phase": "accepted static candidate",
+  "intermediate_parent": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_j_20261016",
+  "goal_complete": true,
+  "functional_goal_complete": true,
+  "performance_goal_complete": true,
+  "active_processes": [],
+  "next_work": [],
+  "control": "/home/robot/workspaces/3ydl3_v11_r2_tailperf_20261016",
+  "candidate_changes": [
+    "Exact L2 ROI; fresh semantic hashes without deep copies",
+    "Early bounded primary schedule with original schedule fallback",
+    "Early obsolete composition retirement",
+    "Bounded exact L3 mask scan and eliminate boolean copy; scalar zero penalty",
+    "Conditional allocator release inside navigation:64MiB free threshold,32MiB top reserve",
+    "Exact static-LUT view and packed original hard bits; ordinary native ACK arrays",
+    "Non-hard-support-only background conversion, original varying-tile and unknown handling",
+    "Neutral masks share only after full all-cell exclusion proof",
+    "Generic map static auxiliary stays dense; original hard bits remain packed",
+    "Fused target-mask temporary, exact immutable scalar-zero overlay identity; unknown parent function/schema falls back",
+    "Reuse sealed coarse hard mask after exact complement check; scalar immutable false ambiguity field"
+  ],
+  "checks": {
+    "project_tests": 1442,
+    "events": 49
+  },
+  "pilot_report": "report/TENMAP_PILOT.json",
+  "formal_started": true,
+  "pilot_result": {
+    "formal_acceptance": false,
+    "policy_successes_each_arm": 100,
+    "original99_navigation_median_change_percent": -7.623867933009754,
+    "original99_navigation_p95_change_percent": -30.088280614344853,
+    "original99_tree_rss_median_change_percent": -5.339010080181572
+  },
+  "acceptance_result": "ACCEPTANCE.json"
+}

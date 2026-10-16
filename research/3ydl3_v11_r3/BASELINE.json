@@ -1,0 +1,12 @@
+{
+  "version": "3YDL3-V11-r3",
+  "parent": "/home/robot/workspaces/3ydl3_v11_r2_tailperf_20261016",
+  "adopted": false,
+  "policy_file": "config/endpoint_tolerance.json",
+  "workspace": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016",
+  "intermediate_parent": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_i_20261016",
+  "candidate": "Exact ROI/fresh hash/bounded recovery scheduling and request-finish unused-heap release",
+  "status": "active",
+  "phase": "exact target-mask fusion and immutable empty-overlay identity",
+  "active_processes": []
+}

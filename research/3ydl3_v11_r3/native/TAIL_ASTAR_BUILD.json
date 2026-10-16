@@ -1,0 +1,9 @@
+{
+  "source": "native/tail_astar.cpp",
+  "source_sha256": "fa7f7efe561418ef26c65f223e623b6988d9492d2cbd790e4f258e7ff6d7a632",
+  "library": "native/libtail_astar.so",
+  "library_sha256": "0486d7989da3ee330c24b823f520640372bdb139f875ccf938232a0f34379ae0",
+  "command": "g++ -O3 -std=c++17 -ffp-contract=off -fPIC -shared native/tail_astar.cpp -o native/libtail_astar.so",
+  "no_fast_math": true,
+  "frozen_L1_untouched": true
+}

@@ -1,0 +1,14 @@
+{
+  "time": "2026-09-14T04:27:07.585465+00:00",
+  "reason": "Input type normalization only: tuple(map(float,...)) at YAML -> Query boundary. Numerical coordinates unchanged; all semantic algorithms, selected weights, budgets and gates unchanged from freeze 02. Prior holdout runtime attempts retained and explicitly not an unseen claim.",
+  "files": {
+    "/home/robot/workspaces/semantic_dual_map_r1_20260914/tools/benchmark.py": "60cfcfd5e4b0801785696df085e2f0db26e1cd6b77c7672a8432dfd4de76765a",
+    "/home/robot/workspaces/semantic_dual_map_r1_20260914/external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_graph.py": "4cbb7a4cd0f6955dbb40e1aedf7682075b39e94d68d08fa8e4c8d926cba777e7",
+    "/home/robot/workspaces/semantic_dual_map_r1_20260914/external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_l2.py": "2a316b795a8ebd636646126c1b8e5631668f4faf0e7f71493aff05ece5dcd626",
+    "/home/robot/workspaces/semantic_dual_map_r1_20260914/external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_pipeline.py": "1565fc848d81247f323cdcfed357dc26ef5639f3a29411a43743e85719595439",
+    "/home/robot/workspaces/semantic_dual_map_r1_20260914/external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_reference.py": "8638c3e93ff5a5d2e201af8007fab3a6fa51ceb7789cd3229c1dba07f2af17cd",
+    "/home/robot/workspaces/semantic_dual_map_r1_20260914/external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_world.py": "27bc6c2b90d6b2301b05331e8854d27ce6cbf6f24f5d06a005321025a234c001",
+    "/home/robot/workspaces/semantic_dual_map_r1_20260914/env.bash": "4460640cbb621bacaae84b6085398197badb213bffeb5469dcfeaf714f551634",
+    "/home/robot/workspaces/semantic_dual_map_r1_20260914/config/fastdds_large_map.xml": "59c77a1ddfe156a52c266f0536f5955673c361dabe4834081f86c476cae11d66"
+  }
+}

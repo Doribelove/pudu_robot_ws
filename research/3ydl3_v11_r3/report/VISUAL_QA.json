@@ -1,0 +1,27 @@
+{
+  "figures": [
+    {
+      "file": "paired_distributions.png",
+      "sha256": "b375b5d27c5840f6fdc84d2c2efcc76db70936eed3a99c8dfaef3a2995e766cb",
+      "reviewed": true,
+      "Chinese_labels_visible": true,
+      "no_label_overlap_or_clipping": true
+    },
+    {
+      "file": "per_map_distributions.png",
+      "sha256": "ba2706d15fb97b7cf6e13b2b6f9e8b8a40f51c623299f65662f3f89e565ea404",
+      "reviewed": true,
+      "Chinese_labels_visible": true,
+      "no_label_overlap_or_clipping": true
+    },
+    {
+      "file": "normalized_distributions.png",
+      "sha256": "80019488573315ee0412df1b675632db7de52a44a9e519bf51a8aa6e176ba11d",
+      "reviewed": true,
+      "Chinese_labels_visible": true,
+      "no_label_overlap_or_clipping": true
+    }
+  ],
+  "font_family": "SimSun",
+  "units_sample_counts_boxplot_definition_and_log_axes_visible": true
+}

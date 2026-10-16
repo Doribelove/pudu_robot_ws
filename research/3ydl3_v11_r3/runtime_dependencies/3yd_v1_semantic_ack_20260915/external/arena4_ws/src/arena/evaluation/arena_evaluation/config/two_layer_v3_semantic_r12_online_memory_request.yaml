@@ -1,0 +1,19 @@
+schema_version: PLN-02-2A-V3-R12-ONLINE-CONFIG-V1
+architecture_id: 2A-V3
+implementation_revision: r12-online-memory-request
+protocol_id: PLN-02-2A-V3-R12-ONLINE-MEMORY-REQUEST-V1
+parent_revision: r11-online-local-projection
+extends_online_config:
+  path: two_layer_v3_semantic_r11_online_local_projection.yaml
+  sha256: b43e31dc8a53206ac9e043c77c4a38e7a82cf5ea24dabcea592f0d213f9f7a04
+predecessor_online_config:
+  path: two_layer_v3_semantic_r11_online_local_projection.yaml
+  sha256: b43e31dc8a53206ac9e043c77c4a38e7a82cf5ea24dabcea592f0d213f9f7a04
+  frozen_result: private_data/pudu_wanda_3f/results/2a_v3_r11_online_targeted_20260907T130500Z/final_result.json
+  frozen_result_sha256: 977243513cae865549c2a854938d37b13be3ee6a7651d9de99573a8457ac3cd1
+  predecessor_outcome: all correctness and ACK gates passed; latency ratio 2.001579 failed without rounding
+online_interface:
+  request_data_flow: in_memory_hash_bound_arrays
+  evidence_persistence: compressed_once_after_request_timer_and_reported_separately
+  planner_must_not_read_saved_npz: true
+  ros_domain_id: 191

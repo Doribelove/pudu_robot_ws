@@ -1,0 +1,48 @@
+architecture_id: 2D-V1
+implementation_revision: r2
+parent_architecture: 2D-V1-r1
+
+topology:
+  representation: 2a_v0_static_skeleton_graph
+  search: graph_dstar_lite
+  refined_topology: false
+  frozen_r1_cache_key: af45cba4e2772b5d8209efdc171ad4672a48b3f01697d60f5d421ac821d42b4c
+  frozen_skeleton_backend: numpy_zhang_suen
+
+layers:
+  l2_enabled: false
+  l3_backend: nav2_smac_planner_hybrid
+  motion_model: DUBIN
+
+map_and_motion:
+  resolution_m: 0.05
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  allow_reverse: false
+  allow_in_place_rotation: false
+
+corridor:
+  padding_m: 2.0
+  extra_margin_m: 0.2
+  cache_version: 2d-v1-r2-roi-mask-v1
+  roi_dilation: true
+  full_grid_materialization: ros_message_boundary_only
+
+endpoint_attachment:
+  strategy: r1_exact_with_segment_spatial_index
+  cache_version: 2d-v1-r2-endpoint-v1
+  pose_key: exact
+  deterministic_ranking: true
+
+validation:
+  version: 2d-v1-r2-canonical-v1
+  benchmark_reuses_pipeline_result: true
+
+formal_experiment:
+  dynamic_obstacles: false
+  warmups_per_query: 3
+  measured_repetitions_per_query: 5
+  restore_base_map_each_query: true
+  force_full_corridor_update: true
+  costmap_reuse_noop: false
+  smac_parameters_changed_from_r1: false

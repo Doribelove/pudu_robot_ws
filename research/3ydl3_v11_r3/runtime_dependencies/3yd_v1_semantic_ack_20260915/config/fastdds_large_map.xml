@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+  <transport_descriptors>
+    <transport_descriptor>
+      <transport_id>semantic_map_shm</transport_id>
+      <type>SHM</type>
+      <maxMessageSize>16777216</maxMessageSize>
+      <segment_size>134217728</segment_size>
+      <port_queue_capacity>512</port_queue_capacity>
+    </transport_descriptor>
+    <transport_descriptor>
+      <transport_id>semantic_map_loopback</transport_id>
+      <type>UDPv4</type>
+      <interfaceWhiteList><address>127.0.0.1</address></interfaceWhiteList>
+    </transport_descriptor>
+  </transport_descriptors>
+  <participant profile_name="semantic_map_local_transport" is_default_profile="true">
+    <rtps>
+      <userTransports>
+        <transport_id>semantic_map_shm</transport_id>
+        <transport_id>semantic_map_loopback</transport_id>
+      </userTransports>
+      <useBuiltinTransports>false</useBuiltinTransports>
+    </rtps>
+  </participant>
+</profiles>

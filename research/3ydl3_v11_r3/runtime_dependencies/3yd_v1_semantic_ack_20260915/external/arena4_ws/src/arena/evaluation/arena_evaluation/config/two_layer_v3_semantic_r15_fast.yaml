@@ -1,0 +1,67 @@
+architecture_id: 2A-V3
+implementation_revision: r15-fast-iteration-single-read-ack
+protocol_id: PLN-02-2A-V3-R15-FAST-ITERATION-V1
+schema_version: PLN-02-2A-V3-R15-FAST-CONFIG-V1
+status: calibration
+
+parent_r14_algorithm:
+  path: two_layer_v3_semantic_r14_engineering.yaml
+  sha256: 51a690266e00374abd0f54746544d7813262b2c1993f4fbab847278ea5a74128
+parent_r14_expanded:
+  path: two_layer_v3_semantic_r14_expanded.yaml
+  sha256: 503f7c7419cac0c17f3b5f44f91e988beebb12b71bd4978ad677652ad02b0da6
+
+frozen_bindings:
+  selected8_path: pudu_wanda_3f_selected8_gt50m_r2_v2.yaml
+  selected8_file_sha256: b3307d4578447131e71db16156cd2f72e9f5042f98bdce0d75d21fe81300738d
+  selected8_query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+  expanded32_path: pudu_wanda_3f_v3_r14_expanded32_v2.yaml
+  expanded32_file_sha256: d581763605e7830d1b72d2503d75a996646a7155b698bdedd0dd10f9f41b83e2
+  expanded32_query_hash: 42464f9e99d3a017e63dde3c9559944698deccf732b2d03a0f56110d814dfd02
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  resolution_m: 0.05
+  yaw_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+
+fast_iteration:
+  early_stop_on_first_hard_failure: true
+  full_regression_only_after_candidate_gate: true
+  formal_run_limit_per_revision: 1
+  ack_stress:
+    query_ids: [cmp2-01-lane-north, cmp2-05-junction-turn]
+    transitions: 384
+    ros_domain_id: 168
+    exact_observations_per_change: 1
+    exact_ack_timeout_s: 3.0
+    p99_ms_max: 2500.0
+    peak_rss_bytes_max: 1800000000
+    steady_rss_growth_bytes_max: 134217728
+  parking_oracle:
+    query_ids:
+      - x32-21-cmp2-06-lane-to-parking
+      - x32-25-cmp2-07-parking-to-lane
+      - x32-29-cmp2-08-parking-internal
+    require_all_three: true
+    parking_center_band_ratio_min_exclusive: 0.50
+    parking_normalized_deviation_p50_max: 0.25
+    maximum_curvature_1pm: 2.50
+  sentinel8:
+    warmups: 1
+    repetitions: 1
+    purpose: development_only_not_formal_percentiles
+  medium32:
+    arms: [ADAPTIVE]
+    warmups: 1
+    repetitions: 1
+    purpose: coverage_preflight_not_formal_comparison
+  formal32:
+    enabled_only_after_ack_parking_sentinel_medium_gates: true
+    arms: [E0, ADAPTIVE]
+    warmups: 1
+    repetitions: 5
+    minimum_samples_per_arm: 100

@@ -1,0 +1,165 @@
+schema: semantic-dual-map-r1-acceptance-v1
+status: frozen_before_implementation_and_tuning
+freeze_date: '2026-09-14'
+author: 李永祺
+supervisor: 袁梦佳
+authorization:
+  architecture: 3D-V1-r1
+  annotation: manual_existing_real_map
+  priority: final_trajectory_preference_first
+  speedup_is_pass_condition: false
+  merge_publish_send_to_supervisor: false
+architecture:
+  l1: semantic_regions_and_interface_poses_directed_graph_astar
+  l2: r1_compact_dstar_lite_with_same_cost_astar_fallback
+  l3: pinned_smac_hybrid_dubin_with_bounded_soft_reference_input
+  preserve_original_corridor_allowed_space: true
+  shared_semantic_source: true
+  forbid_skeleton_edge_cost_substitution: true
+  forbid_stl_gcs_substitution: true
+inputs:
+  map_yaml: /home/robot/pudu_robot_ws/private_data/pudu_wanda_3f/extracted/optemap.yaml
+  map_yaml_sha256: 7087eef7d1c5534c7e2ef0106a5ccfeb9d6768d0b7f2fe4300235d00fb232a94
+  map_image_sha256: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_path: /home/robot/pudu_robot_ws/private_data/pudu_wanda_3f/results/conversion_v1/semantic_map_v1.json
+  semantic_file_sha256: b948896a4463e07382ba753d9f55c098d108551dd08a6f53c270a10250854744
+  semantic_canonical_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  queries: queries.yaml
+  queries_file_sha256: 9692eede8034499d01750511ff65280c6f4d2f7ec461b0bf83aafde81e40ee22
+  main_query_count: 20
+  repeats: 3
+  map_resolution_m: 0.05
+  map_origin: [-81.025999, -84.258104, 0.0]
+  map_width: 2138
+  map_height: 4020
+  unknown_is_collision: true
+  infer_one_way_from_polygon_order: false
+  unconfirmed_fence_policy: preserve_source_nonlethal_attribute_and_report_unknown
+  unknown_rule_cases_cannot_prove_that_rule: true
+vehicle:
+  footprint: [[0.255, 0.215], [0.255, -0.215], [-0.255, -0.215], [-0.255, 0.215]]
+  padding_m: 0.01
+  padded_half_length_m: 0.265
+  padded_half_width_m: 0.225
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  allow_reverse: false
+  allow_in_place_rotation: false
+  angle_quantization_bins: 48
+  motion_model: DUBIN
+budgets:
+  smac_max_planning_time_s: 5.0
+  smac_action_deadline_s: 7.0
+  content_ack_deadline_s: 3.0
+  dstar_update_wall_ms: 500.0
+  dstar_update_max_expansions: 20000
+  original_l2_initialization_and_fallback_budget: unbounded_in_frozen_r1_source
+  new_l1_query_budget_s: 5.0
+  new_l2_cold_and_fallback_budget_s: 20.0
+  new_connection_validation_budget_s: 0.25
+  new_query_pipeline_guard_s: 40.0
+  note: New limits bound previously unbounded work; original 5 s Smac and 7 s action limits are unchanged. Offline preparation is measured separately and never hidden.
+arms:
+  original_r1: {graph: frozen_original, l2_preference: false, l3_reference: false}
+  A: {graph: semantic_direct, l2_preference: false, l3_reference: false}
+  B: {graph: semantic_direct, l2_preference: true, l3_reference: false}
+  C: {graph: semantic_direct, l2_preference: true, l3_reference: true}
+mechanism_gates:
+  same_occupancy_rule_change_changes_usable_edges: true
+  forbidden_turn_is_absent_not_expensive: true
+  reverse_edges_independently_validated: true
+  shared_interface_pose_required: true
+  same_region_temporary_endpoint_connection: true
+  internal_branch_nodes_required: true
+  unverified_edges_excluded: true
+  dstar_astar_cost_tolerance: 1.0e-9
+  soft_cost_finite_nonnegative: true
+  soft_cost_cap_internal: 200
+  hard_cost_threshold: 253
+  reference_changes_trigger_l3_without_obstacle_change: true
+  exact_server_effective_cost_ack_required: true
+  smac_search_consumption_evidence_required: true
+  ordered_route_matching_cases: [parallel_lanes, intersection, repeated_route_occurrence]
+  ambiguous_nonlocal_reference_policy: abstain_and_log_no_cross_route_attraction
+  hard_route_rule_validation_still_required: true
+safety:
+  successful_trajectory_violations_max: 0
+  independent_checker_required: true
+  original_canonical_pathaudit_also_required: true
+  position_tolerance_m: 0.125
+  heading_tolerance_rad: 0.08726646259971647
+  curvature_numerical_tolerance_1pm: 0.000001
+  translation_sampling_max_m: 0.025
+  yaw_sampling_max_rad: 0.017453292519943295
+  continuous_validation: conservative swept rectangle envelope for every interpolation segment; occupied and unknown closed cell squares; unresolved checks fail closed
+  connection_validation: same swept-body rule plus analytic Dubins endpoint and curvature evidence
+  finite_sampling_alone_is_not_continuous_proof: true
+preference:
+  measurement: uniform_arc_length_quadrature_with_partial_endpoint_intervals
+  sample_spacing_m: 0.025
+  controlled_min_effective_length_m: 20.0
+  controlled_min_lane_width_m: 4.0
+  transition_exclusion_each_end_m: 5.0
+  forced_obstacle_detour_exclusion: predeclared_obstacle_envelope_only
+  safe_boundary_clearance_m: 0.50
+  target: center_of_the_safe_right_half_of_lane_cross_section
+  target_band: normalized_distance_from_right_safe_boundary_in_[0.125,0.375]
+  C_target_band_arc_ratio_min: 0.80
+  C_minus_A_target_band_ratio_min: 0.20
+  if_A_already_0_80: C_must_remain_at_least_0_80_and_left_right_mirror_must_respond
+  mirror_signed_lateral_shift_m_min: 0.50
+  no_per_query_weight_tuning: true
+  no_loops_or_backtracking_to_inflate_ratio: true
+  full_real_scene_metrics: [l2_to_l3_preference_retention, reference_deviation_m, path_length_m, failure_reason]
+controlled_scenes:
+  calibration:
+    id: straight_calibration
+    free_rectangle_m: [0, 0, 40, 6]
+    start: [5, 3, 0]
+    goal: [35, 3, 0]
+    lane_direction: route_derived
+  heldout:
+    id: straight_holdout_rotated
+    free_rectangle_m: [0, 0, 8, 48]
+    start: [4, 5, 1.5707963267948966]
+    goal: [4, 41, 1.5707963267948966]
+    lane_direction: route_derived
+  rule_and_matching_scenes: [junction_turn_ban, split_parking_pillar, parallel_intersection_loop, temporary_same_region]
+  synthetic_scenes_are_not_main_real_map: true
+tuning:
+  allowed_on: [development_queries, straight_calibration]
+  l2_weight_candidates: [1.0, 2.0, 4.0]
+  l3_reference_cap_candidates: [80, 140, 200]
+  l3_reference_saturation_distance_m: 2.0
+  initial_l2_weight: 2.0
+  initial_l3_reference_cap: 140
+  freeze_selected_weights_before_heldout: true
+regression:
+  feature_disabled_original_r1_source_hashes_must_match: true
+  feature_disabled_deterministic_paths_must_match: true
+  original_success_to_C_failure_count_max: 0
+  selected8_order_unchanged: true
+  historical_lifecycle_4x_dataset_kept_separate: true
+  historical_4x_memory_gate_already_failed: true
+  no_claim_historical_r1_passed_all_gates: true
+  original_r1_tests: [test_l2_incremental.py, test_l2_state_lifecycle.py, test_r1_pipeline.py, test_dynamic_policy.py, test_pipeline.py]
+  historical_cmp2_04_pairing_count: 10
+  historical_cmp2_04_l3_repeats_per_arm: 3
+cache:
+  bindings: [map_hash, map_origin, map_resolution, semantic_hash, rule_hash, vehicle_hash, graph_config_hash, ordered_route_occurrences, direction, preference_weight, actual_cost_hash, dynamic_version, algorithm_schema]
+  change_cases: [map, semantic, rule, footprint, route_order, route_direction, preference_weight, cost_increase, cost_decrease, obstacle_add, obstacle_remove, reference_only]
+  corrupt_payload_must_reject: true
+  old_cost_removal_must_be_acknowledged: true
+  partial_dstar_path_must_never_be_returned: true
+reporting:
+  timing_groups: [annotation_import, dual_map_preparation, cold_process_query, cache_hit_query, local_change_query]
+  layer_wall_and_cpu_ms: [L1, L2, reference_adapter, costmap_ack, Smac_search, Smac_smoothing, independent_audit, end_to_end]
+  quantiles: [p50, p95]
+  quantile_method: numpy_linear_descriptive_small_sample
+  memory: [peak_rss_process_tree, retained_cache_bytes, serialized_cache_bytes]
+  other: [graph_nodes, graph_directed_edges, rejected_edges, unverified_edges, cache_hits, cache_invalidations, worst_case]
+  outcomes: [success, unsafe_candidate_rejected, solver_failure, timeout, unverified_feasibility]
+  all_failures_and_timeouts_in_denominator: true
+  diagram_font_required: SimSun
+  font_status_at_freeze: not_found_no_fallback_allowed
+  historical_stl_results_are_not_this_scheme_results: true

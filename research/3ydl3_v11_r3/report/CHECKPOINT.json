@@ -1,0 +1,18 @@
+{
+  "version": "3YDL3-V11-r3",
+  "workspace": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016",
+  "goal_active": false,
+  "formal_complete": true,
+  "all_performance_gates_passed": true,
+  "phase": "Acceptance checks complete; final delivery manifest is generated after this checkpoint",
+  "active_sessions": [],
+  "formal": "results/paired_final",
+  "formal_requests": 600,
+  "policy_successes_each_arm": 300,
+  "project_tests": 1442,
+  "event_assertions": 49,
+  "default_entries": 2,
+  "owned_batches_cleaned": 91,
+  "next": [],
+  "goal_tool_status": "Completion is recorded separately after final manifest verification"
+}

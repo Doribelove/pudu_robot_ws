@@ -1,0 +1,23 @@
+{
+  "complete": true,
+  "checks": [
+    {
+      "path": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/default_exact",
+      "query_id": "Q03",
+      "exact_success": true,
+      "tolerant_success": false,
+      "navigation_s": 0.8794946279958822,
+      "heap_policy_in_navigation": true,
+      "cleanup_complete": true
+    },
+    {
+      "path": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/default_tolerant",
+      "query_id": "A2B-07",
+      "exact_success": false,
+      "tolerant_success": true,
+      "navigation_s": 5.657382529985625,
+      "heap_policy_in_navigation": true,
+      "cleanup_complete": true
+    }
+  ]
+}

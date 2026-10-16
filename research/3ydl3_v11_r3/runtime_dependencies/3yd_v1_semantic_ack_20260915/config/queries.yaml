@@ -1,0 +1,276 @@
+schema: semantic-dual-map-r1-queries-v1
+selection_time: before new planner implementation or outcomes
+main_map: pudu_wanda_3f
+map_file_sha256: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+base_semantic_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+query_count: 20
+seed: 20260914
+queries:
+- query_id: cmp2-01-lane-north
+  start:
+  - -25.800998999999997
+  - -33.633104
+  - 1.6539375586833447
+  goal:
+  - -26.350998999999995
+  - 21.066896
+  - 1.5707963267948966
+  category: lane_plain_north
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-02-lane-south
+  start:
+  - -26.350998999999995
+  - 21.066896
+  - -1.5707963267948966
+  goal:
+  - -25.800998999999997
+  - -33.633104
+  - -1.4876550949064484
+  category: lane_plain_south
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-03-speed-bump
+  start:
+  - -41.25099899999999
+  - 54.516896
+  - -1.5707963267948966
+  goal:
+  - -40.450998999999996
+  - -0.5331039999999945
+  - -1.2793395323170191
+  category: lane_speed_bump
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-04-multi-junction
+  start:
+  - 8.349001000000001
+  - 71.41689600000001
+  - -1.5707963267948966
+  goal:
+  - -0.6509989999999988
+  - 24.41689600000001
+  - 3.141592653589793
+  category: lane_multi_junction
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-05-junction-turn
+  start:
+  - -8.600999000000002
+  - -19.983103999999997
+  - -1.7681918866447637
+  goal:
+  - -22.450998999999996
+  - -62.283104
+  - -1.76819188664478
+  category: lane_junction_turn
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-06-lane-to-parking
+  start:
+  - -58.00099899999999
+  - -14.683104
+  - 1.2793395323170451
+  goal:
+  - -46.300999
+  - -11.033103999999994
+  - -1.5707963267948966
+  category: lane_to_parking
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-07-parking-to-lane
+  start:
+  - -47.050999
+  - -2.0331039999999945
+  - 1.5707963267948966
+  goal:
+  - -58.600999
+  - 42.766896
+  - 2.214297435588181
+  category: parking_to_lane
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-08-parking-internal
+  start:
+  - -19.750998999999993
+  - 73.06689600000001
+  - -0.4636476090008061
+  goal:
+  - -20.900999
+  - 34.066896
+  - -0.7853981633974483
+  category: parking_internal
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cand2-01b-lane-north
+  start:
+  - -25.750998999999993
+  - -28.883104000000003
+  - 1.5707963267948966
+  goal:
+  - -26.250998999999993
+  - 26.616895999999997
+  - 1.9195673303787983
+  category: lane_plain_north
+  seed: 20260904
+  validation_status: VALIDATED_CLEARANCE_GT50M_ROUTE_TANGENT
+- query_id: cand2-02b-lane-south
+  start:
+  - -26.250998999999993
+  - 26.616895999999997
+  - -1.2220253232109948
+  goal:
+  - -25.750998999999993
+  - -28.883104000000003
+  - -1.5707963267948966
+  category: lane_plain_south
+  seed: 20260904
+  validation_status: VALIDATED_CLEARANCE_GT50M_ROUTE_TANGENT
+- query_id: cand2-03a-speed-bump
+  start:
+  - -41.100998999999995
+  - 60.766896
+  - -1.9655874464946614
+  goal:
+  - -40.75099899999999
+  - 5.816896
+  - -1.670464979286053
+  category: lane_speed_bump
+  seed: 20260904
+  validation_status: VALIDATED_CLEARANCE_GT50M_ROUTE_TANGENT
+- query_id: cand2-04b-multi-junction
+  start:
+  - 8.349001000000001
+  - 71.41689600000001
+  - -1.5707963267948966
+  goal:
+  - -0.05099899999999025
+  - 24.41689600000001
+  - 3.141592653589793
+  category: lane_multi_junction
+  seed: 20260904
+  validation_status: VALIDATED_CLEARANCE_GT50M_ROUTE_TANGENT
+- query_id: cand2-05a-junction-turn
+  start:
+  - -8.750998999999993
+  - -21.933104
+  - -1.670464979286053
+  goal:
+  - -22.450998999999996
+  - -62.283104
+  - -1.76819188664478
+  category: lane_junction_turn
+  seed: 20260904
+  validation_status: VALIDATED_CLEARANCE_GT50M_ROUTE_TANGENT
+- query_id: cand2-06b-lane-to-parking
+  start:
+  - -56.350999
+  - -12.933104
+  - 2.9441970937399233
+  goal:
+  - -46.300999
+  - -11.033103999999994
+  - -1.5707963267948966
+  category: lane_to_parking
+  seed: 20260904
+  validation_status: VALIDATED_CLEARANCE_GT50M_ROUTE_TANGENT
+- query_id: cand2-07a-parking-to-lane
+  start:
+  - -47.600998999999995
+  - -2.433104
+  - 0.7853981633974483
+  goal:
+  - -58.600999
+  - 42.766896
+  - 2.214297435588181
+  category: parking_to_lane
+  seed: 20260904
+  validation_status: VALIDATED_CLEARANCE_GT50M_ROUTE_TANGENT
+- query_id: cand2-08b-parking-internal
+  start:
+  - -19.750998999999993
+  - 73.06689600000001
+  - -0.4636476090008061
+  goal:
+  - -20.650999
+  - 34.066896
+  - -0.4636476090008061
+  category: parking_internal
+  seed: 20260904
+  validation_status: VALIDATED_CLEARANCE_GT50M_ROUTE_TANGENT
+- query_id: new-lane1-lower-forward
+  start:
+  - -7.5
+  - -48
+  - 1.5857952019467472
+  goal:
+  - -8.1
+  - -8
+  - 1.5857952019467472
+  category: manual_existing_real_lane
+  seed: 20260914
+  validation_status: ENDPOINT_ONLY_NOT_SOLVER_VALIDATED
+- query_id: new-lane1-lower-reverse
+  start:
+  - -8.1
+  - -8
+  - -1.5557974516430462
+  goal:
+  - -7.5
+  - -48
+  - -1.5557974516430462
+  category: manual_existing_real_lane
+  seed: 20260914
+  validation_status: ENDPOINT_ONLY_NOT_SOLVER_VALIDATED
+- query_id: new-lane7-lower-forward
+  start:
+  - -57.8
+  - -50
+  - 1.5882945406647533
+  goal:
+  - -58.5
+  - -10
+  - 1.5882945406647533
+  category: manual_existing_real_lane
+  seed: 20260914
+  validation_status: ENDPOINT_ONLY_NOT_SOLVER_VALIDATED
+- query_id: new-lane7-lower-reverse
+  start:
+  - -58.5
+  - -10
+  - -1.55329811292504
+  goal:
+  - -57.8
+  - -50
+  - -1.55329811292504
+  category: manual_existing_real_lane
+  seed: 20260914
+  validation_status: ENDPOINT_ONLY_NOT_SOLVER_VALIDATED
+split:
+  regression:
+  - cmp2-01-lane-north
+  - cmp2-02-lane-south
+  - cmp2-03-speed-bump
+  - cmp2-04-multi-junction
+  - cmp2-05-junction-turn
+  - cmp2-06-lane-to-parking
+  - cmp2-07-parking-to-lane
+  - cmp2-08-parking-internal
+  development:
+  - cand2-01b-lane-north
+  - cand2-02b-lane-south
+  - cand2-03a-speed-bump
+  - cand2-04b-multi-junction
+  - cand2-05a-junction-turn
+  - cand2-06b-lane-to-parking
+  - cand2-07a-parking-to-lane
+  - cand2-08b-parking-internal
+  heldout_real_queries:
+  - new-lane1-lower-forward
+  - new-lane1-lower-reverse
+  - new-lane7-lower-forward
+  - new-lane7-lower-reverse
+independence_limit: First 16 reuse previously exposed selected8/candidate data. Last
+  4 are new poses, on shared map; independent controlled scenes are also required.
+outcome_status: No new planner or trajectory tested. Endpoint legality alone does
+  not prove reachability.

@@ -1,0 +1,13 @@
+# Public code/results package: maps and site geometry remain external.
+/inputs/
+/datasets/
+/MAPS.json
+/results/
+**/__pycache__/
+**/.pytest_cache/
+*.pyc
+*.pyo
+*.pgm
+*.pcd
+*.npy
+*.npz

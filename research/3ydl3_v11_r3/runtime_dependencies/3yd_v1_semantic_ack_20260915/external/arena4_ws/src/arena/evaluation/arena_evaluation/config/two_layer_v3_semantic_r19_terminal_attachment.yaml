@@ -1,0 +1,22 @@
+architecture_id: 2A-V3
+implementation_revision: r19-goal-coreachable-corridor
+protocol_id: PLN-02-2A-V3-R19-GOAL-COREACHABILITY-V1
+parent_config:
+  path: two_layer_v3_semantic_r17_parking_aisle.yaml
+  sha256: dc99fe3a87e25871b3b151dab1dea757b3f5f9c27b8200353e9405742c7fc64c
+sentinel_query: x32-29-cmp2-08-parking-internal
+graph_wall_budget_s: 30.0
+maximum_expanded_states: 12000
+retained_suffixes_per_state: 1
+terminal_attachment: true
+terminal_attachment_scope: remaining_route_station_at_most_inherited_1p75m
+all_primitive_length_ratio_safety_checks: unchanged
+query_change_allowed: false
+metric: parking-route-local-aisle-normalized-r3-research
+r2_component_metric: report_unchanged
+raw_naturalness_alert: fail_closed_until_independently_justified
+gate:
+  strict_full_path_audit_required: true
+  source_hash_drift_allowed: false
+  online_allowed_only_after_three_query_gate: true
+  planning_failure_may_define_inapplicability: false

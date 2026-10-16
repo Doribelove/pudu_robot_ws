@@ -1,0 +1,20 @@
+{
+  "version": "3YDL3-V11-r3",
+  "workspace": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016",
+  "acceptance": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/ACCEPTANCE.json",
+  "report": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/report/RESULTS.md",
+  "formal_data": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final",
+  "delivery_manifest": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/DELIVERY_MANIFEST.json",
+  "status": "static_functional_and_three_5percent_performance_accepted",
+  "production_entry_replaced": false,
+  "exact_successes": 297,
+  "tolerant_successes": 3,
+  "total": 300,
+  "performance_control": "3YDL3-V11-r2",
+  "original99_improvement_percent": {
+    "navigation_median": 6.3868209550026815,
+    "navigation_p95": 31.45175687704407,
+    "tree_RSS_median": 7.188926627953696
+  },
+  "tool_goal": "V11-r3 three 5-percent performance gates; historical exact-endpoint V10-r8 goal not marked complete"
+}

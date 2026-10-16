@@ -1,0 +1,129 @@
+schema_version: two_layer_v2_semantic_config.v1
+architecture_id: 2A-V2
+implementation_revision: r0
+parent_architecture: 2A-V1-r2-roi-pathaudit-v1
+semantic_map_version: SemanticMapV1
+
+protocol:
+  resolution_m: 0.05
+  dynamic_obstacles: false
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  footprint:
+    - [0.255, 0.215]
+    - [0.255, -0.215]
+    - [-0.255, -0.215]
+    - [-0.255, 0.215]
+  footprint_padding_m: 0.05
+  semantic_safety_margin_m: 0.05
+
+semantic_classes:
+  forbidden:
+    treatment: hard_lethal
+  no_go:
+    treatment: hard_lethal
+  no_stopping:
+    treatment: endpoint_rejection
+  junction_area:
+    treatment: neutralize_lateral_preference
+  lane:
+    treatment: keep_right
+  parking_area:
+    treatment: keep_center
+  speed_bumps:
+    treatment: soft_cost_only
+  fence_area:
+    treatment: diagnostic_only_until_explicitly_confirmed
+  unlabelled:
+    treatment: none
+
+overlap_priority:
+  - forbidden/no_go
+  - junction_area
+  - task_target_parking_area
+  - lane
+  - unlabelled
+
+l1_edge_cost:
+  formula: length + semantic_integral + zone_entry_penalty + direction_penalty
+  sample_spacing_m: 0.05
+  zone_entry_penalty: 0.20
+  wrong_way_penalty_per_m: 10.0
+  class_cost_per_m:
+    unlabelled: 0.15
+    lane: 0.0
+    junction_area: 0.05
+    parking_area: 0.10
+    speed_bumps: 2.0
+    fence_area: 0.0
+    no_stopping: 0.0
+
+regional_preference:
+  lane_direction_source: selected_l1_route_tangent
+  polygon_vertex_order_is_direction: false
+  lane_base_center_to_right_boundary_m: 0.40
+  lane_distance_reference: robot_base_center
+  lane_error_scale_m: 1.00
+  junction_transition_distance_m: 0.75
+  parking_endpoint_taper_distance_m: 1.00
+  endpoint_relax_radius_m: 0.75
+  narrow_channel_width_m: 1.10
+  direction_instability_floor: 0.20
+  r1_lateral_weight_scale: 0.35
+  max_right_boundary_probe_m: 12.0
+
+l3_soft_cost:
+  formula: clamp(w_class*C_class + w_lateral*C_lateral + w_transition*C_transition, 0, soft_cost_max)
+  w_class: 1.0
+  w_lateral: 0.55
+  w_transition: 0.10
+  soft_cost_max: 252
+  class_soft_cost:
+    speed_bumps: 120
+    parking_area: 8
+    lane: 0
+    junction_area: 0
+    fence_area: 0
+    no_stopping: 0
+  composition_method: max
+  static_layer:
+    trinary_costmap: false
+    lethal_cost_threshold: 100
+    unknown_cost_value: 255
+    pinned_humble_parameter_scope: costmap_parent_and_plugin_compatibility
+  inflation:
+    inflation_radius_m: 0.55
+    cost_scaling_factor: 3.0
+    # Jackal geometric inscribed radius 0.215 + Nav2 default footprint padding 0.010.
+    nav2_footprint_padding_m: 0.01
+    inscribed_radius_m: 0.225
+
+roi:
+  r0_padding_m: 2.0
+  r3_padding_m: 4.0
+  r4_full_map: true
+  ack_timeout_s: 1.5
+
+preference_relaxation:
+  enabled: true
+  mode: graceful
+  levels: [R0, R1, R2, R3, R4]
+
+hard_invariants:
+  lethal_no_go: true
+  static_obstacles: true
+  footprint_collision: true
+  legal_start_goal: true
+  no_stopping_goal: true
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+
+experiment:
+  seed: 20260903
+  warmups: 0
+  repetitions: 1
+  dynamic_obstacles: false

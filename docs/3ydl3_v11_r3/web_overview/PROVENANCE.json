@@ -1,0 +1,16 @@
+{
+  "version": "3YDL3-V11 (requestctx), not V11-r3",
+  "source_workspace": "/home/robot/workspaces/3ydl3_v11_requestctx_20261016",
+  "original_url": "https://gquhtm3ghb2.feishuapp.com/app/app_17e7839sdbs/?view=l3r7&map=mengjia&query=Q09&section=experiment",
+  "app_id": "app_17e7839sdbs",
+  "release_id": "7697104855948856595",
+  "release_status": "finished",
+  "published_commit": "f31474ca78ab8ee26f9f92e467ec34e776938ba2",
+  "assets_verified_from_cloud": {
+    "v11-crossmap.json": "3947a14e0cc5d9dbee95548d4bd81c63c73b7feac832bddfab2f34ef195d6626",
+    "v11-crossmap-requests.csv": "19661f67161291ee4224f28d36cc7a36307571736a721923636106439d8ea218",
+    "v11-crossmap-success.png": "57e07d837f2996f6bff53816a9bda649ff4e28a1ec61aef5828707429f11a377"
+  },
+  "sample_definition": "all 300 successful first-navigation requests, including 3 endpoint-tolerance successes",
+  "planner_rerun": false
+}

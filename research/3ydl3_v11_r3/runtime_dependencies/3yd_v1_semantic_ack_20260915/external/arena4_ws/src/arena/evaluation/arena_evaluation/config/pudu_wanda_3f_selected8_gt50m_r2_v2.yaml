@@ -1,0 +1,399 @@
+schema_version: pudu_wanda_3f_semantic_compare_selected8_r2_v2
+seed: 20260904
+map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+selection_policy:
+  endpoint_clearance_reference: footprint-safe free-space boundary (occupied or unknown)
+  minimum_endpoint_clearance_m: 1.5
+  topology_route_length_requirement: strictly greater than 50 m
+  candidate_target_topology_route_length_m:
+  - 52.0
+  - 62.0
+  heading_source: selected topology route start/end tangent
+  static_map_only: true
+  dynamic_obstacles: false
+  pilot_arms:
+  - E0
+  - E4
+  pilot_required_final_valid: true
+  pilot_required_relaxation: R0
+  length_control_note: all frozen topology routes are strictly greater than 50 m
+all_endpoints_footprint_safe: true
+all_endpoints_connected: true
+all_endpoints_clearance_ge_1_5m: true
+all_routes_strictly_gt_50m: true
+pilot_e0_success_count: 8
+pilot_e4_success_count: 8
+purpose_verified_count: 8
+queries:
+- query_id: cmp2-01-lane-north
+  start:
+  - -25.800998999999997
+  - -33.633104
+  - 1.6539375586833447
+  goal:
+  - -26.350998999999995
+  - 21.066896
+  - 1.5707963267948966
+  category: lane_plain_north
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-02-lane-south
+  start:
+  - -26.350998999999995
+  - 21.066896
+  - -1.5707963267948966
+  goal:
+  - -25.800998999999997
+  - -33.633104
+  - -1.4876550949064484
+  category: lane_plain_south
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-03-speed-bump
+  start:
+  - -41.25099899999999
+  - 54.516896
+  - -1.5707963267948966
+  goal:
+  - -40.450998999999996
+  - -0.5331039999999945
+  - -1.2793395323170191
+  category: lane_speed_bump
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-04-multi-junction
+  start:
+  - 8.349001000000001
+  - 71.41689600000001
+  - -1.5707963267948966
+  goal:
+  - -0.6509989999999988
+  - 24.41689600000001
+  - 3.141592653589793
+  category: lane_multi_junction
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-05-junction-turn
+  start:
+  - -8.600999000000002
+  - -19.983103999999997
+  - -1.7681918866447637
+  goal:
+  - -22.450998999999996
+  - -62.283104
+  - -1.76819188664478
+  category: lane_junction_turn
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-06-lane-to-parking
+  start:
+  - -58.00099899999999
+  - -14.683104
+  - 1.2793395323170451
+  goal:
+  - -46.300999
+  - -11.033103999999994
+  - -1.5707963267948966
+  category: lane_to_parking
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-07-parking-to-lane
+  start:
+  - -47.050999
+  - -2.0331039999999945
+  - 1.5707963267948966
+  goal:
+  - -58.600999
+  - 42.766896
+  - 2.214297435588181
+  category: parking_to_lane
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+- query_id: cmp2-08-parking-internal
+  start:
+  - -19.750998999999993
+  - 73.06689600000001
+  - -0.4636476090008061
+  goal:
+  - -20.900999
+  - 34.066896
+  - -0.7853981633974483
+  category: parking_internal
+  seed: 20260904
+  validation_status: PILOT_E0_E4_R0_VALIDATED_GT50M
+intent_validation:
+- query_id: cmp2-01-lane-north
+  category: lane_plain_north
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    start_cell:
+    - 3007
+    - 1104
+    goal_cell:
+    - 1913
+    - 1093
+    start_topology_clearance_m: 1.8000000715255737
+    goal_topology_clearance_m: 1.909844994544983
+    minimum_endpoint_clearance_m: 1.8000000715255737
+    euclidean_distance_m: 54.70276501238306
+    topology_route_length_m: 55.00330085889912
+    topology_start_node: 664
+    topology_goal_node: 536
+    route_semantic_fraction:
+      fence_area: 0.0
+      forbidden: 0.0
+      junction_area: 0.0
+      lane: 1.0
+      parking_area: 0.0
+      speed_bumps: 0.0
+    pilot_source_query_id: cand2-01a-lane-north
+    pilot_e0_final_valid: true
+    pilot_e4_final_valid: true
+    pilot_required_relaxation: R0
+- query_id: cmp2-02-lane-south
+  category: lane_plain_south
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    start_cell:
+    - 1913
+    - 1093
+    goal_cell:
+    - 3007
+    - 1104
+    start_topology_clearance_m: 1.909844994544983
+    goal_topology_clearance_m: 1.8000000715255737
+    minimum_endpoint_clearance_m: 1.8000000715255737
+    euclidean_distance_m: 54.70276501238306
+    topology_route_length_m: 55.00330085889912
+    topology_start_node: 536
+    topology_goal_node: 664
+    route_semantic_fraction:
+      fence_area: 0.0
+      forbidden: 0.0
+      junction_area: 0.0
+      lane: 1.0
+      parking_area: 0.0
+      speed_bumps: 0.0
+    pilot_source_query_id: cand2-02a-lane-south
+    pilot_e0_final_valid: true
+    pilot_e4_final_valid: true
+    pilot_required_relaxation: R0
+- query_id: cmp2-03-speed-bump
+  category: lane_speed_bump
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    start_cell:
+    - 1244
+    - 795
+    goal_cell:
+    - 2345
+    - 811
+    start_topology_clearance_m: 1.899999976158142
+    goal_topology_clearance_m: 2.859844923019409
+    minimum_endpoint_clearance_m: 1.899999976158142
+    euclidean_distance_m: 55.05581259049765
+    topology_route_length_m: 55.5225396744416
+    topology_start_node: 466
+    topology_goal_node: 612
+    route_semantic_fraction:
+      fence_area: 0.0
+      forbidden: 0.0
+      junction_area: 0.0
+      lane: 1.0
+      parking_area: 0.0
+      speed_bumps: 0.0074418604651162795
+    pilot_source_query_id: cand2-03b-speed-bump
+    pilot_e0_final_valid: true
+    pilot_e4_final_valid: true
+    pilot_required_relaxation: R0
+- query_id: cmp2-04-multi-junction
+  category: lane_multi_junction
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 7
+  purpose_verified: true
+  verification:
+    start_cell:
+    - 906
+    - 1787
+    goal_cell:
+    - 1846
+    - 1607
+    start_topology_clearance_m: 1.899999976158142
+    goal_topology_clearance_m: 2.919689893722534
+    minimum_endpoint_clearance_m: 1.899999976158142
+    euclidean_distance_m: 47.853944456021594
+    topology_route_length_m: 56.16248916810277
+    topology_start_node: 185
+    topology_goal_node: 234
+    route_semantic_fraction:
+      fence_area: 0.0
+      forbidden: 0.0
+      junction_area: 0.1256931608133087
+      lane: 1.0
+      parking_area: 0.0
+      speed_bumps: 0.0
+    pilot_source_query_id: cand2-04a-multi-junction
+    pilot_e0_final_valid: true
+    pilot_e4_final_valid: true
+    pilot_required_relaxation: R0
+- query_id: cmp2-05-junction-turn
+  category: lane_junction_turn
+  start_semantics:
+  - lane
+  goal_semantics:
+  - junction_area
+  - lane
+  footprint_safe: true
+  connected_component: 25
+  purpose_verified: true
+  verification:
+    start_cell:
+    - 2734
+    - 1448
+    goal_cell:
+    - 3580
+    - 1171
+    start_topology_clearance_m: 1.748449683189392
+    goal_topology_clearance_m: 2.2476747035980225
+    minimum_endpoint_clearance_m: 1.748449683189392
+    euclidean_distance_m: 44.50968995623313
+    topology_route_length_m: 56.55157646462877
+    topology_start_node: 1418
+    topology_goal_node: 1525
+    route_semantic_fraction:
+      fence_area: 0.0
+      forbidden: 0.0
+      junction_area: 0.10590440487347703
+      lane: 1.0
+      parking_area: 0.0
+      speed_bumps: 0.007497656982193065
+    pilot_source_query_id: cand2-05b-junction-turn
+    pilot_e0_final_valid: true
+    pilot_e4_final_valid: true
+    pilot_required_relaxation: R0
+- query_id: cmp2-06-lane-to-parking
+  category: lane_to_parking
+  start_semantics:
+  - lane
+  goal_semantics:
+  - parking_area
+  footprint_safe: true
+  connected_component: 24
+  purpose_verified: true
+  verification:
+    start_cell:
+    - 2628
+    - 460
+    goal_cell:
+    - 2555
+    - 694
+    start_topology_clearance_m: 2.0795350074768066
+    goal_topology_clearance_m: 2.049999952316284
+    minimum_endpoint_clearance_m: 2.049999952316284
+    euclidean_distance_m: 12.256120919769025
+    topology_route_length_m: 55.180003589374984
+    topology_start_node: 998
+    topology_goal_node: 987
+    route_semantic_fraction:
+      fence_area: 0.06549364613880743
+      forbidden: 0.0
+      junction_area: 0.0
+      lane: 0.5004887585532747
+      parking_area: 0.49853372434017595
+      speed_bumps: 0.0
+    pilot_source_query_id: cand2-06a-lane-to-parking
+    pilot_e0_final_valid: true
+    pilot_e4_final_valid: true
+    pilot_required_relaxation: R0
+- query_id: cmp2-07-parking-to-lane
+  category: parking_to_lane
+  start_semantics:
+  - parking_area
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 24
+  purpose_verified: true
+  verification:
+    start_cell:
+    - 2375
+    - 679
+    goal_cell:
+    - 1479
+    - 448
+    start_topology_clearance_m: 2.5893800258636475
+    goal_topology_clearance_m: 2.229534864425659
+    minimum_endpoint_clearance_m: 2.229534864425659
+    euclidean_distance_m: 46.26491651348784
+    topology_route_length_m: 55.47645019878171
+    topology_start_node: 958
+    topology_goal_node: 832
+    route_semantic_fraction:
+      fence_area: 0.06498545101842872
+      forbidden: 0.0
+      junction_area: 0.0
+      lane: 0.6750727449078564
+      parking_area: 0.3239573229873909
+      speed_bumps: 0.007759456838021339
+    pilot_source_query_id: cand2-07b-parking-to-lane
+    pilot_e0_final_valid: true
+    pilot_e4_final_valid: true
+    pilot_required_relaxation: R0
+- query_id: cmp2-08-parking-internal
+  category: parking_internal
+  start_semantics:
+  - parking_area
+  goal_semantics:
+  - parking_area
+  footprint_safe: true
+  connected_component: 25
+  purpose_verified: true
+  verification:
+    start_cell:
+    - 873
+    - 1225
+    goal_cell:
+    - 1653
+    - 1202
+    start_topology_clearance_m: 1.899999976158142
+    goal_topology_clearance_m: 2.179534912109375
+    minimum_endpoint_clearance_m: 1.899999976158142
+    euclidean_distance_m: 39.016951444212054
+    topology_route_length_m: 58.31970055134197
+    topology_start_node: 1098
+    topology_goal_node: 1234
+    route_semantic_fraction:
+      fence_area: 0.08372978116079924
+      forbidden: 0.0
+      junction_area: 0.0
+      lane: 0.368220742150333
+      parking_area: 0.615604186489058
+      speed_bumps: 0.0
+    pilot_source_query_id: cand2-08a-parking-internal
+    pilot_e0_final_valid: true
+    pilot_e4_final_valid: true
+    pilot_required_relaxation: R0

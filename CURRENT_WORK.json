@@ -1,0 +1,14 @@
+{
+  "version": "3YDL3-V11-r3",
+  "path": "research/3ydl3_v11_r3",
+  "branch": "main",
+  "accepted_source": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016",
+  "report": "docs/3ydl3_v11_r3/RESULTS.md",
+  "maps_included": false,
+  "web_overview_version": "3YDL3-V11 requestctx",
+  "web_overview_report": "docs/3ydl3_v11_r3/WEB_OVERVIEW.md",
+  "exact_successes": 297,
+  "tolerant_successes": 3,
+  "total": 300,
+  "robot_production_entry_changed": false
+}

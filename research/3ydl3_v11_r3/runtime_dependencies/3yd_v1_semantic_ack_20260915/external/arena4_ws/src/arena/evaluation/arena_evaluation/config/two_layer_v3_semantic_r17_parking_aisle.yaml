@@ -1,0 +1,84 @@
+architecture_id: 2A-V3
+implementation_revision: r17-parking-aisle-medial-reference
+protocol_id: PLN-02-2A-V3-R17-PARKING-AISLE-V1
+schema_version: PLN-02-2A-V3-R17-CONFIG-V1
+status: calibration_frozen_before_three_query_run
+
+parent_r16:
+  path: two_layer_v3_semantic_r16_applicability.yaml
+  sha256: eb234a989d67fdf3849f43ca593683829072ff71c277ae684ca7100444d88a03
+
+frozen_bindings:
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  expanded32_query_hash: 42464f9e99d3a017e63dde3c9559944698deccf732b2d03a0f56110d814dfd02
+  resolution_m: 0.05
+  yaw_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+
+parking_aisle_metric:
+  metric_revision: parking-route-local-aisle-normalized-r3-research
+  relation_to_r2: separate_candidate_metric_r2_component_metric_reported_unchanged
+  station_spacing_m: 0.25
+  station_slab_half_width_m: 0.20
+  maximum_lateral_probe_m: 6.0
+  phase_probe_radius_m: 0.50
+  target_deviation_max: 0.25
+  required_target_station_ratio_exclusive: 0.50
+
+parking_reference:
+  station_spacing_m: 0.25
+  search_resolution_m: 0.10
+  route_tube_half_width_m: 8.0
+  centre_cost_weight: 300.0
+  outside_target_cost_weight: 150.0
+  simplify_tolerance_m: 0.10
+  smoothing_window: 9
+  smoothing_passes: 3
+  maximum_expanded_cells: 350000
+  minimum_parking_run_m: 0.50
+  endpoint_snap_limit_m: 2.0
+  target_deviation_max: 0.25
+  maximum_reference_curvature_1pm: 2.50
+
+se2_local_connection:
+  maximum_station_skip: 2
+  maximum_local_edge_length_m: 1.75
+  maximum_local_edge_ratio: 2.25
+  reason: prevent_nonlocal_dubins_shortcut_across_route_hairpin
+  all_other_route_phase_policy_fields: inherited_from_frozen_r13
+
+calibration:
+  query_ids:
+    - x32-21-cmp2-06-lane-to-parking
+    - x32-25-cmp2-07-parking-to-lane
+    - x32-29-cmp2-08-parking-internal
+  early_stop_on_first_failure: true
+  run_online_ros: false
+  start_selected8: false
+  start_expanded32: false
+
+gates:
+  aisle_target_station_ratio_min_exclusive: 0.50
+  reference_target_ratio_min_exclusive: 0.50
+  parking_aisle_normalized_deviation_p50_max: 0.25
+  parking_aisle_center_band_ratio_min_exclusive: 0.50
+  maximum_curvature_1pm: 2.50
+  safety_violations_allowed: 0
+  geometric_revisit_allowed: false
+  ordered_progress_required: true
+  trace_replay_exact_required: true
+  r2_component_metric: report_only_not_redefined
+
+interpretation:
+  changes_r2_component_metric: false
+  candidate_metric_is_new_and_separately_named: true
+  local_aisle_boundary_is_semantic_instance_isolation: true
+  center_preference_within_aisle_remains_soft: true
+  e0_fallback_for_inapplicable_queries: true
+  frozen_r13_b_research_acceptance_remains_valid: true
+  production_promotion_allowed_by_this_calibration: false

@@ -1,0 +1,68 @@
+architecture_id: 3D-V1
+revision_id: r2-production-acceptance-real-replay
+protocol_id: PLN-02-3D-V1-R2-PRODUCTION-ACCEPTANCE-V1
+parent_revision: r1-l2-state-lifecycle-soak
+map:
+  id: mentor_map_20260825_005_4x_area
+  resolution_m: 0.05
+workload:
+  classification: realistic_synthetic_workload_on_real_4x_map
+  reliable_real_dynamic_log_found: false
+  generation_version: r2-reversed-anchor-realistic-synthetic-v1
+  seed: 20260904
+  calibration_queries: [A2B-02, A2B-07, A2B-11, A2B-15]
+  heldout_queries:
+    - A2B-01
+    - A2B-03
+    - A2B-04
+    - A2B-05
+    - A2B-06
+    - A2B-08
+    - A2B-09
+    - A2B-10
+    - A2B-12
+    - A2B-13
+    - A2B-17
+    - A2B-18
+  paired_repetitions_per_heldout_query: 10
+policy:
+  algorithm_version: compact-dstar-lite-corner-safe-f64-v2+r2-packed-static-mask
+  static_mask_schema: 3D-V1-r2-packed-static-roi-little-v1
+  format_version: 3
+  online_synchronous_dstar_build: false
+  cache_miss_backend: deterministic_grid_astar
+  dstar_wall_budget_ms: 500.0
+  dstar_max_expansions: 20000
+  dstar_attempt_max_changed_cells: 2
+  max_active_states_default: 1
+  max_active_states_hard: 2
+  float_dtype: float64
+  diagonal_rule: corner_safe
+gates:
+  correctness_oracle_parity: 1.0
+  canonical_cost_error_max: 0.0
+  blocked_or_recovering_in_path_max: 0
+  partial_dstar_results_max: 0
+  hidden_reinitialize_count_max: 0
+  r2_l2_p50_reduction_vs_cold_astar_min: 0.20
+  r2_pipeline_p95_ratio_vs_cold_astar_max: 1.05
+  r2_pipeline_p99_ratio_vs_cold_astar_max: 1.10
+  warm_activation_p95_ms_max: 250.0
+  resident_bytes_max: 30000000
+  resident_reduction_vs_r0_min: 0.30
+  eligible_p95_regression_vs_r1_max: 0.05
+  synchronous_online_dstar_build_count_max: 0
+  cache_corruption_reject_rate: 1.0
+  lru_active_state_count_max: 1
+  target_p95_ratio_vs_cold_astar_max: 1.0
+  target_p99_ratio_vs_cold_astar_max: 1.0
+freeze:
+  timestamp_local: '2026-09-04T15:39:01+08:00'
+  calibration_directory: /home/robot/pudu_robot_ws/experiments/layered_planner_benchmark/3d_v1_r2_calibration_20260904_01
+  calibration_gate_results_sha256: 89ace9cf2af743bcfd4bd5d45a8177cf0b74b31301d2c9fb60d491f7b2ffcb99
+  calibration_manifest_sha256: b68e6135cc538e4b416e5ba6ca96ff8ebff901e22145e6dad173e9347db69007
+  r2_state_lifecycle_sha256: f9f8fb393a89e6916b4fdbd1c6d02b19fcdfa03c0e27002e46b81af640ffb434
+  r2_pipeline_sha256: 87b6f760241e2c0f4e471a811fdd26a1a2e22b6cc837b624c5212c42a216695c
+  r2_stage_a_pre_freeze_sha256: 846dca5cce486f71437555d515f0a7365517c12c0625e2cc3bd535f8e77a8cf3
+  thresholds_adjusted_after_calibration: false
+  heldout_seen_before_freeze: false

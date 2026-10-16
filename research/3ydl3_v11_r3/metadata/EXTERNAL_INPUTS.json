@@ -1,0 +1,315 @@
+{
+  "maps_included": false,
+  "original_registry_sha256": "16f2eed24d0e12aafa343b81b26530ba4b288b94ec87168a5a0574d2c53e1f95",
+  "maps": [
+    {
+      "map_id": "mengjia",
+      "input_fingerprints": [
+        {
+          "filename": "queries.json",
+          "sha256": "27b0c114f1a26cf3f29af0b6819a58642d826a9d3695d5bb1992aef4f73fd153"
+        },
+        {
+          "filename": "corroborated_map.yaml",
+          "sha256": "f2a45b7549c789cf964dd0bc07a7b8acc2cc90606649378024ef68e58a504a93"
+        },
+        {
+          "filename": "semantic.json",
+          "sha256": "7437a95a5bb148c6a580a5af4eb666faabb26b1cf67329e7cb70b0e26a4219a7"
+        },
+        {
+          "filename": "topology.json",
+          "sha256": "3ee77c13b23f050b2027e92b55b1a4719da3291e0db8a6cc72eadcc8ea270ba4"
+        },
+        {
+          "filename": "corroborated_grid.png",
+          "sha256": "c26ddbac60a5b9709e572608b8b843cf56e269e4ce4c473270fc57d83deff006"
+        }
+      ],
+      "external_data_required": true
+    },
+    {
+      "map_id": "pudu_wanda_3f",
+      "input_fingerprints": [
+        {
+          "filename": "map.yaml",
+          "sha256": "51a334a03356a47eae692467841801a43bc30c18bab5057b1b5c5e43d7714ca0"
+        },
+        {
+          "filename": "optemap.pgm",
+          "sha256": "05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a"
+        },
+        {
+          "filename": "parking_access.json",
+          "sha256": "99ba538181a59662aab5443a254446f5bab2179e6b9176bb33e07ca0938b7a33"
+        },
+        {
+          "filename": "queries.json",
+          "sha256": "f111cff8857176b630b61c14abe7370b7106a22082f65448082e42c396fb0df4"
+        },
+        {
+          "filename": "semantic.json",
+          "sha256": "b948896a4463e07382ba753d9f55c098d108551dd08a6f53c270a10250854744"
+        },
+        {
+          "filename": "topology.json",
+          "sha256": "7daf0ca11dd3077d771a38d41ed5d30b9ba95a78c47880629c7f6c261642d3ae"
+        },
+        {
+          "filename": "binding.json",
+          "sha256": "e5be6c3b9fffe91bc87f082dce15128436726ff2a8252e8bc29371e887cd47c5"
+        },
+        {
+          "filename": "registry.json",
+          "sha256": "bdda23d613a2859f54941247319fdb36f19a268eeee330ec3a11a5cfbc4b0aa3"
+        },
+        {
+          "filename": "fixed10_binding.py",
+          "sha256": "999522e609a0ffb8eb34e1be167e8b55c1dafc3e7a4d48eb09d79f98017c4c61"
+        },
+        {
+          "filename": "map.yaml",
+          "sha256": "e9926e34ce65295f8d38aa49bd91da3980d5f56f90079c3633989a4726162675"
+        },
+        {
+          "filename": "optemap_effective.png",
+          "sha256": "49aec9aa5a8b669049c33c567ede5dd3e2ad83a4411568ed32697d27fe612867"
+        },
+        {
+          "filename": "audit.json",
+          "sha256": "9b4ef8d1a444e99dac7bb183a067f663ef72e3bd8c90e4ebab4fc3e102521820"
+        }
+      ],
+      "external_data_required": true
+    },
+    {
+      "map_id": "3yd_synth_multiloop_a_v1",
+      "input_fingerprints": [
+        {
+          "filename": "map.yaml",
+          "sha256": "66189a254bf330e728fc4779c00fae06d57341b11d36e1531410316e9a19f0a7"
+        },
+        {
+          "filename": "optemap.pgm",
+          "sha256": "24d46d7262e22aadb725ddcb258e7f1b062a2fbeb8f31549ea6bab5bbf906824"
+        },
+        {
+          "filename": "parking_access.json",
+          "sha256": "cf058f23f91e7fe81aad993c0682d94c25adbd41c55321d718b2b5c6d776afa0"
+        },
+        {
+          "filename": "queries.json",
+          "sha256": "10b4ccccfdb4d4509ab096c466a760225a7199329b1b262af6450a07aeafbaa7"
+        },
+        {
+          "filename": "semantic.json",
+          "sha256": "8de0fcbf39acd20aa667026842a9d89141b6f88aac9ac1571003c5202d52f8e4"
+        },
+        {
+          "filename": "topology.json",
+          "sha256": "826ca2c89cf46d8361db60cc42da4206d9c537e16b6e5ba4941b2969a2f1a8de"
+        },
+        {
+          "filename": "binding.json",
+          "sha256": "ab753e53ad0fa78c8293b74c49f00c53cdc096c7ff9c640c20072d45cac7dac8"
+        },
+        {
+          "filename": "registry.json",
+          "sha256": "bdda23d613a2859f54941247319fdb36f19a268eeee330ec3a11a5cfbc4b0aa3"
+        },
+        {
+          "filename": "fixed10_binding.py",
+          "sha256": "999522e609a0ffb8eb34e1be167e8b55c1dafc3e7a4d48eb09d79f98017c4c61"
+        }
+      ],
+      "external_data_required": true
+    },
+    {
+      "map_id": "3yd_synth_twinwing_b_v1",
+      "input_fingerprints": [
+        {
+          "filename": "map.yaml",
+          "sha256": "66189a254bf330e728fc4779c00fae06d57341b11d36e1531410316e9a19f0a7"
+        },
+        {
+          "filename": "optemap.pgm",
+          "sha256": "dd7c1436c6c5ca7b7b0dea895c4687c20416ff4873a4571a8f4c3c86b32ec703"
+        },
+        {
+          "filename": "parking_access.json",
+          "sha256": "395417fe8a819d065024441bdf8021de1136afc8694f8a2902b868acf387d4cd"
+        },
+        {
+          "filename": "queries.json",
+          "sha256": "e4429aafe45bb3d2a79bba081f05cdd5208671722f3e92679a3447861c88802b"
+        },
+        {
+          "filename": "semantic.json",
+          "sha256": "6b4ec677f00b17571f7a8b0455095b4e061338b085efca610efab22efddc84dc"
+        },
+        {
+          "filename": "topology.json",
+          "sha256": "4721545f84a8be85196b500ba867c045c45fc1e8479f46864bf7c3a76a62e5e5"
+        },
+        {
+          "filename": "binding.json",
+          "sha256": "a62f29cde12267eab0499d2565df40f9a401ef9eaf7958031ab933d18856e6c5"
+        },
+        {
+          "filename": "registry.json",
+          "sha256": "bdda23d613a2859f54941247319fdb36f19a268eeee330ec3a11a5cfbc4b0aa3"
+        },
+        {
+          "filename": "fixed10_binding.py",
+          "sha256": "999522e609a0ffb8eb34e1be167e8b55c1dafc3e7a4d48eb09d79f98017c4c61"
+        }
+      ],
+      "external_data_required": true
+    },
+    {
+      "map_id": "3yd_synth_trizone_c_v2",
+      "input_fingerprints": [
+        {
+          "filename": "map.yaml",
+          "sha256": "66189a254bf330e728fc4779c00fae06d57341b11d36e1531410316e9a19f0a7"
+        },
+        {
+          "filename": "optemap.pgm",
+          "sha256": "86c6b11fd34cfad734b239967a21469cf34b5813cc8603804ad1b2a2c33752ce"
+        },
+        {
+          "filename": "parking_access.json",
+          "sha256": "ad311b5b56db198e2cafa12f9f146e1de7e77c8dec5f51401ce9ca5e679a6c8a"
+        },
+        {
+          "filename": "queries.json",
+          "sha256": "dad7ee0c656c2123f2450b116b409c6e2dcb20a6b0af93b373564db57ed130b1"
+        },
+        {
+          "filename": "semantic.json",
+          "sha256": "eb7712f4e4474adf6ed55f15dae0f9c6bd4af73da44e8ee2423cbe6526168337"
+        },
+        {
+          "filename": "topology.json",
+          "sha256": "65410ccd5017b142bf66b4ee0ed4029bfa34a00208ea9b3b5c8f26a327275890"
+        },
+        {
+          "filename": "binding.json",
+          "sha256": "afb1453a8565ef0a3269b4c14bbcb2154f18f6e0746e1745284cda199754c0cc"
+        },
+        {
+          "filename": "registry.json",
+          "sha256": "bdda23d613a2859f54941247319fdb36f19a268eeee330ec3a11a5cfbc4b0aa3"
+        },
+        {
+          "filename": "fixed10_binding.py",
+          "sha256": "999522e609a0ffb8eb34e1be167e8b55c1dafc3e7a4d48eb09d79f98017c4c61"
+        }
+      ],
+      "external_data_required": true
+    },
+    {
+      "map_id": "arena_small_080x100_2d_005",
+      "input_fingerprints": [
+        {
+          "filename": "map.yaml",
+          "sha256": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849"
+        },
+        {
+          "filename": "map.pgm",
+          "sha256": "95f1cf34152336771483cc8c02d101d229a7bd9ac0d73376cf383207312ab8a8"
+        },
+        {
+          "filename": "queries.json",
+          "sha256": "33b04fc4c3393cf52806b41c8399722753f5cb07e02af59ef681c3a6ce8654d2"
+        },
+        {
+          "filename": "a2b_benchmark_20.json",
+          "sha256": "4f15162dd87bca2d989dcda6db3ce5966bf8322111f9c6a723c0980264ea153b"
+        },
+        {
+          "filename": "map.yaml",
+          "sha256": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849"
+        },
+        {
+          "filename": "map.pgm",
+          "sha256": "95f1cf34152336771483cc8c02d101d229a7bd9ac0d73376cf383207312ab8a8"
+        }
+      ],
+      "external_data_required": true
+    },
+    {
+      "map_id": "arena_medium_200x200_2d_005",
+      "input_fingerprints": [
+        {
+          "filename": "map.yaml",
+          "sha256": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849"
+        },
+        {
+          "filename": "map.pgm",
+          "sha256": "4c894b9107fec6ccdb3a627e2efae9cdffb2d589f874b7dc272db082d58c550a"
+        },
+        {
+          "filename": "queries.json",
+          "sha256": "76f0c54fbd5fde68d2b342f6a2d48d5b152e29cbac3f5381aa3db7d3709e3490"
+        }
+      ],
+      "external_data_required": true
+    },
+    {
+      "map_id": "arena_large_250x300_2d_005",
+      "input_fingerprints": [
+        {
+          "filename": "map.yaml",
+          "sha256": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849"
+        },
+        {
+          "filename": "map.pgm",
+          "sha256": "5ae6413b5f78d5d92670fd6f487965de491a028d7289b9dd6c0e3fc6e58b1dec"
+        },
+        {
+          "filename": "queries.json",
+          "sha256": "8467a9cf7bb4708af235f5af10e1b40d47135408e7819d06a7ec239b60ddf80d"
+        }
+      ],
+      "external_data_required": true
+    },
+    {
+      "map_id": "mentor_map_20260825_005",
+      "input_fingerprints": [
+        {
+          "filename": "map.yaml",
+          "sha256": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849"
+        },
+        {
+          "filename": "map.pgm",
+          "sha256": "826c3927815e23b0734a91454f67cb165806c17118fbc568ae28ba0ae8bc0a3e"
+        },
+        {
+          "filename": "queries.json",
+          "sha256": "6dd11488950058cb4b91770c256e6e0237aecb3ae244a94d1867c0dac0f864a5"
+        }
+      ],
+      "external_data_required": true
+    },
+    {
+      "map_id": "mentor_map_20260825_005_4x_area",
+      "input_fingerprints": [
+        {
+          "filename": "map.yaml",
+          "sha256": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849"
+        },
+        {
+          "filename": "map.pgm",
+          "sha256": "7226bba2392bd0986adce55b06974174e8952d84196ec7c6122237d0e08385f6"
+        },
+        {
+          "filename": "queries.json",
+          "sha256": "23b792bb4d14e5909db59b08a00c9ba185692f6e676aaf1941d3272fb372103d"
+        }
+      ],
+      "external_data_required": true
+    }
+  ],
+  "note": "Obtain original MAPS.json, map/Q bindings and map data separately; no coordinates or map payloads are distributed here."
+}

@@ -1,0 +1,120 @@
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mengjia/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mengjia/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mengjia/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mengjia/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/pudu_wanda_3f/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/pudu_wanda_3f/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/pudu_wanda_3f/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/pudu_wanda_3f/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_multiloop_a_v1/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_multiloop_a_v1/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_multiloop_a_v1/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_multiloop_a_v1/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_twinwing_b_v1/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_twinwing_b_v1/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_twinwing_b_v1/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_twinwing_b_v1/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_trizone_c_v2/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_trizone_c_v2/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_trizone_c_v2/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/3yd_synth_trizone_c_v2/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_small_080x100_2d_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_small_080x100_2d_005/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_small_080x100_2d_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_small_080x100_2d_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_medium_200x200_2d_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_medium_200x200_2d_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_medium_200x200_2d_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_medium_200x200_2d_005/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_large_250x300_2d_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_large_250x300_2d_005/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_large_250x300_2d_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/arena_large_250x300_2d_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mentor_map_20260825_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mentor_map_20260825_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 9, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 1}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mentor_map_20260825_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mentor_map_20260825_005/control {'continuation_hits': 0, 'exact_endpoint_success': 9, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 1}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mentor_map_20260825_005_4x_area/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mentor_map_20260825_005_4x_area/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mentor_map_20260825_005_4x_area/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round1/mentor_map_20260825_005_4x_area/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mengjia/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mengjia/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mengjia/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mengjia/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/pudu_wanda_3f/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/pudu_wanda_3f/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/pudu_wanda_3f/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/pudu_wanda_3f/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_multiloop_a_v1/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_multiloop_a_v1/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_multiloop_a_v1/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_multiloop_a_v1/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_twinwing_b_v1/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_twinwing_b_v1/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_twinwing_b_v1/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_twinwing_b_v1/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_trizone_c_v2/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_trizone_c_v2/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_trizone_c_v2/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/3yd_synth_trizone_c_v2/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_small_080x100_2d_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_small_080x100_2d_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_small_080x100_2d_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_small_080x100_2d_005/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_medium_200x200_2d_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_medium_200x200_2d_005/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_medium_200x200_2d_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_medium_200x200_2d_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_large_250x300_2d_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_large_250x300_2d_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_large_250x300_2d_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/arena_large_250x300_2d_005/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mentor_map_20260825_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mentor_map_20260825_005/control {'continuation_hits': 0, 'exact_endpoint_success': 9, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 1}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mentor_map_20260825_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mentor_map_20260825_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 9, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 1}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mentor_map_20260825_005_4x_area/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mentor_map_20260825_005_4x_area/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mentor_map_20260825_005_4x_area/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round2/mentor_map_20260825_005_4x_area/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mengjia/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mengjia/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mengjia/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mengjia/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/pudu_wanda_3f/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/pudu_wanda_3f/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/pudu_wanda_3f/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/pudu_wanda_3f/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_multiloop_a_v1/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_multiloop_a_v1/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_multiloop_a_v1/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_multiloop_a_v1/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_twinwing_b_v1/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_twinwing_b_v1/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_twinwing_b_v1/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_twinwing_b_v1/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_trizone_c_v2/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_trizone_c_v2/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_trizone_c_v2/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/3yd_synth_trizone_c_v2/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_small_080x100_2d_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_small_080x100_2d_005/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_small_080x100_2d_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_small_080x100_2d_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_medium_200x200_2d_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_medium_200x200_2d_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_medium_200x200_2d_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_medium_200x200_2d_005/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_large_250x300_2d_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_large_250x300_2d_005/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_large_250x300_2d_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/arena_large_250x300_2d_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mentor_map_20260825_005/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mentor_map_20260825_005/candidate {'continuation_hits': 0, 'exact_endpoint_success': 9, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 1}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mentor_map_20260825_005/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mentor_map_20260825_005/control {'continuation_hits': 0, 'exact_endpoint_success': 9, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 1}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mentor_map_20260825_005_4x_area/control
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mentor_map_20260825_005_4x_area/control {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}
+START /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mentor_map_20260825_005_4x_area/candidate
+DONE /home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016/results/paired_final/round3/mentor_map_20260825_005_4x_area/candidate {'continuation_hits': 0, 'exact_endpoint_success': 10, 'runs': 10, 'success': 10, 'tolerant_endpoint_success': 0}

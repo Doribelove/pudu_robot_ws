@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(r11_inflation_equivalence)
+find_package(ament_cmake REQUIRED)
+find_package(nav2_costmap_2d REQUIRED)
+find_package(rclcpp REQUIRED)
+add_executable(inflation_equivalence inflation_equivalence.cpp)
+ament_target_dependencies(inflation_equivalence nav2_costmap_2d rclcpp)

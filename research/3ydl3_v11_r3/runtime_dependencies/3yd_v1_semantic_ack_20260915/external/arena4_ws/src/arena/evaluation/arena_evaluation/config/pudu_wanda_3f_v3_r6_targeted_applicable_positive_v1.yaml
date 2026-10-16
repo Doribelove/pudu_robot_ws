@@ -1,0 +1,21 @@
+schema_version: PLN-02-2A-V3-R6-TARGETED-APPLICABLE-POSITIVE-V1
+architecture_id: 2A-V3
+implementation_revision: r6-conservative-fast-footprint-sweep
+protocol_id: PLN-02-2A-V3-R6-CONSERVATIVE-FAST-FOOTPRINT-SWEEP-V1
+extends_targeted:
+  path: pudu_wanda_3f_v3_r5_targeted_applicable_positive_v1.yaml
+  sha256: df29de0cdff76e394fa06f26e12b3ab221dc2f6790bd24446bac96ddffc0fe57
+composition:
+  purpose: identical frozen triad; conservative fast certificate skips provably redundant dense footprint interpolation
+  predecessor_targeted_file_sha256: df29de0cdff76e394fa06f26e12b3ab221dc2f6790bd24446bac96ddffc0fe57
+  endpoint_change_from_r5: none
+source_evidence:
+  r5_positive_result:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r5_lazy_positive_calibration_20260907T183000Z/result.json
+    sha256: ed102d755a3caec64330b56e093b365698f52b4dc01ff51ee42f0acb27012e83
+  r5_negative_result:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r5_lazy_negative_calibration_20260907T184500Z/result.json
+    sha256: 40256edbdd4c550e713dd66364aecc38759b6220299549f7a4d4d08a0cd0405b
+  r5_south_result:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r5_lazy_south_calibration_20260907T190000Z/result.json
+    sha256: 881d4fd05a0882110441e1361908c05d0b2c5bf9aa41e550618ef080e9a69164

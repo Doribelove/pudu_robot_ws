@@ -1,0 +1,91 @@
+architecture_id: 2A-V3
+implementation_revision: r13-route-phase-multisemantic-state-lattice
+protocol_id: PLN-02-2A-V3-R13-ROUTE-PHASE-MULTISEMANTIC-ONLINE-V1
+schema_version: PLN-02-2A-V3-R13-ONLINE-CONFIG-V1
+status: frozen_for_formal_evaluation
+frozen_at_utc: "2026-09-08T00:30:00Z"
+
+algorithm_config:
+  path: two_layer_v3_semantic_r13_route_phase.yaml
+  sha256: c6cf6d098d90ad85bc4029345d12660a971ada06c1638fe73eb2e32dc9fb8824
+
+single_lane_engine:
+  online_config_path: two_layer_v3_semantic_r12_online_memory_request.yaml
+  online_config_sha256: 6756e1fd5c262ad95735b3e680af32c5259ae884f537d7acc17a2582535e6738
+  algorithm_revision: r10-local-station-prefilter-strict-final
+  role: specialized single-lane explicit-SE2 engine; never a historical path cache
+
+immutable_motion_contract:
+  yaw_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  footprint_half_length_m: 0.265
+  footprint_half_width_m: 0.225
+
+online_interface:
+  exact_effective_master_ack: true
+  fixed_settle_s: 0.0
+  exact_ack_timeout_s: 2.0
+  # 1.60 m at the frozen 0.05 m resolution.  This exceeds the active
+  # inflation radius and prevents incremental-update seams while the final
+  # full master remains byte-exactly ACKed.
+  roi_tile_overlap_rows: 32
+  # 0.80 m at 0.05 m/cell, larger than the 0.55 m InflationLayer radius.
+  # Re-publish a strip around every seam after all primary tiles.
+  roi_seam_repair_margin_rows: 16
+  roi_max_payload_bytes: 128000
+  nav_msgs_path_echo_required: true
+  ros_domain_id: 137
+  historical_path_input_allowed: false
+
+dispatch_policy:
+  targeted:
+    engine: single_lane_r10
+    strict_semantic_required: true
+    allow_safe_soft_fallback: false
+    prefer_lazy_multiphase: false
+  selected8:
+    single_lane_engine_query_ids:
+      - cmp2-02-lane-south
+    strict_semantic_query_ids:
+      - cmp2-02-lane-south
+      - cmp2-05-junction-turn
+    safe_fallback_query_ids:
+      - cmp2-01-lane-north
+      - cmp2-03-speed-bump
+      - cmp2-04-multi-junction
+      - cmp2-06-lane-to-parking
+      - cmp2-07-parking-to-lane
+      - cmp2-08-parking-internal
+    fallback_semantic_success_counted: false
+    fallback_requires_full_safety_audit: true
+
+measurement:
+  warmups: 1
+  repetitions: 3
+  request_timer_includes: [l1, roi, field, compose, publication_ack, verified_master_readback, se2_search, audit, path_echo]
+  startup_and_evidence_serialization_excluded_but_reported: true
+
+frozen_gates:
+  targeted_strict_semantic_success_rate: 1.0
+  selected8_measured_final_valid_required: 24
+  selected8_e0_success_regression_allowed: 0
+  exact_ack_mismatches_allowed: 0
+  safety_violations_allowed: 0
+  cold_request_candidate_over_e0_p50_max: 2.0
+  cold_request_candidate_over_e0_p50_target: 1.5
+  selected8_safe_fallback_semantic_success_counted: false
+
+calibration_evidence:
+  targeted:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r13_online_targeted_seam_repair_preflight_v12_20260908T001000Z
+    result: 3/3 strict semantic, final-valid, exact ACK, safety; cold P50 2357.990 ms
+  selected8:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r13_online_selected8_seam_repair_preflight_v13_20260908T002000Z
+    result: 8/8 final-valid and exact ACK; 2 strict semantic, 6 explicit safe fallbacks; cold P50 3561.980 ms
+  same_round_e0_selected8:
+    path: private_data/pudu_wanda_3f/results/2a_v3_r13_selected8_e0_e4_preflight_20260907T223000Z
+    result: 8/8 final-valid; cold P50 1884.395 ms; candidate ratio 1.890251

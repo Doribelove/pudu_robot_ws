@@ -1,0 +1,9 @@
+{
+  "source": "/home/robot/workspaces/3ydl3_v11_r1_requestperf_20261016/src/three_yd_v5/curve_l3.py",
+  "sha256": "30be685c833a61e47ad3d682e78165edb2afdae0d67d2b4e36a231f0dea431b3",
+  "extracted_functions": [
+    "bezier_pieces",
+    "certify"
+  ],
+  "adaptation": "imports only; certificate body and piece arithmetic unchanged"
+}

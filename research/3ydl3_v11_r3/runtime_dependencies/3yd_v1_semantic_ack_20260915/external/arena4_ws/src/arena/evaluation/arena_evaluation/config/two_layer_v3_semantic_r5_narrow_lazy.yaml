@@ -1,0 +1,27 @@
+schema_version: PLN-02-2A-V3-R5-NARROW-LAZY-CONFIG-V1
+architecture_id: 2A-V3
+implementation_revision: r5-two-successor-lazy
+protocol_id: PLN-02-2A-V3-R5-TWO-SUCCESSOR-LAZY-V1
+extends_config:
+  path: two_layer_v3_semantic_r4_bounded_lazy.yaml
+  sha256: b81b0dbb011d3a2a054487177789f41c5023e3e444c38df76bf1c88846a5361f
+predecessor_config:
+  path: two_layer_v3_semantic_r4_bounded_lazy.yaml
+  sha256: b81b0dbb011d3a2a054487177789f41c5023e3e444c38df76bf1c88846a5361f
+  frozen_result: private_data/pudu_wanda_3f/results/2a_v3_r4_lazy_positive_calibration_20260907T174500Z/result.json
+  frozen_result_sha256: 33933e2772c026c85ed221406db38271c5d547122c279a4de5aff2cc49dc677f
+  reason: R4 positive strict-passed in 11.42 s but sampled 2430 state pairs
+mirror_selection:
+  selection_rule: frozen candidate-005 positive from three independent R0 replays; no R5 reselection
+performance_implementation:
+  retain_only_best_live_label_per_state: true
+  graph_generation: lazy_guided
+lazy_search:
+  progress_priority_per_m: 55.0
+  live_labels_per_state: 1
+  valid_successors_per_target_layer: 2
+  maximum_expanded_labels: 5000
+  maximum_goal_candidates: 32
+  successor_rule: rank all analytically feasible target states, then full-footprint validate until two valid per future layer
+stage_gates:
+  stage2_offline_triad: all three fresh two-successor lazy requests strict pass before online

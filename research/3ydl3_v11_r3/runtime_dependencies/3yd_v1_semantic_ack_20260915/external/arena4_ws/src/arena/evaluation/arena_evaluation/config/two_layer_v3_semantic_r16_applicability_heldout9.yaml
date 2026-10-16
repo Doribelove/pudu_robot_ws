@@ -1,0 +1,52 @@
+architecture_id: 2A-V3
+implementation_revision: r16-route-local-semantic-applicability
+protocol_id: PLN-02-2A-V3-R16-ROUTE-LOCAL-APPLICABILITY-V1
+schema_version: PLN-02-2A-V3-R16-CONFIG-V1
+status: frozen_heldout_before_execution
+
+parent_r15:
+  path: two_layer_v3_semantic_r15_fast.yaml
+  sha256: 4c4202c7c68693e70192907bff1459133d20475aea42cfe35f4453d592744dab
+
+frozen_bindings:
+  architecture_id: 2A-V3
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  expanded32_query_hash: 42464f9e99d3a017e63dde3c9559944698deccf732b2d03a0f56110d814dfd02
+  resolution_m: 0.05
+  yaw_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+
+parking_applicability:
+  query_ids:
+    - x32-22-cmp2-06-lane-to-parking
+    - x32-23-cmp2-06-lane-to-parking
+    - x32-24-cmp2-06-lane-to-parking
+    - x32-26-cmp2-07-parking-to-lane
+    - x32-27-cmp2-07-parking-to-lane
+    - x32-28-cmp2-07-parking-to-lane
+    - x32-30-cmp2-08-parking-internal
+    - x32-31-cmp2-08-parking-internal
+    - x32-32-cmp2-08-parking-internal
+  station_spacing_m: 0.25
+  station_slab_half_width_m: 0.20
+  maximum_lateral_probe_m: 6.0
+  phase_probe_radius_m: 0.50
+  target_deviation_max: 0.25
+  required_target_station_ratio_exclusive: 0.50
+  inapplicable_dispatch: E0_NATIVE_SMAC_FALLBACK
+  fallback_semantic_success_counted: false
+
+interpretation:
+  split: expanded32_parking_heldout9_excludes_r16_calibration3
+  policy_frozen_before_heldout_execution: true
+  changes_r2_metric: false
+  changes_safety_or_kinematics: false
+  failed_planner_run_may_define_inapplicability: false
+  route_local_target_coverage_is_necessary_not_sufficient: true
+  r15_all_three_parking_witness_gate_is_b_acceptance_gate: false
+  frozen_r13_b_research_acceptance_remains_valid: true

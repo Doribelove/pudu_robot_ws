@@ -1,0 +1,198 @@
+{
+  "all_predeclared_gates_passed": true,
+  "original_99_metrics": {
+    "navigation_s": {
+      "control": {
+        "n": 297,
+        "median": 0.8664892970118672,
+        "p95": 4.780567079607859,
+        "maximum": 13.074468015984166,
+        "q1": 0.547072370944079,
+        "q3": 1.8088582470081747
+      },
+      "candidate": {
+        "n": 297,
+        "median": 0.8111481770174578,
+        "p95": 3.27699474438559,
+        "maximum": 11.163984623970464,
+        "q1": 0.5090530500165187,
+        "q3": 1.6781975399935618
+      },
+      "change_percent": {
+        "median": -6.3868209550026815,
+        "p95": -31.45175687704407,
+        "maximum": -14.612322196804062
+      }
+    },
+    "tree_rss_mib": {
+      "control": {
+        "n": 297,
+        "median": 1069.5703125,
+        "p95": 2366.9882812499995,
+        "maximum": 2665.03125,
+        "q1": 758.7421875,
+        "q3": 1540.30859375
+      },
+      "candidate": {
+        "n": 297,
+        "median": 992.6796875,
+        "p95": 2150.64609375,
+        "maximum": 2614.45703125,
+        "q1": 731.0546875,
+        "q3": 1354.5546875
+      },
+      "change_percent": {
+        "median": -7.188926627953696,
+        "p95": -9.13997712678788,
+        "maximum": -1.8976970251286973
+      }
+    }
+  },
+  "per_map": {
+    "mengjia": {
+      "navigation_s": {
+        "n_per_arm": 30,
+        "control_median": 0.6604142170108389,
+        "candidate_median": 0.6251895230088849,
+        "change_percent": -5.333727393299881
+      },
+      "tree_rss_mib": {
+        "n_per_arm": 30,
+        "control_median": 1006.6640625,
+        "candidate_median": 918.76953125,
+        "change_percent": -8.731267413253862
+      }
+    },
+    "pudu_wanda_3f": {
+      "navigation_s": {
+        "n_per_arm": 30,
+        "control_median": 0.5718443149817176,
+        "candidate_median": 0.5492181969748344,
+        "change_percent": -3.956691955153313
+      },
+      "tree_rss_mib": {
+        "n_per_arm": 30,
+        "control_median": 750.744140625,
+        "candidate_median": 729.421875,
+        "change_percent": -2.840150787890139
+      }
+    },
+    "3yd_synth_multiloop_a_v1": {
+      "navigation_s": {
+        "n_per_arm": 30,
+        "control_median": 0.5968327599985059,
+        "candidate_median": 0.5554648684628773,
+        "change_percent": -6.931236739707813
+      },
+      "tree_rss_mib": {
+        "n_per_arm": 30,
+        "control_median": 1066.865234375,
+        "candidate_median": 986.55078125,
+        "change_percent": -7.528078574240027
+      }
+    },
+    "3yd_synth_twinwing_b_v1": {
+      "navigation_s": {
+        "n_per_arm": 30,
+        "control_median": 0.9719247610191815,
+        "candidate_median": 0.8939354055037256,
+        "change_percent": -8.024217371895592
+      },
+      "tree_rss_mib": {
+        "n_per_arm": 30,
+        "control_median": 1591.947265625,
+        "candidate_median": 1381.701171875,
+        "change_percent": -13.206850395729486
+      }
+    },
+    "3yd_synth_trizone_c_v2": {
+      "navigation_s": {
+        "n_per_arm": 30,
+        "control_median": 1.9655771949910559,
+        "candidate_median": 1.7197952249844093,
+        "change_percent": -12.504315304073565
+      },
+      "tree_rss_mib": {
+        "n_per_arm": 30,
+        "control_median": 2375.044921875,
+        "candidate_median": 2151.802734375,
+        "change_percent": -9.39949326616355
+      }
+    },
+    "arena_small_080x100_2d_005": {
+      "navigation_s": {
+        "n_per_arm": 30,
+        "control_median": 0.405101904500043,
+        "candidate_median": 0.39903953397879377,
+        "change_percent": -1.4965050654923817
+      },
+      "tree_rss_mib": {
+        "n_per_arm": 30,
+        "control_median": 587.822265625,
+        "candidate_median": 577.603515625,
+        "change_percent": -1.738408120545576
+      }
+    },
+    "arena_medium_200x200_2d_005": {
+      "navigation_s": {
+        "n_per_arm": 30,
+        "control_median": 1.1895677740103565,
+        "candidate_median": 1.2059582825168036,
+        "change_percent": 1.3778541134474631
+      },
+      "tree_rss_mib": {
+        "n_per_arm": 30,
+        "control_median": 1094.68359375,
+        "candidate_median": 1032.05859375,
+        "change_percent": -5.720831147698924
+      }
+    },
+    "arena_large_250x300_2d_005": {
+      "navigation_s": {
+        "n_per_arm": 30,
+        "control_median": 1.8360889034811407,
+        "candidate_median": 1.847695439006202,
+        "change_percent": 0.632133634872245
+      },
+      "tree_rss_mib": {
+        "n_per_arm": 30,
+        "control_median": 1674.38671875,
+        "candidate_median": 1534.75390625,
+        "change_percent": -8.33934066344254
+      }
+    },
+    "mentor_map_20260825_005": {
+      "navigation_s": {
+        "n_per_arm": 27,
+        "control_median": 0.40858511900296435,
+        "candidate_median": 0.3840834259754047,
+        "change_percent": -5.996716935592039
+      },
+      "tree_rss_mib": {
+        "n_per_arm": 27,
+        "control_median": 642.07421875,
+        "candidate_median": 629.81640625,
+        "change_percent": -1.9090958867440166
+      }
+    },
+    "mentor_map_20260825_005_4x_area": {
+      "navigation_s": {
+        "n_per_arm": 30,
+        "control_median": 0.8160561550175771,
+        "candidate_median": 0.7499243700003717,
+        "change_percent": -8.103827734230007
+      },
+      "tree_rss_mib": {
+        "n_per_arm": 30,
+        "control_median": 1091.728515625,
+        "candidate_median": 995.7578125,
+        "change_percent": -8.790711404112962
+      }
+    }
+  },
+  "map_equal_geomean_median_change_percent": {
+    "navigation_s": -5.121058372284271,
+    "tree_rss_mib": -6.887387234239018
+  },
+  "interpretation": "One complete same-batch three-round fixed-query static experiment. No claim that every map improves or these measurements establish live execution performance."
+}
