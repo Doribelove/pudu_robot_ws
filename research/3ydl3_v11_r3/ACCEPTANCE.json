@@ -1,36 +1,21 @@
 {
   "version": "3YDL3-V11-r3",
-  "status": "static_functional_and_three_5percent_performance_accepted",
-  "goal_complete": true,
-  "functional_goal_complete": true,
-  "full_performance_acceptance": true,
-  "formal": "results/paired_final",
-  "control": "3YDL3-V11-r2",
-  "original99_exact_successes": 297,
-  "tolerant_successes": 3,
+  "publication_summary": "single_version",
+  "scope": "static full-route planning and specified controlled replay",
   "policy_successes": 300,
-  "total_requests_per_arm": 300,
-  "gates": {
-    "control_300_policy_success": true,
-    "all_300_policy_success": true,
-    "original_99_exact_preserved": true,
-    "navigation_median_reduction_at_least_5_percent": true,
-    "navigation_p95_reduction_at_least_5_percent": true,
-    "rss_median_reduction_at_least_5_percent": true
-  },
+  "exact_successes": 297,
+  "tolerant_successes": 3,
   "project_tests": 1442,
   "event_assertions": 49,
+  "query_orders": 3,
   "default_entry_checks": 2,
-  "owned_batches_cleaned": 91,
-  "unchanged_original_outputs": {
-    "l1_output.json": 297,
-    "l2_reference_xy.npy": 297,
-    "l2_soft_target.json": 297,
-    "path.npy": 297,
-    "effective_costmap": 297
+  "policy": {
+    "exact_first": true,
+    "endpoint_position_tolerance_m": 0.2,
+    "endpoint_yaw_tolerance_deg": 30,
+    "minimum_turn_radius_m": 0.4
   },
-  "measured_source_lock": "results/paired_final/source.json",
-  "production_entry_replaced": false,
-  "cloud_visualization_updated": false,
-  "gitlab_published": false
+  "report": "report/RESULTS.md",
+  "source_acceptance_sha256": "87bc603b30221c1da022e37b2c7308551a10957719dd15fbcac2efa5e4e98127",
+  "planner_rerun_for_publication": false
 }

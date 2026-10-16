@@ -1,0 +1,130 @@
+{
+  "version": "3YDL3-V11-r3",
+  "all_requests": {
+    "requests": 300,
+    "policy_successes": 300,
+    "exact_successes": 297,
+    "tolerant_successes": 3,
+    "navigation_median_s": 0.8156207079882734,
+    "navigation_p95_s": 3.6565392446500704,
+    "tree_rss_median_mib": 990.388671875,
+    "tree_rss_p95_mib": 2150.0677734375
+  },
+  "exact_requests": {
+    "requests": 297,
+    "policy_successes": 297,
+    "exact_successes": 297,
+    "tolerant_successes": 0,
+    "navigation_median_s": 0.8111481770174578,
+    "navigation_p95_s": 3.27699474438559,
+    "tree_rss_median_mib": 992.6796875,
+    "tree_rss_p95_mib": 2150.64609375
+  },
+  "maps": {
+    "pudu_wanda_3f": {
+      "requests": 30,
+      "policy_successes": 30,
+      "exact_successes": 30,
+      "tolerant_successes": 0,
+      "navigation_median_s": 0.5492181969748344,
+      "navigation_p95_s": 10.927196233402356,
+      "tree_rss_median_mib": 729.421875,
+      "tree_rss_p95_mib": 876.7025390625
+    },
+    "mengjia": {
+      "requests": 30,
+      "policy_successes": 30,
+      "exact_successes": 30,
+      "tolerant_successes": 0,
+      "navigation_median_s": 0.6251895230088849,
+      "navigation_p95_s": 3.489989902896923,
+      "tree_rss_median_mib": 918.76953125,
+      "tree_rss_p95_mib": 999.426171875
+    },
+    "3yd_synth_multiloop_a_v1": {
+      "requests": 30,
+      "policy_successes": 30,
+      "exact_successes": 30,
+      "tolerant_successes": 0,
+      "navigation_median_s": 0.5554648684628773,
+      "navigation_p95_s": 1.8170176534797065,
+      "tree_rss_median_mib": 986.55078125,
+      "tree_rss_p95_mib": 1057.2125
+    },
+    "3yd_synth_twinwing_b_v1": {
+      "requests": 30,
+      "policy_successes": 30,
+      "exact_successes": 30,
+      "tolerant_successes": 0,
+      "navigation_median_s": 0.8939354055037256,
+      "navigation_p95_s": 3.1931211027054816,
+      "tree_rss_median_mib": 1381.701171875,
+      "tree_rss_p95_mib": 1582.99453125
+    },
+    "3yd_synth_trizone_c_v2": {
+      "requests": 30,
+      "policy_successes": 30,
+      "exact_successes": 30,
+      "tolerant_successes": 0,
+      "navigation_median_s": 1.7197952249844093,
+      "navigation_p95_s": 6.377596561607788,
+      "tree_rss_median_mib": 2151.802734375,
+      "tree_rss_p95_mib": 2608.229296875
+    },
+    "arena_small_080x100_2d_005": {
+      "requests": 30,
+      "policy_successes": 30,
+      "exact_successes": 30,
+      "tolerant_successes": 0,
+      "navigation_median_s": 0.39903953397879377,
+      "navigation_p95_s": 0.7858721088734455,
+      "tree_rss_median_mib": 577.603515625,
+      "tree_rss_p95_mib": 585.60390625
+    },
+    "mentor_map_20260825_005": {
+      "requests": 30,
+      "policy_successes": 30,
+      "exact_successes": 27,
+      "tolerant_successes": 3,
+      "navigation_median_s": 0.39236546799656935,
+      "navigation_p95_s": 5.554588870270527,
+      "tree_rss_median_mib": 629.451171875,
+      "tree_rss_p95_mib": 634.3806640625
+    },
+    "arena_medium_200x200_2d_005": {
+      "requests": 30,
+      "policy_successes": 30,
+      "exact_successes": 30,
+      "tolerant_successes": 0,
+      "navigation_median_s": 1.2059582825168036,
+      "navigation_p95_s": 5.5880059583461845,
+      "tree_rss_median_mib": 1032.05859375,
+      "tree_rss_p95_mib": 1105.3419921875
+    },
+    "mentor_map_20260825_005_4x_area": {
+      "requests": 30,
+      "policy_successes": 30,
+      "exact_successes": 30,
+      "tolerant_successes": 0,
+      "navigation_median_s": 0.7499243700003717,
+      "navigation_p95_s": 1.6676068718690658,
+      "tree_rss_median_mib": 995.7578125,
+      "tree_rss_p95_mib": 1092.17734375
+    },
+    "arena_large_250x300_2d_005": {
+      "requests": 30,
+      "policy_successes": 30,
+      "exact_successes": 30,
+      "tolerant_successes": 0,
+      "navigation_median_s": 1.847695439006202,
+      "navigation_p95_s": 2.3480057156441037,
+      "tree_rss_median_mib": 1534.75390625,
+      "tree_rss_p95_mib": 1605.907421875
+    }
+  },
+  "sample_definition": "Each map uses its own 10 fixed Q, once per Q per round, three rounds; 300 first-navigation requests including 3 tolerance successes.",
+  "timing": "After map and service are ready: all actual navigation work, failed attempts, recovery, L1/L2/L3, task map sync, real ACK, strict audit and request-end heap release. Excludes loading, initialization, startup and post-request export.",
+  "rss": "Per-request sampled peak RSS of the full planning process tree.",
+  "quantile_method": "linear",
+  "planner_rerun": false
+}

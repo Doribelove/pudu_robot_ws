@@ -1,5 +1,6 @@
 {
-  "font_file": "/home/robot/\u6587\u6863/ChatGPT/dddd-\u4efb\u52a1/output/3yd_v7_l1_workflow_20260930/fonts/simsun.ttc",
-  "resolved_family": "SimSun",
-  "font_loaded_explicitly": true
+  "family": "SimSun",
+  "font_sha256": "2e3cc9dbd787c827f73496f01633bba430e15c5db4d4f6ed9938386ea01f0171",
+  "source": "requests.csv",
+  "sample_count": 300
 }

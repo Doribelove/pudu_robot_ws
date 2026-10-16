@@ -12,4 +12,4 @@ project = root / 'research/3ydl3_v11_r3'
 for name in ('inputs', 'datasets', 'MAPS.json', 'results'):
     if (project / name).exists():
         raise SystemExit('EXCLUDED_MAP_OR_RUNTIME_DATA_PRESENT: ' + name)
-print('Verified', len(manifest['files']), 'published files; all', manifest['measured_core_file_count'], 'measured core files retain their accepted hashes. Map payloads are excluded.')
+print('Verified', len(manifest['files']), 'published files; all', manifest['retained_source_lock_file_count'], 'retained source-lock files retain their accepted hashes. Map payloads are excluded.')

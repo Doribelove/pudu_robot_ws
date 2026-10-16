@@ -1,0 +1,9 @@
+{
+  "version": "3YDL3-V11-r3",
+  "source_workspace": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016",
+  "source_statistics_sha256": "cc687b5fe931bd28bf4ae51bc5b727560c5638bcf246af5608bc6e29d95a95a9",
+  "published_statistics_sha256": "b5935c4cf037520f6acde5dbed039b34b128bd9e873a646e864d4a1fb65a49bb",
+  "selection": "Only the 300 V11-r3 requests; all published numeric fields are unchanged from the accepted records.",
+  "source_manifest_sha256": "e04b3aac34cd9b82793ef32db5cde8db0cfeae7848588277382d355d91571aa8",
+  "planner_rerun": false
+}
