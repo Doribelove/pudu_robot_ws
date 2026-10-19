@@ -1,9 +1,7 @@
 """Public-input integrity and fail-closed result tests; no ROS nodes required."""
 from pathlib import Path
-import copy
 import importlib.util
 import json
-import shutil
 import sys
 import numpy as np
 import pytest
@@ -11,6 +9,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2] / 'examples/3ydl3_garage_b'
 sys.path.insert(0, str(ROOT))
 import demo
+import validate_result
 from validate_result import validate_case
 
 
@@ -95,3 +94,13 @@ def test_invalid_result_never_accepted(tmp_path, change):
     (case / 'outcome.json').write_text(json.dumps(result))
     with pytest.raises((ValueError, KeyError)):
         validate_case(case, expected)
+
+
+def test_mismatched_native_library_rejected(tmp_path, monkeypatch):
+    manifest = {'files': {'runtime/v5/install/nav2_snapshot_local/lib/liblayers.so': 'expected'}}
+    (tmp_path / 'MANIFEST.json').write_text(json.dumps(manifest))
+    (tmp_path / 'loaded_nav2_libraries.json').write_text(json.dumps({
+        'snapshot': 'locked', 'processes': [{'libraries': {'/sdk/lib/liblayers.so': 'wrong'}}]}))
+    monkeypatch.setattr(validate_result, 'ROOT', tmp_path)
+    with pytest.raises(ValueError, match='Loaded native library differs'):
+        validate_result.validate_libraries(tmp_path)

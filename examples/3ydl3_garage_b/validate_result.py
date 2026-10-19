@@ -16,6 +16,24 @@ def require(condition, message):
         raise ValueError(message)
 
 
+
+def validate_libraries(folder):
+    manifest = json.loads((ROOT / 'MANIFEST.json').read_text())['files']
+    snapshot = json.loads((Path(folder) / 'loaded_nav2_libraries.json').read_text())
+    require(snapshot['snapshot'] == 'locked', 'Unlocked native runtime')
+    active_layers = ('runtime/r4/install/nav2_snapshot_local/lib/liblayers.so'
+                     if 'runtime/r4/install/nav2_snapshot_local/lib/liblayers.so' in manifest
+                     else 'runtime/v5/install/nav2_snapshot_local/lib/liblayers.so')
+    required = [active_layers, 'runtime/r4/install/nav2_snapshot_local/lib/libnav2_costmap_2d_core.so',
+                'runtime/nav2_sdk/lib/libnav2_smac_planner.so']
+    observed = {Path(name).name: value for process in snapshot['processes']
+                for name, value in process['libraries'].items()}
+    for relative in required:
+        name = Path(relative).name
+        require(observed.get(name) == manifest[relative], f'Loaded native library differs: {name}')
+    return {Path(name).name: manifest[name] for name in required}
+
+
 def validate_case(case, expected):
     outcome = json.loads((case / 'outcome.json').read_text())
     for key in ['success', 'geometry_success', 'exact_endpoint_success']:
@@ -79,8 +97,9 @@ def validate(folder, queries):
     require(protocol['l3_backend'] == 'independent' and protocol['L1_frozen'] is True, 'Wrong architecture')
     require(protocol['global_L3_fallback'] is False and protocol['moving_window'] is False, 'Unexpected fallback/window')
     require(set(protocol['actual_query_order']) == set(queries) and len(protocol['actual_query_order']) == len(queries), 'Wrong query selection')
+    libraries = validate_libraries(folder)
     results = [validate_case(folder / 'cases' / (qid + '_1'), expected['queries'][qid]) for qid in queries]
-    return {'version': expected['version'], 'map_id': expected['map_id'], 'passed': len(results), 'total': len(queries), 'cases': results}
+    return {'version': expected['version'], 'map_id': expected['map_id'], 'passed': len(results), 'total': len(queries), 'cases': results, 'loaded_native_sha256': libraries}
 
 
 if __name__ == '__main__':
