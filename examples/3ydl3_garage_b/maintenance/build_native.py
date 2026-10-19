@@ -28,11 +28,12 @@ def main():
     build = ROOT / '.native-build'
     sdk = ROOT / 'runtime/nav2_sdk'
     # Build a coherent Nav2 1.1.19 ABI, including the accepted costmap patch.
+    build_env = dict(os.environ, CMAKE_BUILD_PARALLEL_LEVEL=str(a.jobs))
     subprocess.run(['colcon', 'build', '--base-paths', str(ROOT / 'runtime/nav2_sources'),
                     str(r / 'external/nav2_costmap_2d'), '--merge-install',
                     '--build-base', str(build / 'sdk'), '--install-base', str(sdk),
                     '--executor', 'sequential', '--cmake-args', '-DCMAKE_BUILD_TYPE=Release',
-                    '-DBUILD_TESTING=OFF'], cwd=build.parent, check=True)
+                    '-DBUILD_TESTING=OFF'], cwd=build.parent, check=True, env=build_env)
     costmap_prefix = r / 'install/nav2_snapshot_local/lib'
     costmap_prefix.mkdir(parents=True, exist_ok=True)
     for lib in (sdk / 'lib').glob('*.so'):
