@@ -3,6 +3,7 @@
   "map_pgm_sha256": "dd7c1436c6c5ca7b7b0dea895c4687c20416ff4873a4571a8f4c3c86b32ec703",
   "files": {
     ".gitignore": "f4db510be1228060b290449b3556ce3feab3ef1fa9c6cf627cffefa29669473b",
+    "COLCON_IGNORE": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "LICENSING.md": "511a90a999661405fff2f95118e921fc45caf6ee5fafbc9d01bf24fc7a0f7f01",
     "README.md": "ce404ec60a7f40b804f5aaebab1f7c30665566838ef8e6f6ecdd862a13064dcc",
     "SOURCE_PROVENANCE.json": "a343f2e88d49888006e0beb8d562b4d87a435c1fdef8f9e7f5dde607b913be85",
@@ -14,7 +15,7 @@
     "licenses/Nav2-BSD.txt": "1c3d5057a343aebd662e8efea33081bfb2bae1f1870e44ad07ebe0ed8fd99e9f",
     "licenses/SciPy-BSD.txt": "0615c3b553439d39155885fedd7078a923974e84330f8d5d7660074e7c8826a3",
     "maintenance/build_native.py": "453638a42be0d49e9022ae698c207ac5697e12e57f6fb232233154d1dc5c799c",
-    "maintenance/refresh_manifest.py": "81532801d545a1a19672323f8c952a7aae502c29ef3ad2e3d48f5c325700841e",
+    "maintenance/refresh_manifest.py": "a403774e907150fc867f2957af9d94c4e3a9d6886f0511099148c67d4607a75a",
     "map/binding.json": "a62f29cde12267eab0499d2565df40f9a401ef9eaf7958031ab933d18856e6c5",
     "map/fixed10_binding.py": "999522e609a0ffb8eb34e1be167e8b55c1dafc3e7a4d48eb09d79f98017c4c61",
     "map/map.yaml": "66189a254bf330e728fc4779c00fae06d57341b11d36e1531410316e9a19f0a7",
