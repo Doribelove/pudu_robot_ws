@@ -12,6 +12,6 @@ fi
 apt-get update
 apt-get install -y --no-install-recommends \
   bubblewrap python3-venv ca-certificates \
-  ros-humble-nav2-bringup=1.1.20-1jammy.20260908.021125 \
-  ros-humble-nav2-smac-planner=1.1.20-1jammy.20260908.005553 \
-  ros-humble-nav2-costmap-2d=1.1.20-1jammy.20260908.002855
+  ros-humble-nav2-bringup=1.1.20-1jammy.20260916.005516 \
+  ros-humble-nav2-smac-planner=1.1.20-1jammy.20260915.232226 \
+  ros-humble-nav2-costmap-2d=1.1.20-1jammy.20260915.225814
