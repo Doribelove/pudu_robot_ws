@@ -1,7 +1,7 @@
 # 3YDL3 · 三层机器人全局规划
 
 [![Public example](https://github.com/Doribelove/pudu_robot_ws/actions/workflows/public-demo.yml/badge.svg)](https://github.com/Doribelove/pudu_robot_ws/actions/workflows/public-demo.yml)
-[可运行示例](examples/3ydl3_garage_b/README.md) · [许可范围](LICENSING.md) · [贡献指南](CONTRIBUTING.md) · [版本记录](CHANGELOG.md) · [上游维护](docs/UPSTREAM_MAINTENANCE.md)
+[可运行示例](examples/3ydl3_garage_b/README.md) · [许可范围](LICENSING.md) · [贡献指南](CONTRIBUTING.md) · [版本记录](CHANGELOG.md) · [复现验证](docs/public-demo/VALIDATION.md) · [上游维护](docs/UPSTREAM_MAINTENANCE.md)
 
 3YDL3 研究如何把语义路线选择、栅格参考搜索与满足车体/曲率约束的完整曲线规划组合起来。公开示例采用 **3YDL3-V11-r4** 已验收架构和**合成地库 B**，提供固定 Q01–Q10、独立 L3、真实代价图读回 ACK、连续曲率与车体/交通严格校验。
 

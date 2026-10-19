@@ -1,0 +1,103 @@
+{
+  "version": "3YDL3-V11-r4",
+  "map_id": "3yd_synth_twinwing_b_v1",
+  "passed": 10,
+  "total": 10,
+  "cases": [
+    {
+      "query": "Q01",
+      "exact": true,
+      "path_length_m": 422.901775,
+      "curvature_bound_1pm": 1.56102,
+      "actual_costmap_ack": true,
+      "curve_output_bound": true,
+      "path_file_sha256": "8bb2ef106434fb4558fa2ea5af0f4226bc8911549f08117a4ab85de0bff140cf"
+    },
+    {
+      "query": "Q02",
+      "exact": true,
+      "path_length_m": 239.804142,
+      "curvature_bound_1pm": 1.701859,
+      "actual_costmap_ack": true,
+      "curve_output_bound": true,
+      "path_file_sha256": "ea7f90b657de58eca851f987e347d59351ae7d6806ce0bec2c138f446697e111"
+    },
+    {
+      "query": "Q03",
+      "exact": true,
+      "path_length_m": 83.669544,
+      "curvature_bound_1pm": 1.75253,
+      "actual_costmap_ack": true,
+      "curve_output_bound": true,
+      "path_file_sha256": "ed8cd4d5c022a286937a13c6205e1198987e05db351dbf2d496f482152b3888f"
+    },
+    {
+      "query": "Q04",
+      "exact": true,
+      "path_length_m": 36.73944,
+      "curvature_bound_1pm": 1.541298,
+      "actual_costmap_ack": true,
+      "curve_output_bound": true,
+      "path_file_sha256": "80b6c1c53f1c666933d3f67e5388c2be768d717e62092caa4b1f78049b51f017"
+    },
+    {
+      "query": "Q05",
+      "exact": true,
+      "path_length_m": 71.207563,
+      "curvature_bound_1pm": 1.498783,
+      "actual_costmap_ack": true,
+      "curve_output_bound": true,
+      "path_file_sha256": "cb17abeae912dd1cde812db02c194d3c316346b5a9927ad6ed4a9ece2ead98f2"
+    },
+    {
+      "query": "Q06",
+      "exact": true,
+      "path_length_m": 75.42357,
+      "curvature_bound_1pm": 1.731656,
+      "actual_costmap_ack": true,
+      "curve_output_bound": true,
+      "path_file_sha256": "411559504ac560c481bb62281ce222209ad60c879bf37179e310092f13e85410"
+    },
+    {
+      "query": "Q07",
+      "exact": true,
+      "path_length_m": 20.209439,
+      "curvature_bound_1pm": 1.224166,
+      "actual_costmap_ack": true,
+      "curve_output_bound": true,
+      "path_file_sha256": "d50b8c811785fffeae4ee664c66225a5bc8c1beed4b5bb239d522d64545c4064"
+    },
+    {
+      "query": "Q08",
+      "exact": true,
+      "path_length_m": 50.524312,
+      "curvature_bound_1pm": 1.503162,
+      "actual_costmap_ack": true,
+      "curve_output_bound": true,
+      "path_file_sha256": "64aeee6013aa243c150cf30f48bd751e6980b8cec0a625e882a5403109c9c432"
+    },
+    {
+      "query": "Q09",
+      "exact": true,
+      "path_length_m": 11.864521,
+      "curvature_bound_1pm": 1.279649,
+      "actual_costmap_ack": true,
+      "curve_output_bound": true,
+      "path_file_sha256": "05239f9f6294a247c0a04e751e9d81ea154a92d0c60ce3e087e7f2eb2f7aa733"
+    },
+    {
+      "query": "Q10",
+      "exact": true,
+      "path_length_m": 371.075823,
+      "curvature_bound_1pm": 2.478395,
+      "actual_costmap_ack": true,
+      "curve_output_bound": true,
+      "path_file_sha256": "b9ee707b68bc8dd126aae111a1545dbdfeb4563561d721bf50c672bdddcc97b8"
+    }
+  ],
+  "loaded_native_sha256": {
+    "liblayers.so": "1a9f5f44eda1b6cc73cbf1fcc74564110e20a504f421ae9be72767187a822c33",
+    "libnav2_costmap_2d_core.so": "151ac5872331d650d6bce8efa385d48d5d9f146b1dda2eda66bb3d6b77476699",
+    "libnav2_smac_planner.so": "2c62b5586c7cbac1665c7e7660a833dca3124c965185de9cad996d00927b7739"
+  }
+}
