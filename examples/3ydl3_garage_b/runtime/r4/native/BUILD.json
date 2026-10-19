@@ -1,0 +1,17 @@
+{
+  "command": [
+    "g++",
+    "-std=c++17",
+    "-O3",
+    "-fPIC",
+    "-shared",
+    "-Wall",
+    "-Wextra",
+    "/home/robot/workspaces/3yd_v7_r1_20260930/native/goal_dijkstra.cpp",
+    "-o",
+    "/home/robot/workspaces/3yd_v7_r1_20260930/native/libgoal_dijkstra.so"
+  ],
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "source_sha256": "a611899e0f34fe9aaf9dc7bd1a515e5a868eb6f62f6f18c4557c19453a3e2231",
+  "library_sha256": "c5d38babca8ddbb95be81ca6333e348c96fa4a7a24c05cfbefdf61f9a940657c"
+}

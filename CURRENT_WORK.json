@@ -1,13 +1,28 @@
 {
-  "version": "3YDL3-V11-r3",
-  "path": "research/3ydl3_v11_r3",
+  "version": "3YDL3-V11-r4",
+  "public_release": "3ydl3-v11r4-demo.1",
+  "path": "examples/3ydl3_garage_b",
   "branch": "main",
-  "report": "docs/3ydl3_v11_r3/RESULTS.md",
-  "publication_scope": "project_and_single_version_results",
-  "maps_included": false,
-  "web_overview_version": "3YDL3-V11 requestctx",
-  "web_overview_report": "docs/3ydl3_v11_r3/WEB_OVERVIEW.md",
-  "exact_successes": 297,
-  "tolerant_successes": 3,
-  "total": 300
+  "publication_scope": "r4 synthetic-garage-B runnable example",
+  "maps_included": [
+    "3yd_synth_twinwing_b_v1"
+  ],
+  "query_ids": [
+    "Q01",
+    "Q02",
+    "Q03",
+    "Q04",
+    "Q05",
+    "Q06",
+    "Q07",
+    "Q08",
+    "Q09",
+    "Q10"
+  ],
+  "expected_exact_successes": 10,
+  "expected_tolerant_successes": 0,
+  "total": 10,
+  "research_acceptance_scope": "r4 ten maps x fixed10 x three rounds: 297 exact + 3 tolerant; separate from this demo",
+  "experimental_candidate": "V11-r5; not the accepted public release",
+  "historical_project": "research/3ydl3_v11_r3"
 }

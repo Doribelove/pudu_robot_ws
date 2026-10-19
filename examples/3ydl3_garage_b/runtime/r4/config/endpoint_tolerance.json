@@ -1,0 +1,15 @@
+{
+  "schema": "endpoint-tolerance-v1",
+  "enabled": true,
+  "position_m": 0.2,
+  "yaw_deg": 30.0,
+  "max_attempts": 8,
+  "exact_first": true,
+  "min_turn_radius_m": 0.4,
+  "total_request_budget_s": 30.0,
+  "new_l3_budget_s": 15.0,
+  "scope": "start_and_goal_position_and_heading",
+  "position_metric": "Euclidean distance from original requested pose",
+  "yaw_metric": "absolute wrapped angle from original requested pose",
+  "endpoint_candidates_are_not_connectors": true
+}

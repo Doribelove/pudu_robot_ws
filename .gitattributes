@@ -1,1 +1,3 @@
 *.patch -whitespace
+# Preserve accepted/vendored source bytes, including upstream whitespace.
+examples/3ydl3_garage_b/runtime/** -whitespace

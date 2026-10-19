@@ -1,0 +1,1253 @@
+schema_version: pudu_wanda_3f_2a_v3_r14_expanded32_v2
+seed: 20260908
+map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+query_hash: 42464f9e99d3a017e63dde3c9559944698deccf732b2d03a0f56110d814dfd02
+all_endpoints_footprint_safe: true
+all_endpoints_connected: true
+purpose_verified_count: 32
+selection_used_planner_outcome: false
+source_files:
+  selected8: /home/robot/pudu_robot_ws/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/pudu_wanda_3f_selected8_gt50m_r2_v2.yaml
+  selected8_sha256: b3307d4578447131e71db16156cd2f72e9f5042f98bdce0d75d21fe81300738d
+  selected8_query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+  legacy8_excluded_from_v2: /home/robot/pudu_robot_ws/private_data/pudu_wanda_3f/results/real_ablation_r1_diag_v20_final8/real_query_set.yaml
+  legacy8_exclusion_reason: historical negative-query validity was not frozen for
+    the mandated 48-bin E0 arm
+static_cache:
+  key: 848b5358c775e15c4243e449c98e4a7b85309e851d4ecac681ba1bd6dc4702b7
+  status: HIT
+  reject_reason: ''
+  restore_ms: 89.63162801228464
+  build_ms: 0.0
+  serialize_ms: 0.0
+  cache_files_bytes: 120638318
+  mapped_array_bytes: 120326640
+  edge_annotation_count: 4604
+  cache_entry_count: 1
+  evicted_entries: 0
+  context_and_topology_ms: 368.6826889170334
+  total_prepare_ms: 553.8450720487162
+  cache_root: /home/robot/pudu_robot_ws/private_data/pudu_wanda_3f/cache/2a_v3_r14_static_v1
+queries:
+- query_id: x32-01-cmp2-01-lane-north
+  start:
+  - -25.800998999999997
+  - -33.633104
+  - 1.6539375586833447
+  goal:
+  - -26.350998999999995
+  - 21.066896
+  - 1.5707963267948966
+  category: lane_plain_north
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-02-cmp2-01-lane-north
+  start:
+  - -25.850998999999995
+  - -31.383104000000003
+  - 1.5707963267948966
+  goal:
+  - -26.250998999999993
+  - 18.816896
+  - 2.356194490192416
+  category: lane_plain_north
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-03-cmp2-01-lane-north
+  start:
+  - -25.800998999999997
+  - -29.133104000000003
+  - 1.5707963267948966
+  goal:
+  - -25.950998999999996
+  - 16.716896000000006
+  - 1.5707963267948966
+  category: lane_plain_north
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-04-cmp2-01-lane-north
+  start:
+  - -25.800998999999997
+  - -26.933104
+  - 1.5707963267948966
+  goal:
+  - -25.950998999999996
+  - 14.466896000000006
+  - 1.5707963267948966
+  category: lane_plain_north
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-05-cmp2-02-lane-south
+  start:
+  - -26.350998999999995
+  - 21.066896
+  - -1.5707963267948966
+  goal:
+  - -25.800998999999997
+  - -33.633104
+  - -1.4876550949064484
+  category: lane_plain_south
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-06-cmp2-02-lane-south
+  start:
+  - -26.250998999999993
+  - 18.816896
+  - -0.7853981633973772
+  goal:
+  - -25.850998999999995
+  - -31.333104
+  - -1.5707963267948966
+  category: lane_plain_south
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-07-cmp2-02-lane-south
+  start:
+  - -25.950998999999996
+  - 16.716896000000006
+  - -1.5707963267948966
+  goal:
+  - -25.800998999999997
+  - -29.133104000000003
+  - -1.5707963267948966
+  category: lane_plain_south
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-08-cmp2-02-lane-south
+  start:
+  - -25.950998999999996
+  - 14.466896000000006
+  - -1.5707963267948966
+  goal:
+  - -25.800998999999997
+  - -26.933104
+  - -1.5707963267948966
+  category: lane_plain_south
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-09-cmp2-03-speed-bump
+  start:
+  - -41.25099899999999
+  - 54.516896
+  - -1.5707963267948966
+  goal:
+  - -40.450998999999996
+  - -0.5331039999999945
+  - -1.2793395323170191
+  category: lane_speed_bump
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-10-cmp2-03-speed-bump
+  start:
+  - -41.200998999999996
+  - 52.21689599999999
+  - -1.5707963267948966
+  goal:
+  - -40.700998999999996
+  - 1.6668960000000084
+  - -1.5707963267948966
+  category: lane_speed_bump
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-11-cmp2-03-speed-bump
+  start:
+  - -40.900999
+  - 50.066896000000014
+  - -1.5707963267948966
+  goal:
+  - -40.700998999999996
+  - 3.9168960000000084
+  - -1.5707963267948966
+  category: lane_speed_bump
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-12-cmp2-03-speed-bump
+  start:
+  - -41.150999
+  - 47.91689600000001
+  - -2.356194490192558
+  goal:
+  - -40.700998999999996
+  - 6.166896000000008
+  - -1.5707963267948966
+  category: lane_speed_bump
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-13-cmp2-04-multi-junction
+  start:
+  - 8.349001000000001
+  - 71.41689600000001
+  - -1.5707963267948966
+  goal:
+  - -0.6509989999999988
+  - 24.41689600000001
+  - 3.141592653589793
+  category: lane_multi_junction
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-14-cmp2-04-multi-junction
+  start:
+  - 8.349001000000001
+  - 69.06689600000001
+  - -1.5707963267948966
+  goal:
+  - 1.549001000000004
+  - 24.816896
+  - 3.141592653589793
+  category: lane_multi_junction
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-15-cmp2-04-multi-junction
+  start:
+  - 8.299001000000004
+  - 66.81689600000001
+  - -1.5707963267948966
+  goal:
+  - 3.8490010000000012
+  - 24.816896
+  - 3.141592653589793
+  category: lane_multi_junction
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-16-cmp2-04-multi-junction
+  start:
+  - 8.299001000000004
+  - 64.516896
+  - -1.5707963267948966
+  goal:
+  - 6.099001000000001
+  - 24.91689600000001
+  - 3.141592653589793
+  category: lane_multi_junction
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-17-cmp2-05-junction-turn
+  start:
+  - -8.600999000000002
+  - -19.983103999999997
+  - -1.7681918866447637
+  goal:
+  - -22.450998999999996
+  - -62.283104
+  - -1.76819188664478
+  category: lane_junction_turn
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-18-cmp2-05-junction-turn
+  start:
+  - -8.80099899999999
+  - -22.233103999999997
+  - -1.5707963267948966
+  goal:
+  - -21.450998999999996
+  - -60.583104000000006
+  - 3.141592653589793
+  category: lane_junction_turn
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-19-cmp2-05-junction-turn
+  start:
+  - -8.650998999999999
+  - -24.483103999999997
+  - -1.5707963267948966
+  goal:
+  - -19.200998999999996
+  - -60.383104
+  - 3.141592653589793
+  category: lane_junction_turn
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-20-cmp2-05-junction-turn
+  start:
+  - -8.80099899999999
+  - -26.733103999999997
+  - -2.356194490192345
+  goal:
+  - -17.000998999999993
+  - -60.183104
+  - 3.141592653589793
+  category: lane_junction_turn
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-21-cmp2-06-lane-to-parking
+  start:
+  - -58.00099899999999
+  - -14.683104
+  - 1.2793395323170451
+  goal:
+  - -46.300999
+  - -11.033103999999994
+  - -1.5707963267948966
+  category: lane_to_parking
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-22-cmp2-06-lane-to-parking
+  start:
+  - -57.600999
+  - -12.583104000000006
+  - 1.5707963267948966
+  goal:
+  - -46.900999
+  - -8.983103999999997
+  - 0.0
+  category: lane_to_parking
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-23-cmp2-06-lane-to-parking
+  start:
+  - -57.850999
+  - -10.383104000000003
+  - 2.356194490192345
+  goal:
+  - -47.900999
+  - -7.233103999999997
+  - -1.5707963267948966
+  category: lane_to_parking
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-24-cmp2-06-lane-to-parking
+  start:
+  - -58.100999
+  - -8.183104
+  - 1.5707963267948966
+  goal:
+  - -47.850998999999995
+  - -4.933104
+  - -1.5707963267948966
+  category: lane_to_parking
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-25-cmp2-07-parking-to-lane
+  start:
+  - -47.050999
+  - -2.0331039999999945
+  - 1.5707963267948966
+  goal:
+  - -58.600999
+  - 42.766896
+  - 2.214297435588181
+  category: parking_to_lane
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-26-cmp2-07-parking-to-lane
+  start:
+  - -47.750999
+  - 0.016896000000002687
+  - 2.356194490192416
+  goal:
+  - -58.650999
+  - 40.816896
+  - 1.5707963267948966
+  category: parking_to_lane
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-27-cmp2-07-parking-to-lane
+  start:
+  - -47.900999
+  - 2.116895999999997
+  - 1.5707963267948966
+  goal:
+  - -58.800999
+  - 38.616896
+  - 1.5707963267948966
+  category: parking_to_lane
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-28-cmp2-07-parking-to-lane
+  start:
+  - -47.850998999999995
+  - 4.366895999999997
+  - 1.5707963267948966
+  goal:
+  - -58.900999
+  - 36.366896
+  - 1.5707963267948966
+  category: parking_to_lane
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-29-cmp2-08-parking-internal
+  start:
+  - -19.750998999999993
+  - 73.06689600000001
+  - -0.4636476090008061
+  goal:
+  - -20.900999
+  - 34.066896
+  - -0.7853981633974483
+  category: parking_internal
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-30-cmp2-08-parking-internal
+  start:
+  - -17.450998999999996
+  - 72.66689600000001
+  - 0.0
+  goal:
+  - -22.300998999999997
+  - 35.766896
+  - -0.7853981633973772
+  category: parking_internal
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-31-cmp2-08-parking-internal
+  start:
+  - -16.350999
+  - 71.31689600000001
+  - -1.5707963267948966
+  goal:
+  - -22.350998999999995
+  - 37.866896
+  - -1.5707963267948966
+  category: parking_internal
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+- query_id: x32-32-cmp2-08-parking-internal
+  start:
+  - -15.30099899999999
+  - 69.616896
+  - -1.5707963267948966
+  goal:
+  - -22.400999
+  - 40.266896
+  - -1.5707963267948966
+  category: parking_internal
+  seed: 20260908
+  validation_status: INPUT_ONLY_MAP_SEMANTIC_TOPOLOGY_VALIDATED
+intent_validation:
+- query_id: x32-01-cmp2-01-lane-north
+  category: lane_plain_north
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-01-lane-north
+    source_query_set: selected8
+    interpolation_window:
+    - 0.0
+    - 1.0
+    selection_used_planner_outcome: false
+    start_cell:
+    - 3007
+    - 1104
+    goal_cell:
+    - 1913
+    - 1093
+    minimum_endpoint_clearance_m: 1.8000000715255737
+    euclidean_distance_m: 54.70276501238306
+    neutral_topology_route_length_m: 55.00330085889912
+    route_reversed_for_query: false
+- query_id: x32-02-cmp2-01-lane-north
+  category: lane_plain_north
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-01-lane-north
+    source_query_set: selected8
+    interpolation_window:
+    - 0.04
+    - 0.96
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2962
+    - 1103
+    goal_cell:
+    - 1958
+    - 1095
+    minimum_endpoint_clearance_m: 1.7598450183868408
+    euclidean_distance_m: 50.20159360020357
+    neutral_topology_route_length_m: 51.89116882454314
+    route_reversed_for_query: false
+- query_id: x32-03-cmp2-01-lane-north
+  category: lane_plain_north
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-01-lane-north
+    source_query_set: selected8
+    interpolation_window:
+    - 0.08
+    - 0.92
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2917
+    - 1104
+    goal_cell:
+    - 2000
+    - 1101
+    minimum_endpoint_clearance_m: 1.7000000476837158
+    euclidean_distance_m: 45.85024536466518
+    neutral_topology_route_length_m: 48.670458146424494
+    route_reversed_for_query: false
+- query_id: x32-04-cmp2-01-lane-north
+  category: lane_plain_north
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-01-lane-north
+    source_query_set: selected8
+    interpolation_window:
+    - 0.12
+    - 0.88
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2873
+    - 1104
+    goal_cell:
+    - 2045
+    - 1101
+    minimum_endpoint_clearance_m: 1.75
+    euclidean_distance_m: 41.40027173823863
+    neutral_topology_route_length_m: 41.90979797464467
+    route_reversed_for_query: false
+- query_id: x32-05-cmp2-02-lane-south
+  category: lane_plain_south
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-02-lane-south
+    source_query_set: selected8
+    interpolation_window:
+    - 0.0
+    - 1.0
+    selection_used_planner_outcome: false
+    start_cell:
+    - 1913
+    - 1093
+    goal_cell:
+    - 3007
+    - 1104
+    minimum_endpoint_clearance_m: 1.8000000715255737
+    euclidean_distance_m: 54.70276501238306
+    neutral_topology_route_length_m: 55.00330085889912
+    route_reversed_for_query: false
+- query_id: x32-06-cmp2-02-lane-south
+  category: lane_plain_south
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-02-lane-south
+    source_query_set: selected8
+    interpolation_window:
+    - 0.04
+    - 0.96
+    selection_used_planner_outcome: false
+    start_cell:
+    - 1958
+    - 1095
+    goal_cell:
+    - 2961
+    - 1103
+    minimum_endpoint_clearance_m: 1.75
+    euclidean_distance_m: 50.15159518898676
+    neutral_topology_route_length_m: 51.89116882454315
+    route_reversed_for_query: false
+- query_id: x32-07-cmp2-02-lane-south
+  category: lane_plain_south
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-02-lane-south
+    source_query_set: selected8
+    interpolation_window:
+    - 0.08
+    - 0.92
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2000
+    - 1101
+    goal_cell:
+    - 2917
+    - 1104
+    minimum_endpoint_clearance_m: 1.7000000476837158
+    euclidean_distance_m: 45.85024536466518
+    neutral_topology_route_length_m: 48.670458146424494
+    route_reversed_for_query: false
+- query_id: x32-08-cmp2-02-lane-south
+  category: lane_plain_south
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-02-lane-south
+    source_query_set: selected8
+    interpolation_window:
+    - 0.12
+    - 0.88
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2045
+    - 1101
+    goal_cell:
+    - 2873
+    - 1104
+    minimum_endpoint_clearance_m: 1.75
+    euclidean_distance_m: 41.40027173823863
+    neutral_topology_route_length_m: 41.909797974644675
+    route_reversed_for_query: false
+- query_id: x32-09-cmp2-03-speed-bump
+  category: lane_speed_bump
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-03-speed-bump
+    source_query_set: selected8
+    interpolation_window:
+    - 0.0
+    - 1.0
+    selection_used_planner_outcome: false
+    start_cell:
+    - 1244
+    - 795
+    goal_cell:
+    - 2345
+    - 811
+    minimum_endpoint_clearance_m: 1.899999976158142
+    euclidean_distance_m: 55.05581259049765
+    neutral_topology_route_length_m: 55.5225396744416
+    route_reversed_for_query: false
+- query_id: x32-10-cmp2-03-speed-bump
+  category: lane_speed_bump
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-03-speed-bump
+    source_query_set: selected8
+    interpolation_window:
+    - 0.04
+    - 0.96
+    selection_used_planner_outcome: false
+    start_cell:
+    - 1290
+    - 796
+    goal_cell:
+    - 2301
+    - 806
+    minimum_endpoint_clearance_m: 2.0
+    euclidean_distance_m: 50.55247273872959
+    neutral_topology_route_length_m: 53.6225396744416
+    route_reversed_for_query: false
+- query_id: x32-11-cmp2-03-speed-bump
+  category: lane_speed_bump
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-03-speed-bump
+    source_query_set: selected8
+    interpolation_window:
+    - 0.08
+    - 0.92
+    selection_used_planner_outcome: false
+    start_cell:
+    - 1333
+    - 802
+    goal_cell:
+    - 2256
+    - 806
+    minimum_endpoint_clearance_m: 2.1393799781799316
+    euclidean_distance_m: 46.15043336741271
+    neutral_topology_route_length_m: 42.70330085889909
+    route_reversed_for_query: false
+- query_id: x32-12-cmp2-03-speed-bump
+  category: lane_speed_bump
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 22
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-03-speed-bump
+    source_query_set: selected8
+    interpolation_window:
+    - 0.12
+    - 0.88
+    selection_used_planner_outcome: false
+    start_cell:
+    - 1376
+    - 797
+    goal_cell:
+    - 2211
+    - 806
+    minimum_endpoint_clearance_m: 2.1500000953674316
+    euclidean_distance_m: 41.75242507926935
+    neutral_topology_route_length_m: 42.29974746830582
+    route_reversed_for_query: false
+- query_id: x32-13-cmp2-04-multi-junction
+  category: lane_multi_junction
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 7
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-04-multi-junction
+    source_query_set: selected8
+    interpolation_window:
+    - 0.0
+    - 1.0
+    selection_used_planner_outcome: false
+    start_cell:
+    - 906
+    - 1787
+    goal_cell:
+    - 1846
+    - 1607
+    minimum_endpoint_clearance_m: 1.899999976158142
+    euclidean_distance_m: 47.853944456021594
+    neutral_topology_route_length_m: 56.16248916810277
+    route_reversed_for_query: false
+- query_id: x32-14-cmp2-04-multi-junction
+  category: lane_multi_junction
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 7
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-04-multi-junction
+    source_query_set: selected8
+    interpolation_window:
+    - 0.04
+    - 0.96
+    selection_used_planner_outcome: false
+    start_cell:
+    - 953
+    - 1787
+    goal_cell:
+    - 1838
+    - 1651
+    minimum_endpoint_clearance_m: 1.938604712486267
+    euclidean_distance_m: 44.769437119535034
+    neutral_topology_route_length_m: 51.91248916810277
+    route_reversed_for_query: false
+- query_id: x32-15-cmp2-04-multi-junction
+  category: lane_multi_junction
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 7
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-04-multi-junction
+    source_query_set: selected8
+    interpolation_window:
+    - 0.08
+    - 0.92
+    selection_used_planner_outcome: false
+    start_cell:
+    - 998
+    - 1786
+    goal_cell:
+    - 1838
+    - 1697
+    minimum_endpoint_clearance_m: 1.8000000715255737
+    euclidean_distance_m: 42.23508612516377
+    neutral_topology_route_length_m: 47.526093065034885
+    route_reversed_for_query: false
+- query_id: x32-16-cmp2-04-multi-junction
+  category: lane_multi_junction
+  start_semantics:
+  - lane
+  goal_semantics:
+  - junction_area
+  - lane
+  footprint_safe: true
+  connected_component: 7
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-04-multi-junction
+    source_query_set: selected8
+    interpolation_window:
+    - 0.12
+    - 0.88
+    selection_used_planner_outcome: false
+    start_cell:
+    - 1044
+    - 1786
+    goal_cell:
+    - 1836
+    - 1742
+    minimum_endpoint_clearance_m: 1.6098450422286987
+    euclidean_distance_m: 39.66106403010388
+    neutral_topology_route_length_m: 41.66040764008565
+    route_reversed_for_query: false
+- query_id: x32-17-cmp2-05-junction-turn
+  category: lane_junction_turn
+  start_semantics:
+  - lane
+  goal_semantics:
+  - junction_area
+  - lane
+  footprint_safe: true
+  connected_component: 26
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-05-junction-turn
+    source_query_set: selected8
+    interpolation_window:
+    - 0.0
+    - 1.0
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2734
+    - 1448
+    goal_cell:
+    - 3580
+    - 1171
+    minimum_endpoint_clearance_m: 1.748449683189392
+    euclidean_distance_m: 44.50968995623313
+    neutral_topology_route_length_m: 56.55157646462877
+    route_reversed_for_query: false
+- query_id: x32-18-cmp2-05-junction-turn
+  category: lane_junction_turn
+  start_semantics:
+  - lane
+  goal_semantics:
+  - junction_area
+  - lane
+  footprint_safe: true
+  connected_component: 26
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-05-junction-turn
+    source_query_set: selected8
+    interpolation_window:
+    - 0.04
+    - 0.96
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2779
+    - 1444
+    goal_cell:
+    - 3546
+    - 1191
+    minimum_endpoint_clearance_m: 1.647674798965454
+    euclidean_distance_m: 40.38248382653054
+    neutral_topology_route_length_m: 52.62020561473031
+    route_reversed_for_query: false
+- query_id: x32-19-cmp2-05-junction-turn
+  category: lane_junction_turn
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 26
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-05-junction-turn
+    source_query_set: selected8
+    interpolation_window:
+    - 0.08
+    - 0.92
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2824
+    - 1447
+    goal_cell:
+    - 3542
+    - 1236
+    minimum_endpoint_clearance_m: 1.350000023841858
+    euclidean_distance_m: 37.41807718202527
+    neutral_topology_route_length_m: 48.849494936611656
+    route_reversed_for_query: false
+- query_id: x32-20-cmp2-05-junction-turn
+  category: lane_junction_turn
+  start_semantics:
+  - lane
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 26
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-05-junction-turn
+    source_query_set: selected8
+    interpolation_window:
+    - 0.12
+    - 0.88
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2869
+    - 1444
+    goal_cell:
+    - 3538
+    - 1280
+    minimum_endpoint_clearance_m: 1.3082947731018066
+    euclidean_distance_m: 34.44041956771143
+    neutral_topology_route_length_m: 42.05599205235721
+    route_reversed_for_query: false
+- query_id: x32-21-cmp2-06-lane-to-parking
+  category: lane_to_parking
+  start_semantics:
+  - lane
+  goal_semantics:
+  - parking_area
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-06-lane-to-parking
+    source_query_set: selected8
+    interpolation_window:
+    - 0.0
+    - 1.0
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2628
+    - 460
+    goal_cell:
+    - 2555
+    - 694
+    minimum_endpoint_clearance_m: 2.049999952316284
+    euclidean_distance_m: 12.256120919769025
+    neutral_topology_route_length_m: 55.180003589374984
+    route_reversed_for_query: false
+- query_id: x32-22-cmp2-06-lane-to-parking
+  category: lane_to_parking
+  start_semantics:
+  - lane
+  goal_semantics:
+  - parking_area
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-06-lane-to-parking
+    source_query_set: selected8
+    interpolation_window:
+    - 0.04
+    - 0.96
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2586
+    - 468
+    goal_cell:
+    - 2514
+    - 682
+    minimum_endpoint_clearance_m: 2.0795350074768066
+    euclidean_distance_m: 11.289375536317326
+    neutral_topology_route_length_m: 50.99863273947651
+    route_reversed_for_query: false
+- query_id: x32-23-cmp2-06-lane-to-parking
+  category: lane_to_parking
+  start_semantics:
+  - lane
+  goal_semantics:
+  - parking_area
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-06-lane-to-parking
+    source_query_set: selected8
+    interpolation_window:
+    - 0.08
+    - 0.92
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2542
+    - 463
+    goal_cell:
+    - 2479
+    - 662
+    minimum_endpoint_clearance_m: 1.5787596702575684
+    euclidean_distance_m: 10.436714042264457
+    neutral_topology_route_length_m: 47.19299782086611
+    route_reversed_for_query: false
+- query_id: x32-24-cmp2-06-lane-to-parking
+  category: lane_to_parking
+  start_semantics:
+  - lane
+  goal_semantics:
+  - parking_area
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-06-lane-to-parking
+    source_query_set: selected8
+    interpolation_window:
+    - 0.12
+    - 0.88
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2498
+    - 458
+    goal_cell:
+    - 2433
+    - 663
+    minimum_endpoint_clearance_m: 1.339379906654358
+    euclidean_distance_m: 10.75290658380329
+    neutral_topology_route_length_m: 42.260155108391494
+    route_reversed_for_query: false
+- query_id: x32-25-cmp2-07-parking-to-lane
+  category: parking_to_lane
+  start_semantics:
+  - parking_area
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-07-parking-to-lane
+    source_query_set: selected8
+    interpolation_window:
+    - 0.0
+    - 1.0
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2375
+    - 679
+    goal_cell:
+    - 1479
+    - 448
+    minimum_endpoint_clearance_m: 2.229534864425659
+    euclidean_distance_m: 46.26491651348784
+    neutral_topology_route_length_m: 55.47645019878171
+    route_reversed_for_query: false
+- query_id: x32-26-cmp2-07-parking-to-lane
+  category: parking_to_lane
+  start_semantics:
+  - parking_area
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-07-parking-to-lane
+    source_query_set: selected8
+    interpolation_window:
+    - 0.04
+    - 0.96
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2334
+    - 665
+    goal_cell:
+    - 1518
+    - 447
+    minimum_endpoint_clearance_m: 2.049999952316284
+    euclidean_distance_m: 42.23091284829159
+    neutral_topology_route_length_m: 51.65010460205266
+    route_reversed_for_query: false
+- query_id: x32-27-cmp2-07-parking-to-lane
+  category: parking_to_lane
+  start_semantics:
+  - parking_area
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-07-parking-to-lane
+    source_query_set: selected8
+    interpolation_window:
+    - 0.08
+    - 0.92
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2292
+    - 662
+    goal_cell:
+    - 1562
+    - 444
+    minimum_endpoint_clearance_m: 1.219689965248108
+    euclidean_distance_m: 38.09278146840947
+    neutral_topology_route_length_m: 48.55573952066306
+    route_reversed_for_query: false
+- query_id: x32-28-cmp2-07-parking-to-lane
+  category: parking_to_lane
+  start_semantics:
+  - parking_area
+  goal_semantics:
+  - lane
+  footprint_safe: true
+  connected_component: 23
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-07-parking-to-lane
+    source_query_set: selected8
+    interpolation_window:
+    - 0.12
+    - 0.88
+    selection_used_planner_outcome: false
+    start_cell:
+    - 2247
+    - 663
+    goal_cell:
+    - 1607
+    - 442
+    minimum_endpoint_clearance_m: 1.5486047267913818
+    euclidean_distance_m: 33.854135641011425
+    neutral_topology_route_length_m: 41.82731239591687
+    route_reversed_for_query: false
+- query_id: x32-29-cmp2-08-parking-internal
+  category: parking_internal
+  start_semantics:
+  - parking_area
+  goal_semantics:
+  - parking_area
+  footprint_safe: true
+  connected_component: 26
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-08-parking-internal
+    source_query_set: selected8
+    interpolation_window:
+    - 0.0
+    - 1.0
+    selection_used_planner_outcome: false
+    start_cell:
+    - 873
+    - 1225
+    goal_cell:
+    - 1653
+    - 1202
+    minimum_endpoint_clearance_m: 1.899999976158142
+    euclidean_distance_m: 39.016951444212054
+    neutral_topology_route_length_m: 58.31970055134197
+    route_reversed_for_query: false
+- query_id: x32-30-cmp2-08-parking-internal
+  category: parking_internal
+  start_semantics:
+  - fence_area
+  - parking_area
+  goal_semantics:
+  - parking_area
+  footprint_safe: true
+  connected_component: 26
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-08-parking-internal
+    source_query_set: selected8
+    interpolation_window:
+    - 0.04
+    - 0.96
+    selection_used_planner_outcome: false
+    start_cell:
+    - 881
+    - 1271
+    goal_cell:
+    - 1619
+    - 1174
+    minimum_endpoint_clearance_m: 0.5893799662590027
+    euclidean_distance_m: 37.21736825730697
+    neutral_topology_route_length_m: 50.53416664540924
+    route_reversed_for_query: false
+- query_id: x32-31-cmp2-08-parking-internal
+  category: parking_internal
+  start_semantics:
+  - parking_area
+  goal_semantics:
+  - parking_area
+  footprint_safe: true
+  connected_component: 26
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-08-parking-internal
+    source_query_set: selected8
+    interpolation_window:
+    - 0.08
+    - 0.92
+    selection_used_planner_outcome: false
+    start_cell:
+    - 908
+    - 1293
+    goal_cell:
+    - 1577
+    - 1173
+    minimum_endpoint_clearance_m: 0.05000000074505806
+    euclidean_distance_m: 33.98385646156129
+    neutral_topology_route_length_m: 48.7548773235279
+    route_reversed_for_query: false
+- query_id: x32-32-cmp2-08-parking-internal
+  category: parking_internal
+  start_semantics:
+  - parking_area
+  goal_semantics:
+  - parking_area
+  footprint_safe: true
+  connected_component: 26
+  purpose_verified: true
+  verification:
+    source_query_id: cmp2-08-parking-internal
+    source_query_set: selected8
+    interpolation_window:
+    - 0.12
+    - 0.88
+    selection_used_planner_outcome: false
+    start_cell:
+    - 942
+    - 1314
+    goal_cell:
+    - 1529
+    - 1172
+    minimum_endpoint_clearance_m: 0.3198449909687042
+    euclidean_distance_m: 30.196564374113816
+    neutral_topology_route_length_m: 44.48208511739211
+    route_reversed_for_query: false

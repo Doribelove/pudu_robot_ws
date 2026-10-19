@@ -1,0 +1,10 @@
+{
+  "source": "native/curve_rectangles.cpp",
+  "source_sha256": "4fbecd2e4bedb8f510cb2535112ff06c060b4af210081bb81fbd56dbcf1e0f1f",
+  "library": "native/libcurve_rectangles.so",
+  "library_sha256": "809ed0b072a8f1b0b94af1acbdb5de4f518aaba0f99317c32f99aa7b0fd1f6d0",
+  "command": "g++ -O3 -std=c++17 -fPIC -shared native/curve_rectangles.cpp -o native/libcurve_rectangles.so",
+  "no_fast_math": true,
+  "equivalence_probe": "../3ydl3_v2_20261010/report/native_index_probe.json",
+  "rectangles_compared_bitwise": 3000
+}

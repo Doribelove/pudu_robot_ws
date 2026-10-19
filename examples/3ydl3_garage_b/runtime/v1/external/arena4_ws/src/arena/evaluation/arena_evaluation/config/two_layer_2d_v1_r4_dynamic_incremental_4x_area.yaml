@@ -1,0 +1,45 @@
+architecture_id: 2D-V1
+implementation_revision: r4
+parent_architecture: 2D-V1-r3
+experiment_kind: dynamic_incremental_scale_extension
+protocol_version: PLN-02-EXP-V1
+map_id: mentor_map_20260825_005_4x_area
+resolution_m: 0.05
+topology:
+  representation: 2a_v0_static_skeleton_graph
+  refinement_enabled: false
+  source_cache_key: 1ae9b33645cf8623bdacab2065b479e6c54420ca8dfa63c04fbee80e73a35b71
+  cache_binding_requires: [map_hash, map_yaml_hash, resolution, origin, shape, topology_hash, topology_parameters, implementation_revision]
+layers:
+  l1: [persistent_incremental_dstar, deterministic_cold_graph_astar]
+  diagnostic_cold_dstar: false
+  l2_enabled: false
+  l3_backend: nav2_smac_planner_hybrid
+  motion_model: DUBIN
+dynamic_overlay:
+  mutates_static_map: false
+  mutates_static_topology: false
+  state_machine: [AVAILABLE, BLOCKED_PENDING, BLOCKED, RECOVERING, AVAILABLE]
+  confirmed_block_cost: INF
+  persistent_state: [g, rhs, OPEN, km]
+  implicit_reinitialize_allowed: false
+change_scales:
+  absolute_edges: [1, 2, 5, 20, 100]
+  relative_to_topology_edges: [0.00046040515653775324, 0.0009208103130755065, 0.0023020257826887663, 0.009208103130755065, 0.04604051565377532]
+formal:
+  warmups: 3
+  repetitions: 20
+  snapshots_per_episode: 21
+  main_query_count: 10
+  seed: 20260903
+  ros_domain_id: 99
+stage_a_gates:
+  correctness: 1.0
+  path_affected_expanded_reduction: 0.50
+  full_l1_p50_reduction: 0.30
+  p95_no_regression: true
+motion:
+  minimum_turning_radius_m: 0.4
+  maximum_curvature_1pm: 2.5
+  allow_reverse: false
+  allow_in_place_rotation: false

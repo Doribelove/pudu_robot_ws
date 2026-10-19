@@ -1,0 +1,85 @@
+{
+  "schema": "3YD-fixed10-parking-access-v1",
+  "status": "generated_from_frozen_query_endpoints_and_touching_semantic_polygons",
+  "map_id": "3yd_synth_twinwing_b_v1",
+  "view_frame_id": "map",
+  "bindings": [
+    {
+      "query_id": "Q08",
+      "endpoint": "start",
+      "parking_region_id": 147,
+      "road_id": 5,
+      "allowed_road_ids": [
+        5
+      ],
+      "travel_sides": [],
+      "allow_local_cross_road": true,
+      "anchor_xy": [
+        150.675,
+        99.925
+      ],
+      "anchor_tolerance_m": 0.05,
+      "selection": "nearest lane contact in ownership raster; same 4-neighbor adjacency as V5 runtime",
+      "contact_distance_m": 4.65,
+      "polygon_distance_m": 0.0
+    },
+    {
+      "query_id": "Q09",
+      "endpoint": "goal",
+      "parking_region_id": 143,
+      "road_id": 6,
+      "allowed_road_ids": [
+        6
+      ],
+      "travel_sides": [],
+      "allow_local_cross_road": true,
+      "anchor_xy": [
+        183.375,
+        97.975
+      ],
+      "anchor_tolerance_m": 0.05,
+      "selection": "nearest lane contact in ownership raster; same 4-neighbor adjacency as V5 runtime",
+      "contact_distance_m": 4.7,
+      "polygon_distance_m": 0.0
+    },
+    {
+      "query_id": "Q10",
+      "endpoint": "start",
+      "parking_region_id": 190,
+      "road_id": 2,
+      "allowed_road_ids": [
+        2
+      ],
+      "travel_sides": [],
+      "allow_local_cross_road": true,
+      "anchor_xy": [
+        39.825,
+        262.975
+      ],
+      "anchor_tolerance_m": 0.05,
+      "selection": "nearest lane contact in ownership raster; same 4-neighbor adjacency as V5 runtime",
+      "contact_distance_m": 4.55,
+      "polygon_distance_m": 0.0
+    },
+    {
+      "query_id": "Q10",
+      "endpoint": "goal",
+      "parking_region_id": 130,
+      "road_id": 7,
+      "allowed_road_ids": [
+        7
+      ],
+      "travel_sides": [],
+      "allow_local_cross_road": true,
+      "anchor_xy": [
+        198.225,
+        54.025
+      ],
+      "anchor_tolerance_m": 0.05,
+      "selection": "nearest lane contact in ownership raster; same 4-neighbor adjacency as V5 runtime",
+      "contact_distance_m": 4.6,
+      "polygon_distance_m": 0.0
+    }
+  ],
+  "unresolved": []
+}

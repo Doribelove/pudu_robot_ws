@@ -1,0 +1,196 @@
+schema_version: pudu_wanda_3f_semantic_endpoint_transition_r2
+protocol_id: PLN-02-SEMANTIC-ENDPOINT-TRANSITION-R2-V1
+contract_revision: semantic-endpoint-transition-short-full-6m-r2
+status: approved_contract_pending_validation
+architecture_id: 2A-V2
+planner_candidate_id: UNNAMED_SEMANTIC_PLANNER_CANDIDATE
+architecture_naming_gate: targeted_offline_all_three_strict_pass
+historical_contracts_read_only: true
+
+inputs:
+  map_id: pudu_wanda_3f
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  resolution_m: 0.05
+  dynamic_obstacles: false
+  exact_query_poses_frozen: true
+  selected8_query_set_id: pudu_wanda_3f_semantic_compare_selected8_r2_v2
+  selected8_query_file: pudu_wanda_3f_selected8_gt50m_r2_v2.yaml
+  selected8_query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+  selected8_preserve_order: true
+  selected8_topology_length_strictly_greater_than_m: 50.0
+  selected8_minimum_endpoint_clearance_m: 1.5
+  selected8_is_screened_regression_set: true
+  selected8_population_success_inference_allowed: false
+
+semantic_sampling:
+  short_path_threshold_m: 12.0
+  short_path_comparison: less_than_or_equal
+  short_path_transition_each_m: 0.0
+  long_path_transition_each_m: 6.0
+  window_definition: "L <= 12: [0,L]; L > 12: [6,L-6]"
+  length_source: full_unmodified_path_arc_length
+  sample_spacing_m: 0.025
+  weighting: globally_uniform_arc_length_samples
+  preserve_both_endpoints: true
+  preserve_exact_threshold_without_rounding: true
+  invalid_path_or_nonfinite_metric_policy: fail_closed
+  empty_applicable_region_policy: not_applicable_never_semantic_success
+  aggregate_policy: report_each_applicable_class_separately
+  full_path_metrics_required: true
+  effective_window_and_sample_count_required: true
+  loop_or_density_manipulation_allowed: false
+  same_pose_or_arc_repetition_audit_required: true
+
+semantic_gates:
+  lane:
+    applicable_class: lane
+    correct_side_min: 0.80
+    target_band_error_max_m: 0.50
+    target_band_requires_correct_side: true
+    target_band_ratio_strictly_greater_than: 0.50
+    lateral_error_p50_max_m: 0.50
+  parking:
+    applicable_class: parking_area
+    deviation_field: parking_normalized_deviation
+    deviation_definition: "1 - min(region_clearance, map_clearance) / component_max_combined_clearance"
+    normalization_scope: frozen_parking_connected_component
+    normalized_deviation_p50_max: 0.25
+    center_band_normalized_deviation_max: 0.25
+    center_band_ratio_strictly_greater_than: 0.50
+  junction_and_unlabelled:
+    lateral_preference_applicable: false
+    missing_soft_preference_is_not_a_safety_exemption: true
+
+full_path_invariants:
+  scope: entire_path_including_transition_windows
+  footprint_source: frozen_padded_jackal_footprint_and_hash
+  preserve_footprint_and_all_padding: true
+  collision_sample_spacing_max_m: 0.025
+  collision_yaw_step_max_deg: 1.0
+  canonical_path_audit_required: true
+  dense_effective_master_footprint_check_required: true
+  exact_start_xy_yaw: true
+  exact_goal_xy_yaw: true
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  collision_violations_max: 0
+  hard_semantic_violations_max: 0
+  explicit_direction_wrong_way_distance_max_m: 0.0
+  semantic_features_must_match_frozen_hash: true
+  explicit_direction_must_audit_all_intersected_features: true
+  grid_metadata_alone_proves_explicit_direction: false
+  no_stopping_check_scope: frozen_task_endpoints_including_start_and_goal
+  no_stopping_endpoint_violations_max: 0
+  no_runtime_pause_guarantee_claim: true
+  unknown_and_outside_map_are_blocked: true
+  no_path_hard_constraints_held: null
+  no_path_hard_constraints_status: NOT_APPLICABLE
+
+targeted:
+  query_ids: [r3-mirror-1-positive, r3-mirror-2-negative, cmp2-02-lane-south]
+  query_source: frozen_targeted_three_exact_poses_and_content_hash
+  required_pass_count: 3
+  all_full_path_invariants_required: true
+  semantic_lane_gates_required: true
+  same_frozen_lane_instance_required: true
+  relaxation_level_required: R0
+  deterministic_path_and_control_replay_required: true
+  offline_witness_is_not_online_interface: true
+
+online_comparison:
+  starts_only_after_targeted_offline_gate: true
+  arms: [E0, E4_r3_compatible, UNNAMED_SEMANTIC_PLANNER_CANDIDATE]
+  baseline_implementation_and_patch_hash_required: true
+  heading_bins: 48
+  generated_and_server_effective_parameters_must_match: true
+  same_round_all_arms_required: true
+  identical_map_query_footprint_budget_and_order_required: true
+  shared_total_request_budget_per_attempt_chain: true
+  independent_online_planner_adapter_required: true
+  direct_se2_reference_or_trajectory_corridor_consumption_required: true
+  nav_msgs_path_output_required: true
+  pinned_nav2_core_changes_allowed: false
+  two_dimensional_costmap_is_not_se2_interface: true
+  targeted_online_all_three_strict_pass_required: true
+
+selected8:
+  query_ids:
+    - cmp2-01-lane-north
+    - cmp2-02-lane-south
+    - cmp2-03-speed-bump
+    - cmp2-04-multi-junction
+    - cmp2-05-junction-turn
+    - cmp2-06-lane-to-parking
+    - cmp2-07-parking-to-lane
+    - cmp2-08-parking-internal
+  warmups_per_query_per_arm: 1
+  measured_repetitions_per_query_per_arm: 3
+  required_unique_queries_per_arm: 8
+  required_measured_rows_per_arm: 24
+  required_measured_rows_all_three_arms: 72
+  candidate_all_measured_final_valid_required: true
+  candidate_all_query_all_repeat_valid_required: true
+  missing_duplicate_or_unexpected_row_policy: fail_closed
+  no_e0_success_regression_comparison_key: [query_id, repetition]
+  full_path_invariants_required: true
+  single_lane_instance_required: false
+  semantic_class_and_instance_metrics_required: true
+  relaxation_levels_allowed: [R0, R1, R2, R3, R4]
+  record_each_attempt_and_relaxation_reason: true
+  report_strict_r0_semantic_gate_separately: true
+  relaxed_success_is_not_strict_semantic_success: true
+
+exact_ack:
+  required: true
+  applicable_scope: all_online_costmap_publication_attempts_all_arms
+  semantics: exact_effective_master
+  nonempty_verified_attempts_required: true
+  every_attempt_has_complete_bound_ack: true
+  empty_or_missing_summary_passes: false
+  binding_keys:
+    - publication_sequence
+    - policy_hash
+    - source_grid_hash
+    - expected_master_hash
+    - server_content_hash
+    - roi_bbox
+  noop_reuse_requires_prior_successful_complete_key: true
+  hard_mismatch_max: 0
+  soft_mismatch_max: 0
+  stale_roi_cells_max: 0
+  hash_mismatch_max: 0
+  sequence_mismatch_max: 0
+
+latency:
+  independent_process_and_ros_domain_per_cold_arm: true
+  cold_request_candidate_over_e0_p50_hard_max: 2.0
+  cold_request_candidate_over_e0_p50_target_max: 1.5
+  preprocessing_cold_start_and_memory_reported_separately: true
+  warm_results_cannot_substitute_for_cold_results: true
+
+promotion:
+  missing_gate_policy: fail_closed
+  highest_grade_without_formal_expansion: B
+  production_readiness_claim_allowed: false
+  b_requires_all:
+    - targeted_offline_all_three_strict_pass
+    - targeted_online_all_three_strict_pass
+    - same_round_48_bin_three_arm_comparison
+    - selected8_8_queries_3_measured_repetitions_each_all_valid
+    - no_e0_success_regression_per_repeat
+    - complete_nonempty_exact_effective_content_ack
+    - all_full_path_safety_and_kinematic_invariants
+    - cold_request_latency_hard_limit
+    - focused_and_full_package_tests
+    - compileall
+    - isolated_colcon_build
+    - installed_cli_smoke
+    - root_and_nested_git_diff_check
+    - owned_process_cleanup
+  formal_expansion_for_a_minimum_queries: 30
+  formal_expansion_for_a_target_queries_max: 50
+  formal_expansion_for_a_minimum_valid_samples: 100
+  repeated_measurements_per_query_required: true

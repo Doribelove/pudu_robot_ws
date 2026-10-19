@@ -1,0 +1,48 @@
+{
+  "schema": "3YD-fixed10-map-binding-v1",
+  "map_id": "3yd_synth_twinwing_b_v1",
+  "map_name": "合成地库B：双翼分区与瓶颈",
+  "aliases": [
+    "合成地库B"
+  ],
+  "query_set_id": "3yd_synth_twinwing_b_v1__fixed10_v1",
+  "default_query_ids": [
+    "Q01",
+    "Q02",
+    "Q03",
+    "Q04",
+    "Q05",
+    "Q06",
+    "Q07",
+    "Q08",
+    "Q09",
+    "Q10"
+  ],
+  "input_sha256": {
+    "map.yaml": "66189a254bf330e728fc4779c00fae06d57341b11d36e1531410316e9a19f0a7",
+    "optemap.pgm": "dd7c1436c6c5ca7b7b0dea895c4687c20416ff4873a4571a8f4c3c86b32ec703",
+    "parking_access.json": "395417fe8a819d065024441bdf8021de1136afc8694f8a2902b868acf387d4cd",
+    "queries.json": "e4429aafe45bb3d2a79bba081f05cdd5208671722f3e92679a3447861c88802b",
+    "semantic.json": "6b4ec677f00b17571f7a8b0455095b4e061338b085efca610efab22efddc84dc",
+    "topology.json": "4721545f84a8be85196b500ba867c045c45fc1e8479f46864bf7c3a76a62e5e5"
+  },
+  "source_files": {
+    "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_synthetic_garages_20260922/3yd_synth_twinwing_b_v1/inputs/semantic_map_v1.json": "53c5cd75ec8a6cada6622897f8ad235c377d91931045c41b7b1191386ac7c3e7",
+    "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_synthetic_garages_20260922/3yd_synth_twinwing_b_v1/data/topology.json": "4721545f84a8be85196b500ba867c045c45fc1e8479f46864bf7c3a76a62e5e5",
+    "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_synthetic_garages_20260922/3yd_synth_twinwing_b_v1/inputs/optemap.pgm": "dd7c1436c6c5ca7b7b0dea895c4687c20416ff4873a4571a8f4c3c86b32ec703"
+  },
+  "reference_query_file": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_v3_mengjia_scenarios_20260916/scenarios.json",
+  "reference_query_sha256": "27b0c114f1a26cf3f29af0b6819a58642d826a9d3695d5bb1992aef4f73fd153",
+  "geometry_unchanged": true,
+  "semantic_metadata_normalization": {
+    "reason": "SemanticMapV1 runtime hashes schema fields only; absent source pdmap uses empty string",
+    "source_content_hash": "b387b179132e54834cda736674bfd1f0edaf8315e01db21f8e2586ae38df1b1d",
+    "runtime_content_hash": "6343383d13161a25a652fa681813e04d4098250769484f9776b198f3f6b26fcb",
+    "fields_changed": [
+      "source_pdmap_hash",
+      "semantic_map_hash"
+    ],
+    "geometry_changed": false
+  },
+  "navigation_validation": "pending"
+}

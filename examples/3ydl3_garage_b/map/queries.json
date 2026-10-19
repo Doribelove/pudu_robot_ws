@@ -1,0 +1,1729 @@
+{
+  "schema": "3YD-V3-query-set-v1",
+  "query_set_id": "3yd_synth_twinwing_b_v1__fixed10_v1",
+  "map_id": "3yd_synth_twinwing_b_v1",
+  "map_name": "合成地库B：双翼分区与瓶颈",
+  "frame_id": "map",
+  "source_pdmap_sha256": "",
+  "topology_sha256": "4721545f84a8be85196b500ba867c045c45fc1e8479f46864bf7c3a76a62e5e5",
+  "semantic_sha256": "6b4ec677f00b17571f7a8b0455095b4e061338b085efca610efab22efddc84dc",
+  "raster_sha256": "dd7c1436c6c5ca7b7b0dea895c4687c20416ff4873a4571a8f4c3c86b32ec703",
+  "reference_query_set_sha256": "27b0c114f1a26cf3f29af0b6819a58642d826a9d3695d5bb1992aef4f73fd153",
+  "probe_resolution_m": 0.15000000000000002,
+  "body_probe_radius_m": 0.3976348659153739,
+  "selection_notes": [
+    "Fixed 10 pairs / 20 poses; yaw counterclockwise from +X in map frame.",
+    "Seeds chosen by geometry and scenario coverage, without filtering on navigation success.",
+    "Endpoint raw gray 255 and clearance >= 0.8 m; circumcircle certifies 0.53 x 0.45 m endpoint footprint.",
+    "Raw raster only; unknown and hard semantic regions blocked; no map modifications.",
+    "0.15 m conservative aggregated grid; symmetric 8-neighbor distance, no diagonal corner cutting.",
+    "Parking traversal restricted to endpoint parking regions; selected parking lane access is stored separately.",
+    "Point and circular prechecks do not enforce headings, turn radius or traffic rules and are not L1/L2/L3 results.",
+    "Short <40 m; medium 40–120 m; long >120 m by point-grid precheck length.",
+    "Fixed poses are experiment metadata, not additions to the L1 graph."
+  ],
+  "scenarios": [
+    {
+      "id": "Q01",
+      "name": "西南至东北跨双翼贯通",
+      "distance_band": "长距离",
+      "start": {
+        "x": 20.025,
+        "y": 31.975,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 1,
+        "region": "纵向车道01",
+        "clearance_m": 3.0146,
+        "raw_gray": 255,
+        "grid_row": 5560,
+        "grid_col": 400,
+        "seed_displacement_m": 0.0354,
+        "footprint_053x045_clear": true
+      },
+      "goal": {
+        "x": 233.025,
+        "y": 280.975,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 8,
+        "region": "纵向车道08",
+        "clearance_m": 3.0146,
+        "raw_gray": 255,
+        "grid_row": 580,
+        "grid_col": 4660,
+        "seed_displacement_m": 0.0354,
+        "footprint_053x045_clear": true
+      },
+      "focus": "跨双翼全图贯通、连接桥选择",
+      "grid_precheck_length_m": 402.78,
+      "straight_distance_m": 327.67,
+      "grid_precheck_region_sequence": [
+        1,
+        57,
+        10,
+        58,
+        10,
+        59,
+        3,
+        65,
+        27,
+        67,
+        4,
+        73,
+        4,
+        82,
+        22,
+        83,
+        5,
+        85,
+        32,
+        90,
+        6,
+        93,
+        18,
+        94,
+        7,
+        97,
+        33,
+        102,
+        8,
+        106,
+        8
+      ],
+      "grid_precheck_polyline": [
+        [
+          20.025,
+          31.975
+        ],
+        [
+          20.025,
+          43.975
+        ],
+        [
+          22.875,
+          46.825
+        ],
+        [
+          22.875,
+          62.425
+        ],
+        [
+          67.725,
+          62.425
+        ],
+        [
+          72.825,
+          67.525
+        ],
+        [
+          72.825,
+          78.175
+        ],
+        [
+          79.125,
+          84.475
+        ],
+        [
+          79.275,
+          84.475
+        ],
+        [
+          79.425,
+          84.625
+        ],
+        [
+          79.575,
+          84.625
+        ],
+        [
+          79.725,
+          84.775
+        ],
+        [
+          79.875,
+          84.775
+        ],
+        [
+          80.025,
+          84.925
+        ],
+        [
+          80.175,
+          84.925
+        ],
+        [
+          80.325,
+          85.075
+        ],
+        [
+          80.475,
+          85.075
+        ],
+        [
+          80.625,
+          85.225
+        ],
+        [
+          80.775,
+          85.225
+        ],
+        [
+          80.925,
+          85.375
+        ],
+        [
+          81.225,
+          85.375
+        ],
+        [
+          81.375,
+          85.525
+        ],
+        [
+          81.525,
+          85.525
+        ],
+        [
+          81.675,
+          85.675
+        ],
+        [
+          81.825,
+          85.675
+        ],
+        [
+          81.975,
+          85.825
+        ],
+        [
+          82.125,
+          85.825
+        ],
+        [
+          82.275,
+          85.975
+        ],
+        [
+          82.425,
+          85.975
+        ],
+        [
+          82.575,
+          86.125
+        ],
+        [
+          82.725,
+          86.125
+        ],
+        [
+          82.875,
+          86.275
+        ],
+        [
+          83.025,
+          86.275
+        ],
+        [
+          83.175,
+          86.425
+        ],
+        [
+          83.475,
+          86.425
+        ],
+        [
+          83.625,
+          86.575
+        ],
+        [
+          83.775,
+          86.575
+        ],
+        [
+          83.925,
+          86.725
+        ],
+        [
+          84.075,
+          86.725
+        ],
+        [
+          84.225,
+          86.875
+        ],
+        [
+          84.375,
+          86.875
+        ],
+        [
+          84.525,
+          87.025
+        ],
+        [
+          84.675,
+          87.025
+        ],
+        [
+          84.825,
+          87.175
+        ],
+        [
+          84.975,
+          87.175
+        ],
+        [
+          85.125,
+          87.325
+        ],
+        [
+          85.275,
+          87.325
+        ],
+        [
+          85.425,
+          87.475
+        ],
+        [
+          85.725,
+          87.475
+        ],
+        [
+          85.875,
+          87.625
+        ],
+        [
+          86.025,
+          87.625
+        ],
+        [
+          86.175,
+          87.775
+        ],
+        [
+          86.325,
+          87.775
+        ],
+        [
+          86.475,
+          87.925
+        ],
+        [
+          86.625,
+          87.925
+        ],
+        [
+          86.775,
+          88.075
+        ],
+        [
+          86.925,
+          88.075
+        ],
+        [
+          87.075,
+          88.225
+        ],
+        [
+          87.225,
+          88.225
+        ],
+        [
+          87.375,
+          88.375
+        ],
+        [
+          87.525,
+          88.375
+        ],
+        [
+          87.675,
+          88.525
+        ],
+        [
+          87.825,
+          88.525
+        ],
+        [
+          87.975,
+          88.675
+        ],
+        [
+          88.275,
+          88.675
+        ],
+        [
+          88.425,
+          88.825
+        ],
+        [
+          88.575,
+          88.825
+        ],
+        [
+          88.725,
+          88.975
+        ],
+        [
+          88.875,
+          88.975
+        ],
+        [
+          89.025,
+          89.125
+        ],
+        [
+          89.175,
+          89.125
+        ],
+        [
+          89.325,
+          89.275
+        ],
+        [
+          89.475,
+          89.275
+        ],
+        [
+          89.625,
+          89.425
+        ],
+        [
+          89.775,
+          89.425
+        ],
+        [
+          89.925,
+          89.575
+        ],
+        [
+          90.075,
+          89.575
+        ],
+        [
+          90.225,
+          89.725
+        ],
+        [
+          90.525,
+          89.725
+        ],
+        [
+          90.675,
+          89.875
+        ],
+        [
+          90.825,
+          89.875
+        ],
+        [
+          90.975,
+          90.025
+        ],
+        [
+          91.125,
+          90.025
+        ],
+        [
+          91.275,
+          90.175
+        ],
+        [
+          91.425,
+          90.175
+        ],
+        [
+          91.575,
+          90.325
+        ],
+        [
+          91.725,
+          90.325
+        ],
+        [
+          91.875,
+          90.475
+        ],
+        [
+          92.025,
+          90.475
+        ],
+        [
+          92.175,
+          90.625
+        ],
+        [
+          92.325,
+          90.625
+        ],
+        [
+          92.475,
+          90.775
+        ],
+        [
+          92.625,
+          90.775
+        ],
+        [
+          92.775,
+          90.925
+        ],
+        [
+          93.075,
+          90.925
+        ],
+        [
+          93.225,
+          91.075
+        ],
+        [
+          93.375,
+          91.075
+        ],
+        [
+          93.525,
+          91.225
+        ],
+        [
+          93.675,
+          91.225
+        ],
+        [
+          93.825,
+          91.375
+        ],
+        [
+          93.975,
+          91.375
+        ],
+        [
+          94.125,
+          91.525
+        ],
+        [
+          94.275,
+          91.525
+        ],
+        [
+          94.425,
+          91.675
+        ],
+        [
+          94.575,
+          91.675
+        ],
+        [
+          94.725,
+          91.825
+        ],
+        [
+          94.875,
+          91.825
+        ],
+        [
+          95.025,
+          91.975
+        ],
+        [
+          95.325,
+          91.975
+        ],
+        [
+          95.475,
+          92.125
+        ],
+        [
+          95.625,
+          92.125
+        ],
+        [
+          95.775,
+          92.275
+        ],
+        [
+          95.925,
+          92.275
+        ],
+        [
+          96.075,
+          92.425
+        ],
+        [
+          96.225,
+          92.425
+        ],
+        [
+          96.375,
+          92.575
+        ],
+        [
+          96.525,
+          92.575
+        ],
+        [
+          96.675,
+          92.725
+        ],
+        [
+          96.825,
+          92.725
+        ],
+        [
+          96.975,
+          92.875
+        ],
+        [
+          97.125,
+          92.875
+        ],
+        [
+          97.275,
+          93.025
+        ],
+        [
+          97.575,
+          93.025
+        ],
+        [
+          105.075,
+          100.525
+        ],
+        [
+          105.075,
+          147.475
+        ],
+        [
+          110.925,
+          153.325
+        ],
+        [
+          136.875,
+          153.325
+        ],
+        [
+          140.175,
+          156.625
+        ],
+        [
+          140.175,
+          163.675
+        ],
+        [
+          145.875,
+          169.375
+        ],
+        [
+          146.025,
+          169.375
+        ],
+        [
+          146.175,
+          169.525
+        ],
+        [
+          146.325,
+          169.525
+        ],
+        [
+          146.475,
+          169.675
+        ],
+        [
+          146.625,
+          169.675
+        ],
+        [
+          146.775,
+          169.825
+        ],
+        [
+          146.925,
+          169.825
+        ],
+        [
+          147.075,
+          169.975
+        ],
+        [
+          147.225,
+          169.975
+        ],
+        [
+          147.375,
+          170.125
+        ],
+        [
+          147.525,
+          170.125
+        ],
+        [
+          147.675,
+          170.275
+        ],
+        [
+          147.825,
+          170.275
+        ],
+        [
+          147.975,
+          170.425
+        ],
+        [
+          148.125,
+          170.425
+        ],
+        [
+          148.275,
+          170.575
+        ],
+        [
+          148.425,
+          170.575
+        ],
+        [
+          148.575,
+          170.725
+        ],
+        [
+          148.725,
+          170.725
+        ],
+        [
+          148.875,
+          170.875
+        ],
+        [
+          149.025,
+          170.875
+        ],
+        [
+          149.175,
+          171.025
+        ],
+        [
+          149.325,
+          171.025
+        ],
+        [
+          149.475,
+          171.175
+        ],
+        [
+          149.625,
+          171.175
+        ],
+        [
+          149.775,
+          171.325
+        ],
+        [
+          149.925,
+          171.325
+        ],
+        [
+          150.075,
+          171.475
+        ],
+        [
+          150.225,
+          171.475
+        ],
+        [
+          150.375,
+          171.625
+        ],
+        [
+          150.675,
+          171.625
+        ],
+        [
+          150.825,
+          171.775
+        ],
+        [
+          150.975,
+          171.775
+        ],
+        [
+          151.125,
+          171.925
+        ],
+        [
+          151.275,
+          171.925
+        ],
+        [
+          151.425,
+          172.075
+        ],
+        [
+          151.575,
+          172.075
+        ],
+        [
+          151.725,
+          172.225
+        ],
+        [
+          151.875,
+          172.225
+        ],
+        [
+          152.025,
+          172.375
+        ],
+        [
+          152.175,
+          172.375
+        ],
+        [
+          152.325,
+          172.525
+        ],
+        [
+          152.475,
+          172.525
+        ],
+        [
+          160.425,
+          180.475
+        ],
+        [
+          167.175,
+          180.475
+        ],
+        [
+          173.475,
+          186.775
+        ],
+        [
+          173.475,
+          192.325
+        ],
+        [
+          178.575,
+          197.425
+        ],
+        [
+          197.775,
+          197.425
+        ],
+        [
+          202.875,
+          202.525
+        ],
+        [
+          202.875,
+          211.675
+        ],
+        [
+          209.325,
+          218.125
+        ],
+        [
+          209.475,
+          218.125
+        ],
+        [
+          209.925,
+          218.575
+        ],
+        [
+          210.075,
+          218.575
+        ],
+        [
+          210.375,
+          218.875
+        ],
+        [
+          210.525,
+          218.875
+        ],
+        [
+          210.825,
+          219.175
+        ],
+        [
+          210.975,
+          219.175
+        ],
+        [
+          211.425,
+          219.625
+        ],
+        [
+          211.575,
+          219.625
+        ],
+        [
+          211.875,
+          219.925
+        ],
+        [
+          212.025,
+          219.925
+        ],
+        [
+          212.475,
+          220.375
+        ],
+        [
+          212.625,
+          220.375
+        ],
+        [
+          212.925,
+          220.675
+        ],
+        [
+          213.075,
+          220.675
+        ],
+        [
+          213.375,
+          220.975
+        ],
+        [
+          213.525,
+          220.975
+        ],
+        [
+          213.975,
+          221.425
+        ],
+        [
+          214.125,
+          221.425
+        ],
+        [
+          214.425,
+          221.725
+        ],
+        [
+          214.575,
+          221.725
+        ],
+        [
+          214.875,
+          222.025
+        ],
+        [
+          215.025,
+          222.025
+        ],
+        [
+          230.175,
+          237.175
+        ],
+        [
+          230.175,
+          278.125
+        ],
+        [
+          233.025,
+          280.975
+        ]
+      ],
+      "static_precheck": "point_connected",
+      "conservative_body_precheck": "connected",
+      "fine_body_precheck": "connected",
+      "navigation_validation": "pending"
+    },
+    {
+      "id": "Q02",
+      "name": "东翼纵道反向长行",
+      "distance_band": "长距离",
+      "start": {
+        "x": 233.025,
+        "y": 268.075,
+        "yaw_rad": -1.57079633,
+        "yaw_deg": -90,
+        "region_id": 8,
+        "region": "纵向车道08",
+        "clearance_m": 3.0146,
+        "raw_gray": 255,
+        "grid_row": 838,
+        "grid_col": 4660,
+        "seed_displacement_m": 0.0791,
+        "footprint_053x045_clear": true
+      },
+      "goal": {
+        "x": 233.025,
+        "y": 30.925,
+        "yaw_rad": -1.57079633,
+        "yaw_deg": -90,
+        "region_id": 8,
+        "region": "纵向车道08",
+        "clearance_m": 3.0146,
+        "raw_gray": 255,
+        "grid_row": 5581,
+        "grid_col": 4660,
+        "seed_displacement_m": 0.0791,
+        "footprint_053x045_clear": true
+      },
+      "focus": "反向长行、多分支路口",
+      "grid_precheck_length_m": 237.15,
+      "straight_distance_m": 237.15,
+      "grid_precheck_region_sequence": [
+        8,
+        106,
+        8,
+        102,
+        8,
+        95,
+        8,
+        84,
+        8,
+        78,
+        8,
+        68,
+        8,
+        64,
+        8,
+        56,
+        8
+      ],
+      "grid_precheck_polyline": [
+        [
+          233.025,
+          268.075
+        ],
+        [
+          233.025,
+          30.925
+        ]
+      ],
+      "static_precheck": "point_connected",
+      "conservative_body_precheck": "connected",
+      "fine_body_precheck": "connected",
+      "navigation_validation": "pending"
+    },
+    {
+      "id": "Q03",
+      "name": "中部连接桥跨翼通行",
+      "distance_band": "中距离",
+      "start": {
+        "x": 107.925,
+        "y": 129.025,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 4,
+        "region": "纵向车道04",
+        "clearance_m": 3.0646,
+        "raw_gray": 255,
+        "grid_row": 3619,
+        "grid_col": 2158,
+        "seed_displacement_m": 0.0791,
+        "footprint_053x045_clear": true
+      },
+      "goal": {
+        "x": 143.025,
+        "y": 177.025,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 5,
+        "region": "纵向车道05",
+        "clearance_m": 2.9646,
+        "raw_gray": 255,
+        "grid_row": 2659,
+        "grid_col": 2860,
+        "seed_displacement_m": 0.0354,
+        "footprint_053x045_clear": true
+      },
+      "focus": "中央3.6米窄连接桥与两端转向",
+      "grid_precheck_length_m": 77.74,
+      "straight_distance_m": 59.46,
+      "grid_precheck_region_sequence": [
+        4,
+        82,
+        22,
+        83,
+        5
+      ],
+      "grid_precheck_polyline": [
+        [
+          107.925,
+          129.025
+        ],
+        [
+          107.925,
+          140.725
+        ],
+        [
+          110.925,
+          143.725
+        ],
+        [
+          110.925,
+          153.325
+        ],
+        [
+          112.875,
+          153.325
+        ],
+        [
+          116.175,
+          156.625
+        ],
+        [
+          140.175,
+          156.625
+        ],
+        [
+          140.175,
+          174.175
+        ],
+        [
+          143.025,
+          177.025
+        ]
+      ],
+      "static_precheck": "point_connected",
+      "conservative_body_precheck": "connected",
+      "fine_body_precheck": "connected",
+      "navigation_validation": "pending"
+    },
+    {
+      "id": "Q04",
+      "name": "窄连接桥转入东翼",
+      "distance_band": "短距离",
+      "start": {
+        "x": 117.975,
+        "y": 154.975,
+        "yaw_rad": 0.0,
+        "yaw_deg": 0,
+        "region_id": 22,
+        "region": "双翼连接桥02",
+        "clearance_m": 1.7146,
+        "raw_gray": 255,
+        "grid_row": 3100,
+        "grid_col": 2359,
+        "seed_displacement_m": 0.0354,
+        "footprint_053x045_clear": true
+      },
+      "goal": {
+        "x": 143.025,
+        "y": 162.925,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 5,
+        "region": "纵向车道05",
+        "clearance_m": 2.9646,
+        "raw_gray": 255,
+        "grid_row": 2941,
+        "grid_col": 2860,
+        "seed_displacement_m": 0.0791,
+        "footprint_053x045_clear": true
+      },
+      "focus": "短距离窄桥出口转向",
+      "grid_precheck_length_m": 30.36,
+      "straight_distance_m": 26.28,
+      "grid_precheck_region_sequence": [
+        22,
+        83,
+        5
+      ],
+      "grid_precheck_polyline": [
+        [
+          117.975,
+          154.975
+        ],
+        [
+          131.775,
+          154.975
+        ],
+        [
+          133.275,
+          156.475
+        ],
+        [
+          140.025,
+          156.475
+        ],
+        [
+          140.175,
+          156.625
+        ],
+        [
+          140.175,
+          160.075
+        ],
+        [
+          143.025,
+          162.925
+        ]
+      ],
+      "static_precheck": "point_connected",
+      "conservative_body_precheck": "connected",
+      "fine_body_precheck": "connected",
+      "navigation_validation": "pending"
+    },
+    {
+      "id": "Q05",
+      "name": "西翼横道跨纵道连接",
+      "distance_band": "中距离",
+      "start": {
+        "x": 47.025,
+        "y": 96.925,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 2,
+        "region": "纵向车道02",
+        "clearance_m": 6.3288,
+        "raw_gray": 255,
+        "grid_row": 4261,
+        "grid_col": 940,
+        "seed_displacement_m": 0.0791,
+        "footprint_053x045_clear": true
+      },
+      "goal": {
+        "x": 75.975,
+        "y": 136.975,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 3,
+        "region": "纵向车道03",
+        "clearance_m": 8.6146,
+        "raw_gray": 255,
+        "grid_row": 3460,
+        "grid_col": 1519,
+        "seed_displacement_m": 0.0354,
+        "footprint_053x045_clear": true
+      },
+      "focus": "翼内横纵道路切换与连续路口",
+      "grid_precheck_length_m": 62.59,
+      "straight_distance_m": 49.42,
+      "grid_precheck_region_sequence": [
+        2,
+        71,
+        11,
+        72,
+        3
+      ],
+      "grid_precheck_polyline": [
+        [
+          47.025,
+          96.925
+        ],
+        [
+          47.025,
+          109.225
+        ],
+        [
+          49.575,
+          111.775
+        ],
+        [
+          49.575,
+          117.325
+        ],
+        [
+          52.875,
+          117.325
+        ],
+        [
+          58.125,
+          122.575
+        ],
+        [
+          72.825,
+          122.575
+        ],
+        [
+          72.825,
+          133.825
+        ],
+        [
+          75.975,
+          136.975
+        ]
+      ],
+      "static_precheck": "point_connected",
+      "conservative_body_precheck": "connected",
+      "fine_body_precheck": "connected",
+      "navigation_validation": "pending"
+    },
+    {
+      "id": "Q06",
+      "name": "西翼折线通道连接",
+      "distance_band": "中距离",
+      "start": {
+        "x": 20.025,
+        "y": 133.975,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 1,
+        "region": "纵向车道01",
+        "clearance_m": 3.0146,
+        "raw_gray": 255,
+        "grid_row": 3520,
+        "grid_col": 400,
+        "seed_displacement_m": 0.0354,
+        "footprint_053x045_clear": true
+      },
+      "goal": {
+        "x": 75.975,
+        "y": 160.975,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 3,
+        "region": "纵向车道03",
+        "clearance_m": 8.6471,
+        "raw_gray": 255,
+        "grid_row": 2980,
+        "grid_col": 1519,
+        "seed_displacement_m": 0.0354,
+        "footprint_053x045_clear": true
+      },
+      "focus": "折线连接、连续转向与错位接口",
+      "grid_precheck_length_m": 71.18,
+      "straight_distance_m": 62.12,
+      "grid_precheck_region_sequence": [
+        1,
+        24,
+        79,
+        24,
+        80,
+        24,
+        81,
+        3
+      ],
+      "grid_precheck_polyline": [
+        [
+          20.025,
+          133.975
+        ],
+        [
+          20.025,
+          139.075
+        ],
+        [
+          27.675,
+          146.725
+        ],
+        [
+          33.975,
+          146.725
+        ],
+        [
+          41.025,
+          153.775
+        ],
+        [
+          70.575,
+          153.775
+        ],
+        [
+          72.825,
+          156.025
+        ],
+        [
+          72.825,
+          157.825
+        ],
+        [
+          75.975,
+          160.975
+        ]
+      ],
+      "static_precheck": "point_connected",
+      "conservative_body_precheck": "connected",
+      "fine_body_precheck": "connected",
+      "navigation_validation": "pending"
+    },
+    {
+      "id": "Q07",
+      "name": "东翼尽端支路驶出",
+      "distance_band": "短距离",
+      "start": {
+        "x": 242.925,
+        "y": 168.025,
+        "yaw_rad": 3.14159265,
+        "yaw_deg": 180,
+        "region_id": 37,
+        "region": "尽端支路04",
+        "clearance_m": 2.2646,
+        "raw_gray": 255,
+        "grid_row": 2839,
+        "grid_col": 4858,
+        "seed_displacement_m": 0.0791,
+        "footprint_053x045_clear": true
+      },
+      "goal": {
+        "x": 233.025,
+        "y": 180.925,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 8,
+        "region": "纵向车道08",
+        "clearance_m": 3.0146,
+        "raw_gray": 255,
+        "grid_row": 2581,
+        "grid_col": 4660,
+        "seed_displacement_m": 0.0791,
+        "footprint_053x045_clear": true
+      },
+      "focus": "短距离尽端支路驶出",
+      "grid_precheck_length_m": 19.9,
+      "straight_distance_m": 16.26,
+      "grid_precheck_region_sequence": [
+        37,
+        84,
+        8
+      ],
+      "grid_precheck_polyline": [
+        [
+          242.925,
+          168.025
+        ],
+        [
+          237.975,
+          168.025
+        ],
+        [
+          235.875,
+          170.125
+        ],
+        [
+          235.875,
+          174.175
+        ],
+        [
+          233.025,
+          177.025
+        ],
+        [
+          233.025,
+          180.925
+        ]
+      ],
+      "static_precheck": "point_connected",
+      "conservative_body_precheck": "connected",
+      "fine_body_precheck": "connected",
+      "navigation_validation": "pending"
+    },
+    {
+      "id": "Q08",
+      "name": "东翼停车区出库",
+      "distance_band": "中距离",
+      "start": {
+        "x": 150.675,
+        "y": 99.925,
+        "yaw_rad": 3.14159265,
+        "yaw_deg": 180,
+        "region_id": 147,
+        "region": "停车区域029",
+        "clearance_m": 0.8146,
+        "raw_gray": 255,
+        "grid_row": 4201,
+        "grid_col": 3013,
+        "seed_displacement_m": 0.3335,
+        "footprint_053x045_clear": true
+      },
+      "goal": {
+        "x": 143.025,
+        "y": 145.975,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 5,
+        "region": "纵向车道05",
+        "clearance_m": 2.9646,
+        "raw_gray": 255,
+        "grid_row": 3280,
+        "grid_col": 2860,
+        "seed_displacement_m": 0.0354,
+        "footprint_053x045_clear": true
+      },
+      "focus": "停车区出库、纵道接入与路口直穿",
+      "grid_precheck_length_m": 49.22,
+      "straight_distance_m": 46.68,
+      "grid_precheck_region_sequence": [
+        147,
+        5,
+        75,
+        5
+      ],
+      "grid_precheck_polyline": [
+        [
+          150.675,
+          99.925
+        ],
+        [
+          150.675,
+          105.325
+        ],
+        [
+          143.175,
+          112.825
+        ],
+        [
+          143.175,
+          128.725
+        ],
+        [
+          143.025,
+          128.875
+        ],
+        [
+          143.025,
+          145.975
+        ]
+      ],
+      "static_precheck": "point_connected",
+      "conservative_body_precheck": "connected",
+      "fine_body_precheck": "connected",
+      "navigation_validation": "pending"
+    },
+    {
+      "id": "Q09",
+      "name": "纵道进入东翼停车区",
+      "distance_band": "短距离",
+      "start": {
+        "x": 176.025,
+        "y": 90.925,
+        "yaw_rad": 1.57079633,
+        "yaw_deg": 90,
+        "region_id": 6,
+        "region": "纵向车道06",
+        "clearance_m": 7.807,
+        "raw_gray": 255,
+        "grid_row": 4381,
+        "grid_col": 3520,
+        "seed_displacement_m": 0.0791,
+        "footprint_053x045_clear": true
+      },
+      "goal": {
+        "x": 183.375,
+        "y": 97.975,
+        "yaw_rad": 0.0,
+        "yaw_deg": 0,
+        "region_id": 143,
+        "region": "停车区域025",
+        "clearance_m": 0.8146,
+        "raw_gray": 255,
+        "grid_row": 4240,
+        "grid_col": 3667,
+        "seed_displacement_m": 2.6251,
+        "footprint_053x045_clear": true
+      },
+      "focus": "短距离入库、终点朝向",
+      "grid_precheck_length_m": 10.27,
+      "straight_distance_m": 10.18,
+      "grid_precheck_region_sequence": [
+        6,
+        143
+      ],
+      "grid_precheck_polyline": [
+        [
+          176.025,
+          90.925
+        ],
+        [
+          176.175,
+          90.925
+        ],
+        [
+          176.925,
+          91.675
+        ],
+        [
+          177.075,
+          91.675
+        ],
+        [
+          183.375,
+          97.975
+        ]
+      ],
+      "static_precheck": "point_connected",
+      "conservative_body_precheck": "connected",
+      "fine_body_precheck": "connected",
+      "navigation_validation": "pending"
+    },
+    {
+      "id": "Q10",
+      "name": "西北停车区至东南停车区",
+      "distance_band": "长距离",
+      "start": {
+        "x": 39.825,
+        "y": 262.975,
+        "yaw_rad": 0.0,
+        "yaw_deg": 0,
+        "region_id": 190,
+        "region": "停车区域072",
+        "clearance_m": 0.8646,
+        "raw_gray": 255,
+        "grid_row": 940,
+        "grid_col": 796,
+        "seed_displacement_m": 0.8254,
+        "footprint_053x045_clear": true
+      },
+      "goal": {
+        "x": 198.225,
+        "y": 54.025,
+        "yaw_rad": 0.0,
+        "yaw_deg": 0,
+        "region_id": 130,
+        "region": "停车区域012",
+        "clearance_m": 0.8646,
+        "raw_gray": 255,
+        "grid_row": 5119,
+        "grid_col": 3964,
+        "seed_displacement_m": 0.2264,
+        "footprint_053x045_clear": true
+      },
+      "focus": "停车区到停车区、双翼长距离连接",
+      "grid_precheck_length_m": 330.62,
+      "straight_distance_m": 262.2,
+      "grid_precheck_region_sequence": [
+        190,
+        2,
+        99,
+        13,
+        100,
+        3,
+        88,
+        12,
+        89,
+        4,
+        82,
+        22,
+        83,
+        5,
+        75,
+        17,
+        76,
+        6,
+        69,
+        25,
+        6,
+        62,
+        16,
+        130
+      ],
+      "grid_precheck_polyline": [
+        [
+          39.825,
+          262.975
+        ],
+        [
+          39.825,
+          262.825
+        ],
+        [
+          40.575,
+          262.075
+        ],
+        [
+          40.575,
+          259.825
+        ],
+        [
+          49.425,
+          250.975
+        ],
+        [
+          49.425,
+          235.075
+        ],
+        [
+          49.575,
+          234.925
+        ],
+        [
+          49.575,
+          232.525
+        ],
+        [
+          67.725,
+          232.525
+        ],
+        [
+          72.825,
+          227.425
+        ],
+        [
+          72.825,
+          183.925
+        ],
+        [
+          79.125,
+          177.625
+        ],
+        [
+          99.825,
+          177.625
+        ],
+        [
+          105.075,
+          172.375
+        ],
+        [
+          105.075,
+          162.475
+        ],
+        [
+          110.925,
+          156.625
+        ],
+        [
+          136.875,
+          156.625
+        ],
+        [
+          140.175,
+          153.325
+        ],
+        [
+          140.175,
+          148.225
+        ],
+        [
+          145.875,
+          142.525
+        ],
+        [
+          168.375,
+          142.525
+        ],
+        [
+          173.475,
+          137.425
+        ],
+        [
+          173.475,
+          120.775
+        ],
+        [
+          178.575,
+          115.675
+        ],
+        [
+          178.575,
+          82.525
+        ],
+        [
+          186.975,
+          82.525
+        ],
+        [
+          197.475,
+          72.025
+        ],
+        [
+          197.475,
+          54.775
+        ],
+        [
+          198.225,
+          54.025
+        ]
+      ],
+      "static_precheck": "point_connected",
+      "conservative_body_precheck": "connected",
+      "fine_body_precheck": "connected",
+      "navigation_validation": "pending"
+    }
+  ]
+}

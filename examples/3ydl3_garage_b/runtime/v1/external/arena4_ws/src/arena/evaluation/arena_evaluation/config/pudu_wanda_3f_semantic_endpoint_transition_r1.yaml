@@ -1,0 +1,109 @@
+schema_version: pudu_wanda_3f_semantic_endpoint_transition_r1
+protocol_id: PLN-02-SEMANTIC-ENDPOINT-TRANSITION-R1-V1
+architecture_id: 2A-V2
+contract_revision: semantic-endpoint-transition-6m-r1
+status: candidate_contract_for_online_validation
+base_query_set_id: pudu_wanda_3f_semantic_compare_selected8_r2_v2
+base_query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+static_map_only: true
+dynamic_obstacles: false
+
+# This contract changes only the eligible samples for soft semantic preference
+# metrics. It does not change the path, collision mask, or hard constraints.
+semantic_sampling:
+  endpoint_transition_each_m: 6.0
+  trim_mode: equal_arc_length_from_both_endpoints
+  minimum_path_length_m: 12.0
+  sample_spacing_m: 0.025
+  yaw_interpolation_step_deg: 1.0
+  active_interval: "[6.0, path_length_m - 6.0]"
+  short_path_policy: invalid_for_contract_metrics
+  empty_applicable_region_policy: invalid_for_contract_metrics
+  denominator: active_samples_in_same_applicable_semantic_class
+  weighting: equal_arc_length_samples_after_fixed_resampling
+  aggregate_policy: no_cross_class_aggregate; report_lane_and_parking_separately
+
+soft_preference_metrics:
+  lane:
+    applicable_labels: [lane]
+    metrics: [correct_side_ratio, target_band_ratio, lateral_error_p50_m]
+    correct_side_threshold: 0.80
+    target_band_ratio_strictly_greater_than: 0.50
+    lateral_error_p50_max_m: 0.50
+  parking:
+    applicable_labels: [parking_area]
+    metrics: [center_deviation_p50, center_band_ratio]
+    # Thresholds remain the architecture's existing parking-center thresholds.
+    thresholds_source: 2A-V2_semantic_path_audit
+  unlabelled:
+    applicable: false
+    policy: report_separately; never_count_as_semantic_success
+  junction:
+    applicable: false
+    policy: report_separately; hard/explicit rules still cover full path
+
+full_path_invariants:
+  complete_padded_footprint: true
+  exact_start_xy_yaw: true
+  exact_goal_xy_yaw: true
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  hard_collision_violations: 0
+  hard_semantic_violations: 0
+  no_stopping_goal_violations: 0
+  r0_required: true
+  forbidden_and_unknown_are_lethal: true
+
+selected8_rules:
+  default_query_set: true
+  query_set_file: private_data/pudu_wanda_3f/query_sets/semantic_compare_selected8_r2_v2/selected_queries.yaml
+  preserve_order: true
+  require_all_eight: true
+  purpose: screened_regression_set_only
+  may_infer_population_success_rate: false
+  override_requires_explicit_user_request: true
+  override_must_record_reason: true
+  minimum_endpoint_clearance_m: 1.5
+  topology_route_length_strictly_greater_than_m: 50.0
+  endpoint_transition_window_is_not_a_query_filter: true
+
+promotion_gates:
+  stage0_contract_replay:
+    required: true
+    all_selected8_paths_must_retain_original_full_path_audit: true
+    no_metric_improvement_by_resampling_or_point_deletion: true
+  targeted_offline:
+    required_queries: [r3-mirror-1-positive, r3-mirror-2-negative, cmp2-02-lane-south]
+    all_three_must_pass: true
+  targeted_online:
+    required: true
+    all_three_must_pass: true
+    adapter_must_emit_nav_msgs_path: true
+    canonical_path_audit_required: true
+  selected8:
+    warmup_runs_per_arm: 1
+    measured_runs_per_arm: 3
+    final_valid_required: 8/8
+    e0_success_regression_forbidden: true
+    safety_violations_required: 0
+    report_all_relaxation_levels: true
+  exact_effective_content_ack:
+    required: true
+    mismatch_count: 0
+  latency:
+    cold_request_ratio_hard_max: 2.0
+    cold_request_ratio_target_max: 1.5
+
+reporting:
+  implementation_revision_required: true
+  record_map_query_semantic_hashes: true
+  record_sample_count_and_arc_length_window: true
+  record_full_path_and_active_window_metrics: true
+  record_excluded_transition_length_m: true
+  record_invalid_contract_metric_reason: true
+  old_contract_results_remain_read_only: true
+  architecture_promotion_requires_all_gates: true

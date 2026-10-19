@@ -1,0 +1,9 @@
+{
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "command": "g++ -O2 -std=c++17 -fPIC -shared -Wall -Wextra -Werror native/pose_batch.cpp -o native/libpose_batch.so",
+  "frozen_collision_function": "arena_3d_v1.semantic_world.SweptChecker.fn (one pose, count=1)",
+  "sha256": {
+    "native/pose_batch.cpp": "cf0dd430f996185b7148b784d5bd813607be93ec7d70ff04ee1b2a15f51ee1d3",
+    "native/libpose_batch.so": "2a990a235a28a7f7dff82e91b0e632ed3b6647db8e4993ebcdee1afa7fadd721"
+  }
+}

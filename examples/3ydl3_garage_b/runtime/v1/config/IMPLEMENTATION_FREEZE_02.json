@@ -1,0 +1,17 @@
+{
+  "frozen_at_utc": "2026-09-14T04:10:21.697095+00:00",
+  "files": {
+    "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_pipeline.py": "1565fc848d81247f323cdcfed357dc26ef5639f3a29411a43743e85719595439",
+    "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_l2.py": "2a316b795a8ebd636646126c1b8e5631668f4faf0e7f71493aff05ece5dcd626",
+    "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_reference.py": "8638c3e93ff5a5d2e201af8007fab3a6fa51ceb7789cd3229c1dba07f2af17cd",
+    "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_world.py": "27bc6c2b90d6b2301b05331e8854d27ce6cbf6f24f5d06a005321025a234c001",
+    "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_graph.py": "4cbb7a4cd0f6955dbb40e1aedf7682075b39e94d68d08fa8e4c8d926cba777e7",
+    "tools/benchmark.py": "a785ac96c9f7898cebda74c170b009b3d3d4cc286f58c8a1ccf8f82118b562cf",
+    "env.bash": "4460640cbb621bacaae84b6085398197badb213bffeb5469dcfeaf714f551634",
+    "config/fastdds_large_map.xml": "59c77a1ddfe156a52c266f0536f5955673c361dabe4834081f86c476cae11d66",
+    "native/swept_rect.cpp": "6e7314ef757f1a2a305bd8f5200cf8f0dea19c002b99f1750fc17eb57e96da50"
+  },
+  "weights_sha256": "5a65e2cde31a4318a181961feafba88c71b5124c90cfb43b71a130218f1028a3",
+  "changed_from_first_freeze": "Only isolated DDS transport configuration, adapter transport setup/publication version, and provenance fields. No preference weights, solver parameters, graph/L2/reference algorithms or acceptance thresholds changed. Four real heldout queries remain unexposed.",
+  "preceding_transport_stress_result": "36/36 completed successfully; 2 initial ACK failures recovered through the existing full replay path"
+}

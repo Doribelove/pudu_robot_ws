@@ -1,0 +1,17 @@
+{
+  "protocol": "3yd_delta_v2",
+  "original_source": "/home/robot/workspaces/3yd_v8_r6_20261008/external/nav2_costmap_2d",
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "build_type": "Release",
+  "flags": "existing CMake default; BUILD_TESTING=OFF; core target -j2",
+  "original_Smac_and_static_inflation_layer_libraries": "unchanged",
+  "changed_behavior": "lossless complete master transport only; all cells inspected and SHA256-bound under original map mutex",
+  "files": {
+    "native/delta_snapshot.hpp": "aa515ff0b848b5aa2cd19edebd12bfcfcfc02b2072a49eeae6a5ad7f08120884",
+    "external/nav2_costmap_2d/src/costmap_2d_publisher.cpp": "22dc4cbd0d3527a07579044c038d80409605564a4bdac60ebd8f9d99cc06df7b",
+    "external/nav2_costmap_2d/src/delta_snapshot.hpp": "aa515ff0b848b5aa2cd19edebd12bfcfcfc02b2072a49eeae6a5ad7f08120884",
+    "external/nav2_costmap_2d/CMakeLists.txt": "90d308f9a883e8319ea11c6a0d9407d0212124ce71678d016ac16045314003ab",
+    "install/nav2_snapshot_local/lib/libnav2_costmap_2d_core.so": "151ac5872331d650d6bce8efa385d48d5d9f146b1dda2eda66bb3d6b77476699",
+    "native/libdelta_codec_v2_test.so": "c7a90b4c14bdb6030c55ad2002ca60412c524c973746928785b0c3aa7b5e20c7"
+  }
+}

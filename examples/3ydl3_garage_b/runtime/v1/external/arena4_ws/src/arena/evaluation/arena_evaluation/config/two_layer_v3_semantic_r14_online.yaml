@@ -1,0 +1,45 @@
+architecture_id: 2A-V3
+implementation_revision: r14-parking-dispatch-ack-cache
+protocol_id: PLN-02-2A-V3-R14-PARKING-DISPATCH-ACK-CACHE-ONLINE-V1
+schema_version: PLN-02-2A-V3-R14-ONLINE-CONFIG-V1
+status: frozen_for_formal_evaluation
+freeze_utc: "2026-09-08T18:00:00Z"
+
+algorithm_config:
+  path: two_layer_v3_semantic_r14_engineering.yaml
+  sha256: 51a690266e00374abd0f54746544d7813262b2c1993f4fbab847278ea5a74128
+
+parent_online:
+  path: two_layer_v3_semantic_r13_online.yaml
+  sha256: 9f71b585e288d9a0c01a657b1aba1000c765867dc18bbd6fa0a7e261cfe1cedb
+
+online_interface:
+  exact_effective_master_ack: true
+  fixed_settle_s: 0.0
+  # Calibration showed that a full 2138x4020 master readback plus the public
+  # clear-service reinflation can cross one second on the first ROI.  This is
+  # an exact-content polling deadline, not a fixed settle delay; mismatch still
+  # fails closed and never triggers a full-grid repair.
+  exact_ack_timeout_s: 3.0
+  deterministic_reinflation_reset: ROI_TILES_CLEAR_SERVICE_FULL_SOURCE_REPLAY_EXACT_READBACK
+  verified_master_source: EXPECTED_MASTER_PROVEN_EQUAL_BY_EXACT_ACK
+  post_ack_get_costmap_requests: 0
+  timeout_full_repair_allowed: false
+  roi_tile_overlap_rows: 32
+  roi_seam_repair_margin_rows: 16
+  roi_max_payload_bytes: 128000
+  path_echo_required: true
+  historical_path_input_allowed: false
+  ros_domain_id: 141
+
+dispatch:
+  applicable: E5_R14_EXPLICIT_SE2
+  not_applicable: E0_NATIVE_SMAC
+  applicable_search_failure: FAIL_CLOSED
+  fallback_semantic_success_counted: false
+
+measurement:
+  warmups: 1
+  repetitions: 5
+  independent_arm_processes: true
+  formal_p99_minimum_samples: 100

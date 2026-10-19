@@ -1,0 +1,9 @@
+{
+  "algorithm": "same weighted XY DStar cold loop; old Python incremental fallback retained",
+  "command": "g++ -O2 -ffp-contract=off -std=c++17 -fPIC -shared -Wall -Wextra -Werror native/cold_dstar.cpp -o native/libcold_dstar.so",
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "sha256": {
+    "native/cold_dstar.cpp": "52b3ea19a8b706ae9884325356d676d810f2745e53f456471d49448a24966cbf",
+    "native/libcold_dstar.so": "adee7eb0d956b6ce074b5787a327f2138e6b21b0a913a46b93e9bca105801bbb"
+  }
+}

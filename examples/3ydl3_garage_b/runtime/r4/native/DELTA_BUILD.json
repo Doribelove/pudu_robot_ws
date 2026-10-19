@@ -1,0 +1,17 @@
+{
+  "baseline_core": "/home/robot/workspaces/3yd_v5_r11_20260922/install/nav2_snapshot_local/lib/libnav2_costmap_2d_core.so",
+  "modified_source": {
+    "external/nav2_costmap_2d/CMakeLists.txt": "90d308f9a883e8319ea11c6a0d9407d0212124ce71678d016ac16045314003ab",
+    "external/nav2_costmap_2d/src/costmap_2d_publisher.cpp": "eabda0bfe20d4f5c523327dac7f9f3b51e70fbfeff257c87b04dcaa56724ee7c",
+    "external/nav2_costmap_2d/src/delta_snapshot.hpp": "dc57c13e7aba377c25b05362b3da4b8c3a432229f76c5c0716f4887b637da4b6"
+  },
+  "binary_sha256": "22c82ac1ffb3d017e1d50d7b026de1fedaf469ef6e4bfffc0b9859f25134816a",
+  "native_Smac": "unchanged",
+  "static_inflation_layers": "unchanged baseline library",
+  "build_commands": [
+    "source env.bash",
+    "cmake -S external/nav2_costmap_2d -B build/nav2_delta -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=$PWD/install/nav2_snapshot_local",
+    "cmake --build build/nav2_delta --target nav2_costmap_2d_core -j2",
+    "cp build/nav2_delta/libnav2_costmap_2d_core.so install/nav2_snapshot_local/lib/"
+  ]
+}

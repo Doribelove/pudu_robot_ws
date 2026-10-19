@@ -1,0 +1,157 @@
+{
+  "version": "3YDL3-V11-r4",
+  "map_id": "3yd_synth_twinwing_b_v1",
+  "reference": "accepted r4 round1, fixed queries; times are intentionally not portable assertions",
+  "queries": {
+    "Q01": {
+      "start": [
+        20.025,
+        31.975,
+        1.57079633
+      ],
+      "goal": [
+        233.025,
+        280.975,
+        1.57079633
+      ],
+      "path_length_m": 422.9017749507706,
+      "max_curvature_bound_1pm": 1.5610200420051499,
+      "exact_endpoint_success": true
+    },
+    "Q02": {
+      "start": [
+        233.025,
+        268.075,
+        -1.57079633
+      ],
+      "goal": [
+        233.025,
+        30.925,
+        -1.57079633
+      ],
+      "path_length_m": 239.80414215595263,
+      "max_curvature_bound_1pm": 1.7018593396665431,
+      "exact_endpoint_success": true
+    },
+    "Q03": {
+      "start": [
+        107.925,
+        129.025,
+        1.57079633
+      ],
+      "goal": [
+        143.025,
+        177.025,
+        1.57079633
+      ],
+      "path_length_m": 83.66954398293544,
+      "max_curvature_bound_1pm": 1.7525300363945264,
+      "exact_endpoint_success": true
+    },
+    "Q04": {
+      "start": [
+        117.975,
+        154.975,
+        0.0
+      ],
+      "goal": [
+        143.025,
+        162.925,
+        1.57079633
+      ],
+      "path_length_m": 36.739439509813614,
+      "max_curvature_bound_1pm": 1.5412978087651892,
+      "exact_endpoint_success": true
+    },
+    "Q05": {
+      "start": [
+        47.025,
+        96.925,
+        1.57079633
+      ],
+      "goal": [
+        75.975,
+        136.975,
+        1.57079633
+      ],
+      "path_length_m": 71.2075633400289,
+      "max_curvature_bound_1pm": 1.498782588094825,
+      "exact_endpoint_success": true
+    },
+    "Q06": {
+      "start": [
+        20.025,
+        133.975,
+        1.57079633
+      ],
+      "goal": [
+        75.975,
+        160.975,
+        1.57079633
+      ],
+      "path_length_m": 75.42356964950521,
+      "max_curvature_bound_1pm": 1.7316563621953647,
+      "exact_endpoint_success": true
+    },
+    "Q07": {
+      "start": [
+        242.925,
+        168.025,
+        3.14159265
+      ],
+      "goal": [
+        233.025,
+        180.925,
+        1.57079633
+      ],
+      "path_length_m": 20.209438818785337,
+      "max_curvature_bound_1pm": 1.2241659045581847,
+      "exact_endpoint_success": true
+    },
+    "Q08": {
+      "start": [
+        150.675,
+        99.925,
+        3.14159265
+      ],
+      "goal": [
+        143.025,
+        145.975,
+        1.57079633
+      ],
+      "path_length_m": 50.52431237726899,
+      "max_curvature_bound_1pm": 1.5031615284335684,
+      "exact_endpoint_success": true
+    },
+    "Q09": {
+      "start": [
+        176.025,
+        90.925,
+        1.57079633
+      ],
+      "goal": [
+        183.375,
+        97.975,
+        0.0
+      ],
+      "path_length_m": 11.864520639178567,
+      "max_curvature_bound_1pm": 1.2796489934006101,
+      "exact_endpoint_success": true
+    },
+    "Q10": {
+      "start": [
+        39.825,
+        262.975,
+        0.0
+      ],
+      "goal": [
+        198.225,
+        54.025,
+        0.0
+      ],
+      "path_length_m": 371.07582282890695,
+      "max_curvature_bound_1pm": 2.4783949172006348,
+      "exact_endpoint_success": true
+    }
+  }
+}

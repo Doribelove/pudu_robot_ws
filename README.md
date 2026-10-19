@@ -1,80 +1,58 @@
-# PUDU Robot Workspace · 3YDL3-V11-r3
+# 3YDL3 · 三层机器人全局规划
 
-当前导航项目版本：**3YDL3-V11-r3**，分支`main`。
+[![Public example](https://github.com/Doribelove/pudu_robot_ws/actions/workflows/public-demo.yml/badge.svg)](https://github.com/Doribelove/pudu_robot_ws/actions/workflows/public-demo.yml)
+[可运行示例](examples/3ydl3_garage_b/README.md) · [许可范围](LICENSING.md) · [贡献指南](CONTRIBUTING.md) · [版本记录](CHANGELOG.md) · [上游维护](docs/UPSTREAM_MAINTENANCE.md)
 
-[项目源码与运行说明](research/3ydl3_v11_r3/README.md) · [完整单版本结果](docs/3ydl3_v11_r3/RESULTS.md) · [300条逐次统计](research/3ydl3_v11_r3/report/requests.csv)
+3YDL3 研究如何把语义路线选择、栅格参考搜索与满足车体/曲率约束的完整曲线规划组合起来。公开示例采用 **3YDL3-V11-r4** 已验收架构和**合成地库 B**，提供固定 Q01–Q10、独立 L3、真实代价图读回 ACK、连续曲率与车体/交通严格校验。
 
-本仓库发布源码、配置、依赖、测试和结果，**不包含十张地图文件及派生地图数据**。
+A reproducible three-layer global-planning research example: semantic route selection,
+2-D reference search, and continuously validated cubic B-spline planning.
 
-## V11-r3 首次导航结果
+| 层级 | 实际职责 | 可检查输出 |
+|---|---|---|
+| L1 | 在语义/自由空间图上选择路线与通道 | `l1_output.json` |
+| L2 | 在所选范围内搜索二维参考，并构造软目标 | `l2_reference_xy.npy`、`l2_soft_target.json` |
+| L3 | 完整路线三次 B 样条优化、连续证书与严格终验 | `path.npy`、`outcome.json`、`l3_scope.npz` |
 
-| 指标 | V11-r3，全部300次请求 |
-|---|---:|
-| 政策内成功 | 300/300（297次精确＋3次容差） |
-| 首次导航耗时中位 / s | 0.815621 |
-| 首次导航耗时P95 / s | 3.656539 |
-| 整套规划进程树RSS中位 / MiB | 990.388672 |
+## 第一次运行
 
-每图使用各自配套固定Q01–Q10或A2B-01–A2B-10，每轮每Q首次实际请求一次，共三轮。统计包含全部300次请求及其中3次容差回退；不是服务启动后的首个Q子集，也不使用重复任务缓存命中。
-
-时间从地图与服务就绪后的导航请求开始，至完整规划、真实ACK及严格终验完成返回；包含失败尝试、恢复、L1/L2/L3、任务地图同步和返回前堆回收，排除地图加载、通用初始化、服务启动及请求后导出。RSS为每次请求内整套规划进程树的采样峰值。P95使用线性分位数。
-
-## V11-r3 十图结果
-
-| 地图 | 成功次数 | 精确 / 容差 | 导航中位 / s | 导航P95 / s | 整树RSS中位 / MiB |
-|---|---:|---:|---:|---:|---:|
-| 万达2w地库 | 30/30 | 30 / 0 | 0.549 | 10.927 | 729.4 |
-| 万达3w地库 | 30/30 | 30 / 0 | 0.625 | 3.490 | 918.8 |
-| 合成地库A | 30/30 | 30 / 0 | 0.555 | 1.817 | 986.6 |
-| 合成地库B | 30/30 | 30 / 0 | 0.894 | 3.193 | 1381.7 |
-| 合成地库C | 30/30 | 30 / 0 | 1.720 | 6.378 | 2151.8 |
-| Arena小图 | 30/30 | 30 / 0 | 0.399 | 0.786 | 577.6 |
-| 导师原图 | 30/30 | 27 / 3 | 0.392 | 5.555 | 629.5 |
-| Arena中图 | 30/30 | 30 / 0 | 1.206 | 5.588 | 1032.1 |
-| 导师四倍面积图 | 30/30 | 30 / 0 | 0.750 | 1.668 | 995.8 |
-| Arena大图 | 30/30 | 30 / 0 | 1.848 | 2.348 | 1534.8 |
-
-![V11-r3 单版本分布](research/3ydl3_v11_r3/report/navigation_distributions.png)
-
-箱体Q1–Q3，中线为中位数，须为1.5×IQR内最远样本，显示全部离群点；每图n=30，时间轴为对数坐标，图中文字采用宋体。
-
-先精确规划，失败后才允许起点、终点分别使用不超过0.20m、±30°的授权容差，最小转弯半径保持0.40m。导师原图A2B-07三轮仅终点朝向调整+5°，双端位置和起点朝向不变；因此不能写成精确端点300/300。
-
-验收范围为十图静态完整规划及指定受控事件回放。万达3w Q09前方障碍仍会预期撤回轨迹并在清除后恢复；不代表所有动态绕障、连续控制或实车验收。容差起点也不代表已认证从实时定位到该点的执行连接。
-
-## 指定网页的十图总览
-
-
-[在线十图总览](https://gquhtm3ghb2.feishuapp.com/app/app_17e7839sdbs/?view=l3r7&map=mengjia&query=Q09&section=experiment)当前发布的是较早的 **3YDL3-V11 requestctx** 数据，下面忠实保存该网页结果，**不将其标记为V11-r3**。已按发布提交和云端文件SHA-256回读核对。
-
-| 地图 | 类型 | 面积 / 万m² | 精确 / 容差 | 导航中位 / s | RSS中位 / MiB | 导航/L1 / ms/m | RSS/L1 / MiB/m |
-|---|---|---:|---:|---:|---:|---:|---:|
-| 万达2w地库 | 语义 | 2.15 | 30 / 0 | 0.581 | 752.7 | 10.621 | 6.717 |
-| 万达3w地库 | 语义 | 4.01 | 30 / 0 | 0.652 | 995.3 | 10.563 | 16.138 |
-| 合成地库A | 语义 | 4.32 | 30 / 0 | 0.607 | 1069.3 | 10.284 | 18.852 |
-| 合成地库B | 语义 | 7.75 | 30 / 0 | 0.986 | 1526.2 | 15.048 | 20.730 |
-| 合成地库C | 语义 | 15.50 | 30 / 0 | 2.026 | 2375.2 | 21.799 | 25.373 |
-| Arena小图 | 无语义 | 0.80 | 30 / 0 | 0.420 | 587.8 | 3.421 | 4.658 |
-| 导师原图 | 无语义 | 1.24 | 27 / 3 | 0.418 | 638.0 | 4.386 | 6.307 |
-| Arena中图 | 无语义 | 4.00 | 30 / 0 | 1.234 | 1111.7 | 5.151 | 4.076 |
-| 导师四倍面积图 | 无语义 | 4.97 | 30 / 0 | 0.836 | 1106.1 | 4.505 | 5.428 |
-| Arena大图 | 无语义 | 7.50 | 30 / 0 | 1.945 | 1643.1 | 4.451 | 4.011 |
-
-每图30次首次导航，政策内成功均为30/30。导师原图为27次精确成功、3次容差成功；三轮均仅终点朝向调整+5°，位置不变。其余地图全部精确成功。
-
-时间只计地图和服务就绪后的各Q首次实际导航，包含失败尝试、L1/L2/L3、任务同步、真实ACK与严格终验。RSS为整套规划进程树逐请求采样峰值，包含常驻地图。
-
-长度归一化先逐次计算“指标÷本次L1路线长度”，再取中位数；不使用“两个中位数相除”。RSS/米是尺度比较值，不代表每行驶一米新增内存。地图面积为幅面面积，非可通行面积。不同地图使用各自配套Q，不能把任务难度差异全归因于地图规模。
-
-
-![网页十图总览：V11原展示数据](docs/3ydl3_v11_r3/web_overview/v11-crossmap-success.png)
-
-[网页总览详细口径](docs/3ydl3_v11_r3/WEB_OVERVIEW.md) · [300条网页统计CSV](docs/3ydl3_v11_r3/web_overview/v11-crossmap-requests.csv) · [发布来源与校验](docs/3ydl3_v11_r3/web_overview/PROVENANCE.json)
-
-## 文件完整性校验
+支持 **Ubuntu 22.04、Linux x86_64、Python 3.10、ROS 2 Humble**。建议至少 4 GiB 可用内存。
+先按[示例说明](examples/3ydl3_garage_b/README.md)安装固定 ROS/Nav2 依赖，然后：
 
 ```bash
-python3 tools/verify_3ydl3_v11_r3.py
+git clone https://github.com/Doribelove/pudu_robot_ws.git
+cd pudu_robot_ws
+python3 -m venv .demo-venv
+.demo-venv/bin/pip install --require-hashes -r examples/3ydl3_garage_b/requirements.lock
+.demo-venv/bin/python examples/3ydl3_garage_b/demo.py --venv .demo-venv --output /tmp/garage-b-q01
 ```
 
-运行所需地图与环境说明见[项目README](research/3ydl3_v11_r3/README.md)。本次仅整理单版本发布内容，未重跑实验。
+默认 Q01 预期 **1/1 精确成功**，路径约 **422.902 m**，真实代价图 ACK 通过，连续曲率上界不超过 **2.5 m⁻¹**。`--all-queries` 运行完整固定十组；全部预期为 **10/10 精确成功**。结果由程序自动验证；耗时随机器变化，不是固定断言。
+
+仅检查下载完整性，无需 ROS、地图服务或 Python 第三方包：
+
+```bash
+python3 examples/3ydl3_garage_b/demo.py --verify-only
+```
+
+运行器在私有命名空间内处理历史绝对路径，可从任意检出目录运行。它使用包内源码与合成地图，不读取原研究工作区。依赖、故障排查、完整十组预期值和原生重编译见[示例 README](examples/3ydl3_garage_b/README.md)。
+
+## 适用范围与当前版本
+
+当前公开入口是 **V11-r4 public demo.1**，发布范围为合成地库 B 的静态完整参考规划。最小转弯半径 0.40 m；车体半长/半宽 0.265/0.225 m。示例十组均使用精确端点。
+
+原 r4 十图三轮验收为 300/300 政策内成功，其中 297 次精确、3 次既有容差；这与公开示例的十组复现是两个样本范围。r4 在另一张非语义大地图上仍有明显绕路，不能宣称全局最优或任务书路径质量已全部验收。r5 目前是独立实验候选。
+
+本项目验证静态全局参考规划，不包含连续控制或实车安全认证。Python 端仍保存全图，L3 为完整路线曲线规划；没有移动窗口或线上全图 Smac 搜索回退。地图/服务加载不计入首次导航请求耗时，任务相关同步、恢复、真实 ACK 与严格终验均计入。
+
+## 测试与开发
+
+```bash
+OPENBLAS_NUM_THREADS=1 .demo-venv/bin/python -m pytest tests/public_demo -q
+```
+
+[CI](https://github.com/Doribelove/pudu_robot_ws/actions/workflows/public-demo.yml)检查输入篡改拒绝、结果校验失败分支，并在隔离 ROS 环境运行完整十组。发布流程见[版本发布说明](docs/RELEASING.md)。
+
+新增原创部分采用 Apache-2.0；第三方组件保留原许可，历史目录不可一概按根许可证复用，详见[许可范围](LICENSING.md)。
+
+历史 r3 源码和单版本报告保留于 [`research/3ydl3_v11_r3`](research/3ydl3_v11_r3/README.md) 与 [`docs/3ydl3_v11_r3`](docs/3ydl3_v11_r3/RESULTS.md)。其他机器人集成的旧入口见 [USAGE.md](USAGE.md)。

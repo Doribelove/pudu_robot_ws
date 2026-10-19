@@ -1,0 +1,15 @@
+{
+  "schema": "3YD-fixed10-registry-v1",
+  "default_map_id": "pudu_wanda_3f",
+  "maps": [
+    {
+      "map_id": "3yd_synth_twinwing_b_v1",
+      "map_name": "合成地库B：双翼分区与瓶颈",
+      "aliases": [
+        "合成地库B"
+      ],
+      "binding": "3yd_synth_twinwing_b_v1/binding.json",
+      "binding_sha256": "a62f29cde12267eab0499d2565df40f9a401ef9eaf7958031ab933d18856e6c5"
+    }
+  ]
+}

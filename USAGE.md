@@ -1,3 +1,5 @@
+> 新用户请先运行 [3YDL3-V11-r4 合成地库 B 示例](examples/3ydl3_garage_b/README.md)。下文保留早期机器人集成入口。
+
 # PUDU Robot Workspace 使用指南
 
 ## 1. 项目功能

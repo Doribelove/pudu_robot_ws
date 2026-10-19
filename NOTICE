@@ -1,0 +1,6 @@
+3YDL3 public synthetic-garage example
+Original public adapter and documentation: 2026 Li Yongqi and contributors.
+
+This distribution contains Nav2, SciPy-derived native search, and Arena
+integration components. Their original copyright and license notices remain
+applicable. See LICENSING.md and examples/3ydl3_garage_b/licenses/.

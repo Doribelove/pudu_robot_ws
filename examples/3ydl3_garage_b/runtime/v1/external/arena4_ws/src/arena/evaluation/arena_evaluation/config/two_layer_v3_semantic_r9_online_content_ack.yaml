@@ -1,0 +1,63 @@
+schema_version: PLN-02-2A-V3-R9-ONLINE-CONFIG-V1
+architecture_id: 2A-V3
+implementation_revision: r9-online-path-content-ack
+protocol_id: PLN-02-2A-V3-R9-ONLINE-PATH-CONTENT-ACK-V1
+parent_revision: r8-online-exact-ack-adapter
+
+predecessor_online_config:
+  path: two_layer_v3_semantic_r8_online.yaml
+  sha256: c9dd41750ab8df9a4d86fc5697e80b7cc11c0bcaaff5c5b49d712182edc90bcb
+  frozen_failed_result: private_data/pudu_wanda_3f/results/2a_v3_r8_online_targeted_20260907T122715Z/final_result.json
+  failure_scope: CDR_serialized_padding_is_not_message_content_identity
+
+algorithm_config:
+  path: two_layer_v3_semantic_r7_sampled_progress.yaml
+  sha256: be39105687d1053355a3322e290faf63b499b0e8202d62d3175350d693610094
+targeted_query_set:
+  path: pudu_wanda_3f_v3_r7_targeted_applicable_positive_v1.yaml
+  sha256: 8d9fb715bc0a5e40b271cf4a8751fce022340f20747b35082995a867c84f8ba5
+
+online_interface:
+  planner_arm: E5-2A-V3
+  planner_algorithm: independent_directed_se2_state_lattice
+  pinned_smac_role: interface_audit_and_frozen_E0_E4_comparator_only
+  effective_cost_source: nav2_global_master_costmap_service_after_exact_ack
+  path_message: nav_msgs/Path
+  path_topic: /pln02_2a_v3/global_path
+  path_ack_identity: canonical_defined_message_fields_excluding_cdr_padding
+  preserve_raw_serialization_hashes_as_diagnostic: true
+  require_exact_content_local_echo: true
+  exact_ack_timeout_s: 2.0
+  fixed_settle_s: 0.0
+  ros_domain_id: 188
+
+immutable_motion_contract:
+  yaw_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  padded_footprint: [[0.265, 0.225], [0.265, -0.225], [-0.265, -0.225], [-0.265, 0.225]]
+
+targeted_gate:
+  require_all_queries: true
+  require_r0: true
+  lane_correct_side_ratio_min: 0.80
+  lane_target_band_ratio_min_exclusive: 0.50
+  lane_lateral_error_p50_max_m: 0.50
+  collision_violations_max: 0
+  kinematic_violations_max: 0
+  hard_semantic_violations_max: 0
+  no_stopping_goal_violations_max: 0
+  reverse_distance_max_m: 0.0
+  rotate_in_place_max: 0
+  maximum_curvature_1pm: 2.50
+  exact_ack_mismatch_max: 0
+  candidate_over_e0_cold_p50_hard_max: 2.0
+  candidate_over_e0_cold_p50_target: 1.5
+
+stage_gates:
+  selected8: only_after_online_targeted_exact_ack_safety_and_latency_pass
+  historical_path_as_planner_input: forbidden
+  failed_ack_behavior: fail_closed_no_path_publication

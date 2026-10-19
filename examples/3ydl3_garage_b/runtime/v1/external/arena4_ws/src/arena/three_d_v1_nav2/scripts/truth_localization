@@ -1,0 +1,5 @@
+#!/usr/bin/python3
+from three_d_v1_nav2.truth_localization_node import main
+
+if __name__ == "__main__":
+    main()

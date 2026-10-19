@@ -1,0 +1,21 @@
+schema_version: PLN-02-2A-V3-R6-FAST-SWEEP-CONFIG-V1
+architecture_id: 2A-V3
+implementation_revision: r6-conservative-fast-footprint-sweep
+protocol_id: PLN-02-2A-V3-R6-CONSERVATIVE-FAST-FOOTPRINT-SWEEP-V1
+extends_config:
+  path: two_layer_v3_semantic_r5_narrow_lazy.yaml
+  sha256: 2604ce0606762256973562189db6505edb26f8fed879ab6d314a0e00b2af7518
+predecessor_config:
+  path: two_layer_v3_semantic_r5_narrow_lazy.yaml
+  sha256: 2604ce0606762256973562189db6505edb26f8fed879ab6d314a0e00b2af7518
+  frozen_result: private_data/pudu_wanda_3f/results/2a_v3_r5_lazy_positive_calibration_20260907T183000Z/result.json
+  frozen_result_sha256: ed102d755a3caec64330b56e093b365698f52b4dc01ff51ee42f0acb27012e83
+  reason: R5 triad strict-passed, but positive edge validation remained 5.97 s before request field construction
+mirror_selection:
+  selection_rule: frozen candidate-005 positive from three independent R0 replays; no R6 reselection
+performance_implementation:
+  graph_generation: lazy_guided
+  conservative_fast_dense_edge_certificate: 3x3 same-lane safe-grid neighborhood and orientation-independent footprint clearance
+  uncertain_edge_fallback: unchanged dense interpolation and exact rectangle checks
+stage_gates:
+  stage2_offline_triad: all three fresh fast-sweep requests strict pass before online

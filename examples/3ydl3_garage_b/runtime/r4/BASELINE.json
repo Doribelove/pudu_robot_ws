@@ -1,0 +1,12 @@
+{
+  "version": "3YDL3-V11-r4",
+  "parent": "/home/robot/workspaces/3ydl3_v11_r3_requestcore_k_20261016",
+  "adopted": false,
+  "policy_file": "config/endpoint_tolerance.json",
+  "workspace": "/home/robot/workspaces/3ydl3_v11_r4_tailflow_i_20261016",
+  "intermediate_parent": "/home/robot/workspaces/3ydl3_v11_r4_tailflow_h_20261016",
+  "candidate": "H plus one-use current-observation digest after complete reconstruction and byte equality",
+  "status": "active",
+  "phase": "source-locked static tail acceptance",
+  "active_processes": []
+}

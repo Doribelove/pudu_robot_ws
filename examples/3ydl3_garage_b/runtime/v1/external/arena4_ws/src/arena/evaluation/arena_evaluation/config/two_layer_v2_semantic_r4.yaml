@@ -1,0 +1,85 @@
+schema_version: two_layer_v2_semantic_r4_config.v1
+architecture_id: 2A-V2
+implementation_revision: r4-se2-guide-interface
+protocol_id: PLN-02-2A-V2-R4-SE2-GUIDE-INTERFACE-V1
+parent_architecture: 2A-V2-r3
+task_type: time-boxed feasibility research with hard stop gates
+
+parent_config:
+  path: two_layer_v2_semantic_r3.yaml
+  sha256: 367d0d30db025b19e977957d930860b9614cbd9f89c5903c74bb8910db88180f
+
+frozen_bindings:
+  map_hash: 05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a
+  semantic_map_hash: 2560a4f4c86a86aeaf9993262648aaeb26998948e79fe3b92ecf47b6e69d0553
+  targeted_query_hash: 66212b05ef6c4d16eaedafc1c27866387c3d74aa85bf5ac69bca92487254667d
+  selected8_query_set_id: pudu_wanda_3f_semantic_compare_selected8_r2_v2
+  selected8_query_hash: 7e2a5ddb7a91b175779c0cfc1063dad77bf1c926ee52be94c350203204bac43e
+  targeted_query_ids:
+    - r3-mirror-1-positive
+    - r3-mirror-2-negative
+    - cmp2-02-lane-south
+
+se2_guide:
+  resolution_m: 0.05
+  yaw_bins: 48
+  motion_model: DUBIN
+  allow_reverse: false
+  allow_in_place_rotation: false
+  minimum_turning_radius_m: 0.40
+  maximum_curvature_1pm: 2.50
+  primitive_sample_spacing_m: 0.025
+  analytic_expansion_max_length_m: 3.0
+  max_iterations: 1000000
+  timeout_s: 120.0
+  cost_penalty: 2.0
+  non_straight_penalty: 1.2
+  retrospective_penalty: 0.015
+  reference_deviation_weight: 4.0
+  reference_position_scale_m: 1.50
+  reference_yaw_weight: 1.50
+  heuristic_weight: 2.0
+  wrong_side_weight: 3.0
+  target_error_m: 0.50
+  correct_side_ratio_min: 0.80
+  target_band_ratio_min_exclusive: 0.50
+  lane_target_right_boundary_m: 0.40
+  nav2_footprint_padding_m: 0.01
+  footprint:
+    - [0.255, 0.215]
+    - [0.255, -0.215]
+    - [-0.255, -0.215]
+    - [-0.255, 0.215]
+
+stage2_gate:
+  require_all_targeted_witnesses: true
+  require_exact_endpoint_xy: true
+  require_same_lane_instance: true
+  collision_violations_max: 0
+  reverse_distance_m_max: 0.0
+  in_place_rotation_count_max: 0
+  maximum_curvature_1pm_max: 2.50
+  correct_side_ratio_min: 0.80
+  lateral_error_p50_m_max: 0.50
+
+stage4_online_gate:
+  required_relaxation: R0
+  correct_side_ratio_min: 0.80
+  lateral_error_p50_m_max: 0.50
+  collision_violations_max: 0
+  kinematic_violations_max: 0
+  hard_semantic_violations_max: 0
+  no_stopping_goal_violations_max: 0
+  reverse_distance_m_max: 0.0
+  in_place_rotation_count_max: 0
+  maximum_curvature_1pm_max: 2.50
+  exact_ack_mismatch_max: 0
+  e5_over_e0_cold_request_p50_max: 2.0
+  e5_over_e0_cold_request_p50_target: 1.5
+
+hard_stop:
+  stage2_failure: C1
+  stage2_failure_action: do_not_implement_or_run_online_E5_or_selected8
+  stage4_failure: C2
+  stage4_failure_action: do_not_run_selected8
+  selected8_failure: B

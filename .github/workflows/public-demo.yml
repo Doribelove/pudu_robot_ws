@@ -1,0 +1,59 @@
+name: Public 3YDL3 example
+on:
+  push:
+    paths: ['examples/3ydl3_garage_b/**', 'tests/public_demo/**', '.github/workflows/public-demo.yml']
+  pull_request:
+    paths: ['examples/3ydl3_garage_b/**', 'tests/public_demo/**', '.github/workflows/public-demo.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contract-tests:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install hash-locked Python dependencies
+        run: |
+          python3 -m venv .demo-venv
+          .demo-venv/bin/pip install --require-hashes -r examples/3ydl3_garage_b/requirements.lock
+      - name: Integrity and failure-path tests
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '1'
+        run: |
+          python3 examples/3ydl3_garage_b/demo.py --verify-only
+          .demo-venv/bin/python -m pytest tests/public_demo -q
+  full-three-layer-example:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    container:
+      image: ros:humble-ros-base-jammy@sha256:566b87e6dfc48392189a9c32e594e84060fa9948de93b04e536f39475a1f6963
+      # bubblewrap creates a private home/IPC/PID namespace for the legacy runtime.
+      options: --privileged
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install pinned Nav2 entry packages
+        run: bash examples/3ydl3_garage_b/install_system_dependencies.sh
+      - name: Install hash-locked Python dependencies
+        run: |
+          python3 -m venv .demo-venv
+          .demo-venv/bin/pip install --require-hashes -r examples/3ydl3_garage_b/requirements.lock
+      - name: Probe and run original fixed Q01–Q10
+        run: |
+          .demo-venv/bin/python examples/3ydl3_garage_b/demo.py --probe --venv .demo-venv --output /tmp/demo-probe
+          .demo-venv/bin/python examples/3ydl3_garage_b/demo.py --all-queries --venv .demo-venv --output /tmp/demo-results
+      - name: Record resolved OS package versions
+        if: always()
+        run: dpkg-query -W > /tmp/demo-system-packages.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: garage-b-validation
+          path: |
+            /tmp/demo-probe/console.log
+            /tmp/demo-results/validation.json
+            /tmp/demo-results/console.log
+            /tmp/demo-results/run/summary.json
+            /tmp/demo-results/run/protocol.json
+            /tmp/demo-system-packages.txt

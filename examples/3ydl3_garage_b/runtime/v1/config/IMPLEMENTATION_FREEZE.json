@@ -1,0 +1,15 @@
+{
+  "frozen_at_utc": "2026-09-14T03:58:35.576858+00:00",
+  "files": {
+    "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_pipeline.py": "f6f5609d61b18957e32603701668a475d7cca84e875d94153917718707bdce90",
+    "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_l2.py": "2a316b795a8ebd636646126c1b8e5631668f4faf0e7f71493aff05ece5dcd626",
+    "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_reference.py": "8638c3e93ff5a5d2e201af8007fab3a6fa51ceb7789cd3229c1dba07f2af17cd",
+    "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_world.py": "27bc6c2b90d6b2301b05331e8854d27ce6cbf6f24f5d06a005321025a234c001",
+    "external/arena4_ws/src/arena/three_d_v1/arena_3d_v1/semantic_graph.py": "4cbb7a4cd0f6955dbb40e1aedf7682075b39e94d68d08fa8e4c8d926cba777e7",
+    "tools/benchmark.py": "d8ab75b9e0186b10016f6e57fdef2b3e5aac039c4d9eea87e317eea6a4c81339",
+    "tools/controlled_benchmark.py": "ea73369c5368679ff77b932b9ef9a9b94f1abb258b2c7dd787521581f7cd94b4",
+    "native/swept_rect.cpp": "6e7314ef757f1a2a305bd8f5200cf8f0dea19c002b99f1750fc17eb57e96da50"
+  },
+  "weights_sha256": "5a65e2cde31a4318a181961feafba88c71b5124c90cfb43b71a130218f1028a3",
+  "note": "Before the first solver run of the four real heldout queries. Controlled rotated holdout first-use results are separately retained in controlled_formal_01; no preference weights changed."
+}
