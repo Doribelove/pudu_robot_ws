@@ -14,6 +14,8 @@ A reproducible three-layer global-planning research example: semantic route sele
 | L2 | 在所选范围内搜索二维参考，并构造软目标 | `l2_reference_xy.npy`、`l2_soft_target.json` |
 | L3 | 完整路线三次 B 样条优化、连续证书与严格终验 | `path.npy`、`outcome.json`、`l3_scope.npz` |
 
+![合成地库 B / Q01 实际输出](examples/3ydl3_garage_b/map/q01-preview.png)
+
 ## 第一次运行
 
 支持 **Ubuntu 22.04、Linux x86_64、Python 3.10、ROS 2 Humble**。建议至少 4 GiB 可用内存。
