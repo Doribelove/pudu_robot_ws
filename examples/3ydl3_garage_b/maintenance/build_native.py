@@ -26,17 +26,25 @@ def main():
     subprocess.run(['g++', '-O3', '-std=c++17', '-fPIC', '-shared', str(v1 / 'native/swept_rect.cpp'),
                     '-o', str(v1 / 'build/libsemantic_sweep.so')], check=True)
     build = ROOT / '.native-build'
+    sdk = ROOT / 'runtime/nav2_sdk'
+    # Build a coherent Nav2 1.1.19 ABI, including the accepted costmap patch.
+    subprocess.run(['colcon', 'build', '--base-paths', str(ROOT / 'runtime/nav2_sources'),
+                    str(r / 'external/nav2_costmap_2d'), '--merge-install',
+                    '--build-base', str(build / 'sdk'), '--install-base', str(sdk),
+                    '--executor', 'sequential', '--cmake-args', '-DCMAKE_BUILD_TYPE=Release',
+                    '-DBUILD_TESTING=OFF'], cwd=build.parent, check=True)
+    costmap_prefix = r / 'install/nav2_snapshot_local/lib'
+    costmap_prefix.mkdir(parents=True, exist_ok=True)
+    for lib in (sdk / 'lib').glob('*.so'):
+        if lib.name in ['libnav2_costmap_2d_core.so', 'liblayers.so', 'libfilters.so', 'libnav2_costmap_2d_client.so']:
+            shutil.copy2(lib, costmap_prefix / lib.name)
     env = dict(os.environ)
-    for project, source in [('costmap', r / 'external/nav2_costmap_2d'), ('stack', r / 'native/nav2_stack')]:
-        args = ['cmake', '-S', str(source), '-B', str(build / project), '-DCMAKE_BUILD_TYPE=Release', '-DBUILD_TESTING=OFF']
-        if project == 'costmap':
-            args += ['-DCMAKE_INSTALL_PREFIX=' + str(r / 'install/nav2_snapshot_local')]
-        subprocess.run(args, check=True, env=env)
-        subprocess.run(['cmake', '--build', str(build / project), '-j', str(a.jobs)], check=True, env=env)
-        if project == 'costmap':
-            subprocess.run(['cmake', '--install', str(build / project)], check=True, env=env)
-        else:
-            shutil.copy2(build / project / 'curve_nav2_stack', r / 'native/curve_nav2_stack')
+    env['AMENT_PREFIX_PATH'] = str(sdk) + ':' + env.get('AMENT_PREFIX_PATH', '')
+    env['CMAKE_PREFIX_PATH'] = str(sdk) + ':' + env.get('CMAKE_PREFIX_PATH', '')
+    subprocess.run(['cmake', '-S', str(r / 'native/nav2_stack'), '-B', str(build / 'stack'),
+                    '-DCMAKE_BUILD_TYPE=Release'], check=True, env=env)
+    subprocess.run(['cmake', '--build', str(build / 'stack'), '-j', str(a.jobs)], check=True, env=env)
+    shutil.copy2(build / 'stack/curve_nav2_stack', r / 'native/curve_nav2_stack')
     print('Rebuilt in this checkout. Inspect changes, refresh the manifest, then rerun the full example.')
 
 

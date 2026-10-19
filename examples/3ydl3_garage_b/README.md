@@ -14,7 +14,7 @@ python3 -m venv .demo-venv
 .demo-venv/bin/pip install --require-hashes -r examples/3ydl3_garage_b/requirements.lock
 ```
 
-Python 直接与间接依赖全部锁定版本和 wheel SHA-256。核心版本为 NumPy 1.24.4、SciPy 1.8.0、Clarabel 0.11.1、OSQP 0.6.7.post3、OpenCV 4.5.4。安装脚本锁定 Nav2 1.1.20 的 apt 构建版本；包内保留验收时的修改版 costmap 库及源码（1.1.19 基底）。CI 基础镜像也固定 SHA-256，实际系统包版本随 CI 证据导出。Ubuntu 的传递系统依赖仍由 apt 解析；本发布不声称提供整个操作系统的逐字节快照。
+Python 直接与间接依赖全部锁定版本和 wheel SHA-256。核心版本为 NumPy 1.24.4、SciPy 1.8.0、Clarabel 0.11.1、OSQP 0.6.7.post3、OpenCV 4.5.4。安装脚本锁定 Nav2 1.1.20 的 apt 构建版本；包内同时提供验收时相互匹配的 Nav2 1.1.19 规划服务/插件库、修改版 costmap 库及对应源码；运行时优先使用这一整组接口，避免与系统 1.1.20 库混用。CI 基础镜像也固定 SHA-256，实际系统包版本随 CI 证据导出。Ubuntu 的传递系统依赖仍由 apt 解析；本发布不声称提供整个操作系统的逐字节快照。
 
 若锁定的 apt 构建已被镜像移除，安装会明确失败；不要静默改为任意最新版。应在新发布中调整依赖并重跑完整示例。
 
@@ -68,6 +68,7 @@ python3 examples/3ydl3_garage_b/demo.py --verify-only
 
 ```bash
 source /opt/ros/humble/setup.bash
+# 开发重编译还需要 g++、cmake、colcon 与相应 ROS 开发包
 python3 examples/3ydl3_garage_b/maintenance/build_native.py --jobs 1
 python3 examples/3ydl3_garage_b/maintenance/refresh_manifest.py
 ```

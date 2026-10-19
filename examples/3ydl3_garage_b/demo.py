@@ -76,6 +76,7 @@ def namespace_command(output, fixed, venv, command):
         '--ro-bind', str(fixed), FIXED,
         '--ro-bind', str(venv), '/venv',
         '--ro-bind', str(ROOT), '/demo',
+        '--ro-bind', str(ROOT / 'runtime/nav2_sdk'), '/sdk',
         '--tmpfs', '/tmp', '--tmpfs', '/run', '--proc', '/proc',
         '--dev-bind', '/dev', '/dev', '--tmpfs', '/dev/shm',
         '--bind', str(output), '/output', '--chdir', '/output',

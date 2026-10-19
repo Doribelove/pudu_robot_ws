@@ -6,6 +6,7 @@ First self-contained public example for the accepted V11-r4 architecture.
 
 - Include synthetic garage B, all original fixed Q01–Q10, semantic/topology and parking-access bindings.
 - Add a relocatable, private-namespace launcher with a default Q01 example and complete fixed-ten mode.
+- Keep the accepted Nav2 1.1.19 server/plugin ABI together, with matching source and library hashes.
 - Hash-pin Python wheels and transitive dependencies; pin Nav2 entry packages and the CI base-image digest.
 - Automatically verify exact endpoints, original strict audit/ACK evidence, continuous curvature and exported curve/path consistency.
 - Provide input-tampering/failure-path tests and a complete three-layer CI job.

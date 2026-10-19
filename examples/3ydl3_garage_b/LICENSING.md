@@ -11,7 +11,7 @@ does not relicense third-party code or the historical repository as a whole.
 
 | Component | Applicable terms | Preserved evidence |
 |---|---|---|
-| Nav2 costmap sources, installed costmap libraries and plugins | BSD-3-Clause and Apache-2.0, as indicated by each original file | Source headers and `package.xml`; `licenses/Nav2-BSD.txt`, `licenses/Apache-2.0.txt` |
+| Nav2 SDK 1.1.19 server/plugin libraries and `runtime/nav2_sources`, costmap sources/libraries | BSD-3-Clause and Apache-2.0, as indicated by each original file | Source headers and `package.xml`; `licenses/Nav2-BSD.txt`, `licenses/Apache-2.0.txt` |
 | `runtime/r4/native/goal_dijkstra.cpp` | SciPy BSD terms, including the retained copyright notices | `native/THIRD_PARTY.md`, `native/SCIPY_LICENSE.txt` |
 | Arena integration/base planning packages in `runtime/v1/external` | Retain the original BSD declarations and any file-level notices; Arena upstream's MIT notice is also included | `package.xml`, source headers, `licenses/Arena-MIT.txt` |
 | Earlier planning layers in `runtime/v5` | Original notices and the BSD declarations of their base packages; no third-party notices are removed | Source, package metadata and native component notices |
