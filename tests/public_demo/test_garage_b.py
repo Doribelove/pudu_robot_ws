@@ -104,3 +104,53 @@ def test_mismatched_native_library_rejected(tmp_path, monkeypatch):
     monkeypatch.setattr(validate_result, 'ROOT', tmp_path)
     with pytest.raises(ValueError, match='Loaded native library differs'):
         validate_result.validate_libraries(tmp_path)
+
+
+@pytest.fixture
+def native_snapshot(tmp_path, monkeypatch):
+    manifest = {'files': {
+        'runtime/v5/install/nav2_snapshot_local/lib/liblayers.so': '1' * 64,
+        'runtime/r4/install/nav2_snapshot_local/lib/libnav2_costmap_2d_core.so': '2' * 64,
+        'runtime/nav2_sdk/lib/libnav2_smac_planner.so': '3' * 64,
+    }}
+    (tmp_path / 'MANIFEST.json').write_text(json.dumps(manifest))
+    monkeypatch.setattr(validate_result, 'ROOT', tmp_path)
+    libraries = {'/sdk/' + Path(name).name: value
+                 for name, value in manifest['files'].items()}
+    return libraries
+
+
+@pytest.mark.parametrize('same_process', [False, True])
+@pytest.mark.parametrize('mismatched_first', [False, True])
+def test_mixed_native_libraries_rejected_in_any_order(
+        tmp_path, native_snapshot, same_process, mismatched_first):
+    mismatched = {'/other/liblayers.so': '0' * 64}
+    groups = [mismatched, native_snapshot] if mismatched_first else [native_snapshot, mismatched]
+    if same_process:
+        groups = [{name: value for group in groups for name, value in group.items()}]
+    snapshot = {'snapshot': 'locked',
+                'processes': [{'libraries': group} for group in groups]}
+    (tmp_path / 'loaded_nav2_libraries.json').write_text(json.dumps(snapshot))
+    with pytest.raises(ValueError, match='Loaded native library differs: liblayers.so'):
+        validate_result.validate_libraries(tmp_path)
+
+
+@pytest.mark.parametrize('same_process', [False, True])
+def test_matching_native_library_copies_accepted(tmp_path, native_snapshot, same_process):
+    duplicate = {'/other/liblayers.so': native_snapshot['/sdk/liblayers.so']}
+    groups = [{**native_snapshot, **duplicate}] if same_process else [native_snapshot, duplicate]
+    snapshot = {'snapshot': 'locked',
+                'processes': [{'libraries': group} for group in groups]}
+    (tmp_path / 'loaded_nav2_libraries.json').write_text(json.dumps(snapshot))
+    assert validate_result.validate_libraries(tmp_path) == {
+        Path(name).name: value for name, value in native_snapshot.items()}
+
+
+@pytest.mark.parametrize('missing', ['liblayers.so', 'libnav2_costmap_2d_core.so',
+                                   'libnav2_smac_planner.so'])
+def test_missing_native_library_rejected(tmp_path, native_snapshot, missing):
+    del native_snapshot['/sdk/' + missing]
+    snapshot = {'snapshot': 'locked', 'processes': [{'libraries': native_snapshot}]}
+    (tmp_path / 'loaded_nav2_libraries.json').write_text(json.dumps(snapshot))
+    with pytest.raises(ValueError, match='Loaded native library differs: ' + missing):
+        validate_result.validate_libraries(tmp_path)

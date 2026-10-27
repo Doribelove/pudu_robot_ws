@@ -26,11 +26,15 @@ def validate_libraries(folder):
                      else 'runtime/v5/install/nav2_snapshot_local/lib/liblayers.so')
     required = [active_layers, 'runtime/r4/install/nav2_snapshot_local/lib/libnav2_costmap_2d_core.so',
                 'runtime/nav2_sdk/lib/libnav2_smac_planner.so']
-    observed = {Path(name).name: value for process in snapshot['processes']
-                for name, value in process['libraries'].items()}
+    # Keep every loaded copy: another process or path with the correct hash
+    # must not hide an incompatible library with the same basename.
+    observed = [(Path(name).name, value) for process in snapshot['processes']
+                for name, value in process['libraries'].items()]
     for relative in required:
         name = Path(relative).name
-        require(observed.get(name) == manifest[relative], f'Loaded native library differs: {name}')
+        hashes = [value for observed_name, value in observed if observed_name == name]
+        require(bool(hashes) and all(value == manifest[relative] for value in hashes),
+                f'Loaded native library differs: {name}')
     return {Path(name).name: manifest[name] for name in required}
 
 

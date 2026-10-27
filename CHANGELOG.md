@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Reject mixed native-library hashes across all observed processes and paths in
+  the public example's result validator. A matching copy can no longer hide an
+  earlier incompatible copy with the same basename; matching duplicates remain
+  valid, and every required library must still be present. The planner, native
+  binaries, map bindings, and published demo.1 release are unchanged.
+
 ## 3ydl3-v11r4-demo.1 — 2026-10-19
 
 First self-contained public example for the accepted V11-r4 architecture.
