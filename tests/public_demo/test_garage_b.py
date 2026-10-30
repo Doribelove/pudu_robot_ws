@@ -2,6 +2,7 @@
 from pathlib import Path
 import importlib.util
 import json
+import shutil
 import sys
 import numpy as np
 import pytest
@@ -154,3 +155,44 @@ def test_missing_native_library_rejected(tmp_path, native_snapshot, missing):
     (tmp_path / 'loaded_nav2_libraries.json').write_text(json.dumps(snapshot))
     with pytest.raises(ValueError, match='Loaded native library differs: ' + missing):
         validate_result.validate_libraries(tmp_path)
+
+
+@pytest.fixture
+def result_folder(tmp_path, native_snapshot):
+    cases = tmp_path / 'cases'
+    cases.mkdir()
+    case, _, expected = fixture_case(cases)
+    shutil.copytree(case, cases / 'Q02_1')
+    (tmp_path / 'expected.json').write_text(json.dumps({
+        'version': 'fixture', 'map_id': 'fixture-map',
+        'queries': {'Q01': expected, 'Q02': expected}}))
+    (tmp_path / 'loaded_nav2_libraries.json').write_text(json.dumps({
+        'snapshot': 'locked', 'processes': [{'libraries': native_snapshot}]}))
+
+    def write_run(queries):
+        # Self-consistent counts must not allow empty validation or count one
+        # physical case twice when the requested IDs themselves are invalid.
+        (tmp_path / 'summary.json').write_text(json.dumps({
+            'runs': len(queries), 'success': len(queries),
+            'exact_endpoint_success': len(queries), 'tolerant_endpoint_success': 0}))
+        (tmp_path / 'protocol.json').write_text(json.dumps({
+            'version': 'fixture', 'map_id': 'fixture-map',
+            'l3_backend': 'independent', 'L1_frozen': True,
+            'global_L3_fallback': False, 'moving_window': False,
+            'actual_query_order': queries}))
+        return tmp_path
+
+    return write_run
+
+
+@pytest.mark.parametrize('queries', [[], ['Q01', 'Q01'], ['Q99']])
+def test_invalid_validation_queries_rejected(result_folder, queries):
+    with pytest.raises(ValueError, match='Select nonempty, unique query IDs from expected.json'):
+        validate_result.validate(result_folder(queries), queries)
+
+
+@pytest.mark.parametrize('queries', [['Q01'], ['Q02', 'Q01']])
+def test_valid_query_subsets(result_folder, queries):
+    result = validate_result.validate(result_folder(queries), queries)
+    assert result['passed'] == result['total'] == len(queries)
+    assert [case['query'] for case in result['cases']] == queries

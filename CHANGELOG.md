@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Reject empty, repeated or unknown query IDs before validating saved public-demo
+  results, preventing empty success reports and duplicate counting of one case.
+  Valid subsets and reordered unique selections continue to work.
 - Reject mixed native-library hashes across all observed processes and paths in
   the public example's result validator. A matching copy can no longer hide an
   earlier incompatible copy with the same basename; matching duplicates remain

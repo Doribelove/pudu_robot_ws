@@ -93,6 +93,9 @@ def validate_case(case, expected):
 def validate(folder, queries):
     folder = Path(folder)
     expected = json.loads((ROOT / 'expected.json').read_text())
+    require(bool(queries) and len(queries) == len(set(queries))
+            and set(queries) <= set(expected['queries']),
+            'Select nonempty, unique query IDs from expected.json')
     summary = json.loads((folder / 'summary.json').read_text())
     require(summary['runs'] == summary['success'] == summary['exact_endpoint_success'] == len(queries), 'Unexpected success counts')
     require(summary['tolerant_endpoint_success'] == 0, 'Unexpected tolerance fallback')

@@ -66,6 +66,12 @@ python3 examples/3ydl3_garage_b/demo.py --verify-only
 
 原生库检查覆盖快照中每个进程、每条路径下的同名库：任何副本的哈希不匹配都会拒绝结果，不会被后出现的正确副本覆盖。相同哈希的重复加载允许通过，三种必需库仍须全部出现。
 
+重新验证已保存的结果时，查询列表必须非空、无重复且全部来自 `expected.json` 中的 Q01–Q10，避免空结果通过或同一组结果被重复计数。例如验证已完成的十组运行：
+
+```bash
+.demo-venv/bin/python examples/3ydl3_garage_b/validate_result.py /tmp/garage-b-fixed10/run --queries Q01 Q02 Q03 Q04 Q05 Q06 Q07 Q08 Q09 Q10
+```
+
 查看自己这次运行的结果图：
 
 ```bash
