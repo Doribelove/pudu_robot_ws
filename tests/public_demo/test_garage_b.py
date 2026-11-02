@@ -75,6 +75,46 @@ def test_valid_curve_output(tmp_path):
     assert validate_case(case, expected)['curve_output_bound'] is True
 
 
+def sampled_straight_case(tmp_path, parameters, domain=(0., 1.)):
+    case, result, expected = fixture_case(tmp_path)
+    low, high = domain
+    parameters = np.asarray(parameters)
+    # Analytic affine curve, including its extrapolation. Keep every other
+    # evidence channel consistent so only the parameter contract can reject it.
+    path = np.column_stack(((parameters - low) / (high - low),
+                            np.zeros(len(parameters)), np.zeros(len(parameters))))
+    np.save(case / 'path.npy', path)
+    model = result['curve_model']
+    model['knots'] = [low] * 4 + [high] * 4
+    model['parameters'] = parameters.tolist()
+    length = float(np.abs(np.diff(path[:, 0])).sum())
+    result['metrics']['path_length_m'] = length
+    expected.update(start=path[0].tolist(), goal=path[-1].tolist(), path_length_m=length)
+    (case / 'outcome.json').write_text(json.dumps(result))
+    return case, expected
+
+
+@pytest.mark.parametrize('parameters', [
+    [-.1, .5, 1.], [0., .5, 1.1],
+    [0., .5, .5, 1.], [0., .75, .25, 1.],
+])
+def test_invalid_curve_parameters_rejected(tmp_path, parameters):
+    case, expected = sampled_straight_case(tmp_path, parameters)
+    with pytest.raises(ValueError, match='Curve parameters must increase within the spline domain'):
+        validate_case(case, expected)
+
+
+@pytest.mark.parametrize('domain, parameters', [
+    ((0., 1.), [0., .1, .9, 1.]),
+    ((2., 5.), [2., 2.3, 4.7, 5.]),
+    ((2., 5.), [2.3, 3.5, 4.7]),
+    ((-3., -1.), [-3., -2., -1.]),
+])
+def test_ordered_curve_parameters_within_domain_accepted(tmp_path, domain, parameters):
+    case, expected = sampled_straight_case(tmp_path, parameters, domain)
+    assert validate_case(case, expected)['curve_output_bound'] is True
+
+
 @pytest.mark.parametrize('change', ['ack', 'curvature', 'traffic', 'tolerance', 'missing_audit', 'detached_path', 'endpoint'])
 def test_invalid_result_never_accepted(tmp_path, change):
     case, result, expected = fixture_case(tmp_path)

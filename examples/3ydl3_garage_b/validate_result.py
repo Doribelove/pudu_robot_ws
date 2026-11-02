@@ -71,9 +71,14 @@ def validate_case(case, expected):
         require(abs(yaw_error) <= 1e-6, f'{role} yaw drift')
     model = outcome['curve_model']
     require(model['degree'] == 3, 'Expected cubic B-spline')
-    spline = BSpline(model['knots'], model['coefficients'], model['degree'])
+    spline = BSpline(model['knots'], model['coefficients'], model['degree'], extrapolate=False)
     t = np.asarray(model['parameters'])
     require(t.shape == (len(path),) and np.isfinite(t).all(), 'Curve/path parameter mismatch')
+    # Match the planner's certificate precondition: extrapolated or reversed
+    # samples are not covered merely because they lie on the same polynomial.
+    require(np.all(np.diff(t) > 0) and t[0] >= spline.t[spline.k]
+            and t[-1] <= spline.t[-spline.k - 1],
+            'Curve parameters must increase within the spline domain')
     require(np.max(np.linalg.norm(spline(t) - path[:, :2], axis=1)) <= 1e-6, 'Path detached from certified curve')
     tangent = spline(t, 1)
     yaw = np.arctan2(tangent[:, 1], tangent[:, 0])

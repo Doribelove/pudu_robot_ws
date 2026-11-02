@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Reject public-demo curve parameters outside the spline's base interval or in
+  non-increasing order, matching the planner's certificate preconditions.
+  Disable extrapolation when binding exported paths to their saved curves;
+  shifted knot domains and valid ordered subintervals remain supported.
 - Reject empty, repeated or unknown query IDs before validating saved public-demo
   results, preventing empty success reports and duplicate counting of one case.
   Valid subsets and reordered unique selections continue to work.
