@@ -81,6 +81,10 @@ def validate_case(case, expected):
             'Curve parameters must increase within the spline domain')
     require(np.max(np.linalg.norm(spline(t) - path[:, :2], axis=1)) <= 1e-6, 'Path detached from certified curve')
     tangent = spline(t, 1)
+    # atan2(0, 0) returns zero without a defined derivative direction.
+    # Check components directly to avoid underflow from squaring tiny tangents.
+    require(np.isfinite(tangent).all() and np.any(tangent != 0, axis=1).all(),
+            'Curve samples need finite, nonzero tangents')
     yaw = np.arctan2(tangent[:, 1], tangent[:, 0])
     delta = np.arctan2(np.sin(path[:, 2] - yaw), np.cos(path[:, 2] - yaw))
     require(np.max(abs(delta)) <= 1e-6, 'Path yaw detached from curve tangent')

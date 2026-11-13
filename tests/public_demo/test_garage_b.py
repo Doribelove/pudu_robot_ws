@@ -115,6 +115,29 @@ def test_ordered_curve_parameters_within_domain_accepted(tmp_path, domain, param
     assert validate_case(case, expected)['curve_output_bound'] is True
 
 
+@pytest.mark.parametrize('control_x, middle_x', [
+    ([0., 0., 0., 1.], .125),
+    ([0., 1., 0., 1.], .5),
+    ([0., 1., 1., 1.], .875),
+])
+def test_stationary_curve_sample_rejected(tmp_path, control_x, middle_x):
+    case, result, expected = fixture_case(tmp_path)
+    # x=t^3, x=4(t-.5)^3+.5 and x=1-(1-t)^3 have zero tangents
+    # at the start, middle and goal. Their positions and lengths still agree.
+    result['curve_model']['coefficients'] = [[x, 0.] for x in control_x]
+    np.save(case / 'path.npy', [[0., 0., 0.], [middle_x, 0., 0.], [1., 0., 0.]])
+    (case / 'outcome.json').write_text(json.dumps(result))
+    with pytest.raises(ValueError, match='Curve samples need finite, nonzero tangents'):
+        validate_case(case, expected)
+
+
+def test_small_nonzero_curve_tangent_accepted(tmp_path):
+    # Rescaling the parameter domain preserves the straight path and heading.
+    # Squaring this finite derivative would underflow when computing its norm.
+    case, expected = sampled_straight_case(tmp_path, [0., 5e199, 1e200], (0., 1e200))
+    assert validate_case(case, expected)['curve_output_bound'] is True
+
+
 @pytest.mark.parametrize('change', ['ack', 'curvature', 'traffic', 'tolerance', 'missing_audit', 'detached_path', 'endpoint'])
 def test_invalid_result_never_accepted(tmp_path, change):
     case, result, expected = fixture_case(tmp_path)
