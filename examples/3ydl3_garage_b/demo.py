@@ -114,6 +114,7 @@ def run(output, queries, venv, cpu, probe=False):
                 f'export THREEYD_BENCH_CPU={cpu}\n'
                 'export PYTHONNOUSERSITE=1\n'
                 'mkdir -p /tmp/home /output/ros_logs\n' + flags + '\n')
+        body += 'python3 /demo/check_environment.py\n'
         if probe:
             body += 'exec python3 /demo/probe.py\n'
         else:

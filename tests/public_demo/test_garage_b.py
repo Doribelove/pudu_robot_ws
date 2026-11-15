@@ -4,6 +4,7 @@ import importlib.util
 import json
 import shutil
 import sys
+from types import SimpleNamespace
 import numpy as np
 import pytest
 
@@ -296,3 +297,28 @@ def test_valid_query_subsets(result_folder, queries):
     result = validate_result.validate(result_folder(queries), queries)
     assert result['passed'] == result['total'] == len(queries)
     assert [case['query'] for case in result['cases']] == queries
+
+
+@pytest.mark.parametrize('probe', [False, True])
+def test_run_checks_environment_before_entrypoint(tmp_path, monkeypatch, probe):
+    monkeypatch.setattr(demo, 'verify_files', lambda: {})
+    monkeypatch.setattr(demo.platform, 'system', lambda: 'Linux')
+    monkeypatch.setattr(demo.platform, 'machine', lambda: 'x86_64')
+    monkeypatch.setattr(demo.shutil, 'which', lambda _: '/usr/bin/bwrap')
+    monkeypatch.setattr(demo.os, 'sched_getaffinity', lambda _: {0})
+    is_file = Path.is_file
+    monkeypatch.setattr(Path, 'is_file', lambda p: str(p) == '/opt/ros/humble/setup.bash' or is_file(p))
+    monkeypatch.setattr(demo, 'prepare_map', lambda folder: folder)
+    monkeypatch.setattr(validate_result, 'validate', lambda *args: {'passed': 1})
+    commands = []
+
+    def record_command(args, **kwargs):
+        commands.append(args[-1])
+        return SimpleNamespace(returncode=0)
+
+    monkeypatch.setattr(demo.subprocess, 'run', record_command)
+    venv = tmp_path / 'venv'
+    (venv / 'lib/python3.10/site-packages/numpy').mkdir(parents=True)
+    demo.run(tmp_path / 'output', ['Q01'], venv, 0, probe=probe)
+    entrypoint = 'exec python3 /demo/probe.py' if probe else 'exec python3 ' + demo.R4
+    assert commands[0].index('python3 /demo/check_environment.py') < commands[0].index(entrypoint)

@@ -20,6 +20,8 @@ python3 -m venv .demo-venv
 
 Python 直接与间接依赖全部锁定版本和 wheel SHA-256。核心版本为 NumPy 1.24.4、SciPy 1.8.0、Clarabel 0.11.1、OSQP 0.6.7.post3、OpenCV 4.5.4。安装脚本锁定 Nav2 1.1.20 的 apt 构建版本；包内同时提供验收时相互匹配的 Nav2 1.1.19 规划服务/插件库、修改版 costmap 库及对应源码；运行时优先使用这一整组接口，避免与系统 1.1.20 库混用。CI 基础镜像也固定 SHA-256，实际系统包版本随 CI 证据导出。Ubuntu 的传递系统依赖仍由 apt 解析；本发布不声称提供整个操作系统的逐字节快照。
 
+`--probe` 和正式规划都会在隔离环境设置完成后检查 Python 3.10、锁文件中的包版本，以及包元数据和实际导入模块是否来自指定 venv。缺包、版本漂移或回退到系统 Python 包会在规划前失败；检查结果和错误保存在 `console.log`。
+
 若锁定的 apt 构建已被镜像移除，安装会明确失败；不要静默改为任意最新版。应在新发布中调整依赖并重跑完整示例。
 
 ## 运行命令
@@ -105,4 +107,5 @@ python3 examples/3ydl3_garage_b/maintenance/refresh_manifest.py
 - `bwrap: ... Operation not permitted`：系统禁用了用户命名空间或容器限制了 `unshare`。使用允许命名空间的 Linux 环境；CI 配置提供了可参照的容器选项。
 - `DEMO_FILE_CHANGED` / `FROZEN_INPUT_CHANGED`：下载文件或固定输入发生变化，请重新取得原发布。不要通过刷新清单绕过用户侧错误。
 - `Run failed`：检查输出目录的 `console.log` 和 `run/smac/logs/`。已存在的输出目录会被拒绝，防止覆盖证据。
+- `PYTHON_ENVIRONMENT_MISMATCH`：按安装命令在指定 venv 中重装锁定依赖；日志会列出缺失包、版本差异或错误的导入来源。确认 `--venv` 指向本次安装的环境。
 - 架构或 Python 版本不符：本版只提供 amd64 / Python 3.10 的固定 wheel 和原生库，ARM/Windows/macOS 不在此发布验收范围。
