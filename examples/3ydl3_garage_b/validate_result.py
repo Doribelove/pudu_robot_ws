@@ -79,6 +79,11 @@ def validate_case(case, expected):
     require(np.all(np.diff(t) > 0) and t[0] >= spline.t[spline.k]
             and t[-1] <= spline.t[-spline.k - 1],
             'Curve parameters must increase within the spline domain')
+    # The certificate bounds each polynomial piece separately. Its parameter
+    # grid must contain every distinct knot inside the sampled subinterval.
+    internal = np.unique(spline.t[(spline.t > t[0]) & (spline.t < t[-1])])
+    require(np.isclose(t[np.searchsorted(t, internal)], internal, atol=1e-12, rtol=0).all(),
+            'Curve samples must include internal spline knots')
     require(np.max(np.linalg.norm(spline(t) - path[:, :2], axis=1)) <= 1e-6, 'Path detached from certified curve')
     tangent = spline(t, 1)
     # atan2(0, 0) returns zero without a defined derivative direction.

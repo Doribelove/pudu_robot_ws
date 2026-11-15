@@ -115,6 +115,43 @@ def test_ordered_curve_parameters_within_domain_accepted(tmp_path, domain, param
     assert validate_case(case, expected)['curve_output_bound'] is True
 
 
+def piecewise_straight_case(tmp_path, parameters, interior_knots, domain=(0., 1.)):
+    case, expected = sampled_straight_case(tmp_path, parameters, domain)
+    result = json.loads((case / 'outcome.json').read_text())
+    low, high = domain
+    knots = [low] * 4 + interior_knots + [high] * 4
+    # Greville abscissae exactly represent x=(t-low)/(high-low) with these
+    # cubic knots, including repeated knots and translated parameter domains.
+    control_x = [(sum(knots[i + 1:i + 4]) / 3 - low) / (high - low)
+                 for i in range(len(knots) - 4)]
+    result['curve_model'].update(knots=knots, coefficients=[[x, 0.] for x in control_x])
+    (case / 'outcome.json').write_text(json.dumps(result))
+    return case, expected
+
+
+@pytest.mark.parametrize('parameters, interior_knots', [
+    ([0., .5, 1.], [.4]),
+    ([0., .25, 1.], [.25, .75]),
+    ([.2, .5, .8], [.1, .4, .9]),
+])
+def test_curve_samples_cannot_skip_polynomial_boundaries(tmp_path, parameters, interior_knots):
+    case, expected = piecewise_straight_case(tmp_path, parameters, interior_knots)
+    with pytest.raises(ValueError, match='Curve samples must include internal spline knots'):
+        validate_case(case, expected)
+
+
+@pytest.mark.parametrize('domain, parameters, interior_knots', [
+    ((0., 1.), [0., .4, .7, 1.], [.4]),
+    ((0., 1.), [0., .4, 1.], [.4, .4]),
+    ((0., 1.), [.2, .4, .8], [.1, .4, .9]),
+    ((0., 1.), [.4, .6, .8], [.1, .4, .8, .9]),
+    ((2., 5.), [2.3, 3.5, 4.7], [2.1, 3.5, 4.9]),
+])
+def test_curve_samples_cover_polynomial_boundaries(tmp_path, domain, parameters, interior_knots):
+    case, expected = piecewise_straight_case(tmp_path, parameters, interior_knots, domain)
+    assert validate_case(case, expected)['curve_output_bound'] is True
+
+
 @pytest.mark.parametrize('control_x, middle_x', [
     ([0., 0., 0., 1.], .125),
     ([0., 1., 0., 1.], .5),
