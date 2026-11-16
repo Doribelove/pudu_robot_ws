@@ -1,0 +1,14 @@
+{
+  "P6_profile_contract_tests": 9,
+  "P7_r1_profile_inherited_contract_tests": 9,
+  "P7_r1_runtime_graph_assertions": 7,
+  "published_module_origins_verified": {
+    "p6": 8,
+    "p7-r1": 9
+  },
+  "original_source_locks_verified": 3618,
+  "bash_syntax_checked": true,
+  "relative_document_links_checked": 14,
+  "new_navigation_runs": 0,
+  "maps_loaded": false
+}

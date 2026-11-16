@@ -1,0 +1,223 @@
+{
+  "formal_requests": 300,
+  "expected_requests": 300,
+  "policy_successes": 300,
+  "audited_successes": 300,
+  "source_unchanged": true,
+  "runtime_published_and_assets_unchanged": true,
+  "contract_problems": [],
+  "contract_audit_passed": true,
+  "functional_gate_passed": true,
+  "model_proofs": [
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 2.2737367544323206e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 4.284350652028479e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 2.1094237467877974e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 8.668621376273222e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 6.186162693211372e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 3.0020430585864233e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 2.509104035652854e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 4.618527782440651e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 8.546496843564455e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 1.163069640597314e-12
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 2.2737367544323206e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 4.284350652028479e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 2.1094237467877974e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 8.668621376273222e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 6.186162693211372e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 3.0020430585864233e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 2.509104035652854e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 4.618527782440651e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 8.546496843564455e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 1.163069640597314e-12
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 2.2737367544323206e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 4.284350652028479e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 2.1094237467877974e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 8.668621376273222e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 6.186162693211372e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 3.0020430585864233e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 2.509104035652854e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 4.618527782440651e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 8.546496843564455e-13
+    },
+    {
+      "scope": "read-only actual default-profile navigation verification",
+      "requests": 10,
+      "success": 10,
+      "max_position_model_error_m": 0.0,
+      "max_heading_model_error_rad": 1.163069640597314e-12
+    }
+  ]
+}

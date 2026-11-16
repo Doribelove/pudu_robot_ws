@@ -1,0 +1,787 @@
+{
+  "python_solver_distributions": [
+    {
+      "name": "clarabel",
+      "version": "0.11.1",
+      "license_declared": "Apache-2.0",
+      "license_classifiers": [],
+      "metadata": {
+        "path": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/runtime/3YDL3-V13-L2/base/deps/clarabel-0.11.1.dist-info/METADATA",
+        "bytes": 4791,
+        "sha256": "854e78e21aa7e31fdda61cba0e120446f3637ceccfe99ba4b23dfc4bd4fe9870"
+      },
+      "notice_files": [
+        {
+          "path": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/runtime/3YDL3-V13-L2/base/deps/clarabel-0.11.1.dist-info/licenses/LICENSE.md",
+          "bytes": 10779,
+          "sha256": "6e2f382771f8aab58e4868ddd0afe0c2fefe6b54f9681493a9c3d0f32906cfe1"
+        }
+      ],
+      "source_build_this_round": false
+    },
+    {
+      "name": "osqp",
+      "version": "0.6.7.post3",
+      "license_declared": null,
+      "license_classifiers": [
+        "License :: OSI Approved :: Apache Software License"
+      ],
+      "metadata": {
+        "path": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/runtime/3YDL3-V13-L2/base/deps/osqp-0.6.7.post3.dist-info/METADATA",
+        "bytes": 1895,
+        "sha256": "35a361586587f03e1a5a70e7fd8cf56159b47b1a493c271fb5e08efc946e9bb6"
+      },
+      "notice_files": [
+        {
+          "path": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/runtime/3YDL3-V13-L2/base/deps/osqp-0.6.7.post3.dist-info/LICENSE",
+          "bytes": 11357,
+          "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+        }
+      ],
+      "source_build_this_round": false
+    },
+    {
+      "name": "qdldl",
+      "version": "0.1.7.post5",
+      "license_declared": "Apache 2.0",
+      "license_classifiers": [],
+      "metadata": {
+        "path": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/runtime/3YDL3-V13-L2/base/deps/qdldl-0.1.7.post5.dist-info/METADATA",
+        "bytes": 1692,
+        "sha256": "77a2e5e3a2b2c9a45c304bfc6f46b030bfb2afa0fc178771cc0c9414f6833b3f"
+      },
+      "notice_files": [
+        {
+          "path": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/runtime/3YDL3-V13-L2/base/deps/qdldl-0.1.7.post5.dist-info/LICENSE",
+          "bytes": 11376,
+          "sha256": "656f63ac3b94a6e9c906acd8f27e7e260a0293d19d77320bf99132f5cd2d1dea"
+        }
+      ],
+      "source_build_this_round": false
+    }
+  ],
+  "ros_packages": [
+    {
+      "name": "action_msgs",
+      "package_version": "1.2.3",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces/action_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces",
+      "commit": "82776fc9068d1e0cd4af11c2e2700195994b2eb1",
+      "package_xml_sha_verified_this_round": "92122217bd917960d8c20e6653c33bfe6fd08671c871fedfc54ae74e28c55841"
+    },
+    {
+      "name": "ament_index_cpp",
+      "package_version": "1.4.1",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ament/ament_index/ament_index_cpp",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ament/ament_index",
+      "commit": "ae673e815cae9413cfbf4cab6e91a9c1c73c84ef",
+      "package_xml_sha_verified_this_round": "c1245569a143f3aa7894edaf23e8170aeeb5d1631477ada385c56812ffa4cddb"
+    },
+    {
+      "name": "ament_index_python",
+      "package_version": "1.4.1",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ament/ament_index/ament_index_python",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ament/ament_index",
+      "commit": "ae673e815cae9413cfbf4cab6e91a9c1c73c84ef",
+      "package_xml_sha_verified_this_round": "c4a2d919521df6fd6ab9732538de797ff1384ce9c66dfb3cbb6b4abb65d373fd"
+    },
+    {
+      "name": "bond",
+      "package_version": "4.1.0",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/bond_core/bond",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/bond_core",
+      "commit": "b65dc1681a1b2930f7691c7a39d2aec9c1a67b6a",
+      "package_xml_sha_verified_this_round": "3226f0f996eee84f6d8334bc36195a7b22b7152b2f0d831c9ace76bd2d6d08e1"
+    },
+    {
+      "name": "bondcpp",
+      "package_version": "4.1.0",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/bond_core/bondcpp",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/bond_core",
+      "commit": "b65dc1681a1b2930f7691c7a39d2aec9c1a67b6a",
+      "package_xml_sha_verified_this_round": "2e6aed89f03bb4ac507c8c3e80b5e77ded722a085f926314281dd5fec9a94ec4"
+    },
+    {
+      "name": "builtin_interfaces",
+      "package_version": "1.2.3",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces/builtin_interfaces",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces",
+      "commit": "82776fc9068d1e0cd4af11c2e2700195994b2eb1",
+      "package_xml_sha_verified_this_round": "c84e0c5f3ccfb038168c92dbaf0ca179b29f7d24ba91e7d2e45f25d65d6b883c"
+    },
+    {
+      "name": "class_loader",
+      "package_version": "2.2.0",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros/class_loader",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros/class_loader",
+      "commit": "b59bce93380b73ac9061fba28e96bba540e2befe",
+      "package_xml_sha_verified_this_round": "adb5801c0ec740f6ef3ca4e8941c043defdcfbf9f30cd4ac6aa90f60eb93986e"
+    },
+    {
+      "name": "composition_interfaces",
+      "package_version": "1.2.3",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces/composition_interfaces",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces",
+      "commit": "82776fc9068d1e0cd4af11c2e2700195994b2eb1",
+      "package_xml_sha_verified_this_round": "0b6d6c430c09a488834e25c33b03f5d6cc8e1f291ac74cd2a84492a0088bc434"
+    },
+    {
+      "name": "diagnostic_msgs",
+      "package_version": "4.9.2",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces/diagnostic_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces",
+      "commit": "08434490d3e4abd37ccc5462cdde69b88853b5b8",
+      "package_xml_sha_verified_this_round": "956f87cbc4134a87a298946ad6fe7a6459b26537b4122464ba43339c357b0f76"
+    },
+    {
+      "name": "geometry_msgs",
+      "package_version": "4.9.2",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces/geometry_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces",
+      "commit": "08434490d3e4abd37ccc5462cdde69b88853b5b8",
+      "package_xml_sha_verified_this_round": "b2c715154e3ab951e30c174b3b4e80d4f9d6dc0361e50f9ff6812316cd86217a"
+    },
+    {
+      "name": "laser_geometry",
+      "package_version": "2.4.1",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros-perception/laser_geometry",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros-perception/laser_geometry",
+      "commit": "d53b925d25b4b5657261a44f4479365965cc2363",
+      "package_xml_sha_verified_this_round": "b0238a2b47c69df1b8973260c5b728813b8b8ace2a7d7a3aeccfca351ef7c135"
+    },
+    {
+      "name": "libstatistics_collector",
+      "package_version": "1.3.4",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros-tooling/libstatistics_collector",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros-tooling/libstatistics_collector",
+      "commit": "2f38291b9b36fea21467309d1ab83f022b65eaf7",
+      "package_xml_sha_verified_this_round": "a51b13fd70960d72d93d2566bd0652b651cffec198f45c4538ec0f7ad66266c9"
+    },
+    {
+      "name": "libyaml_vendor",
+      "package_version": "1.2.2",
+      "license_labels": [
+        "Apache License 2.0",
+        "MIT"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/libyaml_vendor",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/libyaml_vendor",
+      "commit": "239f695ceaa0820255f3d0fe02ec8c2bd41b8e78",
+      "package_xml_sha_verified_this_round": "e1ab3b98fc0fceb817dcb98c3b96a431868268c8e3d1e2a09d12bafdba71e968"
+    },
+    {
+      "name": "lifecycle_msgs",
+      "package_version": "1.2.3",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces/lifecycle_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces",
+      "commit": "82776fc9068d1e0cd4af11c2e2700195994b2eb1",
+      "package_xml_sha_verified_this_round": "210cc38fb5800829c5bf7a20b50d779ccbce49a025fb7e764dc2768c7505ef96"
+    },
+    {
+      "name": "map_msgs",
+      "package_version": "2.1.0",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros-planning/navigation_msgs/map_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros-planning/navigation_msgs",
+      "commit": "1d8683359734a2c829b5cdb6b5a4e015bbbcb6a5",
+      "package_xml_sha_verified_this_round": "8785c886fb236fadb712f25df69e6f2d0a57cdf630f8ecddcf3152678d71263c"
+    },
+    {
+      "name": "message_filters",
+      "package_version": "4.3.19",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/message_filters",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/message_filters",
+      "commit": "0844b2cca45704c5a2348126d88ea9f38c3316d8",
+      "package_xml_sha_verified_this_round": "334aa48d739cdda8dc9b423557a437ad8cf6b6f2d94c81fe2a81350728faf3b2"
+    },
+    {
+      "name": "nav2_costmap_2d",
+      "package_version": "1.1.19",
+      "license_labels": [
+        "BSD-3-Clause",
+        "Apache-2.0"
+      ],
+      "source_directory": "/home/robot/workspaces/3yd_v5_r11_20260922/install/nav2_snapshot_local/share/nav2_costmap_2d",
+      "repository": null,
+      "commit": null,
+      "package_xml_sha_verified_this_round": "53d040e506e498483a1ae6b79e245217b19a827eeb06320d3c4eeaa8ac897772"
+    },
+    {
+      "name": "nav2_lifecycle_manager",
+      "package_version": "1.1.19",
+      "license_labels": [
+        "Apache-2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2/nav2_lifecycle_manager",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2",
+      "commit": "656ae8d4c56978efbdd446fe85582f2bcd06e920",
+      "package_xml_sha_verified_this_round": "82efc4097552cfc8e7ffc7180659b51d3a17f0988dc422b98f98560bcd6b8b78"
+    },
+    {
+      "name": "nav2_map_server",
+      "package_version": "1.1.19",
+      "license_labels": [
+        "Apache-2.0",
+        "BSD-3-Clause"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2/nav2_map_server",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2",
+      "commit": "656ae8d4c56978efbdd446fe85582f2bcd06e920",
+      "package_xml_sha_verified_this_round": "420892c1137787211dc09de593b3e95c956fdd1d9455eb9540f12ede689a5ee1"
+    },
+    {
+      "name": "nav2_msgs",
+      "package_version": "1.1.19",
+      "license_labels": [
+        "Apache-2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2/nav2_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2",
+      "commit": "656ae8d4c56978efbdd446fe85582f2bcd06e920",
+      "package_xml_sha_verified_this_round": "ed8ed77ce08f2c142698fe7b12ea1fdcd77cf6eff76bd7c32a8cd3e0cf211b00"
+    },
+    {
+      "name": "nav2_planner",
+      "package_version": "1.1.19",
+      "license_labels": [
+        "Apache-2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2/nav2_planner",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2",
+      "commit": "656ae8d4c56978efbdd446fe85582f2bcd06e920",
+      "package_xml_sha_verified_this_round": "a5762f1b4f2f4664607a56228564599e4af10b0ca2c0dc2415c0daac81c21d61"
+    },
+    {
+      "name": "nav2_smac_planner",
+      "package_version": "1.1.19",
+      "license_labels": [
+        "Apache-2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2/nav2_smac_planner",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2",
+      "commit": "656ae8d4c56978efbdd446fe85582f2bcd06e920",
+      "package_xml_sha_verified_this_round": "16835b10d56c4e905811eb5bec22428cf35fd37a9799bf7bfe26a01b2b0db695"
+    },
+    {
+      "name": "nav2_util",
+      "package_version": "1.1.19",
+      "license_labels": [
+        "Apache-2.0",
+        "BSD-3-Clause"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2/nav2_util",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2",
+      "commit": "656ae8d4c56978efbdd446fe85582f2bcd06e920",
+      "package_xml_sha_verified_this_round": "a4528d6e0ddfea9047580b571778c44e60b7ab6b94680396d10e1e3f082e333d"
+    },
+    {
+      "name": "nav2_voxel_grid",
+      "package_version": "1.1.19",
+      "license_labels": [
+        "BSD-3-Clause"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2/nav2_voxel_grid",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2",
+      "commit": "656ae8d4c56978efbdd446fe85582f2bcd06e920",
+      "package_xml_sha_verified_this_round": "c7bae407272514ba0a4e0378200f8e02916b50ab3591f6bc64164762553dc3f3"
+    },
+    {
+      "name": "nav_msgs",
+      "package_version": "4.9.2",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces/nav_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces",
+      "commit": "08434490d3e4abd37ccc5462cdde69b88853b5b8",
+      "package_xml_sha_verified_this_round": "aa72f74f1b03b4b12df3901bb0a531df5238ac3ea7e8c163e377820df9f025a8"
+    },
+    {
+      "name": "pluginlib",
+      "package_version": "5.1.4",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros/pluginlib/pluginlib",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros/pluginlib",
+      "commit": "ae3ae9f154aeaa5f0803fb03d5b47b6515cd5020",
+      "package_xml_sha_verified_this_round": "7cb550a40cac0a450c7890fb5887e4774d99d45161c96a2a2708fc87b67d7e02"
+    },
+    {
+      "name": "rcl",
+      "package_version": "5.3.13",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl/rcl",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl",
+      "commit": "cbaee7c905e3276bb7a629eb1e18d8d3c781f194",
+      "package_xml_sha_verified_this_round": "6c5412b0c5fd5ab4fa30cfcce1ac54cabdb162a8fa2fc5a05ebc9637778e92fe"
+    },
+    {
+      "name": "rcl_action",
+      "package_version": "5.3.13",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl/rcl_action",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl",
+      "commit": "cbaee7c905e3276bb7a629eb1e18d8d3c781f194",
+      "package_xml_sha_verified_this_round": "5f5bdc60251e20e503e4cd560405a41fc3d1e75bbfa553c587ef38f3b5d33bde"
+    },
+    {
+      "name": "rcl_interfaces",
+      "package_version": "1.2.3",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces/rcl_interfaces",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces",
+      "commit": "82776fc9068d1e0cd4af11c2e2700195994b2eb1",
+      "package_xml_sha_verified_this_round": "1657c2c3d144ed6526a47578278cc9c573eaf77f42a7174c48716339c50f195f"
+    },
+    {
+      "name": "rcl_lifecycle",
+      "package_version": "5.3.13",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl/rcl_lifecycle",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl",
+      "commit": "cbaee7c905e3276bb7a629eb1e18d8d3c781f194",
+      "package_xml_sha_verified_this_round": "b09e9b6260a5ac02bbd23af3b0889da596c2c31a87df0331bdda5c6aaeb91518"
+    },
+    {
+      "name": "rcl_logging_interface",
+      "package_version": "2.3.2",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_logging/rcl_logging_interface",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_logging",
+      "commit": "5bab8cf7a19c466de77aee35fa55778298563c57",
+      "package_xml_sha_verified_this_round": "4c88d4469d2b4d3314a38be5b3cc9ae0b75e4e1c0079a4f6c952c6fe5b05e16e"
+    },
+    {
+      "name": "rcl_logging_spdlog",
+      "package_version": "2.3.2",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_logging/rcl_logging_spdlog",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_logging",
+      "commit": "5bab8cf7a19c466de77aee35fa55778298563c57",
+      "package_xml_sha_verified_this_round": "3cc059f79e42d1d179af7a985adbc995adbe5b32779898bc5c402ef9d02339e0"
+    },
+    {
+      "name": "rcl_yaml_param_parser",
+      "package_version": "5.3.13",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl/rcl_yaml_param_parser",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl",
+      "commit": "cbaee7c905e3276bb7a629eb1e18d8d3c781f194",
+      "package_xml_sha_verified_this_round": "940472a720c465c7b406f07144d4ebff0c11d324ea7d62566017aee2fc635d6b"
+    },
+    {
+      "name": "rclcpp",
+      "package_version": "16.0.19",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rclcpp/rclcpp",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rclcpp",
+      "commit": "a8d65c134fb5c2128670945b8dc7a9e62b25776c",
+      "package_xml_sha_verified_this_round": "01b74b79729d80df5eb155e31aabdc7e683f090af3c9acab7d3f12c9d36da5ed"
+    },
+    {
+      "name": "rclcpp_action",
+      "package_version": "16.0.19",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rclcpp/rclcpp_action",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rclcpp",
+      "commit": "a8d65c134fb5c2128670945b8dc7a9e62b25776c",
+      "package_xml_sha_verified_this_round": "e324ff07b4b900fa61ce47d8f1d844f74ae837338d235e7ea269f183567bdad0"
+    },
+    {
+      "name": "rclcpp_lifecycle",
+      "package_version": "16.0.19",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rclcpp/rclcpp_lifecycle",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rclcpp",
+      "commit": "a8d65c134fb5c2128670945b8dc7a9e62b25776c",
+      "package_xml_sha_verified_this_round": "df099f5206b7909d95d858e16639e329003f2ca31e7a38dabf10d71d48eb44fc"
+    },
+    {
+      "name": "rclpy",
+      "package_version": "3.3.21",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rclpy/rclpy",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rclpy",
+      "commit": "bdd9e318d23043b44bc62757402b32db4252eb9c",
+      "package_xml_sha_verified_this_round": "907e628bf9cfb637389628ba0868cb8982549bb1868c211321f0566fe542cca3"
+    },
+    {
+      "name": "rcpputils",
+      "package_version": "2.4.7",
+      "license_labels": [
+        "Apache License 2.0",
+        "BSD-3-Clause"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcpputils",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcpputils",
+      "commit": "ddb3f310870e1cd5395396ca36101075420ba8ba",
+      "package_xml_sha_verified_this_round": "a08f8eca5e14e2ce56e90e1c531e37a0d090765a2f7f464488b571342926da8a"
+    },
+    {
+      "name": "rcutils",
+      "package_version": "5.1.9",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcutils",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcutils",
+      "commit": "d812bf249acf258bf1ede94d357f7121ceb14672",
+      "package_xml_sha_verified_this_round": "b819cfd7e35ae12fb4149cfb66b6597e6e17ab109a3585bcb014f3ee7a76b367"
+    },
+    {
+      "name": "rmw",
+      "package_version": "6.1.3",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rmw/rmw",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rmw",
+      "commit": "0131b55611255c1dd46f367777792ac2fc952395",
+      "package_xml_sha_verified_this_round": "560f767fd452c3c4e2c5dcf99cd479c02fb47d64cab6927e75144455057b4309"
+    },
+    {
+      "name": "rmw_dds_common",
+      "package_version": "1.6.0",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rmw_dds_common/rmw_dds_common",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rmw_dds_common",
+      "commit": "e26ba1079886c5598614172db0b27526aa6af07d",
+      "package_xml_sha_verified_this_round": "fac73a618f44a2c3f0a8472062e5cd4b699931a2e327c088e553c12ff8bfd33d"
+    },
+    {
+      "name": "rmw_fastrtps_cpp",
+      "package_version": "6.2.10",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rmw_fastrtps/rmw_fastrtps_cpp",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rmw_fastrtps",
+      "commit": "cbe12977497c9c536317ca6488edf2f23b8c1830",
+      "package_xml_sha_verified_this_round": "022648afc4b275afabc0cdcd2735a67dd44e6ccdf5046cc91c2d1cfdbe5b20e5"
+    },
+    {
+      "name": "rmw_fastrtps_shared_cpp",
+      "package_version": "6.2.10",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rmw_fastrtps/rmw_fastrtps_shared_cpp",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rmw_fastrtps",
+      "commit": "cbe12977497c9c536317ca6488edf2f23b8c1830",
+      "package_xml_sha_verified_this_round": "b13d4ef4289fa2e1c2c43b2ddcc619a0ca317d8504e7eb35461cc320649563ee"
+    },
+    {
+      "name": "rmw_implementation",
+      "package_version": "2.8.5",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rmw_implementation/rmw_implementation",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rmw_implementation",
+      "commit": "edc29883e9644f62aa95686ebdf9e8f2c150a7c1",
+      "package_xml_sha_verified_this_round": "3ed3028c91bfba0248a0c88f564318d3b2ed5bda653eb517f9328be335973f4e"
+    },
+    {
+      "name": "rosgraph_msgs",
+      "package_version": "1.2.3",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces/rosgraph_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces",
+      "commit": "82776fc9068d1e0cd4af11c2e2700195994b2eb1",
+      "package_xml_sha_verified_this_round": "a397b5eee9152f780928affd6d1a4fb12f125f30c7dd3dd495634c6f77f39a5e"
+    },
+    {
+      "name": "rosidl_runtime_c",
+      "package_version": "3.1.9",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl/rosidl_runtime_c",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl",
+      "commit": "b54b152857c46eaba6c70046a84cbd1ea294ee70",
+      "package_xml_sha_verified_this_round": "6f6e48a57132a1d13009ab9118beb40b22c5e5bf8abf4d033114414190cd0fa0"
+    },
+    {
+      "name": "rosidl_typesupport_c",
+      "package_version": "2.0.2",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl_typesupport/rosidl_typesupport_c",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl_typesupport",
+      "commit": "94c7b6d6db353cf26adc22cb7023833fd6cd18a1",
+      "package_xml_sha_verified_this_round": "39e95df7da5624fc137e295ea569481126cdcfa187370924f1585d3ee14955cb"
+    },
+    {
+      "name": "rosidl_typesupport_cpp",
+      "package_version": "2.0.2",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl_typesupport/rosidl_typesupport_cpp",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl_typesupport",
+      "commit": "94c7b6d6db353cf26adc22cb7023833fd6cd18a1",
+      "package_xml_sha_verified_this_round": "877d4753a7f0a13db03c3fa5e4d3434051963dc2e3127c1d26a9fa627c9fcad1"
+    },
+    {
+      "name": "rosidl_typesupport_fastrtps_c",
+      "package_version": "2.2.4",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl_typesupport_fastrtps/rosidl_typesupport_fastrtps_c",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl_typesupport_fastrtps",
+      "commit": "f04626533f5dec25d79eb334097881ba6fc3181b",
+      "package_xml_sha_verified_this_round": "eccd9e2602a89caff78a9ac711244973905e39d96c575b373af11cf01e95533b"
+    },
+    {
+      "name": "rosidl_typesupport_fastrtps_cpp",
+      "package_version": "2.2.4",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl_typesupport_fastrtps/rosidl_typesupport_fastrtps_cpp",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl_typesupport_fastrtps",
+      "commit": "f04626533f5dec25d79eb334097881ba6fc3181b",
+      "package_xml_sha_verified_this_round": "8ea531cf456c848b7022da4fa797d70545d179e450e90663e651099330b1d4dc"
+    },
+    {
+      "name": "rosidl_typesupport_introspection_c",
+      "package_version": "3.1.9",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl/rosidl_typesupport_introspection_c",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl",
+      "commit": "b54b152857c46eaba6c70046a84cbd1ea294ee70",
+      "package_xml_sha_verified_this_round": "2e4c30d7aae1255ece82f6fa2c5845da4e6ce9f3b8b3dffd9304c436b62c34bd"
+    },
+    {
+      "name": "rosidl_typesupport_introspection_cpp",
+      "package_version": "3.1.9",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl/rosidl_typesupport_introspection_cpp",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rosidl",
+      "commit": "b54b152857c46eaba6c70046a84cbd1ea294ee70",
+      "package_xml_sha_verified_this_round": "15296ef770fcbea53786f8c98990d12fdac159c146d1695ec5407c31358d7f40"
+    },
+    {
+      "name": "sensor_msgs",
+      "package_version": "4.9.2",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces/sensor_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces",
+      "commit": "08434490d3e4abd37ccc5462cdde69b88853b5b8",
+      "package_xml_sha_verified_this_round": "33bda9fa2bdc15be5f72c393c2a9f74bbb3bfcadf5a439693f2400b2838f2be8"
+    },
+    {
+      "name": "statistics_msgs",
+      "package_version": "1.2.3",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces/statistics_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/rcl_interfaces",
+      "commit": "82776fc9068d1e0cd4af11c2e2700195994b2eb1",
+      "package_xml_sha_verified_this_round": "384b636f87ff895f93935c5a228822559023e1c4bc00506a8817668b5e12d18a"
+    },
+    {
+      "name": "std_msgs",
+      "package_version": "4.9.2",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces/std_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces",
+      "commit": "08434490d3e4abd37ccc5462cdde69b88853b5b8",
+      "package_xml_sha_verified_this_round": "52e02a2a044a63c85e7f47c76842f131c601ff6b5975dd93a16f0ddfba343366"
+    },
+    {
+      "name": "std_srvs",
+      "package_version": "4.9.2",
+      "license_labels": [
+        "Apache License 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces/std_srvs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/common_interfaces",
+      "commit": "08434490d3e4abd37ccc5462cdde69b88853b5b8",
+      "package_xml_sha_verified_this_round": "3a75f8181b3b51ee7fa3185408535a8858f6ec0b17ad85a1129ae6bc7b29bec0"
+    },
+    {
+      "name": "tf2",
+      "package_version": "0.25.22",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/geometry2/tf2",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/geometry2",
+      "commit": "65c620c308920f558c7b5d3fb852941bd6d8fced",
+      "package_xml_sha_verified_this_round": "d336ca3a2041defdbb88b673bb0ff428b3efae52a902169fffa3f384a79405ed"
+    },
+    {
+      "name": "tf2_msgs",
+      "package_version": "0.25.22",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/geometry2/tf2_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/geometry2",
+      "commit": "65c620c308920f558c7b5d3fb852941bd6d8fced",
+      "package_xml_sha_verified_this_round": "6ce42afaeee0fb40f7b409b747f3cc3f010d83c87244375adc1763131f497cce"
+    },
+    {
+      "name": "tf2_py",
+      "package_version": "0.25.22",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/geometry2/tf2_py",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/geometry2",
+      "commit": "65c620c308920f558c7b5d3fb852941bd6d8fced",
+      "package_xml_sha_verified_this_round": "38d863175cfb2901af45872ff6241f68fe8db9388b3ea789645fc2ddc0e8fdcb"
+    },
+    {
+      "name": "tf2_ros",
+      "package_version": "0.25.22",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/geometry2/tf2_ros",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/geometry2",
+      "commit": "65c620c308920f558c7b5d3fb852941bd6d8fced",
+      "package_xml_sha_verified_this_round": "561998993e96e99022b6cafc3985b6cbba2a20d767a738deea2e5038ee4e02cf"
+    },
+    {
+      "name": "tracetools",
+      "package_version": "4.1.2",
+      "license_labels": [
+        "Apache 2.0"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/ros2_tracing/tracetools",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/ros2_tracing",
+      "commit": "3c159b382d2d565e26eaa91e39c9ec06a5c6fe88",
+      "package_xml_sha_verified_this_round": "94571c7ea6b1c317d29a0e7b75dc53740af127b6f8f3a3edaff2ef4b59acb359"
+    },
+    {
+      "name": "unique_identifier_msgs",
+      "package_version": "2.2.1",
+      "license_labels": [
+        "BSD"
+      ],
+      "source_directory": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/unique_identifier_msgs",
+      "repository": "/home/robot/pudu_robot_ws/external/arena4_ws/src/ros2/ros2/unique_identifier_msgs",
+      "commit": "27767cefcf8a80da44641dc208c57722c28aa11c",
+      "package_xml_sha_verified_this_round": "721aca0f035d792aedf22be9f0f4b5f4112e3de57fd99346db52f15d2edbed54"
+    }
+  ],
+  "source_registry": {
+    "path": "/tmp/a2b_independent_audit_20261109/full_delivery_plan/ROS_CUSTOM_SOURCE_PROVENANCE.json",
+    "bytes": 188009,
+    "sha256": "8f7b7c5cd8f1dc72c3dea168c20df5895116e8d69604956f4c1be540072009cd"
+  },
+  "own_native_helpers": {
+    "license_status": "本项目自研源码未找到独立对外开源许可声明；本轮用于本机内部复现，后续按公司代码交付规则处理。",
+    "files": [
+      "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/runtime/3YDL3-V13-L2/base/native/v13_dstar.cpp",
+      "/home/robot/workspaces/semantic_dual_map_r1_20260914/native/swept_rect.cpp"
+    ]
+  },
+  "nav2_costmap": {
+    "declared_licenses": [
+      "BSD-3-Clause",
+      "Apache-2.0"
+    ],
+    "notice_policy": "保留源文件中的原始版权与许可文本；混合许可按文件执行。",
+    "repository_notice": {
+      "path": "/home/robot/pudu_robot_ws/external/arena4_ws/src/deps/nav2/navigation2/LICENSE",
+      "bytes": 524,
+      "sha256": "e71fcb65bd31cdbdcf50cf43ab87a0c600ea3ec407495c2e15d1e68bc9c3bfc1"
+    }
+  },
+  "excluded_assets": [
+    {
+      "asset": "SimSun / 宋体字体",
+      "status": "许可来源未确认，本轮没有复制或分发字体文件。"
+    }
+  ],
+  "pending": [
+    "自研代码正式许可/交付说明",
+    "地图/Q数据使用与移交授权入口",
+    "第三方ROS/数值库的完整可移植构建环境（当前清单为来源和许可元数据）"
+  ]
+}

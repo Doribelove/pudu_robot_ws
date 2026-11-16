@@ -1,0 +1,91 @@
+{
+  "source": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/source/3YDL3-V13-L2",
+  "runtime": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/runtime/3YDL3-V13-L2",
+  "fixed_commit": "d8c01c5a71a67c2e85c250e8a8148bda9724dc68",
+  "fixed_manifest_sha256": "3e264e839ce620d2c073e5f3084043b28fa97fad6c3ef82ee7763563b8170ab9",
+  "published_files_unchanged": 449,
+  "additions": {
+    "base/runtime/base/config/l3.json": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/config/l3.json",
+      "sha256": "3fb5520974702cf4eb0df8b1d267953206d42a0509154a503848ed82c91561ac",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "base/runtime/base/config/endpoint_tolerance.json": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/config/endpoint_tolerance.json",
+      "sha256": "8f7cc98496a9fc32f40568cc4fe4ac9e21b36e47b38a5030aae76b1d293c5df3",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "base/runtime/base/config/regional_mixed_mengjia.json": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/config/regional_mixed_mengjia.json",
+      "sha256": "9670d68bdfa6b80d000a87beaab9147fb6cbb93e8f861ef6a20df00b01eda1aa",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "base/runtime/base/native/curve_nav2_stack": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/native/curve_nav2_stack",
+      "sha256": "887e9ac9a5871c90e875013f9c206cc250ab1b8e45eb0032c7ba648434a5d090",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "base/runtime/base/tools/curve_composed.launch.py": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/tools/curve_composed.launch.py",
+      "sha256": "f68f8694226e054df8d3bfdd7815aab57522ed6c466572dabfb7ae1967972085",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "base/runtime/base/tools/curve_stack.launch.py": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/tools/curve_stack.launch.py",
+      "sha256": "37fd2c6e1bd25865cc34b5dfe4a7cc97974855f3a866a40c2258d97ecde9c5a3",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "resources/semantic/build/libsemantic_sweep.so": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/build/libsemantic_sweep.so",
+      "sha256": "b311f15d431dc6557cbd208b6e522403cf2dff137a6f06a212558948f4bbbaaa",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "resources/semantic/config/fastdds_large_map.xml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/config/fastdds_large_map.xml",
+      "sha256": "59c77a1ddfe156a52c266f0536f5955673c361dabe4834081f86c476cae11d66",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_normalized_navfn.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_normalized_navfn.yaml",
+      "sha256": "8b20175315df817cbb16bbcbe56c3c3f869b4f86b92c74cf5f9cdf5ab732560c",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_normalized_smac_hybrid.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_normalized_smac_hybrid.yaml",
+      "sha256": "8220e187b3cc838cb9f671f40692332ab262db87cd6155f8ee1a8d373c3a7a47",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_product_navfn.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_product_navfn.yaml",
+      "sha256": "19cde1a9c9efc307172136fe8006cdb68874cd580762ae2e77a4e16166b21a66",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_product_smac_hybrid.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_product_smac_hybrid.yaml",
+      "sha256": "e81ea2c37c8587e3709ebb316707a9f7994e69839780315ffcc7ccfe2792cbc5",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_protocol.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_protocol.yaml",
+      "sha256": "9ab110b4c0b5df61e435c2247126e53b36f0af5a30605faf8951838bb923c97a",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_protocol_hospital_005.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_protocol_hospital_005.yaml",
+      "sha256": "7ba888b31de2223bc86a537a758fc12bd7794b28f4a250d7774757c871898efc",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_queries_hospital.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_queries_hospital.yaml",
+      "sha256": "241085e7cd22035c02e1a88dc1d2f5bbe1a5ede9404aafba626e5302596cfedc",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_strict_forward_smac_hybrid.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_strict_forward_smac_hybrid.yaml",
+      "sha256": "1a1109fde8f07a88a6f06770212aff4c015d12c1a2708c12b9303d1b647a9336",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    }
+  },
+  "solver_changes": false,
+  "parameter_changes": false
+}

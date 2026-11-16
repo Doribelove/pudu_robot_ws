@@ -1,0 +1,175 @@
+{
+  "version": "A2B-P6-closeout-C1",
+  "scope": "same-machine isolated restoration",
+  "status": "PASS_2_ORIGINAL_QUERIES",
+  "navigation_slot_released": true,
+  "external_publishing": false,
+  "report": "README.md",
+  "audit": "FINAL_AUDIT.json",
+  "audit_pass": true,
+  "source": "src",
+  "supplement_manifest": "supplement/MANIFEST.json",
+  "successful_requests": [
+    {
+      "run": "plan_1794277955520766066",
+      "map": "arena_small_080x100_2d_005",
+      "query": "A2B-01",
+      "exact": true,
+      "request_wall_s": 0.6605262200027937,
+      "worker_CPU_s": 0.4210409949999998,
+      "whole_session_tree_RSS_MiB": 639.16015625,
+      "length_m": 82.35615580761034,
+      "model_position_error": 0.0,
+      "model_yaw_error": 4.3298697960381105e-14,
+      "sampled_curvature": 1.1867202710198594,
+      "continuous_curvature_bound": 1.196503784206745,
+      "ACK_cells": 621522,
+      "ACK_full_SHA": "d2ce3196d277b332964b1e24165f6aede96fa6780133ac4118e778115c5d5850",
+      "source_lock_sha": "be6b89c7168310b88a86f2f241f461192a39e086fd2cbf9043add358bf95a1d8"
+    },
+    {
+      "run": "plan_1794278031527747834",
+      "map": "mengjia",
+      "query": "Q01",
+      "exact": true,
+      "request_wall_s": 1.6863566639949568,
+      "worker_CPU_s": 1.9750648700000006,
+      "whole_session_tree_RSS_MiB": 981.828125,
+      "length_m": 360.06422812991946,
+      "model_position_error": 0.0,
+      "model_yaw_error": 9.237055564881302e-14,
+      "sampled_curvature": 2.329091175112131,
+      "continuous_curvature_bound": 2.337519067777752,
+      "ACK_cells": 8142125,
+      "ACK_full_SHA": "662f6de01f47493cbfff8afcf73b38a807583f965efe9b56dfebf2a9c8b4992f",
+      "source_lock_sha": "6777829dfe681bd62a94c5352df9878a988edc4eb188f2c2905d3fe7fa3f01a9"
+    }
+  ],
+  "runs": [
+    {
+      "path": "runs/bootstrap_1794277666229816873/RESULT.json",
+      "mode": "bootstrap",
+      "map": "arena_small_080x100_2d_005",
+      "query": "Q01",
+      "pass": false,
+      "returncode": 1,
+      "cleanup_pass": true,
+      "failure": {
+        "type": "RCLError",
+        "message": "error creating node: rcl node's rmw handle is invalid, at /home/robot/arena4_ws/src/ros2/ros2/rcl/rcl/src/rcl/node.c:415",
+        "traceback": "Traceback (most recent call last):\n  File \"/review/worker.py\", line 85, in <module>\n    try:main()\n  File \"/review/worker.py\", line 54, in main\n    mark('session.constructed');SESSION.start();mark('session.started')\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v5/curve_session.py\", line 59, in start\n    self._curve_tf_node=Node('curve_static_tf_'+str(os.getpid()),context=self.context)\n  File \"/isolated_bundle/ros/lib/python3.10/site-packages/rclpy/node.py\", line 175, in __init__\n    self.__node = _rclpy.Node(\nrclpy._rclpy_pybind11.RCLError: error creating node: rcl node's rmw handle is invalid, at /home/robot/arena4_ws/src/ros2/ros2/rcl/rcl/src/rcl/node.c:415\n"
+      }
+    },
+    {
+      "path": "runs/bootstrap_1794277707288894091/RESULT.json",
+      "mode": "bootstrap",
+      "map": "arena_small_080x100_2d_005",
+      "query": "Q01",
+      "pass": false,
+      "returncode": 1,
+      "cleanup_pass": true,
+      "failure": {
+        "type": "BenchmarkInputError",
+        "message": "curve stack exited; see /mnt/result/session/logs/smac_strict_arena_small_080x100_2d_005.log",
+        "traceback": "Traceback (most recent call last):\n  File \"/review/worker.py\", line 85, in <module>\n    try:main()\n  File \"/review/worker.py\", line 54, in main\n    mark('session.constructed');SESSION.start();mark('session.started')\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v5/curve_session.py\", line 68, in start\n    try:return super().start()\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v5/performance_session.py\", line 39, in start\n    if not split:return super().start()\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v4/raw_diagnostics.py\", line 8, in start\n    super().start()\n  File \"/isolated_bundle/runtime/base/runtime/arena_evaluation/semantic_smac_session_r2.py\", line 82, in start\n    super().start()\n  File \"/isolated_bundle/runtime/base/runtime/arena_evaluation/unified_four_backends_smoke.py\", line 451, in start\n    self.stack.start(timeout=90.0)\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v5/curve_session.py\", line 36, in start\n    if self.process.poll() is not None:raise BenchmarkInputError(f'curve stack exited; see {self.log_file}')\narena_evaluation.planner_benchmark.runner.BenchmarkInputError: curve stack exited; see /mnt/result/session/logs/smac_strict_arena_small_080x100_2d_005.log\n"
+      }
+    },
+    {
+      "path": "runs/bootstrap_1794277735477795007/RESULT.json",
+      "mode": "bootstrap",
+      "map": "arena_small_080x100_2d_005",
+      "query": "Q01",
+      "pass": false,
+      "returncode": 1,
+      "cleanup_pass": true,
+      "failure": {
+        "type": "BenchmarkInputError",
+        "message": "curve stack startup timed out; see /mnt/result/session/logs/smac_strict_arena_small_080x100_2d_005.log",
+        "traceback": "Traceback (most recent call last):\n  File \"/review/worker.py\", line 85, in <module>\n    try:main()\n  File \"/review/worker.py\", line 54, in main\n    mark('session.constructed');SESSION.start();mark('session.started')\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v5/curve_session.py\", line 68, in start\n    try:return super().start()\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v5/performance_session.py\", line 39, in start\n    if not split:return super().start()\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v4/raw_diagnostics.py\", line 8, in start\n    super().start()\n  File \"/isolated_bundle/runtime/base/runtime/arena_evaluation/semantic_smac_session_r2.py\", line 82, in start\n    super().start()\n  File \"/isolated_bundle/runtime/base/runtime/arena_evaluation/unified_four_backends_smoke.py\", line 451, in start\n    self.stack.start(timeout=90.0)\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v5/curve_session.py\", line 47, in start\n    raise BenchmarkInputError(f'curve stack startup timed out; see {self.log_file}')\narena_evaluation.planner_benchmark.runner.BenchmarkInputError: curve stack startup timed out; see /mnt/result/session/logs/smac_strict_arena_small_080x100_2d_005.log\n"
+      }
+    },
+    {
+      "path": "runs/bootstrap_1794277916106140961/RESULT.json",
+      "mode": "bootstrap",
+      "map": "arena_small_080x100_2d_005",
+      "query": "Q01",
+      "pass": true,
+      "returncode": 0,
+      "cleanup_pass": true,
+      "failure": null
+    },
+    {
+      "path": "runs/fixture-orphan_1794277915859477759/RESULT.json",
+      "mode": "fixture-orphan",
+      "map": "arena_small_080x100_2d_005",
+      "query": "Q01",
+      "pass": true,
+      "returncode": 0,
+      "cleanup_pass": true,
+      "failure": null
+    },
+    {
+      "path": "runs/fixture_1794277909178241391/RESULT.json",
+      "mode": "fixture",
+      "map": "arena_small_080x100_2d_005",
+      "query": "Q01",
+      "pass": true,
+      "returncode": 0,
+      "cleanup_pass": true,
+      "failure": null
+    },
+    {
+      "path": "runs/plan_1794277933671861452/RESULT.json",
+      "mode": "plan",
+      "map": "arena_small_080x100_2d_005",
+      "query": "Q01",
+      "pass": false,
+      "returncode": 1,
+      "cleanup_pass": true,
+      "failure": {
+        "type": "StopIteration",
+        "message": "",
+        "traceback": "Traceback (most recent call last):\n  File \"/review/worker.py\", line 108, in <module>\n    try:main()\n  File \"/review/worker.py\", line 94, in main\n    qd=next(x for x in m['poses'] if x['id']==qid)\nStopIteration\n"
+      }
+    },
+    {
+      "path": "runs/plan_1794277955520766066/RESULT.json",
+      "mode": "plan",
+      "map": "arena_small_080x100_2d_005",
+      "query": "A2B-01",
+      "pass": true,
+      "returncode": 0,
+      "cleanup_pass": true,
+      "failure": null
+    },
+    {
+      "path": "runs/plan_1794277990015401699/RESULT.json",
+      "mode": "plan",
+      "map": "mengjia",
+      "query": "Q01",
+      "pass": false,
+      "returncode": 1,
+      "cleanup_pass": true,
+      "failure": {
+        "type": "FileNotFoundError",
+        "message": "[Errno 2] No such file or directory: '/isolated_bundle/data/home/robot/workspaces/3ydl3_v8_20261011/inputs/parking_access.json'",
+        "traceback": "Traceback (most recent call last):\n  File \"/review/worker.py\", line 108, in <module>\n    try:main()\n  File \"/review/worker.py\", line 84, in main\n    graph=persistent(world,DefaultTopology if semantic else FreeSpaceTopology,pathlib.Path('/mnt/indices')/mid,inp/'topology.json' if semantic else None)\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v5/v12_topology.py\", line 167, in persistent\n    expected = binding(world, cls, graph_path)\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v5/v12_topology.py\", line 36, in binding\n    p = Path(graph_path).parent/name; inputs[name] = digest(p)\n  File \"/isolated_bundle/runtime/base/runtime/base/src/three_yd_v5/v12_tiles.py\", line 22, in digest\n    with Path(path).open('rb') as stream:\n  File \"/usr/lib/python3.10/pathlib.py\", line 1119, in open\n    return self._accessor.open(self, mode, buffering, encoding, errors,\nFileNotFoundError: [Errno 2] No such file or directory: '/isolated_bundle/data/home/robot/workspaces/3ydl3_v8_20261011/inputs/parking_access.json'\n"
+      }
+    },
+    {
+      "path": "runs/plan_1794278031527747834/RESULT.json",
+      "mode": "plan",
+      "map": "mengjia",
+      "query": "Q01",
+      "pass": true,
+      "returncode": 0,
+      "cleanup_pass": true,
+      "failure": null
+    }
+  ],
+  "remaining": [
+    "cross-machine reproduction",
+    "native rebuild identity in separate work item",
+    "V20 historical native139 root cause"
+  ]
+}

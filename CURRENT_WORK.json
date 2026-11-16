@@ -1,28 +1,47 @@
 {
-  "version": "3YDL3-V11-r4",
-  "public_release": "3ydl3-v11r4-demo.1",
-  "path": "examples/3ydl3_garage_b",
+  "version": "3YDL3-V13-P6",
+  "profile": "p6",
+  "arm": "H-I",
+  "fixed_algorithm_commit": "d8c01c5a71a67c2e85c250e8a8148bda9724dc68",
+  "path": "3YDL3-V13-P6-delivery",
   "branch": "main",
-  "publication_scope": "r4 synthetic-garage-B runnable example",
-  "maps_included": [
-    "3yd_synth_twinwing_b_v1"
-  ],
-  "query_ids": [
-    "Q01",
-    "Q02",
-    "Q03",
-    "Q04",
-    "Q05",
-    "Q06",
-    "Q07",
-    "Q08",
-    "Q09",
-    "Q10"
-  ],
-  "expected_exact_successes": 10,
-  "expected_tolerant_successes": 0,
-  "total": 10,
-  "research_acceptance_scope": "r4 ten maps x fixed10 x three rounds: 297 exact + 3 tolerant; separate from this demo",
-  "experimental_candidate": "V11-r5; not the accepted public release",
-  "historical_project": "research/3ydl3_v11_r3"
+  "repository": "https://github.com/Doribelove/pudu_robot_ws",
+  "entry": "3YDL3-V13-P6-delivery/README.md",
+  "architecture": "3YDL3-V13-P6-delivery/ARCHITECTURE.md",
+  "running": "3YDL3-V13-P6-delivery/RUNNING.md",
+  "report": "3YDL3-V13-P6-delivery/report/RESULTS.md",
+  "updated_on": "2026-11-16",
+  "package_source_publication_commit": "4433d59493593a459da51964eec328d4202e3d1c",
+  "package_git_tree": "18d6cf89c4d5306df66330911de87ed3f8a67fe1",
+  "fixed_source_files": 449,
+  "runtime_assets": 16,
+  "algorithm_changes": false,
+  "public_example": {
+    "version": "3YDL3-V11-r4",
+    "public_release": "3ydl3-v11r4-demo.1",
+    "path": "examples/3ydl3_garage_b",
+    "branch": "main",
+    "publication_scope": "r4 synthetic-garage-B runnable example",
+    "maps_included": [
+      "3yd_synth_twinwing_b_v1"
+    ],
+    "query_ids": [
+      "Q01",
+      "Q02",
+      "Q03",
+      "Q04",
+      "Q05",
+      "Q06",
+      "Q07",
+      "Q08",
+      "Q09",
+      "Q10"
+    ],
+    "expected_exact_successes": 10,
+    "expected_tolerant_successes": 0,
+    "total": 10,
+    "research_acceptance_scope": "r4 ten maps x fixed10 x three rounds: 297 exact + 3 tolerant; separate from this demo",
+    "experimental_candidate": "V11-r5; not the accepted public release",
+    "historical_project": "research/3ydl3_v11_r3"
+  }
 }

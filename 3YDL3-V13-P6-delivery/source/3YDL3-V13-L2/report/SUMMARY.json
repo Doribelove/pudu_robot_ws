@@ -1,0 +1,517 @@
+{
+  "P6_local": {
+    "requests": 1066,
+    "success": 964,
+    "failure": 102,
+    "over_4s": 45,
+    "failure_codes": {
+      "V12_FULL_L2_NO_PATH": 94,
+      "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET": 6,
+      "V13_L3_RECOVERY_BUDGET_EXHAUSTED": 2
+    }
+  },
+  "P6_cohorts": {
+    "arena": 140,
+    "cross": 780,
+    "boundary": 42,
+    "confirm": 104
+  },
+  "P6_Arena_first_5m": [
+    {
+      "case": "arena_short",
+      "arm": "H-A",
+      "n": 5,
+      "wall_median_ms": 1510.3491640184075,
+      "length_median_m": 136.3560169706313
+    },
+    {
+      "case": "arena_short",
+      "arm": "H-I",
+      "n": 5,
+      "wall_median_ms": 1507.0050968788564,
+      "length_median_m": 136.3560169706313
+    },
+    {
+      "case": "arena_long",
+      "arm": "H-A",
+      "n": 5,
+      "wall_median_ms": 1736.0602577682585,
+      "length_median_m": 255.15730666844703
+    },
+    {
+      "case": "arena_long",
+      "arm": "H-I",
+      "n": 5,
+      "wall_median_ms": 1781.7642451263964,
+      "length_median_m": 255.15726891262455
+    }
+  ],
+  "P7_r1_formal": {
+    "requests": 224,
+    "success": 186,
+    "failure": 38,
+    "over_4s": 41,
+    "failure_codes": {
+      "V12_FULL_L2_NO_PATH": 36,
+      "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET": 2
+    }
+  },
+  "P7_r1_cases": [
+    {
+      "key": "mentor",
+      "name": "导师地图",
+      "area": 12424.860000000002,
+      "query": "A2B-07",
+      "arms": {
+        "H-A": {
+          "n": 1,
+          "success": 1,
+          "slow": 0,
+          "failure_codes": [],
+          "clear_success": 1,
+          "clear_median_ms": 411.4319859072566,
+          "initial_length_m": 62.80176185320998,
+          "wall_ms": 496.6312670148909,
+          "cpu_s": 0.4500000000000002,
+          "rss_mib": 564.546875,
+          "total_expanded": 6203.0,
+          "final_state_mib": 0.47658634185791016,
+          "length_m": 70.57724308372674,
+          "l2_ms": 2.2477880120277405,
+          "max_wall_ms": 496.6312670148909,
+          "sample_p95_ms": 496.6312670148909
+        },
+        "H-I": {
+          "n": 1,
+          "success": 1,
+          "slow": 0,
+          "failure_codes": [],
+          "clear_success": 1,
+          "clear_median_ms": 431.2325029168278,
+          "initial_length_m": 62.80176185320998,
+          "wall_ms": 481.4308260101825,
+          "cpu_s": 0.4399999999999995,
+          "rss_mib": 566.25,
+          "total_expanded": 6897.0,
+          "final_state_mib": 0.6212167739868164,
+          "length_m": 70.57724308372674,
+          "l2_ms": 6.037917919456959,
+          "max_wall_ms": 481.4308260101825,
+          "sample_p95_ms": 481.4308260101825
+        }
+      }
+    },
+    {
+      "key": "wanda_short",
+      "name": "万达2w",
+      "area": 21486.900000000005,
+      "query": "Q05",
+      "arms": {
+        "H-A": {
+          "n": 1,
+          "success": 0,
+          "slow": 1,
+          "failure_codes": [
+            "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET"
+          ],
+          "clear_success": 1,
+          "clear_median_ms": 455.4385971277952,
+          "initial_length_m": 30.86886377951872,
+          "wall_ms": 30008.073582081124,
+          "cpu_s": 26.76,
+          "rss_mib": 837.58984375,
+          "total_expanded": 1281936.0,
+          "final_state_mib": null,
+          "length_m": null,
+          "l2_ms": null,
+          "max_wall_ms": 30008.073582081124,
+          "sample_p95_ms": 30008.073582081124
+        },
+        "H-I": {
+          "n": 1,
+          "success": 0,
+          "slow": 1,
+          "failure_codes": [
+            "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET"
+          ],
+          "clear_success": 1,
+          "clear_median_ms": 445.20590198226273,
+          "initial_length_m": 30.86886377951872,
+          "wall_ms": 30020.490356022492,
+          "cpu_s": 26.79,
+          "rss_mib": 836.87109375,
+          "total_expanded": 1211411.0,
+          "final_state_mib": null,
+          "length_m": null,
+          "l2_ms": null,
+          "max_wall_ms": 30020.490356022492,
+          "sample_p95_ms": 30020.490356022492
+        }
+      }
+    },
+    {
+      "key": "wanda_long",
+      "name": "万达2w",
+      "area": 21486.900000000005,
+      "query": "Q10",
+      "arms": {
+        "H-A": {
+          "n": 1,
+          "success": 1,
+          "slow": 1,
+          "failure_codes": [],
+          "clear_success": 1,
+          "clear_median_ms": 24625.036608893424,
+          "initial_length_m": 179.01233286516424,
+          "wall_ms": 8279.462606878951,
+          "cpu_s": 7.41,
+          "rss_mib": 834.8125,
+          "total_expanded": 130531.0,
+          "final_state_mib": 9.773696899414062,
+          "length_m": 166.98184277816813,
+          "l2_ms": null,
+          "max_wall_ms": 8279.462606878951,
+          "sample_p95_ms": 8279.462606878951
+        },
+        "H-I": {
+          "n": 1,
+          "success": 1,
+          "slow": 1,
+          "failure_codes": [],
+          "clear_success": 1,
+          "clear_median_ms": 24890.771568054333,
+          "initial_length_m": 179.01233286516424,
+          "wall_ms": 8334.848121041432,
+          "cpu_s": 7.470000000000001,
+          "rss_mib": 842.1796875,
+          "total_expanded": 119865.0,
+          "final_state_mib": 12.25921630859375,
+          "length_m": 166.98184277816813,
+          "l2_ms": null,
+          "max_wall_ms": 8334.848121041432,
+          "sample_p95_ms": 8334.848121041432
+        }
+      }
+    },
+    {
+      "key": "long_lane",
+      "name": "万达3w地库",
+      "area": 40090.310000000005,
+      "query": "Q02",
+      "arms": {
+        "H-A": {
+          "n": 3,
+          "success": 3,
+          "slow": 3,
+          "failure_codes": [],
+          "clear_success": 3,
+          "clear_median_ms": 1280.398755101487,
+          "initial_length_m": 214.31145911830555,
+          "wall_ms": 4553.995126159862,
+          "cpu_s": 4.03,
+          "rss_mib": 1187.6640625,
+          "total_expanded": 121192.0,
+          "final_state_mib": 16.242897987365723,
+          "length_m": 412.72821777068873,
+          "l2_ms": null,
+          "max_wall_ms": 4558.872689027339,
+          "sample_p95_ms": 4558.3849327405915
+        },
+        "H-I": {
+          "n": 3,
+          "success": 3,
+          "slow": 3,
+          "failure_codes": [],
+          "clear_success": 3,
+          "clear_median_ms": 1270.9249260369688,
+          "initial_length_m": 214.31145911830555,
+          "wall_ms": 4533.696010010317,
+          "cpu_s": 4.05,
+          "rss_mib": 1190.1171875,
+          "total_expanded": 201192.0,
+          "final_state_mib": 20.184273719787598,
+          "length_m": 412.72821777068873,
+          "l2_ms": null,
+          "max_wall_ms": 4586.7886249907315,
+          "sample_p95_ms": 4581.47936349269
+        }
+      }
+    },
+    {
+      "key": "q06",
+      "name": "万达3w地库",
+      "area": 40090.310000000005,
+      "query": "Q06",
+      "arms": {
+        "H-A": {
+          "n": 1,
+          "success": 0,
+          "slow": 0,
+          "failure_codes": [
+            "V12_FULL_L2_NO_PATH"
+          ],
+          "clear_success": 1,
+          "clear_median_ms": 620.6848798319697,
+          "initial_length_m": 41.43292804326534,
+          "wall_ms": 3199.628419941291,
+          "cpu_s": 2.8599999999999994,
+          "rss_mib": 799.40625,
+          "total_expanded": 2554566.0,
+          "final_state_mib": null,
+          "length_m": null,
+          "l2_ms": null,
+          "max_wall_ms": 3199.628419941291,
+          "sample_p95_ms": 3199.628419941291
+        },
+        "H-I": {
+          "n": 1,
+          "success": 0,
+          "slow": 0,
+          "failure_codes": [
+            "V12_FULL_L2_NO_PATH"
+          ],
+          "clear_success": 1,
+          "clear_median_ms": 633.9527221862227,
+          "initial_length_m": 41.43292804326534,
+          "wall_ms": 3309.348886832595,
+          "cpu_s": 2.9499999999999993,
+          "rss_mib": 799.890625,
+          "total_expanded": 2554566.0,
+          "final_state_mib": null,
+          "length_m": null,
+          "l2_ms": null,
+          "max_wall_ms": 3309.348886832595,
+          "sample_p95_ms": 3309.348886832595
+        }
+      }
+    },
+    {
+      "key": "q10",
+      "name": "万达3w地库",
+      "area": 40090.310000000005,
+      "query": "Q10",
+      "arms": {
+        "H-A": {
+          "n": 3,
+          "success": 3,
+          "slow": 3,
+          "failure_codes": [],
+          "clear_success": 3,
+          "clear_median_ms": 9190.630056895316,
+          "initial_length_m": 152.545039138752,
+          "wall_ms": 8256.507349899039,
+          "cpu_s": 7.34,
+          "rss_mib": 1243.3671875,
+          "total_expanded": 203360.0,
+          "final_state_mib": 10.699283599853516,
+          "length_m": 153.558638557579,
+          "l2_ms": null,
+          "max_wall_ms": 8565.42454706505,
+          "sample_p95_ms": 8534.532827348448
+        },
+        "H-I": {
+          "n": 3,
+          "success": 3,
+          "slow": 3,
+          "failure_codes": [],
+          "clear_success": 3,
+          "clear_median_ms": 9434.789628954604,
+          "initial_length_m": 152.545039138752,
+          "wall_ms": 8084.598154993728,
+          "cpu_s": 7.199999999999999,
+          "rss_mib": 1252.88671875,
+          "total_expanded": 288776.0,
+          "final_state_mib": 13.244060516357422,
+          "length_m": 153.558638557579,
+          "l2_ms": null,
+          "max_wall_ms": 8092.670069076121,
+          "sample_p95_ms": 8091.862877667882
+        }
+      }
+    },
+    {
+      "key": "arena_long",
+      "name": "非语义 Arena",
+      "area": 75000.00000000001,
+      "query": "A2B-01",
+      "arms": {
+        "H-A": {
+          "n": 1,
+          "success": 1,
+          "slow": 0,
+          "failure_codes": [],
+          "clear_success": 1,
+          "clear_median_ms": 2213.8612230774015,
+          "initial_length_m": 252.58899772024864,
+          "wall_ms": 2556.286934996024,
+          "cpu_s": 2.29,
+          "rss_mib": 1141.2109375,
+          "total_expanded": 101792.0,
+          "final_state_mib": 8.888185501098633,
+          "length_m": 437.2805254908168,
+          "l2_ms": 10.370138799771667,
+          "max_wall_ms": 2556.286934996024,
+          "sample_p95_ms": 2556.286934996024
+        },
+        "H-I": {
+          "n": 1,
+          "success": 1,
+          "slow": 0,
+          "failure_codes": [],
+          "clear_success": 1,
+          "clear_median_ms": 2246.7114159371704,
+          "initial_length_m": 252.58899772024864,
+          "wall_ms": 2570.0832260772586,
+          "cpu_s": 2.3,
+          "rss_mib": 1141.80859375,
+          "total_expanded": 97251.0,
+          "final_state_mib": 10.95604133605957,
+          "length_m": 437.2805254908168,
+          "l2_ms": 18.68972205556929,
+          "max_wall_ms": 2570.0832260772586,
+          "sample_p95_ms": 2570.0832260772586
+        }
+      }
+    },
+    {
+      "key": "arena_short",
+      "name": "非语义 Arena",
+      "area": 75000.00000000001,
+      "query": "A2B-09",
+      "arms": {
+        "H-A": {
+          "n": 1,
+          "success": 1,
+          "slow": 0,
+          "failure_codes": [],
+          "clear_success": 1,
+          "clear_median_ms": 1658.8599239476025,
+          "initial_length_m": 132.75336808882454,
+          "wall_ms": 2275.0202750321478,
+          "cpu_s": 2.05,
+          "rss_mib": 1091.4921875,
+          "total_expanded": 80978.0,
+          "final_state_mib": 7.696319580078125,
+          "length_m": 401.0066785945503,
+          "l2_ms": 7.813523057848215,
+          "max_wall_ms": 2275.0202750321478,
+          "sample_p95_ms": 2275.0202750321478
+        },
+        "H-I": {
+          "n": 1,
+          "success": 1,
+          "slow": 0,
+          "failure_codes": [],
+          "clear_success": 1,
+          "clear_median_ms": 1697.388384025544,
+          "initial_length_m": 132.75336808882454,
+          "wall_ms": 2303.9570308756083,
+          "cpu_s": 2.0599999999999996,
+          "rss_mib": 1084.6640625,
+          "total_expanded": 77459.0,
+          "final_state_mib": 9.549392700195312,
+          "length_m": 401.0066785945503,
+          "l2_ms": 37.466119043529034,
+          "max_wall_ms": 2303.9570308756083,
+          "sample_p95_ms": 2303.9570308756083
+        }
+      }
+    },
+    {
+      "key": "twin_long",
+      "name": "合成 B",
+      "area": 77500.00000000001,
+      "query": "Q01",
+      "arms": {
+        "H-A": {
+          "n": 3,
+          "success": 3,
+          "slow": 0,
+          "failure_codes": [],
+          "clear_success": 3,
+          "clear_median_ms": 3797.3162471316755,
+          "initial_length_m": 422.90177495077046,
+          "wall_ms": 3366.388808004558,
+          "cpu_s": 3.0100000000000007,
+          "rss_mib": 1624.3046875,
+          "total_expanded": 140971.0,
+          "final_state_mib": 34.23346424102783,
+          "length_m": 518.9301934197056,
+          "l2_ms": null,
+          "max_wall_ms": 3938.7677318882197,
+          "sample_p95_ms": 3881.5298394998536
+        },
+        "H-I": {
+          "n": 3,
+          "success": 3,
+          "slow": 0,
+          "failure_codes": [],
+          "clear_success": 3,
+          "clear_median_ms": 3756.71982485801,
+          "initial_length_m": 422.90177495077046,
+          "wall_ms": 3485.816700849682,
+          "cpu_s": 3.110000000000001,
+          "rss_mib": 1635.46875,
+          "total_expanded": 220971.0,
+          "final_state_mib": 42.57471179962158,
+          "length_m": 518.9301934197056,
+          "l2_ms": null,
+          "max_wall_ms": 3577.04297802411,
+          "sample_p95_ms": 3567.9203503066674
+        }
+      }
+    },
+    {
+      "key": "bridge",
+      "name": "合成 B",
+      "area": 77500.00000000001,
+      "query": "Q04",
+      "arms": {
+        "H-A": {
+          "n": 1,
+          "success": 0,
+          "slow": 0,
+          "failure_codes": [
+            "V12_FULL_L2_NO_PATH"
+          ],
+          "clear_success": 1,
+          "clear_median_ms": 1074.9821939971298,
+          "initial_length_m": 36.73943950981363,
+          "wall_ms": 810.7584789395332,
+          "cpu_s": 0.7400000000000002,
+          "rss_mib": 1037.13671875,
+          "total_expanded": 0.0,
+          "final_state_mib": null,
+          "length_m": null,
+          "l2_ms": null,
+          "max_wall_ms": 810.7584789395332,
+          "sample_p95_ms": 810.7584789395332
+        },
+        "H-I": {
+          "n": 1,
+          "success": 0,
+          "slow": 0,
+          "failure_codes": [
+            "V12_FULL_L2_NO_PATH"
+          ],
+          "clear_success": 1,
+          "clear_median_ms": 1070.4107719939202,
+          "initial_length_m": 36.73943950981363,
+          "wall_ms": 817.4290580209345,
+          "cpu_s": 0.7300000000000004,
+          "rss_mib": 1037.29296875,
+          "total_expanded": 0.0,
+          "final_state_mib": null,
+          "length_m": null,
+          "l2_ms": null,
+          "max_wall_ms": 817.4290580209345,
+          "sample_p95_ms": 817.4290580209345
+        }
+      }
+    }
+  ],
+  "measurement_sources": {
+    "/home/robot/workspaces/3ydl3_v13_p6_hint_recovery_20261028/report/ALL_REQUESTS.json": "a37d59719308235414dacc7fb57d159ff2b980a9128b27d2e28490728b79c118",
+    "/home/robot/workspaces/3ydl3_v13_p7b_obstacle_l1_20261028/report/FORMAL_REQUESTS.json": "6a0997da7f48ed7f7bdb8d9dfb2e115f90502979532464da33ce25aae54df6fa"
+  }
+}

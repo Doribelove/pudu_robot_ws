@@ -1,0 +1,637 @@
+{
+  "schema": "p6-closeout-dependencies-v1",
+  "date": "2026-11-09",
+  "profile": "p6",
+  "fixed_commit": "d8c01c5a71a67c2e85c250e8a8148bda9724dc68",
+  "package_relative": "runtime/3YDL3-V13-L2",
+  "registry": "/home/robot/workspaces/3ydl3_v12_r0_completion_b_20261020/MAPS.json",
+  "registry_sha256": "16f2eed24d0e12aafa343b81b26530ba4b288b94ec87168a5a0574d2c53e1f95",
+  "platform": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "python": "3.10.12",
+    "ros": "humble",
+    "glibc": "2.35",
+    "python_executable": "/usr/bin/python3"
+  },
+  "python_distributions_observed": {
+    "numpy": "1.24.4",
+    "scipy": "1.8.0",
+    "osqp": "0.6.7.post3",
+    "PyYAML": "5.4.1",
+    "psutil": "5.9.0",
+    "Pillow": "9.0.1"
+  },
+  "runtime_env": "/home/robot/workspaces/3ydl3_v13_p5_recovery_schedule_20261027/env.bash",
+  "runtime_env_override": "V13_RUNTIME_ENV",
+  "runtime_env_chain": [
+    "/home/robot/workspaces/3ydl3_v13_p5_recovery_schedule_20261027/env.bash",
+    "/home/robot/workspaces/3ydl3_v13_p4_corridor_recovery_20261027/env_delivery.bash",
+    "/home/robot/workspaces/3ydl3_v13_p4_corridor_recovery_20261027/env.bash",
+    "/home/robot/workspaces/3ydl3_v13_p2d_l2_runtime_20261027/env.bash",
+    "/home/robot/workspaces/3ydl3_v13_p1_native_path_20261027/env.bash",
+    "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/v13_env.bash",
+    "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/env.bash",
+    "/home/robot/workspaces/3yd_v5_r11_20260922/env.bash",
+    "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/env.bash",
+    "/opt/ros/humble/setup.bash",
+    "/home/robot/pudu_robot_ws/external/arena4_ws/install/setup.bash"
+  ],
+  "external_paths": [
+    {
+      "path": "/opt/ros/humble/setup.bash",
+      "role": "ROS2 Humble"
+    },
+    {
+      "path": "/home/robot/pudu_robot_ws/external/arena4_ws/install/setup.bash",
+      "role": "Nav2及ROS消息运行环境"
+    },
+    {
+      "path": "/home/robot/pudu_robot_ws/external/arena4_ws/tools/local_ros/root/opt/ros/humble/local_setup.bash",
+      "role": "本机Nav2 overlay基础"
+    },
+    {
+      "path": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/install/nav2_snapshot_local/lib",
+      "role": "本机成本图snapshot库"
+    },
+    {
+      "path": "/home/robot/workspaces/3yd_v5_r11_20260922/config/fastdds_64m.xml",
+      "role": "共享大图DDS通信配置"
+    },
+    {
+      "path": "/home/robot/workspaces/3ydl3_v12_r0_completion_b_20261020/tools",
+      "role": "静态评测及原Q绑定工具"
+    },
+    {
+      "path": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/fixed10_binding.py",
+      "role": "五语义图原配套Q绑定"
+    },
+    {
+      "path": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/native/curve_nav2_stack",
+      "role": "原P6 Nav2成本图/规划服务可执行文件"
+    },
+    {
+      "path": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/config/l3.json",
+      "role": "原P6连续L3参数"
+    }
+  ],
+  "l3_config": {
+    "path": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/config/l3.json",
+    "sha256": "3fb5520974702cf4eb0df8b1d267953206d42a0509154a503848ed82c91561ac",
+    "package_expected_relative": "base/runtime/base/config/l3.json",
+    "package_contains_file": false,
+    "binding": "runtime完整副本补入原P6运行资产，每个新增资产记录来源SHA；source保留固定提交字节"
+  },
+  "packaged_native_libraries": [
+    "base/native/libv13_astar.so",
+    "base/native/libv13_dstar.so",
+    "base/native/libv13_extract_path.so",
+    "base/native/libv13_segment_cells.so",
+    "base/runtime/arena_evaluation/_endpoint_geometry_r3.cpython-310-x86_64-linux-gnu.so",
+    "base/runtime/arena_evaluation/_nav2_effective_costmap.cpython-310-x86_64-linux-gnu.so",
+    "base/runtime/arena_evaluation/_ompl_planner_backend.cpython-310-x86_64-linux-gnu.so",
+    "base/runtime/base/native/libcold_dstar.so",
+    "base/runtime/base/native/libcurve_rectangles.so",
+    "base/runtime/base/native/libcurve_rectangles_center.so",
+    "base/runtime/base/native/libdelta_codec_test.so",
+    "base/runtime/base/native/libdelta_codec_v2_test.so",
+    "base/runtime/base/native/libfailure_endpoint.so",
+    "base/runtime/base/native/libfailure_heading.so",
+    "base/runtime/base/native/libgoal_dijkstra.so",
+    "base/runtime/base/native/libpose_batch.so",
+    "base/runtime/base/native/libpose_groups.so",
+    "base/runtime/base/native/librequest_ack.so",
+    "base/runtime/base/native/librequest_edges.so",
+    "base/runtime/base/native/librequest_membership.so",
+    "base/runtime/base/native/libtail_astar.so",
+    "base/runtime/base/native/libv12_failure_heading.so",
+    "base/runtime/base/native/libv12_grid_astar.so",
+    "base/runtime/base/native/libv12_palette.so",
+    "base/runtime/base/native/libv13_astar.so",
+    "base/runtime/base/native/libv13_dstar.so"
+  ],
+  "known_package_external_assets": [
+    "base/runtime/base/config/l3.json",
+    "base/runtime/base/config/endpoint_tolerance.json",
+    "base/runtime/base/config/regional_mixed_mengjia.json",
+    "base/runtime/base/native/curve_nav2_stack",
+    "base/runtime/base/tools/curve_composed.launch.py",
+    "base/runtime/base/tools/curve_stack.launch.py",
+    "resources/semantic/build/libsemantic_sweep.so",
+    "resources/semantic/config/fastdds_large_map.xml",
+    "base/runtime/config/planner_benchmark_normalized_navfn.yaml",
+    "base/runtime/config/planner_benchmark_normalized_smac_hybrid.yaml",
+    "base/runtime/config/planner_benchmark_product_navfn.yaml",
+    "base/runtime/config/planner_benchmark_product_smac_hybrid.yaml",
+    "base/runtime/config/planner_benchmark_protocol.yaml",
+    "base/runtime/config/planner_benchmark_protocol_hospital_005.yaml",
+    "base/runtime/config/planner_benchmark_queries_hospital.yaml",
+    "base/runtime/config/planner_benchmark_strict_forward_smac_hybrid.yaml"
+  ],
+  "data_obtain": "由项目负责人从原实验机/授权内部交付目录提供，下列地图和Q未随公司代码包上传。保留目录结构，或在隔离环境按原绝对路径挂载；再逐项校验registry input_sha256。",
+  "map_count": 10,
+  "query_count": 100,
+  "maps": [
+    {
+      "map_id": "mengjia",
+      "name": "万达3w地库",
+      "kind": "original_semantic",
+      "inputs": "/home/robot/workspaces/3ydl3_v8_20261011/inputs",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/corroborated_map.yaml",
+      "query_file": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/queries.json",
+      "query_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10"
+      ],
+      "resolution_m": 0.05,
+      "dimensions_px": [
+        2251,
+        7124
+      ],
+      "extent_m": [
+        112.55000000000001,
+        356.20000000000005
+      ],
+      "input_sha256": {
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/queries.json": "27b0c114f1a26cf3f29af0b6819a58642d826a9d3695d5bb1992aef4f73fd153",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/corroborated_map.yaml": "f2a45b7549c789cf964dd0bc07a7b8acc2cc90606649378024ef68e58a504a93",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/semantic.json": "7437a95a5bb148c6a580a5af4eb666faabb26b1cf67329e7cb70b0e26a4219a7",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/topology.json": "3ee77c13b23f050b2027e92b55b1a4719da3291e0db8a6cc72eadcc8ea270ba4",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/corroborated_grid.png": "c26ddbac60a5b9709e572608b8b843cf56e269e4ce4c473270fc57d83deff006"
+      },
+      "traffic_inputs": [
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/semantic.json",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/topology.json"
+      ]
+    },
+    {
+      "map_id": "pudu_wanda_3f",
+      "name": "万达2w地库",
+      "kind": "fixed10_semantic",
+      "inputs": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/wanda2w_effective_map/map.yaml",
+      "query_file": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/queries.json",
+      "query_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10"
+      ],
+      "resolution_m": 0.05,
+      "dimensions_px": [
+        2138,
+        4020
+      ],
+      "extent_m": [
+        106.9,
+        201.0
+      ],
+      "input_sha256": {
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/map.yaml": "51a334a03356a47eae692467841801a43bc30c18bab5057b1b5c5e43d7714ca0",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/optemap.pgm": "05cf18d0df40235f69ba5f0168bb490f9175541431c0c516a962e7ce1965529a",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/parking_access.json": "99ba538181a59662aab5443a254446f5bab2179e6b9176bb33e07ca0938b7a33",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/queries.json": "f111cff8857176b630b61c14abe7370b7106a22082f65448082e42c396fb0df4",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/semantic.json": "b948896a4463e07382ba753d9f55c098d108551dd08a6f53c270a10250854744",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/topology.json": "7daf0ca11dd3077d771a38d41ed5d30b9ba95a78c47880629c7f6c261642d3ae",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/binding.json": "e5be6c3b9fffe91bc87f082dce15128436726ff2a8252e8bc29371e887cd47c5",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/registry.json": "bdda23d613a2859f54941247319fdb36f19a268eeee330ec3a11a5cfbc4b0aa3",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/fixed10_binding.py": "999522e609a0ffb8eb34e1be167e8b55c1dafc3e7a4d48eb09d79f98017c4c61",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/wanda2w_effective_map/map.yaml": "e9926e34ce65295f8d38aa49bd91da3980d5f56f90079c3633989a4726162675",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/wanda2w_effective_map/optemap_effective.png": "49aec9aa5a8b669049c33c567ede5dd3e2ad83a4411568ed32697d27fe612867",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/wanda2w_effective_map/audit.json": "9b4ef8d1a444e99dac7bb183a067f663ef72e3bd8c90e4ebab4fc3e102521820"
+      },
+      "traffic_inputs": [
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/parking_access.json",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/semantic.json",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/topology.json"
+      ]
+    },
+    {
+      "map_id": "3yd_synth_multiloop_a_v1",
+      "name": "合成地库A",
+      "kind": "fixed10_semantic",
+      "inputs": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs",
+      "map_yaml": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/map.yaml",
+      "query_file": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/queries.json",
+      "query_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10"
+      ],
+      "resolution_m": 0.05,
+      "dimensions_px": [
+        3600,
+        4800
+      ],
+      "extent_m": [
+        180.0,
+        240.0
+      ],
+      "input_sha256": {
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/map.yaml": "66189a254bf330e728fc4779c00fae06d57341b11d36e1531410316e9a19f0a7",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/optemap.pgm": "24d46d7262e22aadb725ddcb258e7f1b062a2fbeb8f31549ea6bab5bbf906824",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/parking_access.json": "cf058f23f91e7fe81aad993c0682d94c25adbd41c55321d718b2b5c6d776afa0",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/queries.json": "10b4ccccfdb4d4509ab096c466a760225a7199329b1b262af6450a07aeafbaa7",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/semantic.json": "8de0fcbf39acd20aa667026842a9d89141b6f88aac9ac1571003c5202d52f8e4",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/topology.json": "826ca2c89cf46d8361db60cc42da4206d9c537e16b6e5ba4941b2969a2f1a8de",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/binding.json": "ab753e53ad0fa78c8293b74c49f00c53cdc096c7ff9c640c20072d45cac7dac8",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/registry.json": "bdda23d613a2859f54941247319fdb36f19a268eeee330ec3a11a5cfbc4b0aa3",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/fixed10_binding.py": "999522e609a0ffb8eb34e1be167e8b55c1dafc3e7a4d48eb09d79f98017c4c61"
+      },
+      "traffic_inputs": [
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/parking_access.json",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/semantic.json",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/topology.json"
+      ]
+    },
+    {
+      "map_id": "3yd_synth_twinwing_b_v1",
+      "name": "合成地库B",
+      "kind": "fixed10_semantic",
+      "inputs": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs",
+      "map_yaml": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/map.yaml",
+      "query_file": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/queries.json",
+      "query_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10"
+      ],
+      "resolution_m": 0.05,
+      "dimensions_px": [
+        5000,
+        6200
+      ],
+      "extent_m": [
+        250.0,
+        310.0
+      ],
+      "input_sha256": {
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/map.yaml": "66189a254bf330e728fc4779c00fae06d57341b11d36e1531410316e9a19f0a7",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/optemap.pgm": "dd7c1436c6c5ca7b7b0dea895c4687c20416ff4873a4571a8f4c3c86b32ec703",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/parking_access.json": "395417fe8a819d065024441bdf8021de1136afc8694f8a2902b868acf387d4cd",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/queries.json": "e4429aafe45bb3d2a79bba081f05cdd5208671722f3e92679a3447861c88802b",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/semantic.json": "6b4ec677f00b17571f7a8b0455095b4e061338b085efca610efab22efddc84dc",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/topology.json": "4721545f84a8be85196b500ba867c045c45fc1e8479f46864bf7c3a76a62e5e5",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/binding.json": "a62f29cde12267eab0499d2565df40f9a401ef9eaf7958031ab933d18856e6c5",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/registry.json": "bdda23d613a2859f54941247319fdb36f19a268eeee330ec3a11a5cfbc4b0aa3",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/fixed10_binding.py": "999522e609a0ffb8eb34e1be167e8b55c1dafc3e7a4d48eb09d79f98017c4c61"
+      },
+      "traffic_inputs": [
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/parking_access.json",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/semantic.json",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/topology.json"
+      ]
+    },
+    {
+      "map_id": "3yd_synth_trizone_c_v2",
+      "name": "合成地库C",
+      "kind": "fixed10_semantic",
+      "inputs": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs",
+      "map_yaml": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/map.yaml",
+      "query_file": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/queries.json",
+      "query_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10"
+      ],
+      "resolution_m": 0.05,
+      "dimensions_px": [
+        8000,
+        7750
+      ],
+      "extent_m": [
+        400.0,
+        387.5
+      ],
+      "input_sha256": {
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/map.yaml": "66189a254bf330e728fc4779c00fae06d57341b11d36e1531410316e9a19f0a7",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/optemap.pgm": "86c6b11fd34cfad734b239967a21469cf34b5813cc8603804ad1b2a2c33752ce",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/parking_access.json": "ad311b5b56db198e2cafa12f9f146e1de7e77c8dec5f51401ce9ca5e679a6c8a",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/queries.json": "dad7ee0c656c2123f2450b116b409c6e2dcb20a6b0af93b373564db57ed130b1",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/semantic.json": "eb7712f4e4474adf6ed55f15dae0f9c6bd4af73da44e8ee2423cbe6526168337",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/topology.json": "65410ccd5017b142bf66b4ee0ed4029bfa34a00208ea9b3b5c8f26a327275890",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/binding.json": "afb1453a8565ef0a3269b4c14bbcb2154f18f6e0746e1745284cda199754c0cc",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/registry.json": "bdda23d613a2859f54941247319fdb36f19a268eeee330ec3a11a5cfbc4b0aa3",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/fixed10_binding.py": "999522e609a0ffb8eb34e1be167e8b55c1dafc3e7a4d48eb09d79f98017c4c61"
+      },
+      "traffic_inputs": [
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/parking_access.json",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/semantic.json",
+        "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/topology.json"
+      ]
+    },
+    {
+      "map_id": "arena_small_080x100_2d_005",
+      "name": "Arena小图",
+      "kind": "map_only",
+      "inputs": "/home/robot/workspaces/3ydl3_v8_crossmap10_20261011/inputs/arena_small_080x100_2d_005",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_crossmap10_20261011/inputs/arena_small_080x100_2d_005/map.yaml",
+      "query_file": "/home/robot/workspaces/3ydl3_v8_crossmap10_20261011/inputs/arena_small_080x100_2d_005/queries.json",
+      "query_ids": [
+        "A2B-01",
+        "A2B-02",
+        "A2B-03",
+        "A2B-04",
+        "A2B-05",
+        "A2B-06",
+        "A2B-07",
+        "A2B-08",
+        "A2B-09",
+        "A2B-10"
+      ],
+      "resolution_m": 0.05,
+      "dimensions_px": [
+        1600,
+        2000
+      ],
+      "extent_m": [
+        80.0,
+        100.0
+      ],
+      "input_sha256": {
+        "/home/robot/workspaces/3ydl3_v8_crossmap10_20261011/inputs/arena_small_080x100_2d_005/map.yaml": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849",
+        "/home/robot/workspaces/3ydl3_v8_crossmap10_20261011/inputs/arena_small_080x100_2d_005/map.pgm": "95f1cf34152336771483cc8c02d101d229a7bd9ac0d73376cf383207312ab8a8",
+        "/home/robot/workspaces/3ydl3_v8_crossmap10_20261011/inputs/arena_small_080x100_2d_005/queries.json": "33b04fc4c3393cf52806b41c8399722753f5cb07e02af59ef681c3a6ce8654d2",
+        "/home/robot/pudu_robot_ws/external/arena4_ws/src/arena/simulation-setup/worlds/arena_small_080x100_2d_005/scenarios/a2b_benchmark_20.json": "4f15162dd87bca2d989dcda6db3ce5966bf8322111f9c6a723c0980264ea153b",
+        "/home/robot/pudu_robot_ws/external/arena4_ws/src/arena/simulation-setup/worlds/arena_small_080x100_2d_005/map/map.yaml": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849",
+        "/home/robot/pudu_robot_ws/external/arena4_ws/src/arena/simulation-setup/worlds/arena_small_080x100_2d_005/map/map.pgm": "95f1cf34152336771483cc8c02d101d229a7bd9ac0d73376cf383207312ab8a8"
+      },
+      "traffic_inputs": []
+    },
+    {
+      "map_id": "arena_medium_200x200_2d_005",
+      "name": "Arena中图",
+      "kind": "map_only",
+      "inputs": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_medium_200x200_2d_005",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_medium_200x200_2d_005/map.yaml",
+      "query_file": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_medium_200x200_2d_005/queries.json",
+      "query_ids": [
+        "A2B-01",
+        "A2B-02",
+        "A2B-03",
+        "A2B-04",
+        "A2B-05",
+        "A2B-06",
+        "A2B-07",
+        "A2B-08",
+        "A2B-09",
+        "A2B-10"
+      ],
+      "resolution_m": 0.05,
+      "dimensions_px": [
+        4000,
+        4000
+      ],
+      "extent_m": [
+        200.0,
+        200.0
+      ],
+      "input_sha256": {
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_medium_200x200_2d_005/map.yaml": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_medium_200x200_2d_005/map.pgm": "4c894b9107fec6ccdb3a627e2efae9cdffb2d589f874b7dc272db082d58c550a",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_medium_200x200_2d_005/queries.json": "76f0c54fbd5fde68d2b342f6a2d48d5b152e29cbac3f5381aa3db7d3709e3490"
+      },
+      "traffic_inputs": []
+    },
+    {
+      "map_id": "arena_large_250x300_2d_005",
+      "name": "Arena大图",
+      "kind": "map_only",
+      "inputs": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_large_250x300_2d_005",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_large_250x300_2d_005/map.yaml",
+      "query_file": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_large_250x300_2d_005/queries.json",
+      "query_ids": [
+        "A2B-01",
+        "A2B-02",
+        "A2B-03",
+        "A2B-04",
+        "A2B-05",
+        "A2B-06",
+        "A2B-07",
+        "A2B-08",
+        "A2B-09",
+        "A2B-10"
+      ],
+      "resolution_m": 0.05,
+      "dimensions_px": [
+        5000,
+        6000
+      ],
+      "extent_m": [
+        250.0,
+        300.0
+      ],
+      "input_sha256": {
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_large_250x300_2d_005/map.yaml": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_large_250x300_2d_005/map.pgm": "5ae6413b5f78d5d92670fd6f487965de491a028d7289b9dd6c0e3fc6e58b1dec",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_large_250x300_2d_005/queries.json": "8467a9cf7bb4708af235f5af10e1b40d47135408e7819d06a7ec239b60ddf80d"
+      },
+      "traffic_inputs": []
+    },
+    {
+      "map_id": "mentor_map_20260825_005",
+      "name": "导师原图",
+      "kind": "map_only",
+      "inputs": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005/map.yaml",
+      "query_file": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005/queries.json",
+      "query_ids": [
+        "A2B-01",
+        "A2B-02",
+        "A2B-03",
+        "A2B-04",
+        "A2B-05",
+        "A2B-06",
+        "A2B-07",
+        "A2B-08",
+        "A2B-09",
+        "A2B-10"
+      ],
+      "resolution_m": 0.05,
+      "dimensions_px": [
+        3287,
+        1512
+      ],
+      "extent_m": [
+        164.35000000000002,
+        75.60000000000001
+      ],
+      "input_sha256": {
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005/map.yaml": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005/map.pgm": "826c3927815e23b0734a91454f67cb165806c17118fbc568ae28ba0ae8bc0a3e",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005/queries.json": "6dd11488950058cb4b91770c256e6e0237aecb3ae244a94d1867c0dac0f864a5"
+      },
+      "traffic_inputs": []
+    },
+    {
+      "map_id": "mentor_map_20260825_005_4x_area",
+      "name": "导师四倍面积图",
+      "kind": "map_only",
+      "inputs": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005_4x_area",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005_4x_area/map.yaml",
+      "query_file": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005_4x_area/queries.json",
+      "query_ids": [
+        "A2B-01",
+        "A2B-02",
+        "A2B-03",
+        "A2B-04",
+        "A2B-05",
+        "A2B-06",
+        "A2B-07",
+        "A2B-08",
+        "A2B-09",
+        "A2B-10"
+      ],
+      "resolution_m": 0.05,
+      "dimensions_px": [
+        6574,
+        3024
+      ],
+      "extent_m": [
+        328.70000000000005,
+        151.20000000000002
+      ],
+      "input_sha256": {
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005_4x_area/map.yaml": "e0355183ca126ab7b1f7172d667aa157b49f84f12c7eb77d5d8ebe87b4fc0849",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005_4x_area/map.pgm": "7226bba2392bd0986adce55b06974174e8952d84196ec7c6122237d0e08385f6",
+        "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005_4x_area/queries.json": "23b792bb4d14e5909db59b08a00c9ba185692f6e676aaf1941d3272fb372103d"
+      },
+      "traffic_inputs": []
+    }
+  ],
+  "cache_policy": {
+    "topology_env": "THREEYD_V12_INDEX_ROOT",
+    "planes_env": "THREEYD_V12_PLANE_ROOT",
+    "legacy_topology_root": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/indices_default",
+    "legacy_planes_root": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/planes",
+    "new_runs": "本轮runner使用新输出下的缓存/索引目录；地图加载与构建单列。地图/Q和语义输入是权威数据，索引是派生产物。"
+  },
+  "read_only_check_scope": "存在性、原Q标识、软件版本、模块路径优先级、配置JSON、16项补充运行资产SHA及原生库位置；不导入求解器、不启动ROS节点、不运行规划，也不写输出。",
+  "fixed_source_relative": "source/3YDL3-V13-L2",
+  "runtime_assets_manifest": "docs/RUNTIME_ASSETS.json",
+  "runtime_assets_added": {
+    "base/runtime/base/config/l3.json": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/config/l3.json",
+      "sha256": "3fb5520974702cf4eb0df8b1d267953206d42a0509154a503848ed82c91561ac",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "base/runtime/base/config/endpoint_tolerance.json": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/config/endpoint_tolerance.json",
+      "sha256": "8f7cc98496a9fc32f40568cc4fe4ac9e21b36e47b38a5030aae76b1d293c5df3",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "base/runtime/base/config/regional_mixed_mengjia.json": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/config/regional_mixed_mengjia.json",
+      "sha256": "9670d68bdfa6b80d000a87beaab9147fb6cbb93e8f861ef6a20df00b01eda1aa",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "base/runtime/base/native/curve_nav2_stack": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/native/curve_nav2_stack",
+      "sha256": "887e9ac9a5871c90e875013f9c206cc250ab1b8e45eb0032c7ba648434a5d090",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "base/runtime/base/tools/curve_composed.launch.py": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/tools/curve_composed.launch.py",
+      "sha256": "f68f8694226e054df8d3bfdd7815aab57522ed6c466572dabfb7ae1967972085",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "base/runtime/base/tools/curve_stack.launch.py": {
+      "source": "/home/robot/workspaces/3ydl3_v13_r0_astar_compare_20261023/tools/curve_stack.launch.py",
+      "sha256": "37fd2c6e1bd25865cc34b5dfe4a7cc97974855f3a866a40c2258d97ecde9c5a3",
+      "reason": "unchanged inherited P6 runtime asset omitted from company source package"
+    },
+    "resources/semantic/build/libsemantic_sweep.so": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/build/libsemantic_sweep.so",
+      "sha256": "b311f15d431dc6557cbd208b6e522403cf2dff137a6f06a212558948f4bbbaaa",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "resources/semantic/config/fastdds_large_map.xml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/config/fastdds_large_map.xml",
+      "sha256": "59c77a1ddfe156a52c266f0536f5955673c361dabe4834081f86c476cae11d66",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_normalized_navfn.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_normalized_navfn.yaml",
+      "sha256": "8b20175315df817cbb16bbcbe56c3c3f869b4f86b92c74cf5f9cdf5ab732560c",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_normalized_smac_hybrid.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_normalized_smac_hybrid.yaml",
+      "sha256": "8220e187b3cc838cb9f671f40692332ab262db87cd6155f8ee1a8d373c3a7a47",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_product_navfn.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_product_navfn.yaml",
+      "sha256": "19cde1a9c9efc307172136fe8006cdb68874cd580762ae2e77a4e16166b21a66",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_product_smac_hybrid.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_product_smac_hybrid.yaml",
+      "sha256": "e81ea2c37c8587e3709ebb316707a9f7994e69839780315ffcc7ccfe2792cbc5",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_protocol.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_protocol.yaml",
+      "sha256": "9ab110b4c0b5df61e435c2247126e53b36f0af5a30605faf8951838bb923c97a",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_protocol_hospital_005.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_protocol_hospital_005.yaml",
+      "sha256": "7ba888b31de2223bc86a537a758fc12bd7794b28f4a250d7774757c871898efc",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_queries_hospital.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_queries_hospital.yaml",
+      "sha256": "241085e7cd22035c02e1a88dc1d2f5bbe1a5ede9404aafba626e5302596cfedc",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    },
+    "base/runtime/config/planner_benchmark_strict_forward_smac_hybrid.yaml": {
+      "source": "/home/robot/workspaces/3yd_v1_semantic_ack_20260915/external/arena4_ws/src/arena/evaluation/arena_evaluation/config/planner_benchmark_strict_forward_smac_hybrid.yaml",
+      "sha256": "1a1109fde8f07a88a6f06770212aff4c015d12c1a2708c12b9303d1b647a9336",
+      "reason": "unchanged semantic sweep/transport/benchmark resource from original P6 inherited runtime"
+    }
+  },
+  "published_solver_files_unchanged": 449,
+  "read_only_check_observed": "2026-11-09 runtime/profile p6: 104/104 checks passed, including all 16 added runtime assets; no ROS nodes or navigation launched",
+  "resource_bindings": {
+    "semantic_world.WORK": "runtime/3YDL3-V13-L2/resources/semantic",
+    "semantic_pipeline.WORK": "runtime/3YDL3-V13-L2/resources/semantic",
+    "method": "new p6_runtime_binding.py binds resource directories before planning; solver source bytes unchanged"
+  },
+  "environment_binding": "run_static_regression.py sources packaged env first, then restores explicit BENCH_SOURCE, INDEX_ROOT, PLANE_ROOT and registered experiment flags before executing the harness"
+}

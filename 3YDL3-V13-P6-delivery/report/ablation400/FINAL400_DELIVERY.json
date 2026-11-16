@@ -1,0 +1,46 @@
+{
+  "status": "complete; frozen",
+  "at_utc": "2026-11-10T07:39:55.211296+00:00",
+  "audit_passed": true,
+  "slots": 400,
+  "algorithm_measurements": 399,
+  "infrastructure_records": 1,
+  "normal_algorithm_finalized": 397,
+  "recovered_outer_unknown_requests": 2,
+  "accepted_paths": 212,
+  "errors": 0,
+  "maintenance_verified": 40,
+  "first_pass_succeeded": true,
+  "failure_reason_table": "FAILURE_REASON_REVIEW.json",
+  "failure_reason_note": "Use explicit refusal classification from this supplement; initial audit raw substring tags retained as original diagnostic evidence. Outcome/geometry/source audit unchanged.",
+  "files": {
+    "FINAL400_AUDIT.json": {
+      "sha256": "2c0f91842efcec12d0a77e89d6d247fadded591ec96a6b93c904c10a52812aaa",
+      "bytes": 7181991
+    },
+    "FINAL400_AUDIT_FIRST.log": {
+      "sha256": "c9312bfb5ecf71899d9a33753e9e86f33d42059e344aa016ba196e2cc3802249",
+      "bytes": 94
+    },
+    "audit_final400_v4.py": {
+      "sha256": "8c328eda59b33060da36a7b73f7253bfacd31b4a9d341012a7b0a4ab36a51b05",
+      "bytes": 24847
+    },
+    "FINAL400_PREPARATION.json": {
+      "sha256": "8b5173ccb7ccc4e82c438fc0e172bd983b6016ac48eaaf5fcaff4e4d6c63b189",
+      "bytes": 1662
+    },
+    "FAILURE_REASON_REVIEW.json": {
+      "sha256": "78580a940cd2ebe4c6115b0ab25a7372558ae5b4240ede26b70aad4885549a6d",
+      "bytes": 144250
+    },
+    "FAILURE_REASON_REVIEW.md": {
+      "sha256": "3c4ab6e732202783d47eec56c9744b2b5d0baeecbc84df7eea51dcd1686984bd",
+      "bytes": 1514
+    },
+    "explain_failures.py": {
+      "sha256": "70efb1f0c7afb436c0c2b63122ce09f9024fac2d47ee096195019bb5f67892be",
+      "bytes": 6746
+    }
+  }
+}

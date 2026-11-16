@@ -1,0 +1,3932 @@
+{
+  "source": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/review/p6_final400_identity_v1/FINAL400_AUDIT.json",
+  "source_sha256": "2c0f91842efcec12d0a77e89d6d247fadded591ec96a6b93c904c10a52812aaa",
+  "script_sha256": "70efb1f0c7afb436c0c2b63122ce09f9024fac2d47ee096195019bb5f67892be",
+  "denominator": "Final algorithm failures only; request-level existence of a refusal, never repeated-attempt totals.",
+  "categories_nonexclusive": true,
+  "selection": "Explicit failure/failure_code/failures fields; additionally VISITED_STATE_BUDGET, LOCAL_TIME_BUDGET and L2_TIMEOUT in reason fields. Generic SUCCESS/disabled/policy reasons excluded.",
+  "infrastructure": "Original Q07 reset exception, before service.plan; prior Q05 attempt payload is excluded.",
+  "interpretation": "Observed candidate refusal or exhausted budget; these counts do not establish mathematical infeasibility of the A2B input.",
+  "arms": {
+    "P6": {
+      "design_slots": 100,
+      "algorithm_measurements": 100,
+      "accepted": 100,
+      "failed": 0,
+      "infrastructure_records": 0,
+      "final_failure_codes": {},
+      "requests_with_refusal_category_nonexclusive": {},
+      "requests_with_exact_refusal_code": {}
+    },
+    "no_L1_search": {
+      "design_slots": 100,
+      "algorithm_measurements": 100,
+      "accepted": 66,
+      "failed": 34,
+      "infrastructure_records": 0,
+      "final_failure_codes": {
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED": 4,
+        "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS": 6,
+        "CURVE_STRICT_REJECTED:WRONG_TRAVEL_DIRECTION": 1,
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH": 12,
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_TRAFFIC_REJECT:['PARKING_REENTRY_TRANSIT']": 2,
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH": 4,
+        "V12_FULL_L2_ABLATION:V12_L2_AMBIGUOUS_ROAD_DIRECTION": 1,
+        "CURVE_BUDGET": 2,
+        "CURVE_NO_CERTIFIED_SOLUTION": 1,
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED": 1
+      },
+      "requests_with_refusal_category_nonexclusive": {
+        "reference_or_search_geometry": 29,
+        "traffic": 10,
+        "budget": 17,
+        "unspecified_certificate_or_L3_rejection": 5
+      },
+      "requests_with_exact_refusal_code": {
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED": 4,
+        "V12_L2_NO_ROUTE": 29,
+        "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS": 6,
+        "CURVE_STRICT_REJECTED:WRONG_TRAVEL_DIRECTION": 1,
+        "CURVE_BUDGET": 5,
+        "WRONG_TRAVEL_DIRECTION": 1,
+        "V12_L3_NO_SOLUTION": 5,
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH": 12,
+        "VISITED_STATE_BUDGET": 12,
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_TRAFFIC_REJECT:['PARKING_REENTRY_TRANSIT']": 2,
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH": 4,
+        "V12_FULL_L2_ABLATION:V12_L2_AMBIGUOUS_ROAD_DIRECTION": 1,
+        "CURVE_NO_CERTIFIED_SOLUTION": 3,
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED": 4,
+        "CURVE_STRICT_REJECTED:ROAD_SEQUENCE_OR_OWNERSHIP": 1,
+        "ROAD_SEQUENCE_OR_OWNERSHIP": 1
+      }
+    },
+    "no_L2_search": {
+      "design_slots": 100,
+      "algorithm_measurements": 100,
+      "accepted": 46,
+      "failed": 54,
+      "infrastructure_records": 0,
+      "final_failure_codes": {
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET": 35,
+        "CURVE_BUDGET": 7,
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE": 12
+      },
+      "requests_with_refusal_category_nonexclusive": {
+        "reference_or_search_geometry": 47,
+        "budget": 43,
+        "unspecified_certificate_or_L3_rejection": 54,
+        "traffic": 1
+      },
+      "requests_with_exact_refusal_code": {
+        "CURVE_BUDGET": 29,
+        "POSE_CHAIN_BUDGET": 8,
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE": 46,
+        "V12_L3_NO_SOLUTION": 54,
+        "POSE_CHAIN_DISCONNECTED": 25,
+        "CURVE_NO_CERTIFIED_SOLUTION": 37,
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED": 28,
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET": 35,
+        "POSE_CHAIN_TERMINAL": 43,
+        "CURVE_ENDPOINT_OR_GUIDE_OUTSIDE_SCOPE": 1,
+        "CURVE_STRICT_REJECTED:UNAUTHORIZED_U_TURN": 1,
+        "UNAUTHORIZED_U_TURN": 1,
+        "CURVE_STRICT_REJECTED:PARKING_OWNED_ROAD_ACCESS;ROAD_SEQUENCE_OR_OWNERSHIP": 1,
+        "PARKING_OWNED_ROAD_ACCESS;ROAD_SEQUENCE_OR_OWNERSHIP": 1,
+        "ROAD_SEQUENCE_OR_OWNERSHIP": 1,
+        "PARKING_OWNED_ROAD_ACCESS": 1
+      }
+    },
+    "no_L3_optimization": {
+      "design_slots": 100,
+      "algorithm_measurements": 99,
+      "accepted": 0,
+      "failed": 99,
+      "infrastructure_records": 1,
+      "final_failure_codes": {
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP": 8,
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET": 27,
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED": 24,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP": 4,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 4,
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH": 1,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 5,
+        "CURVE_BUDGET": 7,
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP": 9,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION": 4,
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 3,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 2,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 1
+      },
+      "requests_with_refusal_category_nonexclusive": {
+        "kinematics_or_heading": 99,
+        "unspecified_certificate_or_L3_rejection": 99,
+        "body_or_corridor": 56,
+        "traffic": 6,
+        "budget": 59,
+        "reference_or_search_geometry": 2
+      },
+      "requests_with_exact_refusal_code": {
+        "HEADING_DISCONTINUITY": 31,
+        "V12_L3_NO_SOLUTION": 66,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP": 13,
+        "CURVE_BUDGET": 59,
+        "V12_CERTIFICATE_REJECTED": 82,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 1,
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED": 58,
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET": 27,
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 14,
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 5,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 13,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION": 4,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 9,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION": 13,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 16,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION": 3,
+        "CURVE_BUDGET;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP": 1,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 2,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 10,
+        "CURVATURE;CURVE_BUDGET;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 1,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP": 11,
+        "CURVATURE": 16,
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 15,
+        "STATIC_FOOTPRINT_COLLISION": 5,
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED": 1,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;REVERSE_MOTION;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 1,
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH": 1,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 1,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 1,
+        "V12_L2_NO_ROUTE": 1,
+        "L2_UNVERIFIED_NO_PATH": 1,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 4,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 6,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 1,
+        "CURVE_BUDGET;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 3,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;REVERSE;REVERSE_MOTION;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 1,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 1,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_U_TURN": 1,
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP": 1,
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP": 17,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 1,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;RAW_STEERING_JUMP;REVERSE_MOTION;ROAD_SEQUENCE_INCOMPLETE;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 1,
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;RAW_STEERING_JUMP;ROAD_SEQUENCE_INCOMPLETE;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 2,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 7,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION": 1,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;REVERSE_MOTION": 5,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 2,
+        "CURVE_BUDGET;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;REVERSE_MOTION": 1,
+        "CURVE_BUDGET;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION": 3,
+        "REVERSE_MOTION": 4,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 1,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 1,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 2,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 1,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;MAXIMUM_CURVATURE_VIOLATION;RAW_STEERING_JUMP": 1,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 1,
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT": 1,
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT;UNBOUND_SEMANTIC_TRAVEL": 3,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT;UNBOUND_SEMANTIC_TRAVEL": 1,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT;UNBOUND_SEMANTIC_TRAVEL": 1,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNBOUND_SEMANTIC_TRAVEL": 1,
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNBOUND_SEMANTIC_TRAVEL": 1,
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT": 1
+      }
+    }
+  },
+  "request_evidence": [
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q09",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED",
+      "categories": [
+        "reference_or_search_geometry"
+      ],
+      "exact_refusal_values": [
+        "V12_L2_NO_ROUTE",
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q10",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+      "categories": [
+        "reference_or_search_geometry",
+        "traffic"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+        "V12_L2_NO_ROUTE"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q08",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED",
+      "categories": [
+        "reference_or_search_geometry"
+      ],
+      "exact_refusal_values": [
+        "V12_L2_NO_ROUTE",
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q06",
+        "no_L1_search"
+      ],
+      "final_failure_code": "CURVE_STRICT_REJECTED:WRONG_TRAVEL_DIRECTION",
+      "categories": [
+        "traffic",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_STRICT_REJECTED:WRONG_TRAVEL_DIRECTION",
+        "V12_L3_NO_SOLUTION",
+        "WRONG_TRAVEL_DIRECTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-04",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-03",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q10",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_TRAFFIC_REJECT:['PARKING_REENTRY_TRANSIT']",
+      "categories": [
+        "reference_or_search_geometry",
+        "traffic"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_TRAFFIC_REJECT:['PARKING_REENTRY_TRANSIT']",
+        "V12_L2_NO_ROUTE"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-03",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry"
+      ],
+      "exact_refusal_values": [
+        "V12_L2_NO_ROUTE",
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-03",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry"
+      ],
+      "exact_refusal_values": [
+        "V12_L2_NO_ROUTE",
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q08",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+      "categories": [
+        "reference_or_search_geometry",
+        "traffic"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+        "V12_L2_NO_ROUTE"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q09",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_L2_AMBIGUOUS_ROAD_DIRECTION",
+      "categories": [
+        "reference_or_search_geometry",
+        "traffic"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_L2_AMBIGUOUS_ROAD_DIRECTION",
+        "V12_L2_NO_ROUTE"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q10",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+      "categories": [
+        "reference_or_search_geometry",
+        "traffic"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+        "V12_L2_NO_ROUTE"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q08",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED",
+      "categories": [
+        "reference_or_search_geometry"
+      ],
+      "exact_refusal_values": [
+        "V12_L2_NO_ROUTE",
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q09",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED",
+      "categories": [
+        "reference_or_search_geometry"
+      ],
+      "exact_refusal_values": [
+        "V12_L2_NO_ROUTE",
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q10",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+      "categories": [
+        "reference_or_search_geometry",
+        "traffic"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+        "V12_L2_NO_ROUTE"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-03",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-05",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-06",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-07",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-08",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-04",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-05",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-06",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-07",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-08",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_NO_PATH",
+        "V12_L2_NO_ROUTE",
+        "VISITED_STATE_BUDGET"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q09",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+      "categories": [
+        "reference_or_search_geometry",
+        "traffic"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+        "V12_L2_NO_ROUTE"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-01",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry"
+      ],
+      "exact_refusal_values": [
+        "V12_L2_NO_ROUTE",
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-04",
+        "no_L1_search"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-05",
+        "no_L1_search"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-06",
+        "no_L1_search"
+      ],
+      "final_failure_code": "CURVE_NO_CERTIFIED_SOLUTION",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-09",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry"
+      ],
+      "exact_refusal_values": [
+        "V12_L2_NO_ROUTE",
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q01",
+        "no_L1_search"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_STRICT_REJECTED:ROAD_SEQUENCE_OR_OWNERSHIP",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "ROAD_SEQUENCE_OR_OWNERSHIP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q09",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+      "categories": [
+        "reference_or_search_geometry",
+        "traffic"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:PARKING_OWNED_ROAD_ACCESS",
+        "V12_L2_NO_ROUTE"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q10",
+        "no_L1_search"
+      ],
+      "final_failure_code": "V12_FULL_L2_ABLATION:V12_FULL_L2_TRAFFIC_REJECT:['PARKING_REENTRY_TRANSIT']",
+      "categories": [
+        "reference_or_search_geometry",
+        "traffic"
+      ],
+      "exact_refusal_values": [
+        "V12_FULL_L2_ABLATION:V12_FULL_L2_TRAFFIC_REJECT:['PARKING_REENTRY_TRANSIT']",
+        "V12_L2_NO_ROUTE"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q10",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q01",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q08",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q01",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q06",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-04",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-03",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-03",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q01",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_ENDPOINT_OR_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q10",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-03",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-07",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q05",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q08",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q01",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q02",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q03",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q04",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_STRICT_REJECTED:UNAUTHORIZED_U_TURN",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "UNAUTHORIZED_U_TURN",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q05",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q06",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q07",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q08",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q02",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q03",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q04",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q05",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q06",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q07",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q09",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "traffic",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_STRICT_REJECTED:PARKING_OWNED_ROAD_ACCESS;ROAD_SEQUENCE_OR_OWNERSHIP",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "PARKING_OWNED_ROAD_ACCESS",
+        "PARKING_OWNED_ROAD_ACCESS;ROAD_SEQUENCE_OR_OWNERSHIP",
+        "POSE_CHAIN_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "ROAD_SEQUENCE_OR_OWNERSHIP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q10",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q02",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q03",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q04",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q05",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q07",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q10",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-07",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-08",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q02",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q03",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q04",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q05",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q06",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q07",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q08",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q09",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q01",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q02",
+        "no_L2_search"
+      ],
+      "final_failure_code": "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+      "categories": [
+        "reference_or_search_geometry",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q03",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q04",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q06",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q07",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q09",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_BUDGET",
+        "POSE_CHAIN_DISCONNECTED",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q10",
+        "no_L2_search"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "reference_or_search_geometry",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_NO_CERTIFIED_SOLUTION",
+        "CURVE_RAW_GUIDE_OUTSIDE_SCOPE",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "POSE_CHAIN_TERMINAL",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q09",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q10",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "traffic",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q01",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q08",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q01",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q06",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-02",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_BUDGET;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-04",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-03",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;CURVE_BUDGET;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-10",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-03",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "STATIC_FOOTPRINT_COLLISION",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-09",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q01",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q10",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH",
+      "categories": [
+        "reference_or_search_geometry",
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "traffic",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;REVERSE_MOTION;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVE_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L2_NO_ROUTE",
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:L2_UNVERIFIED_NO_PATH",
+        "V5_L2_RECTANGLE_BRIDGE_NOT_FOUND:R10_OPTIMISTIC_DIRECTION_DISCONNECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-03",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "reference_or_search_geometry",
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L2_UNVERIFIED_NO_PATH",
+        "STATIC_FOOTPRINT_COLLISION",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-07",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "STATIC_FOOTPRINT_COLLISION",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-03",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-07",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q05",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q08",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "traffic",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q01",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q02",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q03",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q04",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_BUDGET;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;REVERSE;REVERSE_MOTION;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q05",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_U_TURN",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q06",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q07",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_multiloop_a_v1",
+        "Q08",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q02",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q03",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q04",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q05",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q06",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q07",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_BUDGET;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q09",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "traffic",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;RAW_STEERING_JUMP;ROAD_SEQUENCE_INCOMPLETE;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;RAW_STEERING_JUMP;REVERSE_MOTION;ROAD_SEQUENCE_INCOMPLETE;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_trizone_c_v2",
+        "Q10",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q02",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_BUDGET;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q03",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q04",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q05",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q08",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q09",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "3yd_synth_twinwing_b_v1",
+        "Q10",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-01",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;REVERSE_MOTION",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-03",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-05",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-06",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-07",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;REVERSE_MOTION",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-08",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;REVERSE_MOTION",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-09",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_large_250x300_2d_005",
+        "A2B-10",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;REVERSE_MOTION",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-01",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-02",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-04",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-05",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_BUDGET;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;REVERSE_MOTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;REVERSE_MOTION",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-06",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_BUDGET;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-07",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_BUDGET;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-08",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVE_BUDGET",
+        "CURVE_BUDGET;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_medium_200x200_2d_005",
+        "A2B-09",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-01",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-02",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-04",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "HEADING_DISCONTINUITY",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-05",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-06",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-07",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-08",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION",
+        "REVERSE_MOTION",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "arena_small_080x100_2d_005",
+        "A2B-10",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q02",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "HEADING_DISCONTINUITY",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q03",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "HEADING_DISCONTINUITY",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q04",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;ROAD_SEQUENCE_INCOMPLETE;ROAD_SEQUENCE_OR_OWNERSHIP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q05",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q06",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q07",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "HEADING_DISCONTINUITY",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q08",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mengjia",
+        "Q09",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-01",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "HEADING_DISCONTINUITY",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-02",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "HEADING_DISCONTINUITY",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-04",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "STATIC_FOOTPRINT_COLLISION",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-05",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "HEADING_DISCONTINUITY",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-06",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "HEADING_DISCONTINUITY",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-08",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;STATIC_FOOTPRINT_COLLISION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "STATIC_FOOTPRINT_COLLISION",
+        "SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-09",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "HEADING_DISCONTINUITY",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005",
+        "A2B-10",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "HEADING_DISCONTINUITY",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-01",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-02",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;MAXIMUM_CURVATURE_VIOLATION;RAW_STEERING_JUMP",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-04",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_BUDGET",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-05",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-06",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "HEADING_DISCONTINUITY",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-08",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-09",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+      "categories": [
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "mentor_map_20260825_005_4x_area",
+        "A2B-10",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "HEADING_DISCONTINUITY",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q01",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q02",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+      "categories": [
+        "kinematics_or_heading",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP",
+        "HEADING_DISCONTINUITY",
+        "V12_CERTIFICATE_REJECTED"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q03",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q04",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT;UNBOUND_SEMANTIC_TRAVEL",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q06",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q07",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT;UNBOUND_SEMANTIC_TRAVEL",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT;UNBOUND_SEMANTIC_TRAVEL",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT;UNBOUND_SEMANTIC_TRAVEL",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q09",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "traffic",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNBOUND_SEMANTIC_TRAVEL",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNBOUND_SEMANTIC_TRAVEL",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;REVERSE_MOTION;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_OWNED_ROAD_ACCESS;RAW_STEERING_JUMP;ROAD_SEQUENCE_INCOMPLETE;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    },
+    {
+      "key": [
+        "pudu_wanda_3f",
+        "Q10",
+        "no_L3_optimization"
+      ],
+      "final_failure_code": "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+      "categories": [
+        "body_or_corridor",
+        "kinematics_or_heading",
+        "traffic",
+        "budget",
+        "unspecified_certificate_or_L3_rejection"
+      ],
+      "exact_refusal_values": [
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;PARKING_REENTRY_TRANSIT;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT",
+        "CURVATURE;HEADING_DISCONTINUITY;L3_DISABLED_ENDPOINT_TANGENT_MISMATCH;L3_DISABLED_POLYLINE_TANGENT_JUMP;RAW_STEERING_JUMP;SWEPT_BODY_COLLISION_OR_CORRIDOR_EXIT;UNAUTHORIZED_PARKING_TRANSIT;UNBOUND_SEMANTIC_TRAVEL",
+        "CURVE_BUDGET",
+        "CURVE_V12_PHASE_SLICE_EXHAUSTED",
+        "L3RequestBudgetExceeded:L3_TOTAL_REQUEST_WALL_BUDGET",
+        "V12_CERTIFICATE_REJECTED",
+        "V12_L3_NO_SOLUTION"
+      ]
+    }
+  ]
+}

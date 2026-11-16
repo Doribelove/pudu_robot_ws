@@ -1,0 +1,49 @@
+{
+  "status": "registered_before_formal",
+  "purpose": "以固定发布P6实际服务完成原静态任务书十图首次导航回归并建立P6独立性能表",
+  "version": "3YDL3-V13-P6",
+  "profile": "p6",
+  "arm": "H-I",
+  "maps": 10,
+  "queries_per_map": 10,
+  "rounds": 3,
+  "formal_requests": 300,
+  "query_selection": "原注册100Q，保留原Q/A2B命名和位姿；不重新采样",
+  "measurement": "地图与服务准备后每个Q首次完整全局规划；失败、全部恢复、ACK及终验计入；导出另计",
+  "cpu": "工作进程与ROS后代累计CPU差，另列worker CPU",
+  "memory": "规划进程树采样峰值RSS；不是L2独占；按原采样口径",
+  "constraints": {
+    "body_m": [
+      0.53,
+      0.45
+    ],
+    "min_turning_radius_m": 0.4,
+    "forward_only": true,
+    "failure_only_endpoint_tolerance_m": 0.2,
+    "failure_only_heading_tolerance_deg": 30,
+    "request_budget_s": 30,
+    "cumulative_L3_budget_s": 15
+  },
+  "functional_acceptance": {
+    "expected_requests": 300,
+    "expected_policy_success": 300,
+    "published_collision_paths": 0,
+    "published_kinematic_violations": 0,
+    "traffic_and_ACK_checks_required": true,
+    "failed_outputs_require_reason_code": true,
+    "original_endpoint_bindings_required": true
+  },
+  "performance": "描述本批P6 P50/P95/P99、CPU、RSS及按面积排序分图结果。旧B成绩另列历史基线，不计算跨批纯算法提速。",
+  "pilot": "新目录独立于formal；先核验实际P6类/配置/库与完整输出，失败调试留档",
+  "preservation": "旧B/G/P6/P7/P8/P9封存目录、公司分支与线上数据均不覆盖；只有通过后更新当前交付指针与文档",
+  "remaining_human_review": [
+    "L02在线职责范围确认",
+    "导师最终签收"
+  ],
+  "runtime_package": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/runtime/3YDL3-V13-L2",
+  "runtime_assets_sha256": "ff37fe7258ffdac4e56dc6af8978d1ab57e698890b74c4397e60752e3f97670f",
+  "actual_service": "three_yd_v13.service.IncrementalService",
+  "actual_L2_state": "three_yd_v13.state.NativeIncrementalState",
+  "pilot_v2_passed": true,
+  "pilot_v1_preparation_failure": "Archived before navigation: relocated semantic sweep library path; no measurement"
+}

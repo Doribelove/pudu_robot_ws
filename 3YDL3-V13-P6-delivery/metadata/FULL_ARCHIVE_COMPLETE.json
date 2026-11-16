@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "archive": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/delivery_final_v1/artifacts/p6_final_20261110_v2/P6-final.tar.xz",
+  "bytes": 217317156,
+  "sha256": "c6199f0c9a414f805e284f1f29da8ebe3b56d1205de74781b447ea49c867519e",
+  "actual_existing_attachments": [
+    {
+      "path": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/delivery/bundles_v1/3YDL3-V13-P6-formal-raw.zip",
+      "role": "historical 300 original records; actual existing ZIP supplied separately",
+      "bytes": 78243620,
+      "sha256": "8f60d796b6ea002b7332e5d0bfabab68b02b46971a8d36de6f13b6903b9870e5"
+    },
+    {
+      "path": "/home/robot/workspaces/3ydl3_v13_p6_closeout_20261109/delivery/bundles_v2/3YDL3-V13-P6-reproduction-bundle.zip",
+      "role": "historical reproduction attachment; actual existing ZIP supplied separately",
+      "bytes": 11019365,
+      "sha256": "313766e04f04f94777d7b9ce79f4649e27ef9a4e55d12f27e1578bfd46cdcd01"
+    }
+  ],
+  "all_new_allocated_bytes": 3133124608,
+  "global_cap_bytes": 4294967296,
+  "source_unchanged": true,
+  "planning_started": false
+}

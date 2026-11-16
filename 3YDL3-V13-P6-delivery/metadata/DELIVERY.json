@@ -1,0 +1,27 @@
+{
+  "version": "3YDL3-V13-P6",
+  "label": "交付版",
+  "date": "2026-11-11",
+  "profile": "p6",
+  "arm": "H-I",
+  "fixed_algorithm_commit": "d8c01c5a71a67c2e85c250e8a8148bda9724dc68",
+  "fixed_source_files": 449,
+  "runtime_assets": 16,
+  "runtime_files": 465,
+  "runtime_supplement_files": 95,
+  "branch": "feature/liyongqi",
+  "static_regression": {
+    "requests": 300,
+    "success": 300,
+    "exact": 297,
+    "tolerant": 3
+  },
+  "ablation_P6": {
+    "requests": 100,
+    "success": 100,
+    "exact": 99,
+    "tolerant": 1
+  },
+  "full_archive_sha256": "c6199f0c9a414f805e284f1f29da8ebe3b56d1205de74781b447ea49c867519e",
+  "navigation_runs_during_publication": 0
+}

@@ -1,0 +1,186 @@
+{
+  "registry_source": "/home/robot/workspaces/3ydl3_v12_r0_completion_b_20261020/MAPS.json",
+  "sha256": "16f2eed24d0e12aafa343b81b26530ba4b288b94ec87168a5a0574d2c53e1f95",
+  "maps": [
+    {
+      "map_id": "mengjia",
+      "name": "万达3w地库",
+      "query_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10"
+      ],
+      "query_file": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/queries.json",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/corroborated_map.yaml"
+    },
+    {
+      "map_id": "pudu_wanda_3f",
+      "name": "万达2w地库",
+      "query_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10"
+      ],
+      "query_file": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/pudu_wanda_3f/inputs/queries.json",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/wanda2w_effective_map/map.yaml"
+    },
+    {
+      "map_id": "3yd_synth_multiloop_a_v1",
+      "name": "合成地库A",
+      "query_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10"
+      ],
+      "query_file": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/queries.json",
+      "map_yaml": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_multiloop_a_v1/inputs/map.yaml"
+    },
+    {
+      "map_id": "3yd_synth_twinwing_b_v1",
+      "name": "合成地库B",
+      "query_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10"
+      ],
+      "query_file": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/queries.json",
+      "map_yaml": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_twinwing_b_v1/inputs/map.yaml"
+    },
+    {
+      "map_id": "3yd_synth_trizone_c_v2",
+      "name": "合成地库C",
+      "query_ids": [
+        "Q01",
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09",
+        "Q10"
+      ],
+      "query_file": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/queries.json",
+      "map_yaml": "/home/robot/文档/ChatGPT/dddd-任务/output/3yd_fixed10_20260922/3yd_synth_trizone_c_v2/inputs/map.yaml"
+    },
+    {
+      "map_id": "arena_small_080x100_2d_005",
+      "name": "Arena小图",
+      "query_ids": [
+        "A2B-01",
+        "A2B-02",
+        "A2B-03",
+        "A2B-04",
+        "A2B-05",
+        "A2B-06",
+        "A2B-07",
+        "A2B-08",
+        "A2B-09",
+        "A2B-10"
+      ],
+      "query_file": "/home/robot/workspaces/3ydl3_v8_crossmap10_20261011/inputs/arena_small_080x100_2d_005/queries.json",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_crossmap10_20261011/inputs/arena_small_080x100_2d_005/map.yaml"
+    },
+    {
+      "map_id": "arena_medium_200x200_2d_005",
+      "name": "Arena中图",
+      "query_ids": [
+        "A2B-01",
+        "A2B-02",
+        "A2B-03",
+        "A2B-04",
+        "A2B-05",
+        "A2B-06",
+        "A2B-07",
+        "A2B-08",
+        "A2B-09",
+        "A2B-10"
+      ],
+      "query_file": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_medium_200x200_2d_005/queries.json",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_medium_200x200_2d_005/map.yaml"
+    },
+    {
+      "map_id": "arena_large_250x300_2d_005",
+      "name": "Arena大图",
+      "query_ids": [
+        "A2B-01",
+        "A2B-02",
+        "A2B-03",
+        "A2B-04",
+        "A2B-05",
+        "A2B-06",
+        "A2B-07",
+        "A2B-08",
+        "A2B-09",
+        "A2B-10"
+      ],
+      "query_file": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_large_250x300_2d_005/queries.json",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/arena_large_250x300_2d_005/map.yaml"
+    },
+    {
+      "map_id": "mentor_map_20260825_005",
+      "name": "导师原图",
+      "query_ids": [
+        "A2B-01",
+        "A2B-02",
+        "A2B-03",
+        "A2B-04",
+        "A2B-05",
+        "A2B-06",
+        "A2B-07",
+        "A2B-08",
+        "A2B-09",
+        "A2B-10"
+      ],
+      "query_file": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005/queries.json",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005/map.yaml"
+    },
+    {
+      "map_id": "mentor_map_20260825_005_4x_area",
+      "name": "导师四倍面积图",
+      "query_ids": [
+        "A2B-01",
+        "A2B-02",
+        "A2B-03",
+        "A2B-04",
+        "A2B-05",
+        "A2B-06",
+        "A2B-07",
+        "A2B-08",
+        "A2B-09",
+        "A2B-10"
+      ],
+      "query_file": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005_4x_area/queries.json",
+      "map_yaml": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/mentor_map_20260825_005_4x_area/map.yaml"
+    }
+  ]
+}

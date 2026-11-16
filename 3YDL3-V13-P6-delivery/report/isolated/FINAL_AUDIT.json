@@ -1,0 +1,1066 @@
+{
+  "pass": true,
+  "version": "A2B-P6-closeout-C1",
+  "completed_request_count": 2,
+  "rows": [
+    {
+      "run": "plan_1794277955520766066",
+      "map": "arena_small_080x100_2d_005",
+      "query": "A2B-01",
+      "exact": true,
+      "request_wall_s": 0.6605262200027937,
+      "worker_CPU_s": 0.4210409949999998,
+      "whole_session_tree_RSS_MiB": 639.16015625,
+      "length_m": 82.35615580761034,
+      "model_position_error": 0.0,
+      "model_yaw_error": 4.3298697960381105e-14,
+      "sampled_curvature": 1.1867202710198594,
+      "continuous_curvature_bound": 1.196503784206745,
+      "ACK_cells": 621522,
+      "ACK_full_SHA": "d2ce3196d277b332964b1e24165f6aede96fa6780133ac4118e778115c5d5850",
+      "source_lock_sha": "be6b89c7168310b88a86f2f241f461192a39e086fd2cbf9043add358bf95a1d8"
+    },
+    {
+      "run": "plan_1794278031527747834",
+      "map": "mengjia",
+      "query": "Q01",
+      "exact": true,
+      "request_wall_s": 1.6863566639949568,
+      "worker_CPU_s": 1.9750648700000006,
+      "whole_session_tree_RSS_MiB": 981.828125,
+      "length_m": 360.06422812991946,
+      "model_position_error": 0.0,
+      "model_yaw_error": 9.237055564881302e-14,
+      "sampled_curvature": 2.329091175112131,
+      "continuous_curvature_bound": 2.337519067777752,
+      "ACK_cells": 8142125,
+      "ACK_full_SHA": "662f6de01f47493cbfff8afcf73b38a807583f965efe9b56dfebf2a9c8b4992f",
+      "source_lock_sha": "6777829dfe681bd62a94c5352df9878a988edc4eb188f2c2905d3fe7fa3f01a9"
+    }
+  ],
+  "checks": [
+    {
+      "name": "per_run_source_snapshot",
+      "pass": true,
+      "detail": "bootstrap_1794277666229816873"
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277666229816873",
+        "pid": "244653",
+        "starttime": 7318508
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277666229816873",
+        "pid": "244660",
+        "starttime": 7318509
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277666229816873",
+        "pid": "244655",
+        "starttime": 7318508
+      }
+    },
+    {
+      "name": "normal_cleanup_no_rescue",
+      "pass": true,
+      "detail": "bootstrap_1794277666229816873"
+    },
+    {
+      "name": "per_run_source_snapshot",
+      "pass": true,
+      "detail": "bootstrap_1794277707288894091"
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277707288894091",
+        "pid": "245170",
+        "starttime": 7322614
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277707288894091",
+        "pid": "245171",
+        "starttime": 7322614
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277707288894091",
+        "pid": "245176",
+        "starttime": 7322614
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277707288894091",
+        "pid": "245189",
+        "starttime": 7322784
+      }
+    },
+    {
+      "name": "normal_cleanup_no_rescue",
+      "pass": true,
+      "detail": "bootstrap_1794277707288894091"
+    },
+    {
+      "name": "per_run_source_snapshot",
+      "pass": true,
+      "detail": "bootstrap_1794277735477795007"
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277735477795007",
+        "pid": "245495",
+        "starttime": 7325433
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277735477795007",
+        "pid": "245496",
+        "starttime": 7325433
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277735477795007",
+        "pid": "245501",
+        "starttime": 7325433
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277735477795007",
+        "pid": "245513",
+        "starttime": 7325602
+      }
+    },
+    {
+      "name": "normal_cleanup_no_rescue",
+      "pass": true,
+      "detail": "bootstrap_1794277735477795007"
+    },
+    {
+      "name": "per_run_source_snapshot",
+      "pass": true,
+      "detail": "bootstrap_1794277916106140961"
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277916106140961",
+        "pid": "248472",
+        "starttime": 7343496
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277916106140961",
+        "pid": "248473",
+        "starttime": 7343496
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277916106140961",
+        "pid": "248478",
+        "starttime": 7343496
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "bootstrap_1794277916106140961",
+        "pid": "248492",
+        "starttime": 7343690
+      }
+    },
+    {
+      "name": "normal_cleanup_no_rescue",
+      "pass": true,
+      "detail": "bootstrap_1794277916106140961"
+    },
+    {
+      "name": "per_run_source_snapshot",
+      "pass": true,
+      "detail": "fixture-orphan_1794277915859477759"
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "fixture-orphan_1794277915859477759",
+        "pid": "248420",
+        "starttime": 7343471
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "fixture-orphan_1794277915859477759",
+        "pid": "248421",
+        "starttime": 7343471
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "fixture-orphan_1794277915859477759",
+        "pid": "248426",
+        "starttime": 7343472
+      }
+    },
+    {
+      "name": "normal_cleanup_no_rescue",
+      "pass": true,
+      "detail": "fixture-orphan_1794277915859477759"
+    },
+    {
+      "name": "per_run_source_snapshot",
+      "pass": true,
+      "detail": "fixture_1794277909178241391"
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "fixture_1794277909178241391",
+        "pid": "248221",
+        "starttime": 7342803
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "fixture_1794277909178241391",
+        "pid": "248222",
+        "starttime": 7342803
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "fixture_1794277909178241391",
+        "pid": "248227",
+        "starttime": 7342803
+      }
+    },
+    {
+      "name": "normal_cleanup_no_rescue",
+      "pass": true,
+      "detail": "fixture_1794277909178241391"
+    },
+    {
+      "name": "per_run_source_snapshot",
+      "pass": true,
+      "detail": "plan_1794277933671861452"
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277933671861452",
+        "pid": "248611",
+        "starttime": 7345252
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277933671861452",
+        "pid": "248612",
+        "starttime": 7345252
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277933671861452",
+        "pid": "248617",
+        "starttime": 7345253
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277933671861452",
+        "pid": "248675",
+        "starttime": 7345452
+      }
+    },
+    {
+      "name": "normal_cleanup_no_rescue",
+      "pass": true,
+      "detail": "plan_1794277933671861452"
+    },
+    {
+      "name": "per_run_source_snapshot",
+      "pass": true,
+      "detail": "plan_1794277955520766066"
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277955520766066",
+        "pid": "249218",
+        "starttime": 7347437
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277955520766066",
+        "pid": "249219",
+        "starttime": 7347437
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277955520766066",
+        "pid": "249224",
+        "starttime": 7347438
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277955520766066",
+        "pid": "249238",
+        "starttime": 7347637
+      }
+    },
+    {
+      "name": "normal_cleanup_no_rescue",
+      "pass": true,
+      "detail": "plan_1794277955520766066"
+    },
+    {
+      "name": "spline_matches_exported_poses",
+      "pass": true,
+      "detail": "plan_1794277955520766066"
+    },
+    {
+      "name": "sampled_and_continuous_curvature",
+      "pass": true,
+      "detail": "plan_1794277955520766066"
+    },
+    {
+      "name": "model_ref_binding",
+      "pass": true,
+      "detail": "plan_1794277955520766066"
+    },
+    {
+      "name": "certificate_ref_binding",
+      "pass": true,
+      "detail": "plan_1794277955520766066"
+    },
+    {
+      "name": "runtime_strict_terminations",
+      "pass": true,
+      "detail": "plan_1794277955520766066"
+    },
+    {
+      "name": "explicit_exact_success",
+      "pass": true,
+      "detail": "plan_1794277955520766066"
+    },
+    {
+      "name": "bootstrap_all256_twice_full_SHA",
+      "pass": true,
+      "detail": "plan_1794277955520766066"
+    },
+    {
+      "name": "complete_request_native_grid_ACK",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277955520766066",
+        "cells": 621522
+      }
+    },
+    {
+      "name": "one_session_one_context_close",
+      "pass": true,
+      "detail": "plan_1794277955520766066"
+    },
+    {
+      "name": "per_run_source_snapshot",
+      "pass": true,
+      "detail": "plan_1794277990015401699"
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277990015401699",
+        "pid": "249463",
+        "starttime": 7350886
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277990015401699",
+        "pid": "249464",
+        "starttime": 7350887
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277990015401699",
+        "pid": "249469",
+        "starttime": 7350887
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794277990015401699",
+        "pid": "249486",
+        "starttime": 7351183
+      }
+    },
+    {
+      "name": "normal_cleanup_no_rescue",
+      "pass": true,
+      "detail": "plan_1794277990015401699"
+    },
+    {
+      "name": "per_run_source_snapshot",
+      "pass": true,
+      "detail": "plan_1794278031527747834"
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794278031527747834",
+        "pid": "250078",
+        "starttime": 7355038
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794278031527747834",
+        "pid": "250084",
+        "starttime": 7355039
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794278031527747834",
+        "pid": "250079",
+        "starttime": 7355038
+      }
+    },
+    {
+      "name": "registered_owner_exited",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794278031527747834",
+        "pid": "250099",
+        "starttime": 7355305
+      }
+    },
+    {
+      "name": "normal_cleanup_no_rescue",
+      "pass": true,
+      "detail": "plan_1794278031527747834"
+    },
+    {
+      "name": "spline_matches_exported_poses",
+      "pass": true,
+      "detail": "plan_1794278031527747834"
+    },
+    {
+      "name": "sampled_and_continuous_curvature",
+      "pass": true,
+      "detail": "plan_1794278031527747834"
+    },
+    {
+      "name": "model_ref_binding",
+      "pass": true,
+      "detail": "plan_1794278031527747834"
+    },
+    {
+      "name": "certificate_ref_binding",
+      "pass": true,
+      "detail": "plan_1794278031527747834"
+    },
+    {
+      "name": "runtime_strict_terminations",
+      "pass": true,
+      "detail": "plan_1794278031527747834"
+    },
+    {
+      "name": "explicit_exact_success",
+      "pass": true,
+      "detail": "plan_1794278031527747834"
+    },
+    {
+      "name": "bootstrap_all256_twice_full_SHA",
+      "pass": true,
+      "detail": "plan_1794278031527747834"
+    },
+    {
+      "name": "complete_request_native_grid_ACK",
+      "pass": true,
+      "detail": {
+        "run": "plan_1794278031527747834",
+        "cells": 8142125
+      }
+    },
+    {
+      "name": "one_session_one_context_close",
+      "pass": true,
+      "detail": "plan_1794278031527747834"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libaction_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libaction_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libaction_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libaction_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbond__rosidl_generator_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbond__rosidl_generator_py.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbond__rosidl_typesupport_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbond__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbond__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbond__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbond__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbuiltin_interfaces__rosidl_typesupport_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libcomposition_interfaces__rosidl_typesupport_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libcomposition_interfaces__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libcomposition_interfaces__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libcomposition_interfaces__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libcomposition_interfaces__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libdiagnostic_msgs__rosidl_generator_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libdiagnostic_msgs__rosidl_generator_py.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libdiagnostic_msgs__rosidl_typesupport_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libdiagnostic_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libdiagnostic_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libdiagnostic_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libdiagnostic_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libgeometry_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libgeometry_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/liblifecycle_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/liblifecycle_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/liblifecycle_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/liblifecycle_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libmap_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libmap_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libmap_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libmap_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libnav2_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libnav2_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libnav2_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libnav2_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libnav_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libnav_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libnav_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libnav_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librcl_interfaces__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librcl_interfaces__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librcl_interfaces__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librcl_interfaces__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librmw_dds_common__rosidl_generator_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librmw_dds_common__rosidl_generator_py.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librmw_dds_common__rosidl_typesupport_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librmw_dds_common__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librmw_dds_common__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librmw_dds_common__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librmw_dds_common__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librosgraph_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/librosgraph_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libsensor_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libsensor_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libsensor_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libsensor_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstatistics_msgs__rosidl_generator_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstatistics_msgs__rosidl_generator_py.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstatistics_msgs__rosidl_typesupport_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstatistics_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstatistics_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstatistics_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstatistics_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstd_msgs__rosidl_typesupport_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstd_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstd_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstd_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstd_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstd_srvs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstd_srvs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstd_srvs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libstd_srvs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libtf2_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libtf2_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libtf2_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libtf2_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libunique_identifier_msgs__rosidl_typesupport_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libunique_identifier_msgs__rosidl_typesupport_fastrtps_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libunique_identifier_msgs__rosidl_typesupport_fastrtps_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libunique_identifier_msgs__rosidl_typesupport_introspection_c.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libunique_identifier_msgs__rosidl_typesupport_introspection_cpp.so"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/share/ament_index/resource_index/packages/nav2_core"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/share/nav2_core/package.xml"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/lib/libompl.so.18"
+    },
+    {
+      "name": "supplement_origin_bytes",
+      "pass": true,
+      "detail": "/home/robot/experiment_data/a2b_closeout_candidate_20261110_r0/portable/supplement/inputs/mengjia/parking_access.json"
+    },
+    {
+      "name": "persistent_budget",
+      "pass": true,
+      "detail": {
+        "allocated": 34041856,
+        "logical": 33100904
+      }
+    }
+  ],
+  "failures": [],
+  "scope": "Read-only SHA/owner/curve/ACK/endpoint and runtime strict audit evidence checks; no new planning or full-body replay",
+  "resource_bytes_before_this_audit": {
+    "allocated": 34041856,
+    "logical": 33100904
+  }
+}

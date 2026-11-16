@@ -1,3 +1,6 @@
 *.patch -whitespace
 # Preserve accepted/vendored source bytes, including upstream whitespace.
 examples/3ydl3_garage_b/runtime/** -whitespace
+
+# Preserve the frozen P6 delivery bytes and component notices.
+3YDL3-V13-P6-delivery/** -text -filter

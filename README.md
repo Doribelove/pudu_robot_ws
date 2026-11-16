@@ -1,5 +1,21 @@
 # 3YDL3 · 三层机器人全局规划
 
+## 当前稳定工程交付：3YDL3-V13-P6
+
+固定算法提交 **`d8c01c5a71a67c2e85c250e8a8148bda9724dc68`**，配置 **`profile=p6` / `H-I`**。L1 选择通道，L2 采用增量 D* 几何搜索，L3 进行三次 B 样条与信赖域 SQP 连续优化。
+
+[交付代码](3YDL3-V13-P6-delivery/README.md) · [架构说明](3YDL3-V13-P6-delivery/ARCHITECTURE.md) · [运行与复现](3YDL3-V13-P6-delivery/RUNNING.md) · [本版实验结果](3YDL3-V13-P6-delivery/report/RESULTS.md)
+
+交付包包括固定源码、运行补充资产、验证和复现工具。十图原配套 100Q 三轮静态回归 **300/300 成功**，其中 297 次精确、3 次容差；独立四臂补证中完整 P6 为 **100/100 成功**。两批结果分别记录。
+
+```bash
+git clone --branch main https://github.com/Doribelove/pudu_robot_ws.git
+cd pudu_robot_ws/3YDL3-V13-P6-delivery
+python3 verify_delivery.py
+```
+
+地图、原配套 Q 和 ROS/Nav2 环境按[依赖清单](3YDL3-V13-P6-delivery/docs/DEPENDENCIES.json)取得。原 V11-r4 合成地库 B 可运行示例继续保留，使用方法见下文。
+
 [![Public example](https://github.com/Doribelove/pudu_robot_ws/actions/workflows/public-demo.yml/badge.svg)](https://github.com/Doribelove/pudu_robot_ws/actions/workflows/public-demo.yml)
 [可运行示例](examples/3ydl3_garage_b/README.md) · [许可范围](LICENSING.md) · [贡献指南](CONTRIBUTING.md) · [版本记录](CHANGELOG.md) · [复现验证](docs/public-demo/VALIDATION.md) · [上游维护](docs/UPSTREAM_MAINTENANCE.md)
 

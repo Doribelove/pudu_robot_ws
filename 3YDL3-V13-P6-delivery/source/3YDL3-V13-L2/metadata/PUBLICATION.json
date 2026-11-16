@@ -1,0 +1,20 @@
+{
+  "published_on": "2026-10-29",
+  "repository_branch": "feature/liyongqi",
+  "adopted_architecture": "V13-P6",
+  "latest_functional_candidate": "V13-P7-r1",
+  "default_profile": "p6",
+  "P6_workspace": "/home/robot/workspaces/3ydl3_v13_p6_hint_recovery_20261028",
+  "P7_r1_workspace": "/home/robot/workspaces/3ydl3_v13_p7b_obstacle_l1_20261028",
+  "verified_original_source_locks": 3618,
+  "source_lock_counts": {
+    "P6/CANDIDATE_SOURCE_LOCK.json": 11,
+    "P6/FROZEN_SOURCE_LOCK.json": 3590,
+    "P7-r1/CANDIDATE_SOURCE_LOCK.json": 8,
+    "P7-r1/PARENT_SOURCE_LOCK.json": 3610
+  },
+  "P6_local_records": 1066,
+  "P7_r1_formal_records": 224,
+  "new_navigation_runs": 0,
+  "maps_included": false
+}

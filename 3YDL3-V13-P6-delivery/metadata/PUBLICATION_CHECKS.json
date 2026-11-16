@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-11",
+  "version": "3YDL3-V13-P6",
+  "label": "交付版",
+  "profile": "p6",
+  "arm": "H-I",
+  "fixed_source_files_verified": 449,
+  "runtime_assets_verified": 16,
+  "environment_checks_passed": 104,
+  "warnings": 0,
+  "loaded_algorithm_modules_verified": 109,
+  "contract_tests_passed": 9,
+  "local_relative_document_links_checked": 24,
+  "archive_complete_sha_verified": "c6199f0c9a414f805e284f1f29da8ebe3b56d1205de74781b447ea49c867519e",
+  "navigation_runs": 0
+}

@@ -1,0 +1,17 @@
+{
+  "map_count": 10,
+  "query_count": 100,
+  "acquisition": "Project owner supplies authorized original maps, Q, semantic/traffic inputs and matching ROS/Nav2 environment; see docs/DEPENDENCIES.json.",
+  "supplement_external_inputs": [
+    {
+      "role": "external map/semantic input",
+      "source": "/home/robot/workspaces/3ydl3_v8_20261011/inputs/parking_access.json",
+      "sha256": "b0fe555242feee7ef293327a3284334ca8d3e82f27723ae1496930f4d150805c"
+    }
+  ],
+  "full_delivery_archive": {
+    "sha256": "c6199f0c9a414f805e284f1f29da8ebe3b56d1205de74781b447ea49c867519e",
+    "bytes": 217317156,
+    "includes": "maps/Q, raw outputs and isolated runtime; provided separately by project owner"
+  }
+}
