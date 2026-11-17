@@ -57,6 +57,14 @@
     "Apache-2.0 (OSQP and QDLDL)",
     "BSD-3-Clause (bundled AMD)"
   ],
-  "architecture_verified": "amd64 only",
-  "arm64_verified": false
+  "architecture_verified": "Linux x86_64 and native aarch64 GitHub Actions on Ubuntu 22.04/ROS Humble",
+  "arm64_verified": true,
+  "architecture_validation": {
+    "scope": "Ubuntu 22.04 ROS Humble native GitHub Actions source builds and 47 synthetic CTests across 12 packages, including both solver vendors",
+    "arm64_run_url": "https://github.com/Doribelove/pudu_robot_ws/actions/runs/44069917303",
+    "arm64_commit": "322401744b079e11ced8bf54f69785147d0b6d5a",
+    "amd64_run_url": "https://github.com/Doribelove/pudu_robot_ws/actions/runs/44068616506",
+    "amd64_commit": "6efcf157ff618d01028f0725377bd51d49fafbb2",
+    "hardware_scope": "Native CI hosts only; not Jetson/Orin, J6M/BPU or robot hardware"
+  }
 }

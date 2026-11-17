@@ -1,5 +1,6 @@
-# Copy to .github/workflows/trilayer-humble.yml in the independent repository.
-# Prepared locally; no remote workflow has been enabled or executed.
+# Source template for .github/workflows/trilayer-humble.yml.
+# Native amd64/arm64 runs passed: see ARCHITECTURE_VALIDATION.json for exact commits.
+# This newly consolidated dual-architecture revision still needs its own CI run; not ROS buildfarm approval.
 name: TriLayer Humble source build
 on:
   workflow_dispatch:
@@ -12,8 +13,16 @@ concurrency:
   group: trilayer-humble-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  humble-amd64:
-    runs-on: ubuntu-22.04
+  humble:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - architecture: amd64
+            runner: ubuntu-22.04
+          - architecture: arm64
+            runner: ubuntu-22.04-arm
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 90
     defaults:
       run:
@@ -45,7 +54,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
-          name: humble-amd64-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          name: humble-${{ matrix.architecture }}-evidence-${{ github.run_id }}-${{ github.run_attempt }}
           path: .ci_ws/evidence/
           if-no-files-found: warn
           include-hidden-files: false

@@ -1,6 +1,6 @@
 # TriLayer Global Planner
 
-Source packages for ROS 2 Humble on Ubuntu 22.04. This is a release-preparation branch, **not an available ROS apt release**. The current verified architecture is amd64; ARM64 is not yet enabled in the OSQP vendor.
+Source packages for ROS 2 Humble on Ubuntu 22.04. This is a release-preparation branch, **not an available ROS apt release**. Native Ubuntu 22.04 amd64 and arm64 source builds and synthetic tests have passed independent GitHub Actions runs. This does not establish board-specific or real-robot validation.
 
 TriLayer preserves the original P6 three-layer planning pipeline: semantic/topological L1 guidance, native L2 planning, and L3 optimize–certify with independent continuous trajectory auditing. It does not replace failed P6 plans with a different algorithm or declare failed paths executable.
 
@@ -22,7 +22,7 @@ Install stock Humble and the dependencies declared in the package manifests. Fou
 
 The reproducible build/test procedure is `release/ci/build-and-test.sh`. It builds both solver vendors from source, then the remaining packages, configures real solver-backed tests and runs them sequentially. It expects official Jammy Rust 1.85 and all manifest dependencies already installed. The dependency installer in the same directory deliberately only runs on disposable GitHub Actions runners; do not bypass that guard on a workstation.
 
-A fresh isolated local amd64 build and the subsequent persistent-service regression each passed 42 CTests across 12 packages; the latest regression with pre-install fixtures and exact scalar/vector ACK comparisons passes all 47 CTests. These are synthetic source-level and real ROS process/action tests, not official buildfarm acceptance, ARM validation or robot-safety certification. Raw machine-local logs are intentionally not part of this public source tree. CI will publish its own run evidence when executed.
+A fresh isolated local amd64 build and the subsequent persistent-service regression each passed 42 CTests across 12 packages; the latest regression with pre-install fixtures and exact scalar/vector ACK comparisons passes all 47 CTests. These are synthetic source-level and real ROS process/action tests, not official buildfarm acceptance or board/robot-safety certification. Raw machine-local logs are intentionally not part of this public source tree. CI will publish its own run evidence when executed.
 
 ## Nav2 bringup
 
@@ -38,6 +38,10 @@ The source baseline is `Doribelove/pudu_robot_ws` main `a98a639a8ac9b7b50c14f8a6
 
 Original additions use the licenses declared by each package. Preserve all bundled third-party notices, including the SciPy-adapted BSD heap and the mixed OSQP/QDLDL/Clarabel source inventories. Do not interpret a wrapper's Apache-2.0 license as relicensing every dependency.
 
-Remaining release gates include official rosdep resolution, clean package/deb installation, ARM/build-target decisions, a dedicated Bloom release repository, rosdistro review, official jobs and apt synchronization. A source branch or green CI alone does not satisfy those gates.
+Remaining release gates include official rosdep resolution, clean package/deb installation, official build-target scheduling/exclusion decisions, a dedicated Bloom release repository, rosdistro review, official jobs and apt synchronization. A source branch or green CI alone does not satisfy those gates.
 
 Maintainer: Doribelove <doribelove@gmail.com>.
+
+## Native architecture evidence
+
+Independent [amd64 CI](https://github.com/Doribelove/pudu_robot_ws/actions/runs/44068616506) and [arm64 CI](https://github.com/Doribelove/pudu_robot_ws/actions/runs/44069917303) each built all 12 packages and passed 47 CTests from fresh native runners. Exact commits and scope are recorded in `release/ci/ARCHITECTURE_VALIDATION.json`. The consolidated workflow now tests both architectures for future changes; use the latest Actions result for the current revision. ARM64 here does not mean Jetson, Horizon J6M/BPU, or physical-robot validation.

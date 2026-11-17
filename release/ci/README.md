@@ -1,9 +1,16 @@
-# Independent Humble CI template (prepared, not enabled)
+# Independent Humble CI: native amd64/arm64 runs verified; revised matrix pending
 
-This is a **local, statically checked CI template**, not a completed GitHub run,
-release, green badge or buildfarm approval. Nothing was pushed or remotely run.
-Only `release/ci/` was written for this task; no source packages, clean-rootfs
-build directories, host apt packages or rosdep configuration were changed.
+This is the **locally prepared dual-architecture revision**, not a completed run
+of this new revision, a release, or buildfarm approval. This revision task did
+not push or execute a remote workflow. Prior successful exact-commit runs are
+recorded below. The original template-preparation records are retained as
+historical evidence; no host apt settings or clean-rootfs workspace changed here.
+
+## Current native architecture evidence
+
+Native Ubuntu 22.04/Humble amd64 and aarch64 source builds plus all 47 synthetic CTests passed on GitHub Actions. ARM evidence: [run 44069917303](https://github.com/Doribelove/pudu_robot_ws/actions/runs/44069917303), commit `322401744b079e11ced8bf54f69785147d0b6d5a`; the runner reported `uname=aarch64`, `dpkg=arm64`. This is native CI coverage, not Jetson/Orin, Horizon J6M/BPU, or real-robot validation. The new dual-architecture workflow revision still requires its own subsequent CI.
+
+AMD64 evidence: [run 44068616506](https://github.com/Doribelove/pudu_robot_ws/actions/runs/44068616506), commit `6efcf157ff618d01028f0725377bd51d49fafbb2`. Exact run/artifact identifiers and boundaries are in `ARCHITECTURE_VALIDATION.json`. Historical preparation evidence below is retained, not rewritten as a successful run of this new revision.
 
 ## Required repository layout
 
@@ -39,7 +46,7 @@ validation evidence as a success badge. Add `.ci_ws/` to repository ignore rules
 
 ## What the job does
 
-1. A fresh GitHub-hosted **ubuntu-22.04 x64** runner checks out the repository with
+1. A matrix of fresh GitHub-hosted **ubuntu-22.04 x64** and **ubuntu-22.04-arm arm64** runners checks out the repository with
    read-only contents permission and `persist-credentials: false`. No secrets,
    external credentials or `pull_request_target` execution are used.
 2. ROS Tooling's pinned `setup-ros` action installs official Humble packages, with
@@ -89,9 +96,9 @@ Humble and exposes the three inputs used by this template. Pins are reviewed
 inputs, not a promise that upstream actions themselves never need updates.
 [GitHub's runner reference](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)
 currently lists `ubuntu-22.04` x64 and `ubuntu-22.04-arm` for public repositories.
-That availability alone does **not** validate this code on ARM: the current OSQP
-vendor deliberately rejects non-x86_64, and native helper/solver/ABI regression
-on arm64 remains unfinished. Therefore there is no ARM matrix entry or ARM badge.
+Native ARM testing is now independently recorded above. The matrix uses these
+two official runner labels, fail-fast=false, and architecture-qualified artifact
+names so results do not collide. This does not validate board-specific hardware.
 
 For the local-rule rationale and official Ubuntu package references see
 `../rosdep/README.md` when included in the release preparation bundle. Those
@@ -109,10 +116,10 @@ Performed locally without installation or CI execution:
 
 See `LOCAL_VALIDATION.json` and `upstream-evidence/LOCAL_SOURCE_LAYOUT.json`.
 No GitHub runner job, privileged dependency setup, source build or test suite was
-executed by this CI-preparation task. The first authorized clean remote run must
-still prove runner apt availability, full dependency resolution, disk/time fit,
-merge-install discovery and the complete test suite. Broader license review,
-upstream rosdep acceptance, bloom/rosdistro release work and ARM runtime
+executed by this CI-preparation task. Those statements describe the original preparation task. Subsequent exact
+remote runs are recorded above; this newly revised matrix must still pass its
+own run before being described as green. Broader license review,
+upstream rosdep acceptance, bloom/rosdistro release work and board-specific runtime/hardware
 validation remain separate gates.
 
 ## Short test temporary paths

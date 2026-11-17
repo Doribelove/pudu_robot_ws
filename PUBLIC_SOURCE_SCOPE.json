@@ -1,9 +1,14 @@
 {
   "source_baseline": "a98a639a8ac9b7b50c14f8a69c393706db4cc3ae",
   "frozen_algorithm": "d8c01c5a71a67c2e85c250e8a8148bda9724dc68",
-  "public_stage_files": 792,
+  "public_stage_files": 795,
   "excluded_generated_files": 99,
   "policy": "No build outputs, pycache, raw local execution evidence or private maps. Source third-party notices retained.",
   "verified_local_ctests": 47,
-  "official_apt_available": false
+  "official_apt_available": false,
+  "verified_native_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "architecture_evidence": "release/ci/ARCHITECTURE_VALIDATION.json"
 }

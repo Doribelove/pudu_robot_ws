@@ -16,13 +16,17 @@ import tarfile
 import zipfile
 
 
+def validate_platform(system,machine):
+    if system!='Linux' or machine not in ('x86_64','aarch64'):
+        raise RuntimeError('Supported source-build targets: Linux x86_64 and aarch64; board-specific hardware is not validated')
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--source-root',type=Path,required=True)
     parser.add_argument('--work',type=Path,required=True)
     args=parser.parse_args();root=args.source_root.resolve();work=args.work.resolve()
-    if platform.system()!='Linux' or platform.machine()!='x86_64':
-        raise RuntimeError('This prototype vendor is validated only on Linux amd64; ARM is not enabled')
+    validate_platform(platform.system(),platform.machine())
     if work==root or root.is_relative_to(work):raise RuntimeError('work must not contain sources')
     marker=work/'.trilayer_osqp_owned'
     if work.exists() and any(work.iterdir()) and not marker.is_file():

@@ -9,7 +9,7 @@ def version(executable,label):
  if not m or tuple(map(int,m.groups()))<(1,84,0):raise RuntimeError(f'{label} >=1.84 required; got {line}. Stock Jammy toolchain insufficient; supply audited toolchain paths. No automatic download.')
  return line
 cargo=str(pathlib.Path(a.cargo).resolve());rustc=str(pathlib.Path(a.rustc).resolve());versions={'cargo':version(cargo,'cargo'),'rustc':version(rustc,'rustc')}
-if platform.system()!='Linux' or platform.machine() not in ['x86_64','aarch64']:raise RuntimeError('Only Python/Linux x86_64 and aarch64 source closures are retained. ARM execution is unvalidated.')
+if platform.system()!='Linux' or platform.machine() not in ['x86_64','aarch64']:raise RuntimeError('Supported source-build targets: Linux x86_64 and aarch64; board-specific hardware is not validated.')
 if a.jobs<1:raise ValueError('jobs must be positive')
 manifest=json.loads((a.source_root/'SOURCE_MANIFEST.json').read_text());archive=a.source_root/'sources'/manifest['source_archive']
 if hashlib.sha256(archive.read_bytes()).hexdigest()!=manifest['sha256']:raise RuntimeError('source SHA256 mismatch')
@@ -43,5 +43,5 @@ filters=json.loads((a.source_root/'provenance/FILTER_MANIFEST.json').read_text()
 if compiled&stubs:raise RuntimeError('Unexpected stub compilation')
 pydir=work/'python/clarabel';pydir.mkdir(parents=True)
 shutil.copy2(source/'python/clarabel/__init__.py',pydir/'__init__.py');shutil.copy2(work/'target/release/libclarabel.so',pydir/'clarabel.so')
-proof={'source_manifest':manifest,'toolchain':versions,'toolchain_paths':{'cargo':cargo,'rustc':rustc,'explicit_library_path':a.toolchain_library_path},'python':sys.version,'python_executable':sys.executable,'architecture':platform.machine(),'ARM_validation':'not performed','command':cmd,'compiled_crates':sorted(compiled),'compiled_stubs':[],'extension_sha256':hashlib.sha256((pydir/'clarabel.so').read_bytes()).hexdigest(),'features':'Original python + defaults (faer/sdp retained)','release_status':'NOT RELEASED; see source manifest blockers'}
+proof={'source_manifest':manifest,'toolchain':versions,'toolchain_paths':{'cargo':cargo,'rustc':rustc,'explicit_library_path':a.toolchain_library_path},'python':sys.version,'python_executable':sys.executable,'architecture':platform.machine(),'runtime_tests_performed_by_build':False,'runtime_validation_evidence':manifest.get('architecture_validation',{}),'command':cmd,'compiled_crates':sorted(compiled),'compiled_stubs':[],'extension_sha256':hashlib.sha256((pydir/'clarabel.so').read_bytes()).hexdigest(),'features':'Original python + defaults (faer/sdp retained)','release_status':'NOT RELEASED; see source manifest blockers'}
 (work/'complete.json').write_text(json.dumps(proof,indent=2)+'\n')

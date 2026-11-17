@@ -1,0 +1,19 @@
+{
+  "scope": "Static validation of limited native amd64/arm64 support revision only",
+  "unit_tests_passed": 5,
+  "shell_syntax": "bash -n passed for install-deps.sh and build-and-test.sh",
+  "source_layout_and_solver_archives": "12-package check-layout.py passed, archive hashes unchanged",
+  "ros_tests_run_in_this_task": false,
+  "remote_push_or_ci_run_in_this_task": false,
+  "future_matrix_run_required": true,
+  "runtime_evidence": "ARCHITECTURE_VALIDATION.json",
+  "changed_file_sha256": {
+    "src/trilayer_osqp_vendor/scripts/build_vendor.py": "63c936b5df595a21b2cfd86aaca8d4edef69872716ddf49402d949bf6d0a075a",
+    "src/trilayer_clarabel_vendor/scripts/build_vendor.py": "60d88cf6a98f079fab7bf0aecb6d2d0013af07ea9fd7454a27c9a986dc34321b",
+    "release/ci/install-deps.sh": "f1430144f8cb9a9264ec595ef14016657155afb57044d7a79cf0852050c24b60",
+    "release/ci/build-and-test.sh": "33263887cf92e71c58c5c6318699bb93df67802f83a0f96fe5f5cbf17aca7b24",
+    "release/ci/trilayer-humble.yml": "517ccc6c59e86b6e4f9efb21b8aabf97db5baddb174f71d7cae6c3043d4eae32",
+    "src/trilayer_osqp_vendor/SOURCES_AND_LICENSES.json": "7fe53249c4293a4b4138626e6fe1bafae6348e6e8ec989d95bed42308f07e500",
+    "src/trilayer_clarabel_vendor/SOURCE_MANIFEST.json": "c73c4af47073eeb0d901e5147162b779f81e26505382a0b8761ecd19dff31151"
+  }
+}

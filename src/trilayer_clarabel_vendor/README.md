@@ -1,6 +1,6 @@
 # trilayer_clarabel_vendor (experimental, not published)
 
-Offline source-built Clarabel 0.11.1 Python extension for TriLayer. Pure source archive contains unchanged original Clarabel code and 144 selected Cargo crate sources; 189 inactive dependencies are explicitly marked, fail-closed **generated resolution-only stubs**, not upstream implementations. No Intel MKL implementation is bundled. Cargo.lock is unchanged. Both x86_64 and aarch64 Linux dependency closures are retained; only amd64 has been compiled and tested. This does not establish J6M/Orin compatibility.
+Offline source-built Clarabel 0.11.1 Python extension for TriLayer. Pure source archive contains unchanged original Clarabel code and 144 selected Cargo crate sources; 189 inactive dependencies are explicitly marked, fail-closed **generated resolution-only stubs**, not upstream implementations. No Intel MKL implementation is bundled. Cargo.lock is unchanged. Both x86_64 and aarch64 Linux dependency closures are retained; both have native CI source-build and synthetic runtime-test evidence. This does not establish J6M/Orin compatibility.
 
 Build directly with Cargo `--locked --offline --release --features python`, retaining defaults, faer, and SDP/scipy BLAS. No network, pip, maturin, wheel, toolchain installer, or global install occurs at build time. The extension and original Python shim are installed into this package's prefix; setup hooks expose that prefix. Build-directory source copies and checksums are verified. Cargo artifact records assert no stub was compiled.
 
@@ -28,7 +28,7 @@ Apache-2.0 applies to glue/root; third-party expressions differ and include alte
 
 ## Release gates
 
-Do not release this experiment yet. Remaining gates include complete distribution/legal review, real maintainer metadata, new rosdep keys and an actual ROS buildfarm run, and ARM compilation/runtime validation. Source archive is not a frozen wheel and no prebuilt extension is shipped in this source package.
+Do not release this experiment yet. Remaining gates include complete distribution/legal review, real maintainer metadata, new rosdep keys and an actual ROS buildfarm run. Board-specific hardware remains unvalidated and outside the native-CI support scope. Source archive is not a frozen wheel and no prebuilt extension is shipped in this source package.
 
 ## Local test evidence
 
@@ -51,3 +51,10 @@ An explicit post-install smoke test remains available by configuring
 The default OFF setting disables only the additional installed-layout check,
 not numerical solver coverage. Do not enable it in a pre-install Debian build
 phase. Source provenance and solver algorithms are unchanged.
+
+## Native architecture validation
+
+Native Ubuntu 22.04/Humble amd64 and aarch64 source builds plus all 47 synthetic CTests passed on GitHub Actions. ARM evidence: [run 44069917303](https://github.com/Doribelove/pudu_robot_ws/actions/runs/44069917303), commit `322401744b079e11ced8bf54f69785147d0b6d5a`; the runner reported `uname=aarch64`, `dpkg=arm64`. This is native CI coverage, not Jetson/Orin, Horizon J6M/BPU, or real-robot validation. The new dual-architecture workflow revision still requires its own subsequent CI.
+
+The build-generated provenance records compilation only. It references independent
+CI evidence but does not claim that the build step ran runtime tests.
