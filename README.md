@@ -1,3 +1,5 @@
+> Experimental local Debian validation branch. Any generated .deb uses a localvalidation revision and is NOT an official ROS apt release. This runner uses explicit CI-only rosdep mappings and stricter local test rules; original main and the source branch are untouched.
+
 # TriLayer Global Planner
 
 Source packages for ROS 2 Humble on Ubuntu 22.04. This is a release-preparation branch, **not an available ROS apt release**. The current verified architecture is amd64; ARM64 is not yet enabled in the OSQP vendor.

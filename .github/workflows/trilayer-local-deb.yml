@@ -1,0 +1,49 @@
+name: TriLayer LOCAL Debian validation
+on:
+  push:
+    branches: [trilayer-humble-deb-validation]
+permissions:
+  contents: read
+concurrency:
+  group: trilayer-local-deb-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  local-deb-amd64:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash
+    env:
+      DEBIAN_FRONTEND: noninteractive
+      TRILAYER_DEB_VALIDATION_REVIEWED: 'yes'
+      PYTHONNOUSERSITE: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - name: Checkout reviewed independent source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          submodules: false
+          lfs: false
+      - name: Set up official ROS Humble packages
+        uses: ros-tooling/setup-ros@649ef6bcd696da05bc27ceb3fab69d810c0daeab
+        with:
+          required-ros-distributions: humble
+          use-ros2-testing: false
+          install-connext: false
+      - name: Strict local Debian build install and real planner smoke
+        run: bash release/debian-validation/runner-draft.sh "$GITHUB_WORKSPACE" "$RUNNER_TEMP/trilayer-local-deb-$GITHUB_RUN_ID"
+      - name: Preserve local-validation debs and diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: local-deb-validation-amd64-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/trilayer-local-deb-${{ github.run_id }}/evidence/
+            ${{ runner.temp }}/trilayer-local-deb-${{ github.run_id }}/debs/
+          if-no-files-found: warn
+          include-hidden-files: false
+          retention-days: 14
