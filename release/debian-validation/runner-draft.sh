@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# REVIEW DRAFT ONLY. Not wired into any workflow and not executed by preparation.
+# Local-validation only: invoked exclusively on disposable CI runners.
 set -euo pipefail
 [[ ${TRILAYER_DEB_VALIDATION_REVIEWED:-} == yes && ${GITHUB_ACTIONS:-} == true && ${RUNNER_OS:-} == Linux ]] || { echo 'Requires reviewed disposable GitHub Linux runner'; exit 2; }
 source /etc/os-release
@@ -44,6 +44,7 @@ set +u; source /opt/ros/humble/setup.bash; set -u
 dpkg-query -W > "$out/evidence/runner-packages-before.tsv"
 bloom-generate rosdebian --help > "$out/evidence/bloom-help.txt"
 solver_root=''
+readonly deb_revision=0localvalidation2
 while IFS= read -r name; do
  stage="build:$name"
  debname="ros-humble-${name//_/-}"
@@ -53,11 +54,11 @@ while IFS= read -r name; do
  parent="$out/build/$name"; mkdir -p "$parent"; cp -a "$src/src/$name" "$parent/source"; pkg="$parent/source"
  (
   cd "$pkg"
-  bloom-generate rosdebian --os-name ubuntu --os-version jammy --ros-distro humble -i 0localvalidation2
+  bloom-generate rosdebian --os-name ubuntu --os-version jammy --ros-distro humble -i "$deb_revision"
   version=$(dpkg-parsechangelog -S Version)
   dpkg --validate-version "$version"
   printf '%s\n' "$version" > "$out/evidence/$name.deb-version.txt"
-  [[ $version == *-0localvalidation1jammy ]] || { echo "Unexpected Bloom version $version"; exit 1; }
+  [[ $version == *-"${deb_revision}jammy" ]] || { echo "Unexpected Bloom version $version"; exit 1; }
   patch_args=()
   if [[ -n $solver_root ]]; then patch_args=(--solver-root "$solver_root"); fi
   python3 "$script_dir/patch_rules.py" "$pkg" "$name" "${patch_args[@]}"
