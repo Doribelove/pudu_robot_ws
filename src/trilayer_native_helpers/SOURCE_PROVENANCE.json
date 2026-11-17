@@ -1,0 +1,11 @@
+{
+  "repository": "Doribelove/pudu_robot_ws",
+  "commit": "a98a639a8ac9b7b50c14f8a69c393706db4cc3ae",
+  "source_prefix": "3YDL3-V13-P6-delivery/runtime/3YDL3-V13-L2/base/native",
+  "source_sha256": {
+    "v13_dstar.cpp": "cffef80fa1285119736ec0d6603a0ec8ab10b6e8c5d8d2da15a41307cdb10687",
+    "v13_segment_cells.cpp": "6e93e3c6ce3e64bf6425aa04464f8fe7aefc1d1038506b336930deac79a5e755",
+    "v13_extract_path.cpp": "79c1f15f86180e8630f806d9aa797b08fa46f76d2ae407a708d4fe30fe2c1b74"
+  },
+  "source_modifications": false
+}

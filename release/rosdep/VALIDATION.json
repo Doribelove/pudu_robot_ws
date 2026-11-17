@@ -1,0 +1,35 @@
+{
+  "upstream_commit": "677deb8b83f1996f93227608bb95f8e7f122b8e2",
+  "result": "PASS",
+  "resolution": {
+    "python3-setuptools-scm": {
+      "file": "rosdep/python.yaml",
+      "jammy_installer": "apt",
+      "packages": [
+        "python3-setuptools-scm"
+      ]
+    },
+    "python3-pybind11": {
+      "file": "rosdep/python.yaml",
+      "jammy_installer": "apt",
+      "packages": [
+        "python3-pybind11"
+      ]
+    },
+    "rustc-1.85": {
+      "file": "rosdep/base.yaml",
+      "jammy_installer": "apt",
+      "packages": [
+        "rustc-1.85"
+      ]
+    },
+    "cargo-1.85": {
+      "file": "rosdep/base.yaml",
+      "jammy_installer": "apt",
+      "packages": [
+        "cargo-1.85"
+      ]
+    }
+  },
+  "limitations": "No package install or full upstream CI/buildfarm run. ARM availability is evidence only, not compilation. Existing cross-file keys other than proposed additions not audited."
+}

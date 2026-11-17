@@ -1,0 +1,117 @@
+[
+  {
+    "crate": "equator-0.2.2",
+    "repository": "https://github.com/sarah-ek/equator/",
+    "commit": "9d4107bdd6a75598aed4a60fe46200c9e9f4e653",
+    "path_in_vcs": "equator",
+    "url": "https://github.com/sarah-quinones/equator/blob/9d4107bdd6a75598aed4a60fe46200c9e9f4e653/LICENSE",
+    "error": false,
+    "sha256": "97d3424e347e8fa236806725ce9837bb453d4dfc9ce1d4733fd6023a8038000a"
+  },
+  {
+    "crate": "equator-macro-0.2.1",
+    "repository": "https://github.com/sarah-ek/equator/",
+    "commit": "c9061f3da9a7cc53b0d388f26ab6bb95422823c3",
+    "path_in_vcs": "equator-macro",
+    "url": "https://github.com/sarah-quinones/equator/blob/c9061f3da9a7cc53b0d388f26ab6bb95422823c3/LICENSE",
+    "error": false,
+    "sha256": "97d3424e347e8fa236806725ce9837bb453d4dfc9ce1d4733fd6023a8038000a"
+  },
+  {
+    "crate": "faer-0.21.9",
+    "repository": "https://github.com/sarah-quinones/faer-rs/",
+    "commit": "23df390c90650ff31e1cd86c63fa9bde1f5fde3b",
+    "path_in_vcs": "faer",
+    "url": "https://github.com/sarah-quinones/faer-rs/blob/23df390c90650ff31e1cd86c63fa9bde1f5fde3b/LICENSE",
+    "error": false,
+    "sha256": "4263a9907c8e8d799f714d5cf2ec18663772f09e7eef3eeaaab074ea29ee1358"
+  },
+  {
+    "crate": "faer-macros-0.21.0",
+    "repository": "https://github.com/sarah-quinones/faer-rs/",
+    "commit": "83e30d21d61e846a330dac2eea3b04807100938c",
+    "path_in_vcs": "faer-macros",
+    "url": "https://github.com/sarah-quinones/faer-rs/blob/83e30d21d61e846a330dac2eea3b04807100938c/LICENSE",
+    "error": false,
+    "sha256": "4263a9907c8e8d799f714d5cf2ec18663772f09e7eef3eeaaab074ea29ee1358"
+  },
+  {
+    "crate": "faer-traits-0.21.5",
+    "repository": "https://github.com/sarah-quinones/faer-rs/",
+    "commit": "727c92ae82dd0a817d365ee92342b1c7509a7c55",
+    "path_in_vcs": "faer-traits",
+    "url": "https://github.com/sarah-quinones/faer-rs/blob/727c92ae82dd0a817d365ee92342b1c7509a7c55/LICENSE",
+    "error": false,
+    "sha256": "4263a9907c8e8d799f714d5cf2ec18663772f09e7eef3eeaaab074ea29ee1358"
+  },
+  {
+    "crate": "nano-gemm-0.1.3",
+    "repository": "https://github.com/sarah-ek/nano-gemm/",
+    "commit": "0beb2d01293b8a9be5f94d65fd86cc6239cc163b",
+    "path_in_vcs": "nano-gemm",
+    "url": "https://github.com/sarah-quinones/nano-gemm/blob/0beb2d01293b8a9be5f94d65fd86cc6239cc163b/LICENSE",
+    "error": false,
+    "sha256": "310b7323adcc27fc94c45d1155b6c89c17986576d790f766a04c855662428a7c"
+  },
+  {
+    "crate": "nano-gemm-c32-0.1.0",
+    "repository": "https://github.com/sarah-ek/nano-gemm/",
+    "commit": "3fd0899bcc450daccd9441c93d16213a753bccc2",
+    "path_in_vcs": "nano-gemm-c32",
+    "url": "https://github.com/sarah-quinones/nano-gemm/blob/3fd0899bcc450daccd9441c93d16213a753bccc2/LICENSE",
+    "error": false,
+    "sha256": "310b7323adcc27fc94c45d1155b6c89c17986576d790f766a04c855662428a7c"
+  },
+  {
+    "crate": "nano-gemm-c64-0.1.0",
+    "repository": "https://github.com/sarah-ek/nano-gemm/",
+    "commit": "3fd0899bcc450daccd9441c93d16213a753bccc2",
+    "path_in_vcs": "nano-gemm-c64",
+    "url": "https://github.com/sarah-quinones/nano-gemm/blob/3fd0899bcc450daccd9441c93d16213a753bccc2/LICENSE",
+    "error": false,
+    "sha256": "310b7323adcc27fc94c45d1155b6c89c17986576d790f766a04c855662428a7c"
+  },
+  {
+    "crate": "nano-gemm-codegen-0.1.0",
+    "repository": "https://github.com/sarah-ek/nano-gemm/",
+    "commit": "d891c53a839db924309765a7c91e6bb6abec0123",
+    "path_in_vcs": "nano-gemm-codegen",
+    "url": "https://github.com/sarah-quinones/nano-gemm/blob/d891c53a839db924309765a7c91e6bb6abec0123/LICENSE",
+    "error": false,
+    "sha256": "310b7323adcc27fc94c45d1155b6c89c17986576d790f766a04c855662428a7c"
+  },
+  {
+    "crate": "nano-gemm-core-0.1.0",
+    "repository": "https://github.com/sarah-ek/nano-gemm/",
+    "commit": "94fdd65f108a9459654b113d6723ad6c64bc9e50",
+    "path_in_vcs": "nano-gemm-core",
+    "url": "https://github.com/sarah-quinones/nano-gemm/blob/94fdd65f108a9459654b113d6723ad6c64bc9e50/LICENSE",
+    "error": false,
+    "sha256": "310b7323adcc27fc94c45d1155b6c89c17986576d790f766a04c855662428a7c"
+  },
+  {
+    "crate": "nano-gemm-f32-0.1.0",
+    "repository": "https://github.com/sarah-ek/nano-gemm/",
+    "commit": "d891c53a839db924309765a7c91e6bb6abec0123",
+    "path_in_vcs": "nano-gemm-f32",
+    "url": "https://github.com/sarah-quinones/nano-gemm/blob/d891c53a839db924309765a7c91e6bb6abec0123/LICENSE",
+    "error": false,
+    "sha256": "310b7323adcc27fc94c45d1155b6c89c17986576d790f766a04c855662428a7c"
+  },
+  {
+    "crate": "nano-gemm-f64-0.1.0",
+    "repository": "https://github.com/sarah-ek/nano-gemm/",
+    "commit": "d891c53a839db924309765a7c91e6bb6abec0123",
+    "path_in_vcs": "nano-gemm-f64",
+    "url": "https://github.com/sarah-quinones/nano-gemm/blob/d891c53a839db924309765a7c91e6bb6abec0123/LICENSE",
+    "error": false,
+    "sha256": "310b7323adcc27fc94c45d1155b6c89c17986576d790f766a04c855662428a7c"
+  },
+  {
+    "crate": "npyz-0.8.4",
+    "url": "https://github.com/ExpHP/npyz/blob/1cdb39f4d2b167111b65d6f597398177a9a40a47/README.md",
+    "source_sha256": "379d38b654196d340cae0297cc21b73b9a49c295a45e6a0fac8c3d9652a32fe6",
+    "method": "Assembled notice, not an upstream LICENSE file: exact copyright statements from upstream README License section, MIT grant text from standard MIT license; Cargo.toml declares MIT. Original README preserved in vendor.",
+    "sha256": "615806321d59b9ab0767017cf998c737586a39f74c497934d127e02c5dc1233b"
+  }
+]

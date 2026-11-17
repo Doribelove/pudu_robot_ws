@@ -1,0 +1,28 @@
+{
+  "validation": "static path calculation using current test prefixes; no ROS or worker started",
+  "simulated_checkout": "/home/runner/work/trilayer-planner-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/trilayer-planner-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "mktemp_mode": "0700",
+  "cases": [
+    {
+      "prefix": "tri-svc-test-",
+      "old_path_bytes": 228,
+      "new_path_bytes": 64,
+      "service_rejects_at_bytes": 104,
+      "old_rejected": true,
+      "new_passes_path_limit": true,
+      "child_directory": "lowspace"
+    },
+    {
+      "prefix": "trilayer-nav2-contract-",
+      "old_path_bytes": 236,
+      "new_path_bytes": 72,
+      "service_rejects_at_bytes": 104,
+      "old_rejected": true,
+      "new_passes_path_limit": true,
+      "child_directory": "worker"
+    }
+  ],
+  "shell_syntax": "PASS",
+  "python_syntax": "PASS",
+  "remote_workflow_executed": false
+}

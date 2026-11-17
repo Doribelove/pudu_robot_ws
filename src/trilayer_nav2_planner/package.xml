@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="3"><name>trilayer_nav2_planner</name><version>0.1.0</version>
+<description>Fail-closed Humble GlobalPlanner adapter to a real persistent P6 worker.</description>
+<maintainer email="doribelove@gmail.com">Doribelove</maintainer><license>Apache-2.0</license>
+<buildtool_depend>ament_cmake</buildtool_depend><depend>nav2_core</depend><depend>nav2_costmap_2d</depend><depend>nav2_util</depend><depend>rclcpp</depend><depend>rclcpp_lifecycle</depend><depend>pluginlib</depend><depend>nav_msgs</depend><depend>geometry_msgs</depend><depend>tf2_ros</depend><depend>libssl-dev</depend><depend>nlohmann-json-dev</depend>
+<exec_depend>trilayer_planner_service</exec_depend>
+<test_depend>rclpy</test_depend><test_depend>python3-yaml</test_depend><test_depend>nav2_msgs</test_depend><test_depend>lifecycle_msgs</test_depend><test_depend>nav2_planner</test_depend>
+<url type="repository">https://github.com/Doribelove/pudu_robot_ws</url>
+<url type="bugtracker">https://github.com/Doribelove/pudu_robot_ws/issues</url>
+<!-- Direct test imports and exercised integration dependencies; not build exports. -->
+<test_depend>trilayer_planner_service</test_depend>
+<export><build_type>ament_cmake</build_type></export></package>

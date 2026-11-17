@@ -1,0 +1,83 @@
+[
+  {
+    "source": "base/runtime/arena_evaluation/se2_semantic_guide.py",
+    "sha256": "59cdc3ff3ffd81f98d67ddf61ae57d359848bec42e381fc1b8ef1b670c0eb553",
+    "definitions": [
+      {
+        "name": "wrap_angle",
+        "sha256": "1c1455da67d37a93f5a84cf2e4154e775f4951d907b059e317f3c6d11a8071cf"
+      },
+      {
+        "name": "_mod2pi",
+        "sha256": "db2122bd646b36c66f6ef00d9c5c56abcf67dfdeed8bf2f89ef5119d2c031aa3"
+      },
+      {
+        "name": "_dubins_words",
+        "sha256": "a0ebc7a77e5c3f6c87f389458ecb78f56a6eef52b8b0367ffe8904721bab371b"
+      }
+    ]
+  },
+  {
+    "source": "base/runtime/arena_evaluation/semantic_constraint_core.py",
+    "sha256": "ed650651e46ae6d151ffa116949be3c7c27884a24879aa8f08df4170fd7fa07a",
+    "definitions": [
+      {
+        "name": "Edge",
+        "sha256": "24f759eb9e1b537bc60668f9d7275051c2f8d402220a3088d5cba053083e88df"
+      },
+      {
+        "name": "dubins_choices",
+        "sha256": "c99028652a236f4594e9f9a5dfbec8de421698c4bbb6ddea47ea3cc3e4475e70"
+      },
+      {
+        "name": "dubins_edge_from_parameters",
+        "sha256": "6bc9dce4f74d2cce2da86fd8d40fe49a33ce9635084051eb297608ed48f0160c"
+      }
+    ]
+  },
+  {
+    "source": "base/runtime/arena_3d_v1/semantic_world.py",
+    "sha256": "27bc6c2b90d6b2301b05331e8854d27ce6cbf6f24f5d06a005321025a234c001",
+    "definitions": [
+      {
+        "name": "wrap",
+        "sha256": "60d8504ffd09cd76d6285bf8c45166d0fdb83359ef06b4dfb7b66bc87727f44a"
+      },
+      {
+        "name": "densify",
+        "sha256": "6bb2db359c3e27f42b461b4be751e069eec52477093ce45f4c4f47afaa9fcfc2"
+      },
+      {
+        "name": "SweptChecker",
+        "sha256": "d0565ecd75bb832b346fb55a9fef8b77ecccf05a1a3f0c6bbaef51518e0275c3"
+      }
+    ]
+  },
+  {
+    "source": "base/runtime/base/src/three_yd_v5/v10_storage.py",
+    "sha256": "f343a1da1243143f51e69e2b2d6f3afbfd11ea000e1a50bc168f75b828ecee0b",
+    "definitions": [
+      {
+        "name": "collision_checker",
+        "sha256": "3cb358b4846bb7d05f099b907710fee5908e33f48a791957e00301bd414c4316"
+      }
+    ]
+  },
+  {
+    "source": "base/runtime/base/src/three_yd_v5/curve_native.py",
+    "sha256": "5860a77727476c4af7434e750e483843fc1988e670b0f42d3d6e357693ce5381",
+    "changes": "private native library locator only"
+  },
+  {
+    "source": "3YDL3-V13-P6-delivery/runtime/3YDL3-V13-L2/base/runtime/base/native/curve_rectangles.cpp",
+    "sha256": "4fbecd2e4bedb8f510cb2535112ff06c060b4af210081bb81fbd56dbcf1e0f1f",
+    "changes": "none",
+    "source_locator": "relative path in original public P6 delivery"
+  },
+  {
+    "source": "user-authored recovered native source: swept_rect.cpp",
+    "sha256": "6e7314ef757f1a2a305bd8f5200cf8f0dea19c002b99f1750fc17eb57e96da50",
+    "changes": "none",
+    "source_locator": "Recovered from an authorized local original source; not claimed to have been present in the frozen public baseline. SHA256 retained for exact origin verification."
+  }
+]

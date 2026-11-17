@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>trilayer_costmap_bridge</name><version>0.1.0</version>
+  <description>Validated full snapshots with optional original P6 delta snapshot transport.</description>
+  <maintainer email="doribelove@gmail.com">Doribelove</maintainer>
+  <license>Apache-2.0</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+  <exec_depend>trilayer_delta_codec</exec_depend><exec_depend>rclpy</exec_depend><exec_depend>rcl_interfaces</exec_depend><exec_depend>nav2_msgs</exec_depend>
+  <test_depend>python3-numpy</test_depend>
+  <url type="repository">https://github.com/Doribelove/pudu_robot_ws</url>
+<url type="bugtracker">https://github.com/Doribelove/pudu_robot_ws/issues</url>
+<!-- Direct test imports and exercised integration dependencies; not build exports. -->
+<test_depend>rclpy</test_depend>
+<test_depend>rcl_interfaces</test_depend>
+<test_depend>nav2_msgs</test_depend>
+<test_depend>trilayer_delta_codec</test_depend>
+<export><build_type>ament_cmake</build_type></export>
+</package>

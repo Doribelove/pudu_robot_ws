@@ -1,0 +1,1 @@
+<library path="trilayer_nav2_planner"><class name="trilayer_nav2_planner/Planner" type="trilayer_nav2_planner::Planner" base_class_type="nav2_core::GlobalPlanner"><description>Real P6 worker adapter with strict caller costmap binding.</description></class></library>

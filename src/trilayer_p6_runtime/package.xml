@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<package format="3">
+<name>trilayer_p6_runtime</name><version>0.1.0</version>
+<description>Explicit P6 Python source overlay and installed runtime resource bindings.</description>
+<maintainer email="doribelove@gmail.com">Doribelove</maintainer>
+<license>Apache-2.0</license><license>BSD-3-Clause</license>
+<build_depend>python3-dev</build_depend>
+<depend>rclcpp</depend>
+<depend>nav2_map_server</depend>
+<depend>nav2_planner</depend>
+<depend>nav2_lifecycle_manager</depend>
+<exec_depend>trilayer_l3_core</exec_depend>
+<exec_depend>nav2_smac_planner</exec_depend>
+<exec_depend>nav2_costmap_2d</exec_depend>
+<exec_depend>geometry_msgs</exec_depend>
+<exec_depend>nav_msgs</exec_depend>
+<exec_depend>map_msgs</exec_depend>
+<exec_depend>tf2_ros</exec_depend>
+<exec_depend>trilayer_osqp_vendor</exec_depend>
+  <exec_depend>trilayer_clarabel_vendor</exec_depend>
+  <exec_depend>python3-skimage</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+<buildtool_depend>ament_cmake</buildtool_depend><buildtool_depend>ament_cmake_python</buildtool_depend>
+<exec_depend>ament_index_python</exec_depend><exec_depend>python3-numpy</exec_depend>
+<exec_depend>python3-scipy</exec_depend><exec_depend>python3-opencv</exec_depend>
+<exec_depend>python3-yaml</exec_depend><exec_depend>python3-pil</exec_depend><exec_depend>python3-psutil</exec_depend>
+<exec_depend>rclpy</exec_depend><exec_depend>nav2_msgs</exec_depend>
+<exec_depend>trilayer_native_helpers</exec_depend><exec_depend>trilayer_master_snapshot</exec_depend>
+<url type="repository">https://github.com/Doribelove/pudu_robot_ws</url>
+<url type="bugtracker">https://github.com/Doribelove/pudu_robot_ws/issues</url>
+<!-- Direct test imports and exercised integration dependencies; not build exports. -->
+<test_depend>ament_index_python</test_depend>
+<test_depend>python3-numpy</test_depend>
+<test_depend>python3-scipy</test_depend>
+<test_depend>python3-opencv</test_depend>
+<test_depend>python3-yaml</test_depend>
+<test_depend>python3-pil</test_depend>
+<test_depend>python3-psutil</test_depend>
+<test_depend>python3-skimage</test_depend>
+<test_depend>trilayer_l3_core</test_depend>
+<test_depend>trilayer_native_helpers</test_depend>
+<test_depend>trilayer_master_snapshot</test_depend>
+<test_depend>trilayer_osqp_vendor</test_depend>
+<test_depend>trilayer_clarabel_vendor</test_depend>
+<test_depend>rclpy</test_depend>
+<test_depend>nav2_msgs</test_depend>
+<test_depend>nav2_smac_planner</test_depend>
+<export><build_type>ament_cmake</build_type></export>
+</package>

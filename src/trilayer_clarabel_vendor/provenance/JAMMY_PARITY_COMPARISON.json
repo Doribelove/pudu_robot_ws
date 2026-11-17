@@ -1,0 +1,22 @@
+{
+  "box": {
+    "passed": true,
+    "max_abs_x_diff": 0.0,
+    "solver": "qdldl"
+  },
+  "equality": {
+    "passed": true,
+    "max_abs_x_diff": 0.0,
+    "solver": "qdldl"
+  },
+  "infeasible": {
+    "passed": true,
+    "max_abs_x_diff": 0.0,
+    "solver": "qdldl"
+  },
+  "dense_auto_faer": {
+    "passed": true,
+    "max_abs_x_diff": 0.0,
+    "solver": "faer"
+  }
+}

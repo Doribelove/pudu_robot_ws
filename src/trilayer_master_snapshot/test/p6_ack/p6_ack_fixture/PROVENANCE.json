@@ -1,0 +1,15 @@
+{
+  "source_repository": "Doribelove/pudu_robot_ws",
+  "commit": "a98a639a8ac9b7b50c14f8a69c393706db4cc3ae",
+  "files": {
+    "r6_ack.py": "ad1cd0074dd88276dfb811a280b1482ac21115eee01c38a4461f1a9f05693acd",
+    "r6_delta.py": "85b79a6e4b3e29aebce8cdbfdf1b65dab7b8b7aef6a07655c566863ae0305cdf",
+    "v9_maps.py": "1a371f1759b33db240ab729c1d38f0b8c92fd923bc007481ab24cf94a0246e75",
+    "v9_options.py": "aceded25e7bb970954c5e6eb18102aefc26b07c2b052144cafa4cdc4a0933409",
+    "tail_digest.py": "c398983a34236d2dadd592a55a38b62f691dfbe63d61d942071f85c79bf39956",
+    "tail_options.py": "2762a90593634ace2e726e9a8b273537a9e8b36a9e163b072f9daff31a347995",
+    "firstplan.py": "1241f3a3352aaf87319f9ceca4b92187c87a38a0a509feb8517ab1cd13090e74"
+  },
+  "modified": false,
+  "test_mode": "original exact_compare fallback; optimization flags in control"
+}

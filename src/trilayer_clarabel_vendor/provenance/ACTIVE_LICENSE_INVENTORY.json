@@ -1,0 +1,3710 @@
+{
+  "scope": "144 unmodified source crates selected for Python normal/build on x86_64/aarch64 Linux; no ARM build test; generated inactive stubs excluded",
+  "crates": [
+    {
+      "name": "aho-corasick",
+      "version": "1.1.3",
+      "vendor_directory": "vendor/aho-corasick-1.1.3",
+      "manifest_sha256": "88c12a803c6c06c47cd9dabc8bcdba81f35d3bab637221d2106a86a543532731",
+      "license": "Unlicense OR MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "8e60d3430d3a69478ad0993f19238d2df97c507009a52b3c10addcd7f6bcb916",
+      "files": [
+        {
+          "path": "vendor/aho-corasick-1.1.3/COPYING",
+          "sha256": "01c266bced4a434da0051174d6bee16a4c82cf634e2679b6155d40d75012390f",
+          "bytes": 126
+        },
+        {
+          "path": "vendor/aho-corasick-1.1.3/LICENSE-MIT",
+          "sha256": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f",
+          "bytes": 1081
+        },
+        {
+          "path": "vendor/aho-corasick-1.1.3/UNLICENSE",
+          "sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c",
+          "bytes": 1211
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "amd",
+      "version": "0.2.2",
+      "vendor_directory": "vendor/amd-0.2.2",
+      "manifest_sha256": "9b196fe069f7857dec447e45d2a82d0c3f3d22d16a7547d0c08eb22c1fd8ad40",
+      "license": "BSD-3-Clause",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "a679e001575697a3bd195813feb57a4718ecc08dc194944015cbc5f6213c2b96",
+      "files": [
+        {
+          "path": "vendor/amd-0.2.2/LICENSE",
+          "sha256": "d843afc7c19651136b68d4be185c66fe1999a873b9099496173a7ea954bb97d8",
+          "bytes": 1642
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "anyhow",
+      "version": "1.0.98",
+      "vendor_directory": "vendor/anyhow-1.0.98",
+      "manifest_sha256": "77502626e95e56fc3cfb2d2f5b27f5415f731bb64314a063f0931d6b54ef401f",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "e16d2d3311acee920a9eb8d33b8cbc1787ce4a264e85f964c2404b969bdcd487",
+      "files": [
+        {
+          "path": "vendor/anyhow-1.0.98/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/anyhow-1.0.98/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "autocfg",
+      "version": "1.4.0",
+      "vendor_directory": "vendor/autocfg-1.4.0",
+      "manifest_sha256": "624e428251fce7244aa71fe7764c1556bc8077ee4579ad7e5803cc8a74061673",
+      "license": "Apache-2.0 OR MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "ace50bade8e6234aa140d9a2f552bbee1db4d353f69b8217bc503490fc1a9f26",
+      "files": [
+        {
+          "path": "vendor/autocfg-1.4.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/autocfg-1.4.0/LICENSE-MIT",
+          "sha256": "27995d58ad5c1145c1a8cd86244ce844886958a35eb2b78c6b772748669999ac",
+          "bytes": 1054
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "bitflags",
+      "version": "2.9.1",
+      "vendor_directory": "vendor/bitflags-2.9.1",
+      "manifest_sha256": "cb04f3efc3b31db57242dd4e46f347590e04c7f604cbdd201902c342f9bd2045",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "1b8e56985ec62d17e9c1001dc89c88ecd7dc08e47eba5ec7c29c7b5eeecde967",
+      "files": [
+        {
+          "path": "vendor/bitflags-2.9.1/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/bitflags-2.9.1/LICENSE-MIT",
+          "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "blas",
+      "version": "0.22.0",
+      "vendor_directory": "vendor/blas-0.22.0",
+      "manifest_sha256": "5b75a1b9f92b2a43cf62621bf0bc8373692c7b3f4b44245e9a9c58c027b963f6",
+      "license": "Apache-2.0/MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "ae980f75c3215bfe8203c349b28149b0f4130a262e072913ccb55f877cd239dc",
+      "files": [
+        {
+          "path": "vendor/blas-0.22.0/LICENSE.md",
+          "sha256": "a3af18a892f989d377ac7d8a2289d1190696c20854d1319ceefb3856acaf8e58",
+          "bytes": 2035
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "legacy_slash_expression_not_modern_SPDX"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "blas-sys",
+      "version": "0.7.1",
+      "vendor_directory": "vendor/blas-sys-0.7.1",
+      "manifest_sha256": "6e118b8e9e6dd6f8eeb27230db44536e935335b561c7430e8009876f4f03a89b",
+      "license": "Apache-2.0/MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "13b1b279ceb25d7c4faaea95a5f7addbe7d8c34f9462044bd8e630cebcfc2440",
+      "files": [
+        {
+          "path": "vendor/blas-sys-0.7.1/LICENSE.md",
+          "sha256": "bef7fc2455b6681bd1e9fad6476541b8a5f8c65b67a14c96ab126b04cc0a886e",
+          "bytes": 2043
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "legacy_slash_expression_not_modern_SPDX"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "block-buffer",
+      "version": "0.10.4",
+      "vendor_directory": "vendor/block-buffer-0.10.4",
+      "manifest_sha256": "c76e4bd298cd6223882238449e31939d75613e82757ca87e249df843decf5f9a",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "3078c7629b62d3f0439517fa394996acacc5cbc91c5a20d8c658e77abd503a71",
+      "files": [
+        {
+          "path": "vendor/block-buffer-0.10.4/LICENSE-APACHE",
+          "sha256": "a9040321c3712d8fd0b09cf52b17445de04a23a10165049ae187cd39e5c86be5",
+          "bytes": 10849
+        },
+        {
+          "path": "vendor/block-buffer-0.10.4/LICENSE-MIT",
+          "sha256": "d5c22aa3118d240e877ad41c5d9fa232f9c77d757d4aac0c2f943afc0a95e0ef",
+          "bytes": 1082
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "bytemuck",
+      "version": "1.23.1",
+      "vendor_directory": "vendor/bytemuck-1.23.1",
+      "manifest_sha256": "2ac6e6763a37ed0266c8ebd286fe18f2423454ed6b25b9fb29df60e070c6c6b7",
+      "license": "Zlib OR Apache-2.0 OR MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "5c76a5792e44e4abe34d3abf15636779261d45a7450612059293d1d2cfc63422",
+      "files": [
+        {
+          "path": "vendor/bytemuck-1.23.1/LICENSE-APACHE",
+          "sha256": "e3ba223bb1423f0aad8c3dfce0fe3148db48926d41e6fbc3afbbf5ff9e1c89cb",
+          "bytes": 10398
+        },
+        {
+          "path": "vendor/bytemuck-1.23.1/LICENSE-MIT",
+          "sha256": "9df9ba60a11af705f2e451b53762686e615d86f76b169cf075c3237730dbd7e2",
+          "bytes": 1110
+        },
+        {
+          "path": "vendor/bytemuck-1.23.1/LICENSE-ZLIB",
+          "sha256": "84b34dd7608f7fb9b17bd588a6bf392bf7de504e2716f024a77d89f1b145a151",
+          "bytes": 851
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "byteorder",
+      "version": "1.5.0",
+      "vendor_directory": "vendor/byteorder-1.5.0",
+      "manifest_sha256": "94ba374cb26f3c68fb83da2e5e7dce85920fc4fb827620b06b39d71a9d0e1e18",
+      "license": "Unlicense OR MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b",
+      "files": [
+        {
+          "path": "vendor/byteorder-1.5.0/COPYING",
+          "sha256": "01c266bced4a434da0051174d6bee16a4c82cf634e2679b6155d40d75012390f",
+          "bytes": 126
+        },
+        {
+          "path": "vendor/byteorder-1.5.0/LICENSE-MIT",
+          "sha256": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f",
+          "bytes": 1081
+        },
+        {
+          "path": "vendor/byteorder-1.5.0/UNLICENSE",
+          "sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c",
+          "bytes": 1211
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "camino",
+      "version": "1.1.10",
+      "vendor_directory": "vendor/camino-1.1.10",
+      "manifest_sha256": "40f43ba0b935fde7c82bce802c1edf7bb6f73d17b3a1d0299ade8201d0f0da62",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "0da45bc31171d8d6960122e222a67740df867c1dd53b4d51caa297084c185cab",
+      "files": [
+        {
+          "path": "vendor/camino-1.1.10/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/camino-1.1.10/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "cargo-platform",
+      "version": "0.1.9",
+      "vendor_directory": "vendor/cargo-platform-0.1.9",
+      "manifest_sha256": "487e38835c445664eac2bf0d70b4171b2b3ed4f1f82ee076b4489095ebe04fb2",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "e35af189006b9c0f00a064685c727031e3ed2d8020f7ba284d78cc2671bd36ea",
+      "files": [
+        {
+          "path": "vendor/cargo-platform-0.1.9/LICENSE-APACHE",
+          "sha256": "8ada45cd9f843acf64e4722ae262c622a2b3b3007c7310ef36ac1061a30f6adb",
+          "bytes": 10860
+        },
+        {
+          "path": "vendor/cargo-platform-0.1.9/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "cargo_metadata",
+      "version": "0.18.1",
+      "vendor_directory": "vendor/cargo_metadata-0.18.1",
+      "manifest_sha256": "0e1d4e7281f6404de243ec62cb3022fb13f0be663c6980f933204e30d33b9857",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "2d886547e41f740c616ae73108f6eb70afe6d940c7bc697cb30f13daec073037",
+      "files": [
+        {
+          "path": "vendor/cargo_metadata-0.18.1/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "cfg-if",
+      "version": "1.0.1",
+      "vendor_directory": "vendor/cfg-if-1.0.1",
+      "manifest_sha256": "12cbe2bc73befa821815ffcd4b686f56f97e52ac919cb90ea47e70d43739c7c1",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "9555578bc9e57714c812a1f84e4fc5b4d21fcb063490c624de019f7464c91268",
+      "files": [
+        {
+          "path": "vendor/cfg-if-1.0.1/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/cfg-if-1.0.1/LICENSE-MIT",
+          "sha256": "378f5840b258e2779c39418f3f2d7b2ba96f1c7917dd6be0713f88305dbda397",
+          "bytes": 1057
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "cpufeatures",
+      "version": "0.2.17",
+      "vendor_directory": "vendor/cpufeatures-0.2.17",
+      "manifest_sha256": "25160ea4dfa195721d352d42827b882a41f18f4c55fff58e5c3878ecae84ca44",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "59ed5838eebb26a2bb2e58f6d5b5316989ae9d08bab10e0e6d103e656d1b0280",
+      "files": [
+        {
+          "path": "vendor/cpufeatures-0.2.17/LICENSE-APACHE",
+          "sha256": "a9040321c3712d8fd0b09cf52b17445de04a23a10165049ae187cd39e5c86be5",
+          "bytes": 10849
+        },
+        {
+          "path": "vendor/cpufeatures-0.2.17/LICENSE-MIT",
+          "sha256": "ae9baa7beea910273c2f384c2a6b721fb7bd02bda3436074a1072e4ee689f985",
+          "bytes": 1082
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "crossbeam-deque",
+      "version": "0.8.6",
+      "vendor_directory": "vendor/crossbeam-deque-0.8.6",
+      "manifest_sha256": "93550ef824cb400b7a92af6b2ebe9ef24aa5a37567d80be5e4ba149bdc651be1",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "9dd111b7b7f7d55b72c0a6ae361660ee5853c9af73f70c3c2ef6858b950e2e51",
+      "files": [
+        {
+          "path": "vendor/crossbeam-deque-0.8.6/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/crossbeam-deque-0.8.6/LICENSE-MIT",
+          "sha256": "5734ed989dfca1f625b40281ee9f4530f91b2411ec01cb748223e7eb87e201ab",
+          "bytes": 1099
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "crossbeam-epoch",
+      "version": "0.9.18",
+      "vendor_directory": "vendor/crossbeam-epoch-0.9.18",
+      "manifest_sha256": "cfbceb820c7a1519351826839decd3ff1b1ad54ef2c4dfc4d2c9f173e4726046",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "5b82ac4a3c2ca9c3460964f020e1402edd5753411d7737aa39c3714ad1b5420e",
+      "files": [
+        {
+          "path": "vendor/crossbeam-epoch-0.9.18/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/crossbeam-epoch-0.9.18/LICENSE-MIT",
+          "sha256": "5734ed989dfca1f625b40281ee9f4530f91b2411ec01cb748223e7eb87e201ab",
+          "bytes": 1099
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "crossbeam-utils",
+      "version": "0.8.21",
+      "vendor_directory": "vendor/crossbeam-utils-0.8.21",
+      "manifest_sha256": "961aa297754d8fdbae9e23d15bbbcfdcd2b50b2db56becddb84e8cba4f730713",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "d0a5c400df2834b80a4c3327b3aad3a4c4cd4de0629063962b03235697506a28",
+      "files": [
+        {
+          "path": "vendor/crossbeam-utils-0.8.21/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/crossbeam-utils-0.8.21/LICENSE-MIT",
+          "sha256": "5734ed989dfca1f625b40281ee9f4530f91b2411ec01cb748223e7eb87e201ab",
+          "bytes": 1099
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "crypto-common",
+      "version": "0.1.6",
+      "vendor_directory": "vendor/crypto-common-0.1.6",
+      "manifest_sha256": "0d7c931e6a6c24d1b440ba45ae038f396d5356c39d9eff40df8ba224254bd64a",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "1bfb12502f3fc46cca1bb51ac28df9d618d813cdc3d2f25b9fe775a34af26bb3",
+      "files": [
+        {
+          "path": "vendor/crypto-common-0.1.6/LICENSE-APACHE",
+          "sha256": "a9040321c3712d8fd0b09cf52b17445de04a23a10165049ae187cd39e5c86be5",
+          "bytes": 10849
+        },
+        {
+          "path": "vendor/crypto-common-0.1.6/LICENSE-MIT",
+          "sha256": "3521672491a3479422d5fe1aca6645dd2984090f85da6e5205abfb18fb7a6897",
+          "bytes": 1065
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "darling",
+      "version": "0.14.4",
+      "vendor_directory": "vendor/darling-0.14.4",
+      "manifest_sha256": "9200c0a7d203a5c4d8c0fff4845182f1b56f3d05100dbfdb75cf27dd93183781",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "7b750cb3417fd1b327431a470f388520309479ab0bf5e323505daf0290cd3850",
+      "files": [
+        {
+          "path": "vendor/darling-0.14.4/LICENSE",
+          "sha256": "8ea93490d74a5a1b1af3ff71d786271b3f1e5f0bea79ac16e02ec533cef040d6",
+          "bytes": 1067
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "darling",
+      "version": "0.20.11",
+      "vendor_directory": "vendor/darling-0.20.11",
+      "manifest_sha256": "85a022a791c824412157e37a22c85cc339bd5e6f0577aeb17af48ae30f6535ad",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "fc7f46116c46ff9ab3eb1597a45688b6715c6e628b5c133e288e709a29bcb4ee",
+      "files": [
+        {
+          "path": "vendor/darling-0.20.11/LICENSE",
+          "sha256": "8ea93490d74a5a1b1af3ff71d786271b3f1e5f0bea79ac16e02ec533cef040d6",
+          "bytes": 1067
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "darling_core",
+      "version": "0.14.4",
+      "vendor_directory": "vendor/darling_core-0.14.4",
+      "manifest_sha256": "d3aeabdc25a86e1d877d6ac258da9e4aab1c66ab229800895b6b564938fc672d",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "109c1ca6e6b7f82cc233a97004ea8ed7ca123a9af07a8230878fcfda9b158bf0",
+      "files": [
+        {
+          "path": "vendor/darling_core-0.14.4/LICENSE",
+          "sha256": "8ea93490d74a5a1b1af3ff71d786271b3f1e5f0bea79ac16e02ec533cef040d6",
+          "bytes": 1067
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "darling_core",
+      "version": "0.20.11",
+      "vendor_directory": "vendor/darling_core-0.20.11",
+      "manifest_sha256": "5c19d2a71bd5bf1007b56e252fa60b15eafadc1648a167162b922f8037925e9d",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "0d00b9596d185e565c2207a0b01f8bd1a135483d02d9b7b0a54b11da8d53412e",
+      "files": [
+        {
+          "path": "vendor/darling_core-0.20.11/LICENSE",
+          "sha256": "8ea93490d74a5a1b1af3ff71d786271b3f1e5f0bea79ac16e02ec533cef040d6",
+          "bytes": 1067
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "darling_macro",
+      "version": "0.14.4",
+      "vendor_directory": "vendor/darling_macro-0.14.4",
+      "manifest_sha256": "c08d1c58b97948ab5c5950fa820ae59db05db1f08f0c2a3b0249464eb782179a",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "a4aab4dbc9f7611d8b55048a3a16d2d010c2c8334e46304b40ac1cc14bf3b48e",
+      "files": [
+        {
+          "path": "vendor/darling_macro-0.14.4/LICENSE",
+          "sha256": "8ea93490d74a5a1b1af3ff71d786271b3f1e5f0bea79ac16e02ec533cef040d6",
+          "bytes": 1067
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "darling_macro",
+      "version": "0.20.11",
+      "vendor_directory": "vendor/darling_macro-0.20.11",
+      "manifest_sha256": "b3e738adb3b693f2115fcb5afc7a407b2cd681005785d6a14de1bb4b0b02afc5",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "fc34b93ccb385b40dc71c6fceac4b2ad23662c7eeb248cf10d529b7e055b6ead",
+      "files": [
+        {
+          "path": "vendor/darling_macro-0.20.11/LICENSE",
+          "sha256": "8ea93490d74a5a1b1af3ff71d786271b3f1e5f0bea79ac16e02ec533cef040d6",
+          "bytes": 1067
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "deranged",
+      "version": "0.4.0",
+      "vendor_directory": "vendor/deranged-0.4.0",
+      "manifest_sha256": "121e144fad418c6a6389dbf18eeccfa9f3463cefad0c45165d903493782c0041",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "9c9e6a11ca8224451684bc0d7d5a7adbf8f2fd6887261a1cfc3c0432f9d4068e",
+      "files": [
+        {
+          "path": "vendor/deranged-0.4.0/LICENSE-Apache",
+          "sha256": "edd65bdd88957a205c47d53fa499eed8865a70320f0f03f6391668cb304ea376",
+          "bytes": 11349
+        },
+        {
+          "path": "vendor/deranged-0.4.0/LICENSE-MIT",
+          "sha256": "231c837c45eb53f108fb48929e488965bc4fcc14e9ea21d35f50e6b99d98685b",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "derive_builder",
+      "version": "0.11.2",
+      "vendor_directory": "vendor/derive_builder-0.11.2",
+      "manifest_sha256": "c532571d75fea40ec73cbbc6a99b6e22ad6e5f1f26a8058fb30aa9bfa1119d3a",
+      "license": "MIT/Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "d07adf7be193b71cc36b193d0f5fe60b918a3a9db4dad0449f57bcfd519704a3",
+      "files": [
+        {
+          "path": "vendor/derive_builder-0.11.2/LICENSE-APACHE",
+          "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "bytes": 11358
+        },
+        {
+          "path": "vendor/derive_builder-0.11.2/LICENSE-MIT",
+          "sha256": "8c9612877aacfa1b42f5e80b679e6c3c93a7ba2bb99dfaf6e87e200dca4b4e6c",
+          "bytes": 1099
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "legacy_slash_expression_not_modern_SPDX"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "derive_builder",
+      "version": "0.20.2",
+      "vendor_directory": "vendor/derive_builder-0.20.2",
+      "manifest_sha256": "cb5f6811ad40ee5b7f6846989234e3566a2ba0c934ddb1b38f6b80510d1ca49c",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "507dfb09ea8b7fa618fcf76e953f4f5e192547945816d5358edffe39f6f94947",
+      "files": [
+        {
+          "path": "vendor/derive_builder-0.20.2/LICENSE-APACHE",
+          "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "bytes": 11358
+        },
+        {
+          "path": "vendor/derive_builder-0.20.2/LICENSE-MIT",
+          "sha256": "8c9612877aacfa1b42f5e80b679e6c3c93a7ba2bb99dfaf6e87e200dca4b4e6c",
+          "bytes": 1099
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "derive_builder_core",
+      "version": "0.11.2",
+      "vendor_directory": "vendor/derive_builder_core-0.11.2",
+      "manifest_sha256": "b6d04935985c901113731e9eadbca00f4126042403dcc6c019e0623ce785374e",
+      "license": "MIT/Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "1f91d4cfa921f1c05904dc3c57b4a32c38aed3340cce209f3a6fd1478babafc4",
+      "files": [
+        {
+          "path": "vendor/derive_builder_core-0.11.2/LICENSE-APACHE",
+          "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "bytes": 11358
+        },
+        {
+          "path": "vendor/derive_builder_core-0.11.2/LICENSE-MIT",
+          "sha256": "8c9612877aacfa1b42f5e80b679e6c3c93a7ba2bb99dfaf6e87e200dca4b4e6c",
+          "bytes": 1099
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "legacy_slash_expression_not_modern_SPDX"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "derive_builder_core",
+      "version": "0.20.2",
+      "vendor_directory": "vendor/derive_builder_core-0.20.2",
+      "manifest_sha256": "fa5cd02373ba6ada793bd0878d350502df5b43ba41f34db6fa3770164105f764",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "2d5bcf7b024d6835cfb3d473887cd966994907effbe9227e8c8219824d06c4e8",
+      "files": [
+        {
+          "path": "vendor/derive_builder_core-0.20.2/LICENSE-APACHE",
+          "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "bytes": 11358
+        },
+        {
+          "path": "vendor/derive_builder_core-0.20.2/LICENSE-MIT",
+          "sha256": "8c9612877aacfa1b42f5e80b679e6c3c93a7ba2bb99dfaf6e87e200dca4b4e6c",
+          "bytes": 1099
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "derive_builder_macro",
+      "version": "0.11.2",
+      "vendor_directory": "vendor/derive_builder_macro-0.11.2",
+      "manifest_sha256": "ec42fbe5ab32028c30e95af501b4b797faca8e7c6e892c2423d936fc55bc8752",
+      "license": "MIT/Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "8f0314b72bed045f3a68671b3c86328386762c93f82d98c65c3cb5e5f573dd68",
+      "files": [
+        {
+          "path": "vendor/derive_builder_macro-0.11.2/LICENSE-APACHE",
+          "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "bytes": 11358
+        },
+        {
+          "path": "vendor/derive_builder_macro-0.11.2/LICENSE-MIT",
+          "sha256": "8c9612877aacfa1b42f5e80b679e6c3c93a7ba2bb99dfaf6e87e200dca4b4e6c",
+          "bytes": 1099
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "legacy_slash_expression_not_modern_SPDX"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "derive_builder_macro",
+      "version": "0.20.2",
+      "vendor_directory": "vendor/derive_builder_macro-0.20.2",
+      "manifest_sha256": "879f0b3c0e31481dd684a0763762a0a78b89dfb0881a3307b1ca1a06b2ffd333",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "ab63b0e2bf4d5928aff72e83a7dace85d7bba5fe12dcc3c5a572d78caffd3f3c",
+      "files": [
+        {
+          "path": "vendor/derive_builder_macro-0.20.2/LICENSE-APACHE",
+          "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "bytes": 11358
+        },
+        {
+          "path": "vendor/derive_builder_macro-0.20.2/LICENSE-MIT",
+          "sha256": "8c9612877aacfa1b42f5e80b679e6c3c93a7ba2bb99dfaf6e87e200dca4b4e6c",
+          "bytes": 1099
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "derive_more",
+      "version": "2.0.1",
+      "vendor_directory": "vendor/derive_more-2.0.1",
+      "manifest_sha256": "844b82edbf3d2fffefe36d8565e6ee3f316ee07e3de8f702b303d8916ee9e6b7",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "093242cf7570c207c83073cf82f79706fe7b8317e98620a47d5be7c3d8497678",
+      "files": [
+        {
+          "path": "vendor/derive_more-2.0.1/LICENSE",
+          "sha256": "8a35369f3ca263b3c62fbb5032947e53b6bfebc6c8a4d1bb982de1c069f6fba5",
+          "bytes": 1080
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "derive_more-impl",
+      "version": "2.0.1",
+      "vendor_directory": "vendor/derive_more-impl-2.0.1",
+      "manifest_sha256": "2fa19cd79e1552d651540c99a1dccc3c662b87272afef87dbc4620136aadec1f",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "bda628edc44c4bb645fbe0f758797143e4e07926f7ebf4e9bdfbd3d2ce621df3",
+      "files": [
+        {
+          "path": "vendor/derive_more-impl-2.0.1/LICENSE",
+          "sha256": "8a35369f3ca263b3c62fbb5032947e53b6bfebc6c8a4d1bb982de1c069f6fba5",
+          "bytes": 1080
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "digest",
+      "version": "0.10.7",
+      "vendor_directory": "vendor/digest-0.10.7",
+      "manifest_sha256": "f0cc2fc18c6e7f3533658b9e59d71b55e641e7d8226e5d1b915a5e7c0a1d3f36",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "9ed9a281f7bc9b7576e61468ba615a66a5c8cfdff42420a70aa82701a3b1e292",
+      "files": [
+        {
+          "path": "vendor/digest-0.10.7/LICENSE-APACHE",
+          "sha256": "a9040321c3712d8fd0b09cf52b17445de04a23a10165049ae187cd39e5c86be5",
+          "bytes": 10849
+        },
+        {
+          "path": "vendor/digest-0.10.7/LICENSE-MIT",
+          "sha256": "9e0dfd2dd4173a530e238cb6adb37aa78c34c6bc7444e0e10c1ab5d8881f63ba",
+          "bytes": 1057
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "dyn-stack",
+      "version": "0.13.0",
+      "vendor_directory": "vendor/dyn-stack-0.13.0",
+      "manifest_sha256": "71d5f8cd9d15b0e80d82a0374820980cf5cd7dd0305b8058b8dacfa40346b1b4",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "490bd48eb68fffcfed519b4edbfd82c69cbe741d175b84f0e0cbe8c57cbe0bdd",
+      "files": [
+        {
+          "path": "vendor/dyn-stack-0.13.0/LICENSE",
+          "sha256": "bf5a93d1014429b43e01c57d45bea928748fbf37d059306145a1a0a91aec2014",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "either",
+      "version": "1.15.0",
+      "vendor_directory": "vendor/either-1.15.0",
+      "manifest_sha256": "e88e6acce3b0cbf6734ab7c41cbc01a6b368843eb29d57f06e3b917ec9af03e0",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719",
+      "files": [
+        {
+          "path": "vendor/either-1.15.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/either-1.15.0/LICENSE-MIT",
+          "sha256": "7576269ea71f767b99297934c0b2367532690f8c4badc695edf8e04ab6a1e545",
+          "bytes": 1043
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "enum_dispatch",
+      "version": "0.3.13",
+      "vendor_directory": "vendor/enum_dispatch-0.3.13",
+      "manifest_sha256": "ada87849fd822cd732f9533051f54d23a2d28904fe3096e024f85a87ee5eaa52",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "aa18ce2bc66555b3218614519ac839ddb759a7d6720732f979ef8d13be147ecd",
+      "files": [
+        {
+          "path": "vendor/enum_dispatch-0.3.13/LICENSE",
+          "sha256": "1e5d3ddaf5cbc111c8517df39e6f252e4c16dbda26b7cc1ad54c9e3efb0586be",
+          "bytes": 1070
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "equator",
+      "version": "0.2.2",
+      "vendor_directory": "vendor/equator-0.2.2",
+      "manifest_sha256": "bf2fbe85c4e594ef38e0fa21049d977febe32d131a65944568df8245327f5154",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "c35da53b5a021d2484a7cc49b2ac7f2d840f8236a286f84202369bd338d761ea",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "equator",
+      "version": "0.4.2",
+      "vendor_directory": "vendor/equator-0.4.2",
+      "manifest_sha256": "bbe179256e0bcf127f48349be1eab4465a999dd792935ed3c6cc920d16e95e23",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "4711b213838dfee0117e3be6ac926007d7f433d7bbe33595975d4190cb07e6fc",
+      "files": [
+        {
+          "path": "vendor/equator-0.4.2/LICENSE",
+          "sha256": "97d3424e347e8fa236806725ce9837bb453d4dfc9ce1d4733fd6023a8038000a",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "equator-macro",
+      "version": "0.2.1",
+      "vendor_directory": "vendor/equator-macro-0.2.1",
+      "manifest_sha256": "757895a30952c7adc4f4250f422a853767bd999ce8092e3104fe7ad14bbf32c9",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "3bf679796c0322556351f287a51b49e48f7c4986e727b5dd78c972d30e2e16cc",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "equator-macro",
+      "version": "0.4.2",
+      "vendor_directory": "vendor/equator-macro-0.4.2",
+      "manifest_sha256": "9196049aa1e101c76012bf3c21db5e04d6fbe9cef9b83ab77eb623a03e140b64",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "44f23cf4b44bfce11a86ace86f8a73ffdec849c9fd00a386a53d278bd9e81fb3",
+      "files": [
+        {
+          "path": "vendor/equator-macro-0.4.2/LICENSE",
+          "sha256": "97d3424e347e8fa236806725ce9837bb453d4dfc9ce1d4733fd6023a8038000a",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "equivalent",
+      "version": "1.0.2",
+      "vendor_directory": "vendor/equivalent-1.0.2",
+      "manifest_sha256": "92fcf6d8b32d99f40a5053b9026e417c958d6f5f19581c632d675211b7eeb9f9",
+      "license": "Apache-2.0 OR MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f",
+      "files": [
+        {
+          "path": "vendor/equivalent-1.0.2/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/equivalent-1.0.2/LICENSE-MIT",
+          "sha256": "7365cc8878a1d7ce155a58c4ca09c3d7a6be413efa5334a80ea842912b669349",
+          "bytes": 1049
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "faer",
+      "version": "0.21.9",
+      "vendor_directory": "vendor/faer-0.21.9",
+      "manifest_sha256": "6b05a37d7a736fe248c66969414cc5ed2cbca5b8df966c09d1605f1e0e3003ce",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "ebe9ac2a073e05ca749eeea503fae16a91440b20d2e92b6fc6f6c6919b9964eb",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "faer-macros",
+      "version": "0.21.0",
+      "vendor_directory": "vendor/faer-macros-0.21.0",
+      "manifest_sha256": "6b9915b5a918f48f6e002087189c9f6cdc08a6b17e847278e97653099ce8608d",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "9d0a255d1442b5825c61812a7eafda9034ec53d969c98555251085e148428e6a",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "faer-traits",
+      "version": "0.21.5",
+      "vendor_directory": "vendor/faer-traits-0.21.5",
+      "manifest_sha256": "14ac90be7653f22b68eed0cdfc0cc84f6e77c7813bc53ffebc93f3d583115bf8",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "1430e111b20872c7eaa82c7ada071bff1c3e3ac09cc6f4df676065fd2d41eb62",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "fnv",
+      "version": "1.0.7",
+      "vendor_directory": "vendor/fnv-1.0.7",
+      "manifest_sha256": "0854ced32611c6389356c0b43ae663da9d4480376c5f0825b82eb442dd84e8d8",
+      "license": "Apache-2.0 / MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1",
+      "files": [
+        {
+          "path": "vendor/fnv-1.0.7/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/fnv-1.0.7/LICENSE-MIT",
+          "sha256": "65fdb6c76cd61612070c066eec9ecdb30ee74fb27859d0d9af58b9f499fd0c3e",
+          "bytes": 1056
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "legacy_slash_expression_not_modern_SPDX"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "gemm",
+      "version": "0.18.2",
+      "vendor_directory": "vendor/gemm-0.18.2",
+      "manifest_sha256": "7c918ccb2487aca57c872efb33576d6f0bf41b842d09ae62446b21a55e7ea6b7",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "ab96b703d31950f1aeddded248bc95543c9efc7ac9c4a21fda8703a83ee35451",
+      "files": [
+        {
+          "path": "vendor/gemm-0.18.2/LICENSE",
+          "sha256": "d64f878c89bd5f1e5ada7e4aad57690b122727cf5229b7b87ea1980c188da1d9",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "gemm-c32",
+      "version": "0.18.2",
+      "vendor_directory": "vendor/gemm-c32-0.18.2",
+      "manifest_sha256": "6aca36644bb6d357e66284629cc5ce4ace4ee4a26bb38690f58a489e94375875",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "f6db9fd9f40421d00eea9dd0770045a5603b8d684654816637732463f4073847",
+      "files": [
+        {
+          "path": "vendor/gemm-c32-0.18.2/LICENSE",
+          "sha256": "d64f878c89bd5f1e5ada7e4aad57690b122727cf5229b7b87ea1980c188da1d9",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "gemm-c64",
+      "version": "0.18.2",
+      "vendor_directory": "vendor/gemm-c64-0.18.2",
+      "manifest_sha256": "9c14a3788a32421ea505aebc1ebe3b2161642fff802f1bdc1377893dc63d78ef",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "dfcad8a3d35a43758330b635d02edad980c1e143dc2f21e6fd25f9e4eada8edf",
+      "files": [
+        {
+          "path": "vendor/gemm-c64-0.18.2/LICENSE",
+          "sha256": "d64f878c89bd5f1e5ada7e4aad57690b122727cf5229b7b87ea1980c188da1d9",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "gemm-common",
+      "version": "0.18.2",
+      "vendor_directory": "vendor/gemm-common-0.18.2",
+      "manifest_sha256": "4af55086a8c79b0fafad0e0c3db72473c552f7e23dbc91c8f05c5a628f112165",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "a352d4a69cbe938b9e2a9cb7a3a63b7e72f9349174a2752a558a8a563510d0f3",
+      "files": [
+        {
+          "path": "vendor/gemm-common-0.18.2/LICENSE",
+          "sha256": "d64f878c89bd5f1e5ada7e4aad57690b122727cf5229b7b87ea1980c188da1d9",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "gemm-f32",
+      "version": "0.18.2",
+      "vendor_directory": "vendor/gemm-f32-0.18.2",
+      "manifest_sha256": "41f50ba175f794be68efe5d163dfa6d0b67531c76c91d0b5ee415dff8ae95e5b",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "bc8d3d4385393304f407392f754cd2dc4b315d05063f62cf09f47b58de276864",
+      "files": [
+        {
+          "path": "vendor/gemm-f32-0.18.2/LICENSE",
+          "sha256": "d64f878c89bd5f1e5ada7e4aad57690b122727cf5229b7b87ea1980c188da1d9",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "gemm-f64",
+      "version": "0.18.2",
+      "vendor_directory": "vendor/gemm-f64-0.18.2",
+      "manifest_sha256": "57cda50429a8e0e8f68cda115edc0e5dd367b6e7d0b627f57d324bb396353b81",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "35b2a4f76ce4b8b16eadc11ccf2e083252d8237c1b589558a49b0183545015bd",
+      "files": [
+        {
+          "path": "vendor/gemm-f64-0.18.2/LICENSE",
+          "sha256": "d64f878c89bd5f1e5ada7e4aad57690b122727cf5229b7b87ea1980c188da1d9",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "generativity",
+      "version": "1.1.0",
+      "vendor_directory": "vendor/generativity-1.1.0",
+      "manifest_sha256": "f9de557e281b29a7b179b9dc7e56219c147318d24fdd603a8b8de0c865e1a17f",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "5881e4c3c2433fe4905bb19cfd2b5d49d4248274862b68c27c33d9ba4e13f9ec",
+      "files": [
+        {
+          "path": "vendor/generativity-1.1.0/LICENSE-APACHE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        },
+        {
+          "path": "vendor/generativity-1.1.0/LICENSE-MIT",
+          "sha256": "7230950be2113ed0293b254c19d93f365bc8add64b06dd6b8ae3811028bdc3fd",
+          "bytes": 1089
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "generic-array",
+      "version": "0.14.7",
+      "vendor_directory": "vendor/generic-array-0.14.7",
+      "manifest_sha256": "4b5daed75505275d11f4854dd9172f910da61d9856ca2936d95e2e6e0c9040e4",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "85649ca51fd72272d7821adaf274ad91c288277713d9c18820d8499a7ff69e9a",
+      "files": [
+        {
+          "path": "vendor/generic-array-0.14.7/LICENSE",
+          "sha256": "c09aae9d3c77b531f56351a9947bc7446511d6b025b3255312d3e3442a9a7583",
+          "bytes": 1107
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "getrandom",
+      "version": "0.2.16",
+      "vendor_directory": "vendor/getrandom-0.2.16",
+      "manifest_sha256": "9159f7c43445be8d9a5f97a1615cd79f243fcfa7a288da4f929ab7c8374ec64a",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "335ff9f135e4384c8150d6f27c6daed433577f86b4750418338c01a1a2528592",
+      "files": [
+        {
+          "path": "vendor/getrandom-0.2.16/LICENSE-APACHE",
+          "sha256": "aaff376532ea30a0cd5330b9502ad4a4c8bf769c539c87ffe78819d188a18ebf",
+          "bytes": 10849
+        },
+        {
+          "path": "vendor/getrandom-0.2.16/LICENSE-MIT",
+          "sha256": "42fa16951ce7f24b5a467a40e5b449a1d41e662f97ca779864f053f39e097737",
+          "bytes": 1130
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "hashbrown",
+      "version": "0.15.4",
+      "vendor_directory": "vendor/hashbrown-0.15.4",
+      "manifest_sha256": "80ac792fa0ecb536fab4f54298c1fa8c7441ca75f8cc1d7e0e543ec91b10942e",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "5971ac85611da7067dbfcabef3c70ebb5606018acd9e2a3903a0da507521e0d5",
+      "files": [
+        {
+          "path": "vendor/hashbrown-0.15.4/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/hashbrown-0.15.4/LICENSE-MIT",
+          "sha256": "ff8f68cb076caf8cefe7a6430d4ac086ce6af2ca8ce2c4e5a2004d4552ef52a2",
+          "bytes": 1060
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "heck",
+      "version": "0.5.0",
+      "vendor_directory": "vendor/heck-0.5.0",
+      "manifest_sha256": "db0e63b72de157a2f5194458b73b6542c3f4e17e33ab34a71d0260bfc035467e",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea",
+      "files": [
+        {
+          "path": "vendor/heck-0.5.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/heck-0.5.0/LICENSE-MIT",
+          "sha256": "7b63ecd5f1902af1b63729947373683c32745c16a10e8e6292e2e2dcd7e90ae0",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "ident_case",
+      "version": "1.0.1",
+      "vendor_directory": "vendor/ident_case-1.0.1",
+      "manifest_sha256": "560eba8d5cf4f2c71cc06ef9145eb8f4c163a616cd6d08b031b1eae3448d8203",
+      "license": "MIT/Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39",
+      "files": [
+        {
+          "path": "vendor/ident_case-1.0.1/LICENSE",
+          "sha256": "508a77d2e7b51d98adeed32648ad124b7b30241a8e70b2e72c99f92d8e5874d1",
+          "bytes": 1036
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "legacy_slash_expression_not_modern_SPDX"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "indexmap",
+      "version": "2.9.0",
+      "vendor_directory": "vendor/indexmap-2.9.0",
+      "manifest_sha256": "c7cf1ff95c94648f759d48211248dd5ca89488619061b0c11cec9b47e3949337",
+      "license": "Apache-2.0 OR MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "cea70ddb795996207ad57735b50c5982d8844f38ba9ee5f1aedcfb708a2aa11e",
+      "files": [
+        {
+          "path": "vendor/indexmap-2.9.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/indexmap-2.9.0/LICENSE-MIT",
+          "sha256": "ecc269ef87fd38a1d98e30bfac9ba964a9dbd9315c3770fed98d4d7cb5882055",
+          "bytes": 1049
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "indoc",
+      "version": "2.0.6",
+      "vendor_directory": "vendor/indoc-2.0.6",
+      "manifest_sha256": "6f665978861236240819ef7177c6e6c7cc79bd15607839f15bf79de89d5a371b",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "f4c7245a08504955605670dbf141fceab975f15ca21570696aebe9d2e71576bd",
+      "files": [
+        {
+          "path": "vendor/indoc-2.0.6/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/indoc-2.0.6/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "itertools",
+      "version": "0.11.0",
+      "vendor_directory": "vendor/itertools-0.11.0",
+      "manifest_sha256": "e64e6e088ab537ba843f25a111af102dd434fd58cea3d446dff314cf42ad33e2",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "b1c173a5686ce8bfa551b3563d0c2170bf24ca44da99c7ca4bfdab5418c3fe57",
+      "files": [
+        {
+          "path": "vendor/itertools-0.11.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/itertools-0.11.0/LICENSE-MIT",
+          "sha256": "7576269ea71f767b99297934c0b2367532690f8c4badc695edf8e04ab6a1e545",
+          "bytes": 1043
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "itoa",
+      "version": "1.0.15",
+      "vendor_directory": "vendor/itoa-1.0.15",
+      "manifest_sha256": "c1d45a6aa2324a0862b0e6c8100e8f595616f91612f915f63c862010954667bc",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "4a5f13b858c8d314ee3e8f639011f7ccefe71f97f96e50151fb991f267928e2c",
+      "files": [
+        {
+          "path": "vendor/itoa-1.0.15/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/itoa-1.0.15/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "lapack",
+      "version": "0.19.0",
+      "vendor_directory": "vendor/lapack-0.19.0",
+      "manifest_sha256": "68788c325bcaa8c1ac9486ccb9f5e191e4e652de7ce08552af42bb7b5da12559",
+      "license": "Apache-2.0/MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "ad676a6b4df7e76a9fd80a0c50c619a3948d6105b62a0ab135f064d99c51d207",
+      "files": [
+        {
+          "path": "vendor/lapack-0.19.0/LICENSE.md",
+          "sha256": "80653bd8fcc371ec471a115448bf100d60151be9d88bc8b9a447025dc3d253a6",
+          "bytes": 2039
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "legacy_slash_expression_not_modern_SPDX"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "lapack-sys",
+      "version": "0.14.0",
+      "vendor_directory": "vendor/lapack-sys-0.14.0",
+      "manifest_sha256": "b7c4d80f607249c2c6984580ec88f86d48f1463ec9d6a09d02abdd28746f7533",
+      "license": "Apache-2.0/MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "447f56c85fb410a7a3d36701b2153c1018b1d2b908c5fbaf01c1b04fac33bcbe",
+      "files": [
+        {
+          "path": "vendor/lapack-sys-0.14.0/LICENSE.md",
+          "sha256": "9652b3aff9e8feaa405f669ccfa98d4579cb869a521ffb2fc204277ac8e7616c",
+          "bytes": 2047
+        },
+        {
+          "path": "vendor/lapack-sys-0.14.0/lapack/LAPACKE/LICENSE",
+          "sha256": "871f415ebd2fd06c7ab8cc3c0016aa2d26b918622345116e2d0c740b688d4843",
+          "bytes": 1545
+        },
+        {
+          "path": "vendor/lapack-sys-0.14.0/lapack/LICENSE",
+          "sha256": "66246b7d3e6736aea46e63fd5e087659474d07edfe2f9b051d085d9b42aaac61",
+          "bytes": 2266
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "legacy_slash_expression_not_modern_SPDX"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "lazy_static",
+      "version": "1.5.0",
+      "vendor_directory": "vendor/lazy_static-1.5.0",
+      "manifest_sha256": "7556429fefb497526c5abdaa2c36d8ce4eb86c23d72763eb396652b9eaffc210",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe",
+      "files": [
+        {
+          "path": "vendor/lazy_static-1.5.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/lazy_static-1.5.0/LICENSE-MIT",
+          "sha256": "0621878e61f0d0fda054bcbe02df75192c28bde1ecc8289cbd86aeba2dd72720",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "libc",
+      "version": "0.2.172",
+      "vendor_directory": "vendor/libc-0.2.172",
+      "manifest_sha256": "56ad89d6913657901ac241f5d2ff433e1f7aabc5e565494b8dea2970101fd4d4",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "d750af042f7ef4f724306de029d18836c26c1765a54a6a3f094cbd23a7267ffa",
+      "files": [
+        {
+          "path": "vendor/libc-0.2.172/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/libc-0.2.172/LICENSE-MIT",
+          "sha256": "a8d47ff51ca256f56a8932dba07660672dbfe3004257ca8de708aac1415937a1",
+          "bytes": 1076
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "libm",
+      "version": "0.2.15",
+      "vendor_directory": "vendor/libm-0.2.15",
+      "manifest_sha256": "50b0d8922764b2a257aa9e4c240bd338459341e9cf6f29429bef530ed3756c76",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "f9fbbcab51052fe104eb5e5d351cf728d30a5be1fe14d9be8a3b097481fb97de",
+      "files": [
+        {
+          "path": "vendor/libm-0.2.15/LICENSE.txt",
+          "sha256": "3823dda7cf046602f4b4e77ec8e227863dc4736037cc85bb33d9f19febe16bb7",
+          "bytes": 14088
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "memchr",
+      "version": "2.7.5",
+      "vendor_directory": "vendor/memchr-2.7.5",
+      "manifest_sha256": "73fb56d3e51853020b355db722e35320467bc8aee57d457fae288e873b513411",
+      "license": "Unlicense OR MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "32a282da65faaf38286cf3be983213fcf1d2e2a58700e808f83f4ea9a4804bc0",
+      "files": [
+        {
+          "path": "vendor/memchr-2.7.5/COPYING",
+          "sha256": "01c266bced4a434da0051174d6bee16a4c82cf634e2679b6155d40d75012390f",
+          "bytes": 126
+        },
+        {
+          "path": "vendor/memchr-2.7.5/LICENSE-MIT",
+          "sha256": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f",
+          "bytes": 1081
+        },
+        {
+          "path": "vendor/memchr-2.7.5/UNLICENSE",
+          "sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c",
+          "bytes": 1211
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "memoffset",
+      "version": "0.9.1",
+      "vendor_directory": "vendor/memoffset-0.9.1",
+      "manifest_sha256": "772e523da630871e710cc229f36282205713bba853d4d3f78e5a5d099bb3a814",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "488016bfae457b036d996092f6cb448677611ce4449e970ceaf42695203f218a",
+      "files": [
+        {
+          "path": "vendor/memoffset-0.9.1/LICENSE",
+          "sha256": "3234ac55816264ee7b6c7ee27efd61cf0a1fe775806870e3d9b4c41ea73c5cb1",
+          "bytes": 1055
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "nano-gemm",
+      "version": "0.1.3",
+      "vendor_directory": "vendor/nano-gemm-0.1.3",
+      "manifest_sha256": "6987840029256934761a798d0a5be0069cbfbce4f3fd774f5a4ff5568f8c4ca9",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "bb5ba2bea1c00e53de11f6ab5bd0761ba87dc0045d63b0c87ee471d2d3061376",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "nano-gemm-c32",
+      "version": "0.1.0",
+      "vendor_directory": "vendor/nano-gemm-c32-0.1.0",
+      "manifest_sha256": "193269126a31efb7786224a2eed2e4b817ceb8f3073b59b9a81f48e041ea70f3",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "a40449e57a5713464c3a1208c4c3301c8d29ee1344711822cf022bc91373a91b",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "nano-gemm-c64",
+      "version": "0.1.0",
+      "vendor_directory": "vendor/nano-gemm-c64-0.1.0",
+      "manifest_sha256": "2a3879a11fb0e4db9e6654c9e2a75219c7f5886fea4f9bf3ea999b013077e409",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "743a6e6211358fba85d1009616751e4107da86f4c95b24e684ce85f25c25b3bf",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "nano-gemm-codegen",
+      "version": "0.1.0",
+      "vendor_directory": "vendor/nano-gemm-codegen-0.1.0",
+      "manifest_sha256": "d60df785a95cbb45ba2e415e9b8bcf910711a5ee6c43252c973a0d794b863154",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "963bf7c7110d55430169dc74c67096375491ed580cd2ef84842550ac72e781fa",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "nano-gemm-core",
+      "version": "0.1.0",
+      "vendor_directory": "vendor/nano-gemm-core-0.1.0",
+      "manifest_sha256": "61e0bc33bb7c8508c4d4cb579517978a047dc834c06cf8f4a6d8002e60bab57f",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "fe3fc4f83ae8861bad79dc3c016bd6b0220da5f9de302e07d3112d16efc24aa6",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "nano-gemm-f32",
+      "version": "0.1.0",
+      "vendor_directory": "vendor/nano-gemm-f32-0.1.0",
+      "manifest_sha256": "c5faa2b982b1b89068a81d10f72d61fbf02cd66e629cb3b25d2ad757fc89dfbd",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "4e3681b7ce35658f79da94b7f62c60a005e29c373c7111ed070e3bf64546a8bb",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "nano-gemm-f64",
+      "version": "0.1.0",
+      "vendor_directory": "vendor/nano-gemm-f64-0.1.0",
+      "manifest_sha256": "6f864dd2a631cab5d7eb3106eeaa5b643f4b216e3523d0c5de911100a3408d40",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "bc1e619ed04d801809e1f63e61b669d380c4119e8b0cdd6ed184c6b111f046d8",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "npyz",
+      "version": "0.8.4",
+      "vendor_directory": "vendor/npyz-0.8.4",
+      "manifest_sha256": "c533a373f2542af1dc1841a2f93c4b76732ff1fe6b77a36921cb7395aee4d28d",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "9f0e759e014e630f90af745101b614f761306ddc541681e546649068e25ec1b9",
+      "files": [],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "no_license_copying_notice_file_found"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "num-bigint",
+      "version": "0.4.6",
+      "vendor_directory": "vendor/num-bigint-0.4.6",
+      "manifest_sha256": "a6042603541ecb91ec1f5c158679c0b47090462434e2a53e65f78395994f223f",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "a5e44f723f1133c9deac646763579fdb3ac745e418f2a7af9cd0c431da1f20b9",
+      "files": [
+        {
+          "path": "vendor/num-bigint-0.4.6/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/num-bigint-0.4.6/LICENSE-MIT",
+          "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "num-complex",
+      "version": "0.4.6",
+      "vendor_directory": "vendor/num-complex-0.4.6",
+      "manifest_sha256": "c3eb0628759922920b1ad0c233f2977ac6fd609876e27d88f6088400887aa937",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "73f88a1307638156682bada9d7604135552957b7818057dcef22705b4d509495",
+      "files": [
+        {
+          "path": "vendor/num-complex-0.4.6/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/num-complex-0.4.6/LICENSE-MIT",
+          "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "num-conv",
+      "version": "0.1.0",
+      "vendor_directory": "vendor/num-conv-0.1.0",
+      "manifest_sha256": "c1d8999190f493d43b84b07eaffd2a9144e16be197bb3ef13eb69305e2f23047",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "51d515d32fb182ee37cda2ccdcb92950d6a3c2893aa280e540671c2cd0f3b1d9",
+      "files": [
+        {
+          "path": "vendor/num-conv-0.1.0/LICENSE-Apache",
+          "sha256": "c0fd5f9df8d17e13587f8fe403d2326b835e60d532817d0b42ae4aea44209251",
+          "bytes": 11342
+        },
+        {
+          "path": "vendor/num-conv-0.1.0/LICENSE-MIT",
+          "sha256": "af85fff507d80e6c7ff242acfc4b0a7f5de9a72286bb3c883c782772ca4b4402",
+          "bytes": 1055
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "num-derive",
+      "version": "0.4.2",
+      "vendor_directory": "vendor/num-derive-0.4.2",
+      "manifest_sha256": "659a3cf18a53cb7bcf017efaf2e498494e854f91ebb56c9acb067e94f076f43a",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "ed3955f1a9c7c0c15e092f9c887db08b1fc683305fdf6eb6684f22555355e202",
+      "files": [
+        {
+          "path": "vendor/num-derive-0.4.2/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/num-derive-0.4.2/LICENSE-MIT",
+          "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "num-integer",
+      "version": "0.1.46",
+      "vendor_directory": "vendor/num-integer-0.1.46",
+      "manifest_sha256": "f5e54fe018d780d7320b47a3fdae3b1ec3f6d04ac5adab3a8ddf207531aecef8",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "7969661fd2958a5cb096e56c8e1ad0444ac2bbcd0061bd28660485a44879858f",
+      "files": [
+        {
+          "path": "vendor/num-integer-0.1.46/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/num-integer-0.1.46/LICENSE-MIT",
+          "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "num-traits",
+      "version": "0.2.19",
+      "vendor_directory": "vendor/num-traits-0.2.19",
+      "manifest_sha256": "dd701a0da6cce7e6e047cc944b2330f3c5e48cd64329e10942ea7d9299d435be",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "071dfc062690e90b734c0b2273ce72ad0ffa95f0c74596bc250dcfd960262841",
+      "files": [
+        {
+          "path": "vendor/num-traits-0.2.19/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/num-traits-0.2.19/LICENSE-MIT",
+          "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "num_threads",
+      "version": "0.1.7",
+      "vendor_directory": "vendor/num_threads-0.1.7",
+      "manifest_sha256": "e186d21c906422467056c0bbdf9c306b18392b4f070967127bf78b4fea31ac4c",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "5c7398b9c8b70908f6371f47ed36737907c87c52af34c268fed0bf0ceb92ead9",
+      "files": [
+        {
+          "path": "vendor/num_threads-0.1.7/LICENSE-Apache",
+          "sha256": "c69b72788ec261765e460532016b4bb78372f238e449b5e70e3268ec1e18fd15",
+          "bytes": 11342
+        },
+        {
+          "path": "vendor/num_threads-0.1.7/LICENSE-MIT",
+          "sha256": "b4bf94a9fceb8846320fda938ee53fc16b506572609da5cf1d2d289a5597a8f8",
+          "bytes": 1055
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "once_cell",
+      "version": "1.19.0",
+      "vendor_directory": "vendor/once_cell-1.19.0",
+      "manifest_sha256": "b0c4dcab027bb78093c9cd0e643b778303bb113fed7f3ab251252141d2b6735d",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "3fdb12b2476b595f9358c5161aa467c2438859caa136dec86c26fdd2efe17b92",
+      "files": [
+        {
+          "path": "vendor/once_cell-1.19.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/once_cell-1.19.0/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "paste",
+      "version": "1.0.15",
+      "vendor_directory": "vendor/paste-1.0.15",
+      "manifest_sha256": "b639e399e32159609ed573ffdb1a4edf06fba8aee208d9259e9dba031834aaaa",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a",
+      "files": [
+        {
+          "path": "vendor/paste-1.0.15/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/paste-1.0.15/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "pest",
+      "version": "2.8.0",
+      "vendor_directory": "vendor/pest-2.8.0",
+      "manifest_sha256": "40cc35593b2d050e05e02c2b583ac030ad7f987a034f653734b4c40d5f80e73e",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "198db74531d58c70a361c42201efde7e2591e976d518caf7662a47dc5720e7b6",
+      "files": [
+        {
+          "path": "vendor/pest-2.8.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/pest-2.8.0/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "pest_derive",
+      "version": "2.8.0",
+      "vendor_directory": "vendor/pest_derive-2.8.0",
+      "manifest_sha256": "c21e8a85b33bec238902995b9ad22b8897e31ba1d4443706794fba1e25eabbc5",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "d725d9cfd79e87dccc9341a2ef39d1b6f6353d68c4b33c177febbe1a402c97c5",
+      "files": [
+        {
+          "path": "vendor/pest_derive-2.8.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/pest_derive-2.8.0/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "pest_generator",
+      "version": "2.8.0",
+      "vendor_directory": "vendor/pest_generator-2.8.0",
+      "manifest_sha256": "c70ec23a0af22edd2890dae13c4ee279826344fc62baf1c3b52315e708e5ca0e",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "db7d01726be8ab66ab32f9df467ae8b1148906685bbe75c82d1e65d7f5b3f841",
+      "files": [
+        {
+          "path": "vendor/pest_generator-2.8.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/pest_generator-2.8.0/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "pest_meta",
+      "version": "2.8.0",
+      "vendor_directory": "vendor/pest_meta-2.8.0",
+      "manifest_sha256": "76020b3c4bfee077b1ce771c145494ede48842133ac0a8cc2ff8dd7a416b48fd",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "7f9f832470494906d1fca5329f8ab5791cc60beb230c74815dff541cbd2b5ca0",
+      "files": [
+        {
+          "path": "vendor/pest_meta-2.8.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/pest_meta-2.8.0/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "powerfmt",
+      "version": "0.2.0",
+      "vendor_directory": "vendor/powerfmt-0.2.0",
+      "manifest_sha256": "59fa10abb1a34f70e61c97022938b02ec77ea0b161524f4a2599440bd3190c3b",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "439ee305def115ba05938db6eb1644ff94165c5ab5e9420d1c1bcedbba909391",
+      "files": [
+        {
+          "path": "vendor/powerfmt-0.2.0/LICENSE-Apache",
+          "sha256": "155420c6403d4e0fca34105e3c03fdd6939b64c393c7ec6f95f5b72c5474eab0",
+          "bytes": 11349
+        },
+        {
+          "path": "vendor/powerfmt-0.2.0/LICENSE-MIT",
+          "sha256": "070dbc7dda03a29296f2d58bdb9b7331af90f2abc9f31df22875d1eabaf29852",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "ppv-lite86",
+      "version": "0.2.21",
+      "vendor_directory": "vendor/ppv-lite86-0.2.21",
+      "manifest_sha256": "aa9337145bd03a6e76fd42c2ee5f07c5c23ff6b2eb73cfc35c3070d76c5bacb8",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "85eae3c4ed2f50dcfe72643da4befc30deadb458a9b590d720cde2f2b1e97da9",
+      "files": [
+        {
+          "path": "vendor/ppv-lite86-0.2.21/LICENSE-APACHE",
+          "sha256": "0218327e7a480793ffdd4eb792379a9709e5c135c7ba267f709d6f6d4d70af0a",
+          "bytes": 10854
+        },
+        {
+          "path": "vendor/ppv-lite86-0.2.21/LICENSE-MIT",
+          "sha256": "4cada0bd02ea3692eee6f16400d86c6508bbd3bafb2b65fed0419f36d4f83e8f",
+          "bytes": 1076
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "proc-macro2",
+      "version": "1.0.95",
+      "vendor_directory": "vendor/proc-macro2-1.0.95",
+      "manifest_sha256": "277a6ffb50768523faca5089df941e0d1baf2a7f91792beef3d30667bce985c8",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "02b3e5e68a3a1a02aad3ec490a98007cbc13c37cbe84a3cd7b8e406d76e7f778",
+      "files": [
+        {
+          "path": "vendor/proc-macro2-1.0.95/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/proc-macro2-1.0.95/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "pulp",
+      "version": "0.21.5",
+      "vendor_directory": "vendor/pulp-0.21.5",
+      "manifest_sha256": "4069fc1c1401d01dbea9e895982c3162328b2de4997c925c171f56a3a3116843",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "96b86df24f0a7ddd5e4b95c94fc9ed8a98f1ca94d3b01bdce2824097e7835907",
+      "files": [
+        {
+          "path": "vendor/pulp-0.21.5/LICENSE",
+          "sha256": "d64f878c89bd5f1e5ada7e4aad57690b122727cf5229b7b87ea1980c188da1d9",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "py_literal",
+      "version": "0.4.0",
+      "vendor_directory": "vendor/py_literal-0.4.0",
+      "manifest_sha256": "6b4c9e51649f73be5eca9b843421167a2c40bf8d7bd67de327d4406bb4b4ad65",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "102df7a3d46db9d3891f178dcc826dc270a6746277a9ae6436f8d29fd490a8e1",
+      "files": [
+        {
+          "path": "vendor/py_literal-0.4.0/LICENSE-APACHE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        },
+        {
+          "path": "vendor/py_literal-0.4.0/LICENSE-MIT",
+          "sha256": "2113741119d38a3d20165a9d2f9fada98d3e8e9d8df6d901358519e630f9acda",
+          "bytes": 1083
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "pyo3",
+      "version": "0.25.0",
+      "vendor_directory": "vendor/pyo3-0.25.0",
+      "manifest_sha256": "556a22d54fa23885c33ff6ece138e762b26830466331909760fa72868e1c27f7",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "f239d656363bcee73afef85277f1b281e8ac6212a1d42aa90e55b90ed43c47a4",
+      "files": [
+        {
+          "path": "vendor/pyo3-0.25.0/LICENSE-APACHE",
+          "sha256": "32c76dbe0e73d79100d5ece77c158399f2e2541bc5c78548a4ba45c1cb53c5c9",
+          "bytes": 9807
+        },
+        {
+          "path": "vendor/pyo3-0.25.0/LICENSE-MIT",
+          "sha256": "afcbe3b2e6b37172b5a9ca869ee4c0b8cdc09316e5d4384864154482c33e5af6",
+          "bytes": 1107
+        },
+        {
+          "path": "vendor/pyo3-0.25.0/pyo3-runtime/LICENSE-APACHE",
+          "sha256": "32c76dbe0e73d79100d5ece77c158399f2e2541bc5c78548a4ba45c1cb53c5c9",
+          "bytes": 9807
+        },
+        {
+          "path": "vendor/pyo3-0.25.0/pyo3-runtime/LICENSE-MIT",
+          "sha256": "afcbe3b2e6b37172b5a9ca869ee4c0b8cdc09316e5d4384864154482c33e5af6",
+          "bytes": 1107
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "pyo3-build-config",
+      "version": "0.25.0",
+      "vendor_directory": "vendor/pyo3-build-config-0.25.0",
+      "manifest_sha256": "8d9fbcd1107fec82b4900bf935a25d9c8c1455a33a9c4e0b20f196f1df07e47a",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "755ea671a1c34044fa165247aaf6f419ca39caa6003aee791a0df2713d8f1b6d",
+      "files": [
+        {
+          "path": "vendor/pyo3-build-config-0.25.0/LICENSE-APACHE",
+          "sha256": "32c76dbe0e73d79100d5ece77c158399f2e2541bc5c78548a4ba45c1cb53c5c9",
+          "bytes": 9807
+        },
+        {
+          "path": "vendor/pyo3-build-config-0.25.0/LICENSE-MIT",
+          "sha256": "afcbe3b2e6b37172b5a9ca869ee4c0b8cdc09316e5d4384864154482c33e5af6",
+          "bytes": 1107
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "pyo3-ffi",
+      "version": "0.25.0",
+      "vendor_directory": "vendor/pyo3-ffi-0.25.0",
+      "manifest_sha256": "28b1209d0d9a78afbb0fbfb9961ea3d771ab20d9cbd3c488b2f50939dc5c2b32",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "fc95a2e67091e44791d4ea300ff744be5293f394f1bafd9f78c080814d35956e",
+      "files": [
+        {
+          "path": "vendor/pyo3-ffi-0.25.0/LICENSE-APACHE",
+          "sha256": "32c76dbe0e73d79100d5ece77c158399f2e2541bc5c78548a4ba45c1cb53c5c9",
+          "bytes": 9807
+        },
+        {
+          "path": "vendor/pyo3-ffi-0.25.0/LICENSE-MIT",
+          "sha256": "afcbe3b2e6b37172b5a9ca869ee4c0b8cdc09316e5d4384864154482c33e5af6",
+          "bytes": 1107
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "pyo3-macros",
+      "version": "0.25.0",
+      "vendor_directory": "vendor/pyo3-macros-0.25.0",
+      "manifest_sha256": "71902399cb576e26b841ccacca70d6aa8dd0929aaf147880220403f38ae706d0",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "a179641d1b93920829a62f15e87c0ed791b6c8db2271ba0fd7c2686090510214",
+      "files": [
+        {
+          "path": "vendor/pyo3-macros-0.25.0/LICENSE-APACHE",
+          "sha256": "32c76dbe0e73d79100d5ece77c158399f2e2541bc5c78548a4ba45c1cb53c5c9",
+          "bytes": 9807
+        },
+        {
+          "path": "vendor/pyo3-macros-0.25.0/LICENSE-MIT",
+          "sha256": "afcbe3b2e6b37172b5a9ca869ee4c0b8cdc09316e5d4384864154482c33e5af6",
+          "bytes": 1107
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "pyo3-macros-backend",
+      "version": "0.25.0",
+      "vendor_directory": "vendor/pyo3-macros-backend-0.25.0",
+      "manifest_sha256": "1f66f75c489aa1eb2add05712631d95e9bd9100efe0549783f58753154e2243a",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "9dff85ebcaab8c441b0e3f7ae40a6963ecea8a9f5e74f647e33fcf5ec9a1e89e",
+      "files": [
+        {
+          "path": "vendor/pyo3-macros-backend-0.25.0/LICENSE-APACHE",
+          "sha256": "32c76dbe0e73d79100d5ece77c158399f2e2541bc5c78548a4ba45c1cb53c5c9",
+          "bytes": 9807
+        },
+        {
+          "path": "vendor/pyo3-macros-backend-0.25.0/LICENSE-MIT",
+          "sha256": "afcbe3b2e6b37172b5a9ca869ee4c0b8cdc09316e5d4384864154482c33e5af6",
+          "bytes": 1107
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "quote",
+      "version": "1.0.40",
+      "vendor_directory": "vendor/quote-1.0.40",
+      "manifest_sha256": "80803a72c608208f928eaaf3ca4ca06e0705afac3d0d79ca4342b6266cd053ef",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "1885c039570dc00dcb4ff087a89e185fd56bae234ddc7f056a945bf36467248d",
+      "files": [
+        {
+          "path": "vendor/quote-1.0.40/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/quote-1.0.40/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "rand",
+      "version": "0.8.5",
+      "vendor_directory": "vendor/rand-0.8.5",
+      "manifest_sha256": "9bb028fb3b697653beb433ddcf4c1292b3db10ea5ed27a695df6e4e604ba6d4b",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "34af8d1a0e25924bc5b7c43c079c942339d8f0a8b57c39049bef581b46327404",
+      "files": [
+        {
+          "path": "vendor/rand-0.8.5/COPYRIGHT",
+          "sha256": "90eb64f0279b0d9432accfa6023ff803bc4965212383697eee27a0f426d5f8d5",
+          "bytes": 569
+        },
+        {
+          "path": "vendor/rand-0.8.5/LICENSE-APACHE",
+          "sha256": "35242e7a83f69875e6edeff02291e688c97caafe2f8902e4e19b49d3e78b4cab",
+          "bytes": 9724
+        },
+        {
+          "path": "vendor/rand-0.8.5/LICENSE-MIT",
+          "sha256": "209fbbe0ad52d9235e37badf9cadfe4dbdc87203179c0899e738b39ade42177b",
+          "bytes": 1117
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "rand_chacha",
+      "version": "0.3.1",
+      "vendor_directory": "vendor/rand_chacha-0.3.1",
+      "manifest_sha256": "e2ef45f3c9d6f013da266b76ca1e1f664ad5fa1d526b46580a77fb311c659fd8",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "e6c10a63a0fa32252be49d21e7709d4d4baf8d231c2dbce1eaa8141b9b127d88",
+      "files": [
+        {
+          "path": "vendor/rand_chacha-0.3.1/COPYRIGHT",
+          "sha256": "90eb64f0279b0d9432accfa6023ff803bc4965212383697eee27a0f426d5f8d5",
+          "bytes": 569
+        },
+        {
+          "path": "vendor/rand_chacha-0.3.1/LICENSE-APACHE",
+          "sha256": "aaff376532ea30a0cd5330b9502ad4a4c8bf769c539c87ffe78819d188a18ebf",
+          "bytes": 10849
+        },
+        {
+          "path": "vendor/rand_chacha-0.3.1/LICENSE-MIT",
+          "sha256": "209fbbe0ad52d9235e37badf9cadfe4dbdc87203179c0899e738b39ade42177b",
+          "bytes": 1117
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "rand_core",
+      "version": "0.6.4",
+      "vendor_directory": "vendor/rand_core-0.6.4",
+      "manifest_sha256": "4a6762f8364d1a60f1436f4ba7d710de22465722340d2028101fcbd68e89396f",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c",
+      "files": [
+        {
+          "path": "vendor/rand_core-0.6.4/COPYRIGHT",
+          "sha256": "90eb64f0279b0d9432accfa6023ff803bc4965212383697eee27a0f426d5f8d5",
+          "bytes": 569
+        },
+        {
+          "path": "vendor/rand_core-0.6.4/LICENSE-APACHE",
+          "sha256": "6df43f6f4b5d4587f3d8d71e45532c688fd168afa5fe89d571cb32fa09c4ef51",
+          "bytes": 10282
+        },
+        {
+          "path": "vendor/rand_core-0.6.4/LICENSE-MIT",
+          "sha256": "209fbbe0ad52d9235e37badf9cadfe4dbdc87203179c0899e738b39ade42177b",
+          "bytes": 1117
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "rand_distr",
+      "version": "0.4.3",
+      "vendor_directory": "vendor/rand_distr-0.4.3",
+      "manifest_sha256": "de7ba89ed55ad8ff0256372e909588449ce8bb1f131b615c3e978792ead79e1b",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "32cb0b9bc82b0a0876c2dd994a7e7a2683d3e7390ca40e6886785ef0c7e3ee31",
+      "files": [
+        {
+          "path": "vendor/rand_distr-0.4.3/COPYRIGHT",
+          "sha256": "90eb64f0279b0d9432accfa6023ff803bc4965212383697eee27a0f426d5f8d5",
+          "bytes": 569
+        },
+        {
+          "path": "vendor/rand_distr-0.4.3/LICENSE-APACHE",
+          "sha256": "6df43f6f4b5d4587f3d8d71e45532c688fd168afa5fe89d571cb32fa09c4ef51",
+          "bytes": 10282
+        },
+        {
+          "path": "vendor/rand_distr-0.4.3/LICENSE-MIT",
+          "sha256": "a771e4354f6b3ad4c92da1a5c9a239b6c291527db869632ecea4f20e24ca1135",
+          "bytes": 1070
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "raw-cpuid",
+      "version": "11.5.0",
+      "vendor_directory": "vendor/raw-cpuid-11.5.0",
+      "manifest_sha256": "d667fa0d94ac372898978c2a49bf4390c5255a6361fc0d3adfc8d162d988c490",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "c6df7ab838ed27997ba19a4664507e6f82b41fe6e20be42929332156e5e85146",
+      "files": [
+        {
+          "path": "vendor/raw-cpuid-11.5.0/LICENSE.md",
+          "sha256": "cdd45f4d0c552c3a51725728215919e0dedb1e1af250f130e7c2d60eef6721fe",
+          "bytes": 1080
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "rayon",
+      "version": "1.10.0",
+      "vendor_directory": "vendor/rayon-1.10.0",
+      "manifest_sha256": "5c786211c556fd7f0a58c16d034d70bafe221c8c084d7af1d601c85053cec6ee",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "b418a60154510ca1a002a752ca9714984e21e4241e804d32555251faf8b78ffa",
+      "files": [
+        {
+          "path": "vendor/rayon-1.10.0/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/rayon-1.10.0/LICENSE-MIT",
+          "sha256": "0621878e61f0d0fda054bcbe02df75192c28bde1ecc8289cbd86aeba2dd72720",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "rayon-core",
+      "version": "1.12.1",
+      "vendor_directory": "vendor/rayon-core-1.12.1",
+      "manifest_sha256": "60f04aab82c6489c779cf19535fddf0ec1a673edc07f523c66c10996806d2fbe",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "1465873a3dfdaa8ae7cb14b4383657caab0b3e8a0aa9ae8e04b044854c8dfce2",
+      "files": [
+        {
+          "path": "vendor/rayon-core-1.12.1/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/rayon-core-1.12.1/LICENSE-MIT",
+          "sha256": "0621878e61f0d0fda054bcbe02df75192c28bde1ecc8289cbd86aeba2dd72720",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "reborrow",
+      "version": "0.5.5",
+      "vendor_directory": "vendor/reborrow-0.5.5",
+      "manifest_sha256": "6f4b36de71f0becc8ee0b34f9fb1c6771991e6666a1d6ce25f3b0d77f59c9b3e",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "03251193000f4bd3b042892be858ee50e8b3719f2b08e5833ac4353724632430",
+      "files": [
+        {
+          "path": "vendor/reborrow-0.5.5/LICENSE",
+          "sha256": "bf5a93d1014429b43e01c57d45bea928748fbf37d059306145a1a0a91aec2014",
+          "bytes": 1062
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "regex",
+      "version": "1.10.6",
+      "vendor_directory": "vendor/regex-1.10.6",
+      "manifest_sha256": "f23e78c268a6845defbf0dcb49a872b5279130d6c50c44fea9761b3655a384c2",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "4219d74c6b67a3654a9fbebc4b419e22126d13d2f3c4a07ee0cb61ff79a79619",
+      "files": [
+        {
+          "path": "vendor/regex-1.10.6/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/regex-1.10.6/LICENSE-MIT",
+          "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "regex-automata",
+      "version": "0.4.9",
+      "vendor_directory": "vendor/regex-automata-0.4.9",
+      "manifest_sha256": "038ce4e833886b9b26da07d9f3eb5c545c8f91ad02dd028589c2a3562b048fdd",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "809e8dc61f6de73b46c85f4c96486310fe304c434cfa43669d7b40f711150908",
+      "files": [
+        {
+          "path": "vendor/regex-automata-0.4.9/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/regex-automata-0.4.9/LICENSE-MIT",
+          "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "regex-syntax",
+      "version": "0.8.5",
+      "vendor_directory": "vendor/regex-syntax-0.8.5",
+      "manifest_sha256": "362cfcf492ed93948ca374491d8dc3b688da0f90d00c2bb9a3892ec2ac27e276",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "2b15c43186be67a4fd63bee50d0303afffcef381492ebe2c5d87f324e1b8815c",
+      "files": [
+        {
+          "path": "vendor/regex-syntax-0.8.5/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/regex-syntax-0.8.5/LICENSE-MIT",
+          "sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb",
+          "bytes": 1071
+        },
+        {
+          "path": "vendor/regex-syntax-0.8.5/src/unicode_tables/LICENSE-UNICODE",
+          "sha256": "74db5baf44a41b1000312c673544b3374e4198af5605c7f9080a402cec42cfa3",
+          "bytes": 2847
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "rustc_version",
+      "version": "0.4.1",
+      "vendor_directory": "vendor/rustc_version-0.4.1",
+      "manifest_sha256": "c7d1d07fcb4f604eac7c2f9ad1262f93c81f2e45c6be6031de2d83da5ab59ccb",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "cfcb3a22ef46e85b45de6ee7e79d063319ebb6594faafcf1c225ea92ab6e9b92",
+      "files": [
+        {
+          "path": "vendor/rustc_version-0.4.1/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/rustc_version-0.4.1/LICENSE-MIT",
+          "sha256": "c9a75f18b9ab2927829a208fc6aa2cf4e63b8420887ba29cdb265d6619ae82d5",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "rustversion",
+      "version": "1.0.21",
+      "vendor_directory": "vendor/rustversion-1.0.21",
+      "manifest_sha256": "beb729c68a9d11aa44333449ca9062c376430bd390806958c7b2c95f95b11ba6",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "8a0d197bd2c9dc6e53b84da9556a69ba4cdfab8619eb41a8bd1cc2027a0f6b1d",
+      "files": [
+        {
+          "path": "vendor/rustversion-1.0.21/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/rustversion-1.0.21/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "ryu",
+      "version": "1.0.20",
+      "vendor_directory": "vendor/ryu-1.0.20",
+      "manifest_sha256": "e524f009fc014c8553ae7f6e0517e555ee25fd4fe20d4acd1d0d7397abdfb163",
+      "license": "Apache-2.0 OR BSL-1.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "28d3b2b1366ec20994f1fd18c3c594f05c5dd4bc44d8bb0c1c632c8d6829481f",
+      "files": [
+        {
+          "path": "vendor/ryu-1.0.20/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/ryu-1.0.20/LICENSE-BOOST",
+          "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566",
+          "bytes": 1338
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "semver",
+      "version": "1.0.26",
+      "vendor_directory": "vendor/semver-1.0.26",
+      "manifest_sha256": "e5489ccd7064eb23fe07413ddb67dbb82f4eb03845d80c01d83741374d83d4c4",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "56e6fa9c48d24d85fb3de5ad847117517440f6beceb7798af16b4a87d616b8d0",
+      "files": [
+        {
+          "path": "vendor/semver-1.0.26/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/semver-1.0.26/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "seq-macro",
+      "version": "0.3.6",
+      "vendor_directory": "vendor/seq-macro-0.3.6",
+      "manifest_sha256": "f5eba9db2eb619a616a3fd1bec4a02bc2cd3acaa88cf0f549c645606bdcca39e",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "1bc711410fbe7399f390ca1c3b60ad0f53f80e95c5eb935e52268a0e2cd49acc",
+      "files": [
+        {
+          "path": "vendor/seq-macro-0.3.6/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/seq-macro-0.3.6/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "serde",
+      "version": "1.0.219",
+      "vendor_directory": "vendor/serde-1.0.219",
+      "manifest_sha256": "b1f51ec5dbcb19613d6fabb9c021cebcc5a0f296a70bac81eb3c7207b65782f9",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "5f0e2c6ed6606019b4e29e69dbaba95b11854410e5347d525002456dbbb786b6",
+      "files": [
+        {
+          "path": "vendor/serde-1.0.219/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/serde-1.0.219/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "serde-big-array",
+      "version": "0.5.1",
+      "vendor_directory": "vendor/serde-big-array-0.5.1",
+      "manifest_sha256": "0999957c027380fb7d12261b03c1bae4910d98e616ef60e46a6311bb2b68282d",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "11fc7cc2c76d73e0f27ee52abbd64eec84d46f370c88371120433196934e4b7f",
+      "files": [
+        {
+          "path": "vendor/serde-big-array-0.5.1/LICENSE-APACHE",
+          "sha256": "5e8bb0726d139ddfaa7dec0b9c65183825ba02b77b1a2016af9ce9839db8511d",
+          "bytes": 540
+        },
+        {
+          "path": "vendor/serde-big-array-0.5.1/LICENSE-MIT",
+          "sha256": "42f47aca13ea949271e5fc396966e95509a3380d51dcada709aa605b901f23d2",
+          "bytes": 1066
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "serde_derive",
+      "version": "1.0.219",
+      "vendor_directory": "vendor/serde_derive-1.0.219",
+      "manifest_sha256": "e3146884595654ff934208c0d9f99e2f8f388d07e4d893a62e0bc792f006002c",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "5b0276cf7f2c73365f7157c8123c21cd9a50fbbd844757af28ca1f5925fc2a00",
+      "files": [
+        {
+          "path": "vendor/serde_derive-1.0.219/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/serde_derive-1.0.219/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "serde_json",
+      "version": "1.0.140",
+      "vendor_directory": "vendor/serde_json-1.0.140",
+      "manifest_sha256": "8c33d09b1e66dbf36089f17d0fae69d865ad86f2bf28c0397130a714fb5f6844",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "20068b6e96dc6c9bd23e01df8827e6c7e1f2fddd43c21810382803c136b99373",
+      "files": [
+        {
+          "path": "vendor/serde_json-1.0.140/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/serde_json-1.0.140/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "sha2",
+      "version": "0.10.9",
+      "vendor_directory": "vendor/sha2-0.10.9",
+      "manifest_sha256": "f5b86209df69360114aaee67a66c3fcd31d8c840b8f34b9ad383aacd63cd15da",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283",
+      "files": [
+        {
+          "path": "vendor/sha2-0.10.9/LICENSE-APACHE",
+          "sha256": "a9040321c3712d8fd0b09cf52b17445de04a23a10165049ae187cd39e5c86be5",
+          "bytes": 10849
+        },
+        {
+          "path": "vendor/sha2-0.10.9/LICENSE-MIT",
+          "sha256": "b4eb00df6e2a4d22518fcaa6a2b4646f249b3a3c9814509b22bd2091f1392ff1",
+          "bytes": 1138
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "strsim",
+      "version": "0.10.0",
+      "vendor_directory": "vendor/strsim-0.10.0",
+      "manifest_sha256": "3f0f1737ecbf9c7595b52585d54507f217e66b2b8dfa337934ca427022d810c8",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623",
+      "files": [
+        {
+          "path": "vendor/strsim-0.10.0/LICENSE",
+          "sha256": "1e697ce8d21401fbf1bddd9b5c3fd4c4c79ae1e3bdf51f81761c85e11d5a89cd",
+          "bytes": 1166
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "strsim",
+      "version": "0.11.1",
+      "vendor_directory": "vendor/strsim-0.11.1",
+      "manifest_sha256": "e74cc8f9ab1f8680c26aebab519e3fbda7521eebd1e8fdcebdfc2e1bf138a875",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "7da8b5736845d9f2fcb837ea5d9e2628564b3b043a70948a3f0b778838c5fb4f",
+      "files": [
+        {
+          "path": "vendor/strsim-0.11.1/LICENSE",
+          "sha256": "1e697ce8d21401fbf1bddd9b5c3fd4c4c79ae1e3bdf51f81761c85e11d5a89cd",
+          "bytes": 1166
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "syn",
+      "version": "1.0.109",
+      "vendor_directory": "vendor/syn-1.0.109",
+      "manifest_sha256": "139a7e42e4c95f9730d4dfe05dd5e09ee59f713eacc310921a61d9fdfc0bdce0",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "72b64191b275b66ffe2469e8af2c1cfe3bafa67b529ead792a6d0160888b4237",
+      "files": [
+        {
+          "path": "vendor/syn-1.0.109/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/syn-1.0.109/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "syn",
+      "version": "2.0.102",
+      "vendor_directory": "vendor/syn-2.0.102",
+      "manifest_sha256": "f35e60ab972adac1c37410f5920d60a96396f9f544e789ba43fb734d076634a5",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "f6397daf94fa90f058bd0fd88429dd9e5738999cca8d701813c80723add80462",
+      "files": [
+        {
+          "path": "vendor/syn-2.0.102/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/syn-2.0.102/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "sysinfo",
+      "version": "0.31.4",
+      "vendor_directory": "vendor/sysinfo-0.31.4",
+      "manifest_sha256": "1e983a8e67f71ab7f319a2c98bfc01fa166c4dc1572ee66676ad66ef716fa7ac",
+      "license": "MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "355dbe4f8799b304b05e1b0f05fc59b2a18d36645cf169607da45bde2f69a1be",
+      "files": [
+        {
+          "path": "vendor/sysinfo-0.31.4/LICENSE",
+          "sha256": "1f14f9ce70a5fdedab449bb32cd7d3f20e6e9d18c2a2b74221fc203db8684d43",
+          "bytes": 1083
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "target-lexicon",
+      "version": "0.13.2",
+      "vendor_directory": "vendor/target-lexicon-0.13.2",
+      "manifest_sha256": "bf199559d8465cbe72e56f23849c154e5ee6eb153be049ef39f43a7a500c4729",
+      "license": "Apache-2.0 WITH LLVM-exception",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "e502f78cdbb8ba4718f566c418c52bc729126ffd16baee5baa718cf25dd5a69a",
+      "files": [
+        {
+          "path": "vendor/target-lexicon-0.13.2/LICENSE",
+          "sha256": "268872b9816f90fd8e85db5a28d33f8150ebb8dd016653fb39ef1f94f2686bc5",
+          "bytes": 12243
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "special_terms_or_non_Apache_terms_review"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "thiserror",
+      "version": "1.0.69",
+      "vendor_directory": "vendor/thiserror-1.0.69",
+      "manifest_sha256": "d169d8e8b0ec46a191410fbaa6bac609204a411d770a22cb7afbaf71facef6a9",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "b6aaf5339b578ea85b50e080feb250a3e8ae8cfcdff9a461c9ec2904bc923f52",
+      "files": [
+        {
+          "path": "vendor/thiserror-1.0.69/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/thiserror-1.0.69/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "thiserror",
+      "version": "2.0.12",
+      "vendor_directory": "vendor/thiserror-2.0.12",
+      "manifest_sha256": "ee2c50c5cc5bf9690ce99d8c5c9ff7b7f8171ca4ffa208b2a6fe44770f4a26ef",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "567b8a2dae586314f7be2a752ec7474332959c6460e02bde30d702a66d488708",
+      "files": [
+        {
+          "path": "vendor/thiserror-2.0.12/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/thiserror-2.0.12/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "thiserror-impl",
+      "version": "1.0.69",
+      "vendor_directory": "vendor/thiserror-impl-1.0.69",
+      "manifest_sha256": "bffd948b1f0555744e242e035597a6c706a4f795986e2650a4bb193df5bf840d",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "4fee6c4efc90059e10f81e6d42c60a18f76588c3d74cb83a0b242a2b6c7504c1",
+      "files": [
+        {
+          "path": "vendor/thiserror-impl-1.0.69/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/thiserror-impl-1.0.69/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "thiserror-impl",
+      "version": "2.0.12",
+      "vendor_directory": "vendor/thiserror-impl-2.0.12",
+      "manifest_sha256": "4cdb56333675df024c3c9980713aff1aa76f50aafb72dc87357c43a531058496",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "7f7cf42b4507d8ea322120659672cf1b9dbb93f8f2d4ecfd6e51350ff5b17a1d",
+      "files": [
+        {
+          "path": "vendor/thiserror-impl-2.0.12/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/thiserror-impl-2.0.12/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "time",
+      "version": "0.3.41",
+      "vendor_directory": "vendor/time-0.3.41",
+      "manifest_sha256": "266015f9745494d625f3ebfd148d72c282a1ec2bb5a34c88012b3c2c31f87f04",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "8a7619e19bc266e0f9c5e6686659d394bc57973859340060a69221e57dbc0c40",
+      "files": [
+        {
+          "path": "vendor/time-0.3.41/LICENSE-Apache",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+          "bytes": 10174
+        },
+        {
+          "path": "vendor/time-0.3.41/LICENSE-MIT",
+          "sha256": "2537228d9a1b44a5dc595241349cae7090b326c8de165aaf89bfddef4a00d0fc",
+          "bytes": 1057
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "time-core",
+      "version": "0.1.4",
+      "vendor_directory": "vendor/time-core-0.1.4",
+      "manifest_sha256": "18532275b3786bc114a2d43dd982829f425d147c2e72a03a9142b60bdd2cd5f4",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "c9e9a38711f559d9e3ce1cdb06dd7c5b8ea546bc90052da6d06bb76da74bb07c",
+      "files": [
+        {
+          "path": "vendor/time-core-0.1.4/LICENSE-Apache",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+          "bytes": 10174
+        },
+        {
+          "path": "vendor/time-core-0.1.4/LICENSE-MIT",
+          "sha256": "2537228d9a1b44a5dc595241349cae7090b326c8de165aaf89bfddef4a00d0fc",
+          "bytes": 1057
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "typenum",
+      "version": "1.18.0",
+      "vendor_directory": "vendor/typenum-1.18.0",
+      "manifest_sha256": "844dc4929d3245191969f3e0f7776731fac9b6182e21232b649324049cf26c16",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "1dccffe3ce07af9386bfd29e80c0ab1a8205a2fc34e4bcd40364df902cfa8f3f",
+      "files": [
+        {
+          "path": "vendor/typenum-1.18.0/LICENSE",
+          "sha256": "db11fec9946737df39ca3898d9cd8c10ec6f6c3a884a6802b0ad0b81b4e8f23a",
+          "bytes": 17
+        },
+        {
+          "path": "vendor/typenum-1.18.0/LICENSE-APACHE",
+          "sha256": "516b24e051bf5630880ebbd55c40a25ce9552ebaf8970a53e8976eb70e522406",
+          "bytes": 10835
+        },
+        {
+          "path": "vendor/typenum-1.18.0/LICENSE-MIT",
+          "sha256": "a825bd853ab71619a4923d7b4311221427848070ff44d990da39b0b274c1683f",
+          "bytes": 1083
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "ucd-trie",
+      "version": "0.1.7",
+      "vendor_directory": "vendor/ucd-trie-0.1.7",
+      "manifest_sha256": "0d8c74a0a809e12a6ee3e3f89bb0016b978a5951e3605f8a6eb81d60ce3b1bca",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "2896d95c02a80c6d6a5d6e953d479f5ddf2dfdb6a244441010e373ac0fb88971",
+      "files": [
+        {
+          "path": "vendor/ucd-trie-0.1.7/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/ucd-trie-0.1.7/LICENSE-MIT",
+          "sha256": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f",
+          "bytes": 1081
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "unicode-ident",
+      "version": "1.0.18",
+      "vendor_directory": "vendor/unicode-ident-1.0.18",
+      "manifest_sha256": "de3bb475aecd050be587a953d31a2a827f571ab9e06507625f831614008ce01f",
+      "license": "(MIT OR Apache-2.0) AND Unicode-3.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "5a5f39404a5da50712a4c1eecf25e90dd62b613502b7e925fd4e4d19b5c96512",
+      "files": [
+        {
+          "path": "vendor/unicode-ident-1.0.18/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/unicode-ident-1.0.18/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        },
+        {
+          "path": "vendor/unicode-ident-1.0.18/LICENSE-UNICODE",
+          "sha256": "f7db81051789b729fea528a63ec4c938fdcb93d9d61d97dc8cc2e9df6d47f2a1",
+          "bytes": 1995
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "special_terms_or_non_Apache_terms_review"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "unicode-xid",
+      "version": "0.2.6",
+      "vendor_directory": "vendor/unicode-xid-0.2.6",
+      "manifest_sha256": "030ed8e60fcd73b831f174ab2df10e0f913d5d1476909c92aee26849323370f3",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853",
+      "files": [
+        {
+          "path": "vendor/unicode-xid-0.2.6/COPYRIGHT",
+          "sha256": "23860c2a7b5d96b21569afedf033469bab9fe14a1b24a35068b8641c578ce24d",
+          "bytes": 321
+        },
+        {
+          "path": "vendor/unicode-xid-0.2.6/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/unicode-xid-0.2.6/LICENSE-MIT",
+          "sha256": "7b63ecd5f1902af1b63729947373683c32745c16a10e8e6292e2e2dcd7e90ae0",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "unindent",
+      "version": "0.2.4",
+      "vendor_directory": "vendor/unindent-0.2.4",
+      "manifest_sha256": "907be49a72f86845b687e24d6dd81d3f5ea27907005fbb14b5383876d28420f2",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "7264e107f553ccae879d21fbea1d6724ac785e8c3bfc762137959b5802826ef3",
+      "files": [
+        {
+          "path": "vendor/unindent-0.2.4/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "bytes": 9723
+        },
+        {
+          "path": "vendor/unindent-0.2.4/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+          "bytes": 1023
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "vergen",
+      "version": "9.0.1",
+      "vendor_directory": "vendor/vergen-9.0.1",
+      "manifest_sha256": "d1d7c3bbdfc07c5befddb61bdd9316f0ed6969c3438d8b6659f9f7c54ade06b9",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "349ed9e45296a581f455bc18039878f409992999bc1d5da12a6800eb18c8752f",
+      "files": [
+        {
+          "path": "vendor/vergen-9.0.1/LICENSE-APACHE",
+          "sha256": "aaff376532ea30a0cd5330b9502ad4a4c8bf769c539c87ffe78819d188a18ebf",
+          "bytes": 10849
+        },
+        {
+          "path": "vendor/vergen-9.0.1/LICENSE-MIT",
+          "sha256": "c9a75f18b9ab2927829a208fc6aa2cf4e63b8420887ba29cdb265d6619ae82d5",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "vergen-lib",
+      "version": "0.1.6",
+      "vendor_directory": "vendor/vergen-lib-0.1.6",
+      "manifest_sha256": "c690d4e1fc72d3f0eee15a3f40671ac6ca180dc6e540503790ba93ddec30caa8",
+      "license": "MIT OR Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "9b07e6010c0f3e59fcb164e0163834597da68d1f864e2b8ca49f74de01e9c166",
+      "files": [
+        {
+          "path": "vendor/vergen-lib-0.1.6/LICENSE-APACHE",
+          "sha256": "aaff376532ea30a0cd5330b9502ad4a4c8bf769c539c87ffe78819d188a18ebf",
+          "bytes": 10849
+        },
+        {
+          "path": "vendor/vergen-lib-0.1.6/LICENSE-MIT",
+          "sha256": "c9a75f18b9ab2927829a208fc6aa2cf4e63b8420887ba29cdb265d6619ae82d5",
+          "bytes": 1071
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "version_check",
+      "version": "0.9.5",
+      "vendor_directory": "vendor/version_check-0.9.5",
+      "manifest_sha256": "399ea74400a173c02eabe91cb9487d0cf351117857a5d2ebc6231f0efde67681",
+      "license": "MIT/Apache-2.0",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a",
+      "files": [
+        {
+          "path": "vendor/version_check-0.9.5/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "bytes": 10847
+        },
+        {
+          "path": "vendor/version_check-0.9.5/LICENSE-MIT",
+          "sha256": "b7e650f3fce5c53249d1cdc608b54df156a97edd636cf9d23498d0cfe7aec63e",
+          "bytes": 1085
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [
+        "legacy_slash_expression_not_modern_SPDX"
+      ],
+      "current_python_linux_build_membership": "not_determined"
+    },
+    {
+      "name": "zerocopy",
+      "version": "0.8.25",
+      "vendor_directory": "vendor/zerocopy-0.8.25",
+      "manifest_sha256": "c96180e1b5be3ac422c3beb240936c140e2b8b944f78649032e075d973a426d8",
+      "license": "BSD-2-Clause OR Apache-2.0 OR MIT",
+      "license_file": null,
+      "locked": true,
+      "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
+      "lock_checksum": "a1702d9583232ddb9174e01bb7c15a2ab8fb1bc6f227aa1233858c351a3ba0cb",
+      "files": [
+        {
+          "path": "vendor/zerocopy-0.8.25/LICENSE-APACHE",
+          "sha256": "9d185ac6703c4b0453974c0d85e9eee43e6941009296bb1f5eb0b54e2329e9f3",
+          "bytes": 11350
+        },
+        {
+          "path": "vendor/zerocopy-0.8.25/LICENSE-BSD",
+          "sha256": "83c1763356e822adde0a2cae748d938a73fdc263849ccff6b27776dff213bd32",
+          "bytes": 1275
+        },
+        {
+          "path": "vendor/zerocopy-0.8.25/LICENSE-MIT",
+          "sha256": "1a2f5c12ddc934d58956aa5dbdd3255fe55fd957633ab7d0d39e4f0daa73f7df",
+          "bytes": 1060
+        }
+      ],
+      "notice_file_present": false,
+      "notice_requirement_status": "Not determined: absence of a NOTICE filename is not evidence that a mandatory notice is missing; source and upstream distribution obligations require review.",
+      "review_flags": [],
+      "current_python_linux_build_membership": "not_determined"
+    }
+  ]
+}

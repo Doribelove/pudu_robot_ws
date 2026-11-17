@@ -1,0 +1,8 @@
+# Proposal only. Not submitted/installed in the global rosdep database.
+# Official Jammy universe versioned packages; apt dependency closure supplies std libs.
+rustc-1.85:
+  ubuntu:
+    jammy: [rustc-1.85]
+cargo-1.85:
+  ubuntu:
+    jammy: [cargo-1.85]

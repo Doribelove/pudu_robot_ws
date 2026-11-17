@@ -1,0 +1,62 @@
+{
+  "sources": {
+    "osqp": {
+      "version": "0.6.7.post3",
+      "filename": "osqp-0.6.7.post3.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/74/35/45d4d1832b31d207f83e0f9734d041be125fb4f0dff49413674bd1b08032/osqp-0.6.7.post3.tar.gz",
+      "sha256": "b0c5e0a721f21c9724097a4fd50108304d296468d124e16f34ac67046f7020e1",
+      "bytes": 229274
+    },
+    "qdldl": {
+      "version": "0.1.7.post5",
+      "filename": "qdldl-0.1.7.post5.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/59/88/9254835c513a381b8c6d52773060844acf76dfa739648c18f61809c8ee04/qdldl-0.1.7.post5.tar.gz",
+      "sha256": "0b1399e1c49b5bed5aac8fd63ef08ab708d340c37fb426fe00128bc1f36b286e",
+      "bytes": 73920
+    }
+  },
+  "licenses": [
+    {
+      "project": "osqp-0.6.7.post3",
+      "source_path": "LICENSE",
+      "file": "licenses/osqp-0.6.7.post3__LICENSE",
+      "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+    },
+    {
+      "project": "osqp-0.6.7.post3",
+      "source_path": "osqp_sources/lin_sys/direct/qdldl/qdldl_sources/LICENSE",
+      "file": "licenses/osqp-0.6.7.post3__osqp_sources__lin_sys__direct__qdldl__qdldl_sources__LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "project": "osqp-0.6.7.post3",
+      "source_path": "osqp_sources/lin_sys/direct/qdldl/amd/LICENSE",
+      "file": "licenses/osqp-0.6.7.post3__osqp_sources__lin_sys__direct__qdldl__amd__LICENSE",
+      "sha256": "09d5c2e5ee64fd5fd338ca8d0fce940385ef61bb0d36b855531a675a46176f00"
+    },
+    {
+      "project": "qdldl-0.1.7.post5",
+      "source_path": "LICENSE",
+      "file": "licenses/qdldl-0.1.7.post5__LICENSE",
+      "sha256": "656f63ac3b94a6e9c906acd8f27e7e260a0293d19d77320bf99132f5cd2d1dea"
+    },
+    {
+      "project": "qdldl-0.1.7.post5",
+      "source_path": "c/amd/LICENSE",
+      "file": "licenses/qdldl-0.1.7.post5__c__amd__LICENSE",
+      "sha256": "09d5c2e5ee64fd5fd338ca8d0fce940385ef61bb0d36b855531a675a46176f00"
+    },
+    {
+      "project": "qdldl-0.1.7.post5",
+      "source_path": "c/qdldl/LICENSE",
+      "file": "licenses/qdldl-0.1.7.post5__c__qdldl__LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    }
+  ],
+  "license_summary": [
+    "Apache-2.0 (OSQP and QDLDL)",
+    "BSD-3-Clause (bundled AMD)"
+  ],
+  "architecture_verified": "amd64 only",
+  "arm64_verified": false
+}

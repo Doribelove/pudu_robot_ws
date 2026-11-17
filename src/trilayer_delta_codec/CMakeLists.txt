@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.8)
+project(trilayer_delta_codec)
+find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+find_package(OpenSSL REQUIRED)
+add_library(trilayer_delta_codec SHARED src/bridge.cpp)
+target_compile_features(trilayer_delta_codec PRIVATE cxx_std_17)
+target_compile_options(trilayer_delta_codec PRIVATE -Wall -Wextra -Wpedantic)
+target_link_libraries(trilayer_delta_codec PRIVATE OpenSSL::Crypto)
+install(TARGETS trilayer_delta_codec LIBRARY DESTINATION lib/${PROJECT_NAME})
+ament_python_install_package(${PROJECT_NAME})
+install(FILES README.md LICENSE PROVENANCE.md DESTINATION share/${PROJECT_NAME})
+if(BUILD_TESTING)
+  enable_testing()
+  find_package(Python3 REQUIRED COMPONENTS Interpreter)
+  add_test(NAME delta_codec_contract COMMAND ${CMAKE_COMMAND} -E env
+    PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}:$ENV{PYTHONPATH}
+    ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_codec.py
+    $<TARGET_FILE:trilayer_delta_codec>)
+  set_tests_properties(delta_codec_contract PROPERTIES TIMEOUT 30)
+endif()
+ament_package()

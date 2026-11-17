@@ -1,0 +1,18 @@
+{
+  "packages": {
+    "trilayer_planner_service": "src/trilayer_planner_service/package.xml",
+    "trilayer_nav2_planner": "src/trilayer_nav2_planner/package.xml",
+    "trilayer_p6_runtime": "src/trilayer_p6_runtime/package.xml",
+    "trilayer_global_planner": "src/trilayer_global_planner/package.xml",
+    "trilayer_delta_codec": "src/trilayer_delta_codec/package.xml",
+    "trilayer_l1_core": "src/trilayer_l1_core/package.xml",
+    "trilayer_clarabel_vendor": "src/trilayer_clarabel_vendor/package.xml",
+    "trilayer_native_helpers": "src/trilayer_native_helpers/package.xml",
+    "trilayer_costmap_bridge": "src/trilayer_costmap_bridge/package.xml",
+    "trilayer_l3_core": "src/trilayer_l3_core/package.xml",
+    "trilayer_master_snapshot": "src/trilayer_master_snapshot/package.xml",
+    "trilayer_osqp_vendor": "src/trilayer_osqp_vendor/package.xml"
+  },
+  "solver_source_hashes_verified": true,
+  "prebuilt_runtime_artifacts": false
+}

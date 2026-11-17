@@ -1,0 +1,8 @@
+{
+  "file": "p6_r6_delta.py",
+  "sha256": "85b79a6e4b3e29aebce8cdbfdf1b65dab7b8b7aef6a07655c566863ae0305cdf",
+  "source": "3YDL3-V13-P6-delivery/runtime/3YDL3-V13-L2/base/runtime/base/src/three_yd_v5/r6_delta.py",
+  "commit": "a98a639a8ac9b7b50c14f8a69c393706db4cc3ae",
+  "modified": false,
+  "purpose": "P6 transport compatibility test fixture; not whole planner"
+}

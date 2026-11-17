@@ -1,0 +1,30 @@
+{
+  "checked_date": "2026-11-17",
+  "actions": [
+    {
+      "repository": "actions/checkout",
+      "tag_verified_by_git_ls_remote": "v6.1.0",
+      "commit": "d23441a48e516b6c34aea4fa41551a30e30af803",
+      "metadata_url": "https://raw.githubusercontent.com/actions/checkout/d23441a48e516b6c34aea4fa41551a30e30af803/action.yml",
+      "metadata_sha256": "d59219cb79590abdb877deaa14e3b65a00c05318bf5a6f3b989b9162b5d08c35",
+      "metadata_file": "actions-checkout-action.yml"
+    },
+    {
+      "repository": "actions/upload-artifact",
+      "tag_verified_by_git_ls_remote": "v6.0.0",
+      "commit": "b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+      "metadata_url": "https://raw.githubusercontent.com/actions/upload-artifact/b7c566a772e6b6bfb58ed0dc250532a479d7789f/action.yml",
+      "metadata_sha256": "3760874f860e631be3d785d0589ade7cecb541eeac6f581989a814a2c99fc94f",
+      "metadata_file": "actions-upload-artifact-action.yml"
+    },
+    {
+      "repository": "ros-tooling/setup-ros",
+      "tag_verified_by_git_ls_remote": "0.7.19",
+      "commit": "649ef6bcd696da05bc27ceb3fab69d810c0daeab",
+      "metadata_url": "https://raw.githubusercontent.com/ros-tooling/setup-ros/649ef6bcd696da05bc27ceb3fab69d810c0daeab/action.yml",
+      "metadata_sha256": "2e84925c83e9f167093e0fd3133577f167f35700caf544ac8193789f065917b1",
+      "metadata_file": "ros-tooling-setup-ros-action.yml"
+    }
+  ],
+  "no_remote_workflow_run": true
+}

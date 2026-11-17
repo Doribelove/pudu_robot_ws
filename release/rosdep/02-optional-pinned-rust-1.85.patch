@@ -1,0 +1,26 @@
+diff --git a/rosdep/base.yaml b/rosdep/base.yaml
+index 981d2cc..58508fe 100644
+--- a/rosdep/base.yaml
++++ b/rosdep/base.yaml
+@@ -491,6 +491,10 @@ cargo:
+   opensuse: [cargo]
+   rhel: [cargo]
+   ubuntu: [cargo]
++cargo-1.85:
++  ubuntu:
++    jammy: [cargo-1.85]
++    noble: [cargo-1.85]
+ cargo-latest:  # for a recent rust version on OS with a pinned release
+   arch: [rust]  # version regularly updated - see https://archlinux.org/packages/extra/x86_64/rust
+   debian: [cargo]  # 1.85 in trixie, 1.95 in forky/sid - Debian has no versioned `cargo-X.Y` packages at all
+@@ -10385,6 +10389,10 @@ rustc:
+   opensuse: [rust]
+   rhel: [rust]
+   ubuntu: [rustc]
++rustc-1.85:
++  ubuntu:
++    jammy: [rustc-1.85]
++    noble: [rustc-1.85]
+ sbcl:
+   alpine: [sbcl]
+   arch: [sbcl]

@@ -1,0 +1,32 @@
+{
+  "status": "remaining benchmark default path cleanup; not proven unreachable on all service paths",
+  "files": [
+    {
+      "file": "base/runtime/arena_evaluation/two_layer_v1_formal_benchmark.py",
+      "references": [
+        {
+          "line": 37,
+          "text": "ROOT = Path(\"/home/robot/pudu_robot_ws\")"
+        }
+      ]
+    },
+    {
+      "file": "base/runtime/arena_evaluation/l1_l3_corridor_hybrid_validity.py",
+      "references": [
+        {
+          "line": 34,
+          "text": "ROOT = Path(\"/home/robot/pudu_robot_ws\")"
+        }
+      ]
+    },
+    {
+      "file": "base/runtime/arena_evaluation/layered_architecture_paired_benchmark.py",
+      "references": [
+        {
+          "line": 38,
+          "text": "ROOT = Path(\"/home/robot/pudu_robot_ws\")"
+        }
+      ]
+    }
+  ]
+}

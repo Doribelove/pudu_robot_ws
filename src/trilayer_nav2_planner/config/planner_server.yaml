@@ -1,0 +1,27 @@
+# Replace socket before use; provide /map and map->base_link TF separately.
+planner_server:
+  ros__parameters:
+    planner_plugins: [TriLayer]
+    expected_planner_frequency: 0.01
+    TriLayer:
+      plugin: trilayer_nav2_planner/Planner
+      worker_socket: /tmp/REPLACE_WITH_OWNED_WORKER_DIRECTORY/service.sock
+      timeout_seconds: 55.0
+      allow_unknown: false
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      global_frame: map
+      robot_base_frame: base_link
+      resolution: 0.05
+      rolling_window: false
+      track_unknown_space: true
+      footprint: '[[0.265,0.225],[0.265,-0.225],[-0.265,-0.225],[-0.265,0.225]]'
+      footprint_padding: 0.0
+      update_frequency: 10.0
+      publish_frequency: 1.0
+      plugins: [static_layer]
+      static_layer:
+        plugin: nav2_costmap_2d::StaticLayer
+        map_subscribe_transient_local: true
+        map_topic: /map

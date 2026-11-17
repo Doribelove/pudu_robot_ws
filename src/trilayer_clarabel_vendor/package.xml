@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+ <name>trilayer_clarabel_vendor</name><version>0.1.0</version>
+ <description>Experimental offline Clarabel Python/Linux source vendor. NOT release-ready: toolchain and third-party notices require review.</description>
+ <maintainer email="doribelove@gmail.com">Doribelove</maintainer>
+ <!-- Glue/root Apache; third-party terms must be audited individually. -->
+ <license>Apache-2.0</license><license>MIT</license><license>BSD-2-Clause</license><license>BSD-3-Clause</license><license>Unicode-3.0</license><license>Zlib</license><license>BSL-1.0</license><license>Unlicense</license><license>Apache-2.0 WITH LLVM-exception</license>
+ <buildtool_depend>ament_cmake</buildtool_depend><buildtool_depend>ament_cmake_python</buildtool_depend>
+ <build_depend version_gte="1.84">rustc-1.85</build_depend><build_depend version_gte="1.84">cargo-1.85</build_depend>
+ <build_depend>python3-dev</build_depend>
+ <exec_depend>python3-numpy</exec_depend><exec_depend>python3-scipy</exec_depend><exec_depend>python3-cffi</exec_depend>
+ <test_depend>python3-numpy</test_depend><test_depend>python3-scipy</test_depend><test_depend>python3-cffi</test_depend>
+ <url type="repository">https://github.com/Doribelove/pudu_robot_ws</url>
+<url type="bugtracker">https://github.com/Doribelove/pudu_robot_ws/issues</url>
+<export><build_type>ament_cmake</build_type></export>
+</package>

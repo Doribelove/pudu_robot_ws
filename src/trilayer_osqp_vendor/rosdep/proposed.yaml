@@ -1,0 +1,7 @@
+# Proposal only. Not installed or submitted by this source bundle.
+python3-setuptools-scm:
+  ubuntu:
+    jammy: [python3-setuptools-scm]
+python3-pybind11:
+  ubuntu:
+    jammy: [python3-pybind11]

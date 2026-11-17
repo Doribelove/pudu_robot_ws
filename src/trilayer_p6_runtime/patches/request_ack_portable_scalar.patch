@@ -1,0 +1,54 @@
+--- original/request_ack.cpp
++++ src/native/request_ack.cpp
+@@ -2,7 +2,12 @@
+ #include <cstdint>
+ #include <cstring>
+ #include <algorithm>
++#if (defined(__x86_64__) || defined(__i386__)) && !defined(TRILAYER_ACK_FORCE_SCALAR)
++#define TRILAYER_ACK_X86_VECTOR 1
+ #include <immintrin.h>
++#else
++#define TRILAYER_ACK_X86_VECTOR 0
++#endif
+ 
+ struct ByteView {
+     const std::uint8_t* data;
+@@ -46,6 +51,7 @@
+     bbox[0]=x0;bbox[1]=y0;bbox[2]=x1;bbox[3]=y1;
+ }
+ 
++#if TRILAYER_ACK_X86_VECTOR
+ // Runtime-dispatched AVX2 byte operations. No approximate arithmetic.
+ __attribute__((target("avx2,popcnt")))
+ static void classify_vector(const ByteView* v,std::uint8_t* flags,
+@@ -97,8 +103,15 @@
+     std::copy(n,n+5,counts);bbox[0]=x0;bbox[1]=y0;bbox[2]=x1;bbox[3]=y1;
+ }
+ 
++
++#endif
++
+ extern "C" int vector_ack_available(){
++#if TRILAYER_ACK_X86_VECTOR
+     return __builtin_cpu_supports("avx2") && __builtin_cpu_supports("popcnt");
++#else
++    return 0;
++#endif
+ }
+ 
+ extern "C" void classify_ack(const ByteView* v,std::uint8_t* flags,
+@@ -106,9 +119,13 @@
+     std::uint64_t* counts,std::int64_t* bbox) {
+     bool contiguous=true;
+     for (int j=0;j<6;++j) contiguous=contiguous && v[j].col_stride==1;
++
++#if TRILAYER_ACK_X86_VECTOR
+     if (contiguous && vector_ack_available()) {
+         classify_vector(v,flags,rows,cols,has_previous,counts,bbox);
+-    } else if (contiguous) {
++    } else
++#endif
++    if (contiguous) {
+         if (has_previous) classify<true,true>(v,flags,rows,cols,counts,bbox);
+         else classify<true,false>(v,flags,rows,cols,counts,bbox);
+     } else {

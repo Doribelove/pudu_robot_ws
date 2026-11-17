@@ -1,0 +1,44 @@
+{
+  "source_file": "3YDL3-V13-P6-delivery/runtime/3YDL3-V13-L2/base/runtime/base/src/three_yd_v5/free_space_topology.py",
+  "upstream_commit": "a98a639a8ac9b7b50c14f8a69c393706db4cc3ae",
+  "source_sha256": "3250c40de017ebab80e5a4b5c4d13d7da5dfea577c59505074ac5903ae06fceb",
+  "class": "FreeSpaceTopology",
+  "extracted_methods": {
+    "_coarsen": {
+      "source_lines": [
+        190,
+        197
+      ],
+      "sha256": "d17da5021053eb4669674587bcd18140d709c8bb65f5a013d751739d9f625245"
+    },
+    "_compile_graph": {
+      "source_lines": [
+        199,
+        221
+      ],
+      "sha256": "71f6fb6cb2995376e4a62f9d40e8a9f29cac5e418f7196f3505f541b298bfb7c"
+    },
+    "_snap": {
+      "source_lines": [
+        243,
+        257
+      ],
+      "sha256": "6519a3d0cd2aad838fb0f4e5c763020baef642919fbe4c29de246a6cf1d9fd29"
+    },
+    "_astar": {
+      "source_lines": [
+        259,
+        322
+      ],
+      "sha256": "e61306eb9ed12fa64489cbf39805f60f22e71f8f6b5e5bdb41377fab0e902989"
+    }
+  },
+  "method_body_changes": false,
+  "excluded": [
+    "map/semantic loaders",
+    "route/task wrappers",
+    "fine-space world geometry",
+    "traffic-semantic route enumeration",
+    "goal-stop native Dijkstra branch"
+  ]
+}

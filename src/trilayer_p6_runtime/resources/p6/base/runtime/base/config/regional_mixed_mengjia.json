@@ -1,0 +1,21 @@
+{
+  "schema": "3YDL3-V12-regional-policy-v1",
+  "map_sha256": "c26ddbac60a5b9709e572608b8b843cf56e269e4ce4c473270fc57d83deff006",
+  "policies": [
+    {
+      "region_id": "16",
+      "mode": "center",
+      "weight": 2.0
+    },
+    {
+      "region_id": "13",
+      "mode": "none",
+      "weight": 0.0
+    },
+    {
+      "region_id": "7",
+      "mode": "center",
+      "weight": 2.0
+    }
+  ]
+}

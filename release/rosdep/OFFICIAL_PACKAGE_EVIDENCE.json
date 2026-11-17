@@ -1,0 +1,82 @@
+[
+  {
+    "name": "python3-setuptools-scm",
+    "url": "https://packages.ubuntu.com/jammy/python3-setuptools-scm",
+    "package_heading": "Package: python3-setuptools-scm (6.4.2-1)\n [ universe ]",
+    "available_architectures": [
+      "all"
+    ],
+    "covers_amd64_arm64": true,
+    "retrieved_utc": "2026-11-17T09:37:52.155575+00:00",
+    "sha256": "cf63b79d48d068b9b4bffee11ac9644025f001081cc91004ebd840a033dcaa5a",
+    "saved_file": "evidence/python3-setuptools-scm.html",
+    "cargo_rust_dependency_excerpt": null
+  },
+  {
+    "name": "python3-pybind11",
+    "url": "https://packages.ubuntu.com/jammy/python3-pybind11",
+    "package_heading": "Package: python3-pybind11 (2.9.1-2)\n [ universe ]",
+    "available_architectures": [
+      "all"
+    ],
+    "covers_amd64_arm64": true,
+    "retrieved_utc": "2026-11-17T09:37:52.159067+00:00",
+    "sha256": "cb9cd0284b06006ee4f608ddd14d15fc2fc4aed4e8e630722a76592b194e46ab",
+    "saved_file": "evidence/python3-pybind11.html",
+    "cargo_rust_dependency_excerpt": null
+  },
+  {
+    "name": "rustc-1.85",
+    "url": "https://packages.ubuntu.com/jammy-updates/rustc-1.85",
+    "package_heading": "Package: rustc-1.85 (1.85.1+dfsg0ubuntu2~bpo0-0ubuntu1.22.04.1)\n [ universe ]",
+    "available_architectures": [
+      "amd64",
+      "arm64",
+      "armhf",
+      "ppc64el",
+      "riscv64",
+      "s390x"
+    ],
+    "covers_amd64_arm64": true,
+    "retrieved_utc": "2026-11-17T09:37:52.163946+00:00",
+    "sha256": "fea1da15e2e631a9bd689335368014b2be786353f0a5bfb5a62432240a4fa81d",
+    "saved_file": "evidence/rustc-1.85.html",
+    "cargo_rust_dependency_excerpt": null
+  },
+  {
+    "name": "cargo-1.85",
+    "url": "https://packages.ubuntu.com/jammy-updates/cargo-1.85",
+    "package_heading": "Package: cargo-1.85 (1.85.1+dfsg0ubuntu2~bpo0-0ubuntu1.22.04.1)\n [ universe ]",
+    "available_architectures": [
+      "amd64",
+      "arm64",
+      "armhf",
+      "ppc64el",
+      "riscv64",
+      "s390x"
+    ],
+    "covers_amd64_arm64": true,
+    "retrieved_utc": "2026-11-17T09:37:52.169521+00:00",
+    "sha256": "6d24e0b680da34d1caabb6b86560d73227c301ced9c2a2149cff764787ba1820",
+    "saved_file": "evidence/cargo-1.85.html",
+    "cargo_rust_dependency_excerpt": "dep: rustc-1.85 (= 1.85.1+dfsg0ubuntu2~bpo0-0ubuntu1.22.04.1) Rust systems programming language or rustc (= 1.85.1+dfsg0ubuntu2~bpo0-0ubuntu1.22.04.1) Rust systems programming language dep: zlib1g (>= 1:1.2.3.4) compression library - runtime sug: car"
+  },
+  {
+    "name": "cargo-1.91",
+    "url": "https://packages.ubuntu.com/jammy-updates/cargo-1.91",
+    "package_heading": "Package: cargo-1.91 (1.91.1+dfsg~22.04-0ubuntu0.22.04.3)\n [ universe ]",
+    "available_architectures": [
+      "amd64",
+      "arm64",
+      "armhf",
+      "ppc64el",
+      "riscv64",
+      "s390x"
+    ],
+    "covers_amd64_arm64": true,
+    "retrieved_utc": "2026-11-17T09:37:52.174592+00:00",
+    "sha256": "37883aded611175b43470b733ce841d8086ec093fa1d73420eb7353fbc2877ac",
+    "saved_file": "evidence/cargo-1.91.html",
+    "cargo_rust_dependency_excerpt": "dep: rustc-1.91 (= 1.91.1+dfsg~22.04-0ubuntu0.22.04.3) Rust systems programming language or rustc (= 1.91.1+dfsg~22.04-0ubuntu0.22.04.3) Rust systems programming language dep: zlib1g (>= 1:1.1.4) compression library - runtime sug: cargo-1.91-doc Rust"
+  }
+]

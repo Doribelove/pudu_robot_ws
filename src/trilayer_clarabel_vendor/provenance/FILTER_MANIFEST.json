@@ -1,0 +1,2157 @@
+{
+  "method": "selected original source + generated fail-closed resolution-only stubs (no upstream code in stubs)",
+  "platform_sets": {
+    "x86_64-unknown-linux-gnu": [
+      "aho-corasick-1.1.3",
+      "amd-0.2.2",
+      "anyhow-1.0.98",
+      "autocfg-1.4.0",
+      "bitflags-2.9.1",
+      "blas-0.22.0",
+      "blas-sys-0.7.1",
+      "block-buffer-0.10.4",
+      "bytemuck-1.23.1",
+      "byteorder-1.5.0",
+      "camino-1.1.10",
+      "cargo-platform-0.1.9",
+      "cargo_metadata-0.18.1",
+      "cfg-if-1.0.1",
+      "cpufeatures-0.2.17",
+      "crossbeam-deque-0.8.6",
+      "crossbeam-epoch-0.9.18",
+      "crossbeam-utils-0.8.21",
+      "crypto-common-0.1.6",
+      "darling-0.14.4",
+      "darling-0.20.11",
+      "darling_core-0.14.4",
+      "darling_core-0.20.11",
+      "darling_macro-0.14.4",
+      "darling_macro-0.20.11",
+      "deranged-0.4.0",
+      "derive_builder-0.11.2",
+      "derive_builder-0.20.2",
+      "derive_builder_core-0.11.2",
+      "derive_builder_core-0.20.2",
+      "derive_builder_macro-0.11.2",
+      "derive_builder_macro-0.20.2",
+      "derive_more-2.0.1",
+      "derive_more-impl-2.0.1",
+      "digest-0.10.7",
+      "dyn-stack-0.13.0",
+      "either-1.15.0",
+      "enum_dispatch-0.3.13",
+      "equator-0.2.2",
+      "equator-0.4.2",
+      "equator-macro-0.2.1",
+      "equator-macro-0.4.2",
+      "equivalent-1.0.2",
+      "faer-0.21.9",
+      "faer-macros-0.21.0",
+      "faer-traits-0.21.5",
+      "fnv-1.0.7",
+      "gemm-0.18.2",
+      "gemm-c32-0.18.2",
+      "gemm-c64-0.18.2",
+      "gemm-common-0.18.2",
+      "gemm-f32-0.18.2",
+      "gemm-f64-0.18.2",
+      "generativity-1.1.0",
+      "generic-array-0.14.7",
+      "getrandom-0.2.16",
+      "hashbrown-0.15.4",
+      "heck-0.5.0",
+      "ident_case-1.0.1",
+      "indexmap-2.9.0",
+      "indoc-2.0.6",
+      "itertools-0.11.0",
+      "itoa-1.0.15",
+      "lapack-0.19.0",
+      "lapack-sys-0.14.0",
+      "lazy_static-1.5.0",
+      "libc-0.2.172",
+      "libm-0.2.15",
+      "memchr-2.7.5",
+      "memoffset-0.9.1",
+      "nano-gemm-0.1.3",
+      "nano-gemm-c32-0.1.0",
+      "nano-gemm-c64-0.1.0",
+      "nano-gemm-codegen-0.1.0",
+      "nano-gemm-core-0.1.0",
+      "nano-gemm-f32-0.1.0",
+      "nano-gemm-f64-0.1.0",
+      "npyz-0.8.4",
+      "num-bigint-0.4.6",
+      "num-complex-0.4.6",
+      "num-conv-0.1.0",
+      "num-derive-0.4.2",
+      "num-integer-0.1.46",
+      "num-traits-0.2.19",
+      "num_threads-0.1.7",
+      "once_cell-1.19.0",
+      "paste-1.0.15",
+      "pest-2.8.0",
+      "pest_derive-2.8.0",
+      "pest_generator-2.8.0",
+      "pest_meta-2.8.0",
+      "powerfmt-0.2.0",
+      "ppv-lite86-0.2.21",
+      "proc-macro2-1.0.95",
+      "pulp-0.21.5",
+      "py_literal-0.4.0",
+      "pyo3-0.25.0",
+      "pyo3-build-config-0.25.0",
+      "pyo3-ffi-0.25.0",
+      "pyo3-macros-0.25.0",
+      "pyo3-macros-backend-0.25.0",
+      "quote-1.0.40",
+      "rand-0.8.5",
+      "rand_chacha-0.3.1",
+      "rand_core-0.6.4",
+      "rand_distr-0.4.3",
+      "raw-cpuid-11.5.0",
+      "rayon-1.10.0",
+      "rayon-core-1.12.1",
+      "reborrow-0.5.5",
+      "regex-1.10.6",
+      "regex-automata-0.4.9",
+      "regex-syntax-0.8.5",
+      "rustc_version-0.4.1",
+      "rustversion-1.0.21",
+      "ryu-1.0.20",
+      "semver-1.0.26",
+      "seq-macro-0.3.6",
+      "serde-1.0.219",
+      "serde-big-array-0.5.1",
+      "serde_derive-1.0.219",
+      "serde_json-1.0.140",
+      "sha2-0.10.9",
+      "strsim-0.10.0",
+      "strsim-0.11.1",
+      "syn-1.0.109",
+      "syn-2.0.102",
+      "sysinfo-0.31.4",
+      "target-lexicon-0.13.2",
+      "thiserror-1.0.69",
+      "thiserror-2.0.12",
+      "thiserror-impl-1.0.69",
+      "thiserror-impl-2.0.12",
+      "time-0.3.41",
+      "time-core-0.1.4",
+      "typenum-1.18.0",
+      "ucd-trie-0.1.7",
+      "unicode-ident-1.0.18",
+      "unicode-xid-0.2.6",
+      "unindent-0.2.4",
+      "vergen-9.0.1",
+      "vergen-lib-0.1.6",
+      "version_check-0.9.5",
+      "zerocopy-0.8.25"
+    ],
+    "aarch64-unknown-linux-gnu": [
+      "aho-corasick-1.1.3",
+      "amd-0.2.2",
+      "anyhow-1.0.98",
+      "autocfg-1.4.0",
+      "bitflags-2.9.1",
+      "blas-0.22.0",
+      "blas-sys-0.7.1",
+      "block-buffer-0.10.4",
+      "bytemuck-1.23.1",
+      "byteorder-1.5.0",
+      "camino-1.1.10",
+      "cargo-platform-0.1.9",
+      "cargo_metadata-0.18.1",
+      "cfg-if-1.0.1",
+      "cpufeatures-0.2.17",
+      "crossbeam-deque-0.8.6",
+      "crossbeam-epoch-0.9.18",
+      "crossbeam-utils-0.8.21",
+      "crypto-common-0.1.6",
+      "darling-0.14.4",
+      "darling-0.20.11",
+      "darling_core-0.14.4",
+      "darling_core-0.20.11",
+      "darling_macro-0.14.4",
+      "darling_macro-0.20.11",
+      "deranged-0.4.0",
+      "derive_builder-0.11.2",
+      "derive_builder-0.20.2",
+      "derive_builder_core-0.11.2",
+      "derive_builder_core-0.20.2",
+      "derive_builder_macro-0.11.2",
+      "derive_builder_macro-0.20.2",
+      "derive_more-2.0.1",
+      "derive_more-impl-2.0.1",
+      "digest-0.10.7",
+      "dyn-stack-0.13.0",
+      "either-1.15.0",
+      "enum_dispatch-0.3.13",
+      "equator-0.2.2",
+      "equator-0.4.2",
+      "equator-macro-0.2.1",
+      "equator-macro-0.4.2",
+      "equivalent-1.0.2",
+      "faer-0.21.9",
+      "faer-macros-0.21.0",
+      "faer-traits-0.21.5",
+      "fnv-1.0.7",
+      "gemm-0.18.2",
+      "gemm-c32-0.18.2",
+      "gemm-c64-0.18.2",
+      "gemm-common-0.18.2",
+      "gemm-f32-0.18.2",
+      "gemm-f64-0.18.2",
+      "generativity-1.1.0",
+      "generic-array-0.14.7",
+      "getrandom-0.2.16",
+      "hashbrown-0.15.4",
+      "heck-0.5.0",
+      "ident_case-1.0.1",
+      "indexmap-2.9.0",
+      "indoc-2.0.6",
+      "itertools-0.11.0",
+      "itoa-1.0.15",
+      "lapack-0.19.0",
+      "lapack-sys-0.14.0",
+      "lazy_static-1.5.0",
+      "libc-0.2.172",
+      "libm-0.2.15",
+      "memchr-2.7.5",
+      "memoffset-0.9.1",
+      "nano-gemm-0.1.3",
+      "nano-gemm-c32-0.1.0",
+      "nano-gemm-c64-0.1.0",
+      "nano-gemm-codegen-0.1.0",
+      "nano-gemm-core-0.1.0",
+      "nano-gemm-f32-0.1.0",
+      "nano-gemm-f64-0.1.0",
+      "npyz-0.8.4",
+      "num-bigint-0.4.6",
+      "num-complex-0.4.6",
+      "num-conv-0.1.0",
+      "num-derive-0.4.2",
+      "num-integer-0.1.46",
+      "num-traits-0.2.19",
+      "num_threads-0.1.7",
+      "once_cell-1.19.0",
+      "paste-1.0.15",
+      "pest-2.8.0",
+      "pest_derive-2.8.0",
+      "pest_generator-2.8.0",
+      "pest_meta-2.8.0",
+      "powerfmt-0.2.0",
+      "ppv-lite86-0.2.21",
+      "proc-macro2-1.0.95",
+      "pulp-0.21.5",
+      "py_literal-0.4.0",
+      "pyo3-0.25.0",
+      "pyo3-build-config-0.25.0",
+      "pyo3-ffi-0.25.0",
+      "pyo3-macros-0.25.0",
+      "pyo3-macros-backend-0.25.0",
+      "quote-1.0.40",
+      "rand-0.8.5",
+      "rand_chacha-0.3.1",
+      "rand_core-0.6.4",
+      "rand_distr-0.4.3",
+      "raw-cpuid-11.5.0",
+      "rayon-1.10.0",
+      "rayon-core-1.12.1",
+      "reborrow-0.5.5",
+      "regex-1.10.6",
+      "regex-automata-0.4.9",
+      "regex-syntax-0.8.5",
+      "rustc_version-0.4.1",
+      "rustversion-1.0.21",
+      "ryu-1.0.20",
+      "semver-1.0.26",
+      "seq-macro-0.3.6",
+      "serde-1.0.219",
+      "serde-big-array-0.5.1",
+      "serde_derive-1.0.219",
+      "serde_json-1.0.140",
+      "sha2-0.10.9",
+      "strsim-0.10.0",
+      "strsim-0.11.1",
+      "syn-1.0.109",
+      "syn-2.0.102",
+      "sysinfo-0.31.4",
+      "target-lexicon-0.13.2",
+      "thiserror-1.0.69",
+      "thiserror-2.0.12",
+      "thiserror-impl-1.0.69",
+      "thiserror-impl-2.0.12",
+      "time-0.3.41",
+      "time-core-0.1.4",
+      "typenum-1.18.0",
+      "ucd-trie-0.1.7",
+      "unicode-ident-1.0.18",
+      "unicode-xid-0.2.6",
+      "unindent-0.2.4",
+      "vergen-9.0.1",
+      "vergen-lib-0.1.6",
+      "version_check-0.9.5",
+      "zerocopy-0.8.25"
+    ]
+  },
+  "source_crates": 144,
+  "resolution_stubs": 189,
+  "rows": [
+    {
+      "crate": "accelerate-src-0.3.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "845a339b2c8efd239e1337573b3843681f6dbc1fda820a2caf1eed705c9983d7",
+      "generated_manifest_sha256": "da564c8d1bc5876d071ad43141b8677d2f95b1a2ec003edac5cfe19c7c98208f"
+    },
+    {
+      "crate": "adler2-2.0.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "8f30dbd092f3acc475b9d339736cd7b64c6489bc47cd234a7f2232fc52e2d490",
+      "generated_manifest_sha256": "a05b417be7f46a5d0c583f7eaeaec8677c706b95acdb1eb7f415cbb054986a6f"
+    },
+    {
+      "crate": "aho-corasick-1.1.3",
+      "status": "original_source",
+      "original_manifest_sha256": "88c12a803c6c06c47cd9dabc8bcdba81f35d3bab637221d2106a86a543532731"
+    },
+    {
+      "crate": "amd-0.2.2",
+      "status": "original_source",
+      "original_manifest_sha256": "9b196fe069f7857dec447e45d2a82d0c3f3d22d16a7547d0c08eb22c1fd8ad40"
+    },
+    {
+      "crate": "android-tzdata-0.1.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a87d9acc9827a50c7a96a88720c5dd055cbc08b1144dff95bd572ff977d4a79a",
+      "generated_manifest_sha256": "292a9c1c11bc6302bdba58888acb379797edcc79f0a79391d61fe0a87c9d254d"
+    },
+    {
+      "crate": "android_system_properties-0.1.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "e9e8c037cdef7adc9794b17c13e5a014421524d67ea5048bc09cf70ef13c782c",
+      "generated_manifest_sha256": "a4734ee5e56272bcf39de38532fb14c2e16976a3f77d5a31e8d08a135a0729cd"
+    },
+    {
+      "crate": "anyhow-1.0.98",
+      "status": "original_source",
+      "original_manifest_sha256": "77502626e95e56fc3cfb2d2f5b27f5415f731bb64314a063f0931d6b54ef401f"
+    },
+    {
+      "crate": "autocfg-1.4.0",
+      "status": "original_source",
+      "original_manifest_sha256": "624e428251fce7244aa71fe7764c1556bc8077ee4579ad7e5803cc8a74061673"
+    },
+    {
+      "crate": "base16ct-0.2.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "5050aa1f3351bf8c11a55b9695a41f5ec4652c95d7243c5b45a301692e2782e6",
+      "generated_manifest_sha256": "df8d277f823b341f27890b687e142a90ddd7542227372ae9d5ab6541a106e939"
+    },
+    {
+      "crate": "base64-0.22.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "52bee6a418e14918d37058fd15fccfd0f417a06fe4f9668b6f97866bf7f991e3",
+      "generated_manifest_sha256": "37ecadd028ae0df9d777f44bef29a226269bc1a43ee6237a5fcb8bff92d6c44c"
+    },
+    {
+      "crate": "bitflags-2.9.1",
+      "status": "original_source",
+      "original_manifest_sha256": "cb04f3efc3b31db57242dd4e46f347590e04c7f604cbdd201902c342f9bd2045"
+    },
+    {
+      "crate": "blas-0.22.0",
+      "status": "original_source",
+      "original_manifest_sha256": "5b75a1b9f92b2a43cf62621bf0bc8373692c7b3f4b44245e9a9c58c027b963f6"
+    },
+    {
+      "crate": "blas-src-0.11.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "71f59816e33914cd2f0b61335478858c6c27d536d780df3deacf6ad2db1e1f0f",
+      "generated_manifest_sha256": "e99184c96c18135c7b9a7244a96f1ee896a070440317638bd0c86e2264e10700"
+    },
+    {
+      "crate": "blas-sys-0.7.1",
+      "status": "original_source",
+      "original_manifest_sha256": "6e118b8e9e6dd6f8eeb27230db44536e935335b561c7430e8009876f4f03a89b"
+    },
+    {
+      "crate": "block-buffer-0.10.4",
+      "status": "original_source",
+      "original_manifest_sha256": "c76e4bd298cd6223882238449e31939d75613e82757ca87e249df843decf5f9a"
+    },
+    {
+      "crate": "bumpalo-3.18.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "4124dfcffdd06a270b3bd429355b05267b8f66e7c74321683a13014689ba0511",
+      "generated_manifest_sha256": "f8b3a48229bf2d00bbd14db280af92449da9629d48857755a1aa0e92ac7e6820"
+    },
+    {
+      "crate": "bytemuck-1.23.1",
+      "status": "original_source",
+      "original_manifest_sha256": "2ac6e6763a37ed0266c8ebd286fe18f2423454ed6b25b9fb29df60e070c6c6b7"
+    },
+    {
+      "crate": "bytemuck_derive-1.9.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "7b1e2a5490f67f69d7421b3d17acb37d6c381a8045299e2c6244ebe032896c2e",
+      "generated_manifest_sha256": "a51f1bdd9e0293f8e63bc7b9f572923d0665195419887600e28906c368fa2c78"
+    },
+    {
+      "crate": "byteorder-1.5.0",
+      "status": "original_source",
+      "original_manifest_sha256": "94ba374cb26f3c68fb83da2e5e7dce85920fc4fb827620b06b39d71a9d0e1e18"
+    },
+    {
+      "crate": "camino-1.1.10",
+      "status": "original_source",
+      "original_manifest_sha256": "40f43ba0b935fde7c82bce802c1edf7bb6f73d17b3a1d0299ade8201d0f0da62"
+    },
+    {
+      "crate": "cargo-platform-0.1.9",
+      "status": "original_source",
+      "original_manifest_sha256": "487e38835c445664eac2bf0d70b4171b2b3ed4f1f82ee076b4489095ebe04fb2"
+    },
+    {
+      "crate": "cargo_metadata-0.18.1",
+      "status": "original_source",
+      "original_manifest_sha256": "0e1d4e7281f6404de243ec62cb3022fb13f0be663c6980f933204e30d33b9857"
+    },
+    {
+      "crate": "cc-1.2.26",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "24e63c0c535e1120ce8da4e63a2f584489bc1e77bbaeec6f37679f9d2550a2ab",
+      "generated_manifest_sha256": "6b1ef901072aece5ecde627e01bcea54c987d531f6d453a2a9c6c5b0dcae45d3"
+    },
+    {
+      "crate": "cfg-if-1.0.1",
+      "status": "original_source",
+      "original_manifest_sha256": "12cbe2bc73befa821815ffcd4b686f56f97e52ac919cb90ea47e70d43739c7c1"
+    },
+    {
+      "crate": "chrono-0.4.41",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "065640f0cb79a675783b80947472201f8f3ed2ebaa8f12f41b4161f9c8f32e1a",
+      "generated_manifest_sha256": "5385fbd08490eae7415940d8cd136c7dba77f07ddc92cfdd7076b0eeec3bf2c0"
+    },
+    {
+      "crate": "cmake-0.1.54",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a7a284f3f7a1613137b4103b5866d5ac0dc29aac58ef2ad8528f5a65405601fd",
+      "generated_manifest_sha256": "67c61d83c23b13b4868d1310be6813191c902959476999c15aa52e26d618c0f8"
+    },
+    {
+      "crate": "core-foundation-0.9.4",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "2e85272c5cffb75aadcbb83d8ca1a619af3ccb9d810c1e07349f3b618fa05b7e",
+      "generated_manifest_sha256": "d4575d369682c343c23ac9f6f31e4acd67be239699369c766b7fd507623bc9df"
+    },
+    {
+      "crate": "core-foundation-sys-0.8.7",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "8f18dba99a0470c9d6b59917291e7ece5465b3a05def7c244217bfa56867c8cc",
+      "generated_manifest_sha256": "871eef5ec164919b33e80689a8dd9ea1b361fa5ce29d8030344242046963dfec"
+    },
+    {
+      "crate": "cpufeatures-0.2.17",
+      "status": "original_source",
+      "original_manifest_sha256": "25160ea4dfa195721d352d42827b882a41f18f4c55fff58e5c3878ecae84ca44"
+    },
+    {
+      "crate": "crc32fast-1.4.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "91382647edb52759ca5bfd49a9d3eb425007a0c0c5799b6f76819bf4471e34c3",
+      "generated_manifest_sha256": "d0e52963f4aa227c065208ab2f602c7e54db8744217424a78770620927a6edb1"
+    },
+    {
+      "crate": "crossbeam-deque-0.8.6",
+      "status": "original_source",
+      "original_manifest_sha256": "93550ef824cb400b7a92af6b2ebe9ef24aa5a37567d80be5e4ba149bdc651be1"
+    },
+    {
+      "crate": "crossbeam-epoch-0.9.18",
+      "status": "original_source",
+      "original_manifest_sha256": "cfbceb820c7a1519351826839decd3ff1b1ad54ef2c4dfc4d2c9f173e4726046"
+    },
+    {
+      "crate": "crossbeam-utils-0.8.21",
+      "status": "original_source",
+      "original_manifest_sha256": "961aa297754d8fdbae9e23d15bbbcfdcd2b50b2db56becddb84e8cba4f730713"
+    },
+    {
+      "crate": "crunchy-0.2.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "00bec219bc270cc20a2e7f2b552b011992c37c0cd6882f82ab9943a166960e99",
+      "generated_manifest_sha256": "c70b76200b8db6716f0ae51e20c72429fc5a1cb65ac71eb058e2a69d07eb1730"
+    },
+    {
+      "crate": "crypto-common-0.1.6",
+      "status": "original_source",
+      "original_manifest_sha256": "0d7c931e6a6c24d1b440ba45ae038f396d5356c39d9eff40df8ba224254bd64a"
+    },
+    {
+      "crate": "darling-0.14.4",
+      "status": "original_source",
+      "original_manifest_sha256": "9200c0a7d203a5c4d8c0fff4845182f1b56f3d05100dbfdb75cf27dd93183781"
+    },
+    {
+      "crate": "darling-0.20.11",
+      "status": "original_source",
+      "original_manifest_sha256": "85a022a791c824412157e37a22c85cc339bd5e6f0577aeb17af48ae30f6535ad"
+    },
+    {
+      "crate": "darling_core-0.14.4",
+      "status": "original_source",
+      "original_manifest_sha256": "d3aeabdc25a86e1d877d6ac258da9e4aab1c66ab229800895b6b564938fc672d"
+    },
+    {
+      "crate": "darling_core-0.20.11",
+      "status": "original_source",
+      "original_manifest_sha256": "5c19d2a71bd5bf1007b56e252fa60b15eafadc1648a167162b922f8037925e9d"
+    },
+    {
+      "crate": "darling_macro-0.14.4",
+      "status": "original_source",
+      "original_manifest_sha256": "c08d1c58b97948ab5c5950fa820ae59db05db1f08f0c2a3b0249464eb782179a"
+    },
+    {
+      "crate": "darling_macro-0.20.11",
+      "status": "original_source",
+      "original_manifest_sha256": "b3e738adb3b693f2115fcb5afc7a407b2cd681005785d6a14de1bb4b0b02afc5"
+    },
+    {
+      "crate": "deranged-0.4.0",
+      "status": "original_source",
+      "original_manifest_sha256": "121e144fad418c6a6389dbf18eeccfa9f3463cefad0c45165d903493782c0041"
+    },
+    {
+      "crate": "derive_builder-0.11.2",
+      "status": "original_source",
+      "original_manifest_sha256": "c532571d75fea40ec73cbbc6a99b6e22ad6e5f1f26a8058fb30aa9bfa1119d3a"
+    },
+    {
+      "crate": "derive_builder-0.20.2",
+      "status": "original_source",
+      "original_manifest_sha256": "cb5f6811ad40ee5b7f6846989234e3566a2ba0c934ddb1b38f6b80510d1ca49c"
+    },
+    {
+      "crate": "derive_builder_core-0.11.2",
+      "status": "original_source",
+      "original_manifest_sha256": "b6d04935985c901113731e9eadbca00f4126042403dcc6c019e0623ce785374e"
+    },
+    {
+      "crate": "derive_builder_core-0.20.2",
+      "status": "original_source",
+      "original_manifest_sha256": "fa5cd02373ba6ada793bd0878d350502df5b43ba41f34db6fa3770164105f764"
+    },
+    {
+      "crate": "derive_builder_macro-0.11.2",
+      "status": "original_source",
+      "original_manifest_sha256": "ec42fbe5ab32028c30e95af501b4b797faca8e7c6e892c2423d936fc55bc8752"
+    },
+    {
+      "crate": "derive_builder_macro-0.20.2",
+      "status": "original_source",
+      "original_manifest_sha256": "879f0b3c0e31481dd684a0763762a0a78b89dfb0881a3307b1ca1a06b2ffd333"
+    },
+    {
+      "crate": "derive_more-2.0.1",
+      "status": "original_source",
+      "original_manifest_sha256": "844b82edbf3d2fffefe36d8565e6ee3f316ee07e3de8f702b303d8916ee9e6b7"
+    },
+    {
+      "crate": "derive_more-impl-2.0.1",
+      "status": "original_source",
+      "original_manifest_sha256": "2fa19cd79e1552d651540c99a1dccc3c662b87272afef87dbc4620136aadec1f"
+    },
+    {
+      "crate": "digest-0.10.7",
+      "status": "original_source",
+      "original_manifest_sha256": "f0cc2fc18c6e7f3533658b9e59d71b55e641e7d8226e5d1b915a5e7c0a1d3f36"
+    },
+    {
+      "crate": "directories-5.0.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "4d756dd239f747abeb6412e0b3d6f674deb78b4db70deb6f42c92b94b1e90a7b",
+      "generated_manifest_sha256": "cb05d8b6cde0b229b38d14e09742f23ae67e15e4af2b5ff5a636b90eaea07aaa"
+    },
+    {
+      "crate": "dirs-5.0.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a8b8da86ec0950d503dac2a09172d6ff84f6f7d46c3c4a08d0f89f214bd68740",
+      "generated_manifest_sha256": "1926c8ef2c9642cf8b520f592df33a5f0af82800e282adb0e45afd9ef5e55751"
+    },
+    {
+      "crate": "dirs-sys-0.4.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "7dca1a46dad98e82764bd2c4fcab995b82a2650e2e6ac85be41ffd133a08be03",
+      "generated_manifest_sha256": "b910b82879cf6a39f3d9ae27c32bf8e6729047510f31be3405bf75ecc1bd80a0"
+    },
+    {
+      "crate": "displaydoc-0.2.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "c6f12ae2dd031cf599ec131d3b6b89fb5de66edc4416b4a8f2f06b3fda889620",
+      "generated_manifest_sha256": "cc7db87b74fd86adb6e5c3340313fbf6a3d2e289dd55bbeaeba5386871ce0fbe"
+    },
+    {
+      "crate": "dyn-stack-0.13.0",
+      "status": "original_source",
+      "original_manifest_sha256": "71d5f8cd9d15b0e80d82a0374820980cf5cd7dd0305b8058b8dacfa40346b1b4"
+    },
+    {
+      "crate": "either-1.15.0",
+      "status": "original_source",
+      "original_manifest_sha256": "e88e6acce3b0cbf6734ab7c41cbc01a6b368843eb29d57f06e3b917ec9af03e0"
+    },
+    {
+      "crate": "enum-as-inner-0.6.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "da937ee4f5178253c740fef32c577da914f3b09c5f952a32805f1d3344563642",
+      "generated_manifest_sha256": "ee46cf2bbf32bb6ce28dce77ebd6c42fb3e58e8c89c08549c5cb729fa0dd96a2"
+    },
+    {
+      "crate": "enum_dispatch-0.3.13",
+      "status": "original_source",
+      "original_manifest_sha256": "ada87849fd822cd732f9533051f54d23a2d28904fe3096e024f85a87ee5eaa52"
+    },
+    {
+      "crate": "env_home-0.1.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "4dd32ef0dea16059f6b9e164586b0a7284240a721739c10601493b3ebf2bf983",
+      "generated_manifest_sha256": "1be7b4e0e3aea3bc1d8eec44902db40d4d9b16d19941974a08f882131439b21d"
+    },
+    {
+      "crate": "equator-0.2.2",
+      "status": "original_source",
+      "original_manifest_sha256": "bf2fbe85c4e594ef38e0fa21049d977febe32d131a65944568df8245327f5154"
+    },
+    {
+      "crate": "equator-0.4.2",
+      "status": "original_source",
+      "original_manifest_sha256": "bbe179256e0bcf127f48349be1eab4465a999dd792935ed3c6cc920d16e95e23"
+    },
+    {
+      "crate": "equator-macro-0.2.1",
+      "status": "original_source",
+      "original_manifest_sha256": "757895a30952c7adc4f4250f422a853767bd999ce8092e3104fe7ad14bbf32c9"
+    },
+    {
+      "crate": "equator-macro-0.4.2",
+      "status": "original_source",
+      "original_manifest_sha256": "9196049aa1e101c76012bf3c21db5e04d6fbe9cef9b83ab77eb623a03e140b64"
+    },
+    {
+      "crate": "equivalent-1.0.2",
+      "status": "original_source",
+      "original_manifest_sha256": "92fcf6d8b32d99f40a5053b9026e417c958d6f5f19581c632d675211b7eeb9f9"
+    },
+    {
+      "crate": "errno-0.3.12",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "e913c0113ba85a3ae7334afcd12d3de9f0e8b870b872e52dd052b389b7efc0a8",
+      "generated_manifest_sha256": "362508d06367feeaddeae09b64ac7a3748cbc88d4c1894a10519a8860b559002"
+    },
+    {
+      "crate": "faer-0.21.9",
+      "status": "original_source",
+      "original_manifest_sha256": "6b05a37d7a736fe248c66969414cc5ed2cbca5b8df966c09d1605f1e0e3003ce"
+    },
+    {
+      "crate": "faer-macros-0.21.0",
+      "status": "original_source",
+      "original_manifest_sha256": "6b9915b5a918f48f6e002087189c9f6cdc08a6b17e847278e97653099ce8608d"
+    },
+    {
+      "crate": "faer-traits-0.21.5",
+      "status": "original_source",
+      "original_manifest_sha256": "14ac90be7653f22b68eed0cdfc0cc84f6e77c7813bc53ffebc93f3d583115bf8"
+    },
+    {
+      "crate": "fastrand-2.3.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "300d90d57922b41007ef4849f1e4defbce4f835e06aba11289b5d4f7d15c5267",
+      "generated_manifest_sha256": "eb894a0a70ec2c545bea9e5f4eda0c035f28acea43ab3ce2a60f1aa0994295c5"
+    },
+    {
+      "crate": "filetime-0.2.25",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "7db0395b12d526c92eb7b54fdcb71df05047aee6ffd720b1e8128452ac400c3e",
+      "generated_manifest_sha256": "73f56b7535af1af2e0ae0c3fdd7251b3e57338634ebde84f084f5b839d4a7b51"
+    },
+    {
+      "crate": "flate2-1.1.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "646fe695a2055591992894ab4adecfa99dc31ddc9d8e41a4ae6ada298bca94b8",
+      "generated_manifest_sha256": "7e50afffea28336ced911d215cd61c7aa8007a70af4cd7fa55c102ab7c74cde4"
+    },
+    {
+      "crate": "fnv-1.0.7",
+      "status": "original_source",
+      "original_manifest_sha256": "0854ced32611c6389356c0b43ae663da9d4480376c5f0825b82eb442dd84e8d8"
+    },
+    {
+      "crate": "foreign-types-0.3.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "1a667c28f60115423b68fea369255c2dcb129b8dce10f30e0e1da73d05f9adab",
+      "generated_manifest_sha256": "cf96ea61374218042dc83dd04d25c1cfd6673cc5208d511f404c3530f603358d"
+    },
+    {
+      "crate": "foreign-types-shared-0.1.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "6b91ae600fe7b521537096b2269ab7bfd606f8a1fcd97749634dd03ba18daf53",
+      "generated_manifest_sha256": "1e0ef7e7a0801600786640c293933fb1e95bb36eccd6c872846e9aaa86e37de5"
+    },
+    {
+      "crate": "form_urlencoded-1.2.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "be4adf82c2b4b20237e7a660defcfed92034e751ca581dfc38cb2fd05b6a90d6",
+      "generated_manifest_sha256": "505dc949ddb24c1718812799e8a9b708f407daac903d1dff87479586adca6dca"
+    },
+    {
+      "crate": "gemm-0.18.2",
+      "status": "original_source",
+      "original_manifest_sha256": "7c918ccb2487aca57c872efb33576d6f0bf41b842d09ae62446b21a55e7ea6b7"
+    },
+    {
+      "crate": "gemm-c32-0.18.2",
+      "status": "original_source",
+      "original_manifest_sha256": "6aca36644bb6d357e66284629cc5ce4ace4ee4a26bb38690f58a489e94375875"
+    },
+    {
+      "crate": "gemm-c64-0.18.2",
+      "status": "original_source",
+      "original_manifest_sha256": "9c14a3788a32421ea505aebc1ebe3b2161642fff802f1bdc1377893dc63d78ef"
+    },
+    {
+      "crate": "gemm-common-0.18.2",
+      "status": "original_source",
+      "original_manifest_sha256": "4af55086a8c79b0fafad0e0c3db72473c552f7e23dbc91c8f05c5a628f112165"
+    },
+    {
+      "crate": "gemm-f16-0.18.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "7d07e22c66177d21d62d61644c5443a3afde6a2ecda5d2618ee294d9abe4ba90",
+      "generated_manifest_sha256": "3113dbd3e8a81e8cb5b62541d55110f371a71c615c8263de9bfb9673e6a7189f"
+    },
+    {
+      "crate": "gemm-f32-0.18.2",
+      "status": "original_source",
+      "original_manifest_sha256": "41f50ba175f794be68efe5d163dfa6d0b67531c76c91d0b5ee415dff8ae95e5b"
+    },
+    {
+      "crate": "gemm-f64-0.18.2",
+      "status": "original_source",
+      "original_manifest_sha256": "57cda50429a8e0e8f68cda115edc0e5dd367b6e7d0b627f57d324bb396353b81"
+    },
+    {
+      "crate": "generativity-1.1.0",
+      "status": "original_source",
+      "original_manifest_sha256": "f9de557e281b29a7b179b9dc7e56219c147318d24fdd603a8b8de0c865e1a17f"
+    },
+    {
+      "crate": "generic-array-0.14.7",
+      "status": "original_source",
+      "original_manifest_sha256": "4b5daed75505275d11f4854dd9172f910da61d9856ca2936d95e2e6e0c9040e4"
+    },
+    {
+      "crate": "getrandom-0.2.16",
+      "status": "original_source",
+      "original_manifest_sha256": "9159f7c43445be8d9a5f97a1615cd79f243fcfa7a288da4f929ab7c8374ec64a"
+    },
+    {
+      "crate": "getrandom-0.3.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "c11a6fef961eec45202c915ccde2aeec475c0950f31cb3c5a74e65fea2262bbc",
+      "generated_manifest_sha256": "a304e494e1210a6bc42ec935bbde8717b1668af4951053f92676a24a4c69b85f"
+    },
+    {
+      "crate": "getset-0.1.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "31fa14bd524f64670b9772d3e92e7b480f93cd39b0fdc2927c9514d95f8c8cd4",
+      "generated_manifest_sha256": "e1184019e9c0a43b74d8f81ab24648d0a7e37f1b4074a44212def173366fad04"
+    },
+    {
+      "crate": "half-2.6.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a2d670b4c0afe5ac5115de4da5a83c6c3e5feeeafe0b5b169a5e5c2b03ef2f11",
+      "generated_manifest_sha256": "c83fbc04831784b7ba2e8154baeadd47c376c6990ddb90aa53c0508ce01b6083"
+    },
+    {
+      "crate": "hashbrown-0.15.4",
+      "status": "original_source",
+      "original_manifest_sha256": "80ac792fa0ecb536fab4f54298c1fa8c7441ca75f8cc1d7e0e543ec91b10942e"
+    },
+    {
+      "crate": "heck-0.5.0",
+      "status": "original_source",
+      "original_manifest_sha256": "db0e63b72de157a2f5194458b73b6542c3f4e17e33ab34a71d0260bfc035467e"
+    },
+    {
+      "crate": "iana-time-zone-0.1.63",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b5fcc4b21e07e9f085a5ed540134e01f107e0af2e9358e3cb49aaebb2d70bfae",
+      "generated_manifest_sha256": "3aa2ad0d52f6f4a3b9bc5f346bc2d0eb602f7d6d1dcc4112940b9251e37e068b"
+    },
+    {
+      "crate": "iana-time-zone-haiku-0.1.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "8f06eca1c0e108d0422687eeb87030520ae7bd956efc92352599cc9cf079d9a3",
+      "generated_manifest_sha256": "ffe1fea10e0cbec75a2ae5b6200655e5b1c6ef9698cb7e02b9932b2633abcaf3"
+    },
+    {
+      "crate": "icu_collections-2.0.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a1bcce20ab29725ab0d9a44d2b09eda57368c56b2b9d12b73b2958f7d7df4d83",
+      "generated_manifest_sha256": "75b547446a519726f9d18eb54fb2d33f5c872e960e3944c4e07df35627cd9b1c"
+    },
+    {
+      "crate": "icu_locale_core-2.0.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "ebb55df81d0405b2082b744cd000449625d424bd43a89fbbfcf99488bffbad9b",
+      "generated_manifest_sha256": "a305710d39e5a82e2f0aaf69be11b620babebb043a650c90a8567cfc5e8ad6ea"
+    },
+    {
+      "crate": "icu_normalizer-2.0.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b3ebc0d4deaf34153984d80c71ecfde9fe30d5621081322a00ff87c73348e57e",
+      "generated_manifest_sha256": "fe9672d2c917e503f4391dd83eb26ee3ccccac6454a8529d127bf675085eda35"
+    },
+    {
+      "crate": "icu_normalizer_data-2.0.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "60846b6edd1cdeb2c66cedb5f5d566a9dee894bcc9152b26addb1abdcdaf58a8",
+      "generated_manifest_sha256": "070a9bc8962828fbd88efa9cd4c8cbe33184c0d56222d707b404fa4f82d5eb67"
+    },
+    {
+      "crate": "icu_properties-2.0.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "1e656a2acacf36e2f87d64665c997b40cb02fb2ed15cfb0cec5478b1d32c92ed",
+      "generated_manifest_sha256": "7d83ea59dad52a40d54670d2be85911de6d39ca48f3542cf17f675cd1ff8c797"
+    },
+    {
+      "crate": "icu_properties_data-2.0.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "c17c16c8e2cbf4f05e1d7fda7de888cbcb71161bbcfd68ffaba2e9260e45d4b3",
+      "generated_manifest_sha256": "5de279af64cf068073aafe9d83d6a52da30aa3537e7dec31f73acb4e9d6d9771"
+    },
+    {
+      "crate": "icu_provider-2.0.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "40e2902a5893116a633aef952dc8c79fcae1d7d73cc392ef2b6f0908b4a2a1c9",
+      "generated_manifest_sha256": "9979934d6e081dad9af7a984fd5fba683a80eabee36e528d8cb1192eba5d1fcb"
+    },
+    {
+      "crate": "ident_case-1.0.1",
+      "status": "original_source",
+      "original_manifest_sha256": "560eba8d5cf4f2c71cc06ef9145eb8f4c163a616cd6d08b031b1eae3448d8203"
+    },
+    {
+      "crate": "idna-1.0.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "4b63930f833beebdd51043e4435625638e39f804f172914ee4da834bfd18ac68",
+      "generated_manifest_sha256": "6c8230d9125466e36cb4e67d97b9a189ab4e2dcba5b8df1f64d8287b116c3434"
+    },
+    {
+      "crate": "idna_adapter-1.2.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "5bc0d786570fd2b9be3d1eb4a08825b43735a13d5f5fa83c38664d974bd50e18",
+      "generated_manifest_sha256": "50352fa3326b9224805e262498b528d72fa778a82133f2c03237ac09d786fbff"
+    },
+    {
+      "crate": "indexmap-2.9.0",
+      "status": "original_source",
+      "original_manifest_sha256": "c7cf1ff95c94648f759d48211248dd5ca89488619061b0c11cec9b47e3949337"
+    },
+    {
+      "crate": "indoc-2.0.6",
+      "status": "original_source",
+      "original_manifest_sha256": "6f665978861236240819ef7177c6e6c7cc79bd15607839f15bf79de89d5a371b"
+    },
+    {
+      "crate": "intel-mkl-src-0.8.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a6e073848ab939e914a0fa115a49773f08c5ac38028a5153233f6c0769b7ca19",
+      "generated_manifest_sha256": "a4738f2c86a71870959a35c6881030ba65f8ba1d098f276db09d9c7adb082156"
+    },
+    {
+      "crate": "intel-mkl-tool-0.8.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "24c6f891e1722be7f41432a629e9de879437bd3c6821ebe8cbee52acf6db432d",
+      "generated_manifest_sha256": "453c51e906221a7c42c4cf93b9fb109bc3f533296703c6ee78e409d332a66c0d"
+    },
+    {
+      "crate": "itertools-0.11.0",
+      "status": "original_source",
+      "original_manifest_sha256": "e64e6e088ab537ba843f25a111af102dd434fd58cea3d446dff314cf42ad33e2"
+    },
+    {
+      "crate": "itoa-1.0.15",
+      "status": "original_source",
+      "original_manifest_sha256": "c1d45a6aa2324a0862b0e6c8100e8f595616f91612f915f63c862010954667bc"
+    },
+    {
+      "crate": "js-sys-0.3.77",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "28f25a4ab6aadb0013787e5cf229ab28c15d8b7c25403388fd908be63e2c3674",
+      "generated_manifest_sha256": "da5035900564609659caa5d56fc5f30a6806257407ca282eb0a0ba0e36824b52"
+    },
+    {
+      "crate": "lapack-0.19.0",
+      "status": "original_source",
+      "original_manifest_sha256": "68788c325bcaa8c1ac9486ccb9f5e191e4e652de7ce08552af42bb7b5da12559"
+    },
+    {
+      "crate": "lapack-src-0.11.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "be230a5dc9d79c031ffc0ba874627c96ff574c805630ecd12b4add3205577bae",
+      "generated_manifest_sha256": "5605f55e0bbc76f4d66322cd672a27bb69e1682455705f0962aaef71d8772dd1"
+    },
+    {
+      "crate": "lapack-sys-0.14.0",
+      "status": "original_source",
+      "original_manifest_sha256": "b7c4d80f607249c2c6984580ec88f86d48f1463ec9d6a09d02abdd28746f7533"
+    },
+    {
+      "crate": "lazy_static-1.5.0",
+      "status": "original_source",
+      "original_manifest_sha256": "7556429fefb497526c5abdaa2c36d8ce4eb86c23d72763eb396652b9eaffc210"
+    },
+    {
+      "crate": "libc-0.2.172",
+      "status": "original_source",
+      "original_manifest_sha256": "56ad89d6913657901ac241f5d2ff433e1f7aabc5e565494b8dea2970101fd4d4"
+    },
+    {
+      "crate": "libloading-0.8.8",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "26ec82c5a155f242789c7f1b923dc97150c8bbaa2b64be6fd9beaab4a38f437a",
+      "generated_manifest_sha256": "3c5ce63df101a72be3f41602463f9d2117b4d2cfbd23d9485a31943ce1a47048"
+    },
+    {
+      "crate": "libm-0.2.15",
+      "status": "original_source",
+      "original_manifest_sha256": "50b0d8922764b2a257aa9e4c240bd338459341e9cf6f29429bef530ed3756c76"
+    },
+    {
+      "crate": "libredox-0.1.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "c17857681a3fea1cd7cc5a2fb801fd6d21c2fdd79aa5d471f746e3fa66420ca3",
+      "generated_manifest_sha256": "8e337b39a48ca7b626e3abfe106a4f614edebd6233415dba5f5d5c6dfcbcf999"
+    },
+    {
+      "crate": "linux-raw-sys-0.9.4",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "218ec145b7018b515ea6af196832bdf721764baad8488167781114f3f133e2c4",
+      "generated_manifest_sha256": "cbf02a003b4ec518aeb7f1868efb8f256c65289d8a8b7ef683f44afb901125ca"
+    },
+    {
+      "crate": "litemap-0.8.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "fd3c09014ccc46d152b6753d8d05492c4751cdd7074a816cb437182ff90d4695",
+      "generated_manifest_sha256": "0c6efede880e751874e082a908047c65aadd1fc6e1b76be16ef48b77724f2b36"
+    },
+    {
+      "crate": "log-0.4.27",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "af00dbdb7f605d037b937fa8affbb73086cc9f3eb38eb6502b4036689a044deb",
+      "generated_manifest_sha256": "e910f14d673df2c064680ae5ddeb453df5eebaf730702d94be53891772672d44"
+    },
+    {
+      "crate": "memchr-2.7.5",
+      "status": "original_source",
+      "original_manifest_sha256": "73fb56d3e51853020b355db722e35320467bc8aee57d457fae288e873b513411"
+    },
+    {
+      "crate": "memoffset-0.9.1",
+      "status": "original_source",
+      "original_manifest_sha256": "772e523da630871e710cc229f36282205713bba853d4d3f78e5a5d099bb3a814"
+    },
+    {
+      "crate": "minicov-0.3.7",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "7f0f6cd92c9e5c877dea2553f73eff92e1a19d71967b0116e09acb3be059d754",
+      "generated_manifest_sha256": "816dbaaa16bb666ff06c4a858e9c554337f3546e0b57e3b2d7efe60ea91ed53e"
+    },
+    {
+      "crate": "miniz_oxide-0.8.9",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "f0d2683434f1c0d3cd9b8080031e82aa5089c9be1779cc5101e065883258d77d",
+      "generated_manifest_sha256": "0d8961e6e4d32e7801136a11e5835c25c64f5765e5dae63ba785c7d4d0d5fd09"
+    },
+    {
+      "crate": "nano-gemm-0.1.3",
+      "status": "original_source",
+      "original_manifest_sha256": "6987840029256934761a798d0a5be0069cbfbce4f3fd774f5a4ff5568f8c4ca9"
+    },
+    {
+      "crate": "nano-gemm-c32-0.1.0",
+      "status": "original_source",
+      "original_manifest_sha256": "193269126a31efb7786224a2eed2e4b817ceb8f3073b59b9a81f48e041ea70f3"
+    },
+    {
+      "crate": "nano-gemm-c64-0.1.0",
+      "status": "original_source",
+      "original_manifest_sha256": "2a3879a11fb0e4db9e6654c9e2a75219c7f5886fea4f9bf3ea999b013077e409"
+    },
+    {
+      "crate": "nano-gemm-codegen-0.1.0",
+      "status": "original_source",
+      "original_manifest_sha256": "d60df785a95cbb45ba2e415e9b8bcf910711a5ee6c43252c973a0d794b863154"
+    },
+    {
+      "crate": "nano-gemm-core-0.1.0",
+      "status": "original_source",
+      "original_manifest_sha256": "61e0bc33bb7c8508c4d4cb579517978a047dc834c06cf8f4a6d8002e60bab57f"
+    },
+    {
+      "crate": "nano-gemm-f32-0.1.0",
+      "status": "original_source",
+      "original_manifest_sha256": "c5faa2b982b1b89068a81d10f72d61fbf02cd66e629cb3b25d2ad757fc89dfbd"
+    },
+    {
+      "crate": "nano-gemm-f64-0.1.0",
+      "status": "original_source",
+      "original_manifest_sha256": "6f864dd2a631cab5d7eb3106eeaa5b643f4b216e3523d0c5de911100a3408d40"
+    },
+    {
+      "crate": "native-tls-0.2.14",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a470c1937db7a8f339ff199bc3ea206754d744dec859031ba0cbdfecb2a7ff4d",
+      "generated_manifest_sha256": "b9477efec52bc9cd175ff351f9690aa6bef49aec550df95a81f80095fe42f186"
+    },
+    {
+      "crate": "netlib-src-0.8.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a47fc12d2d3a7e9a34f3e361ded6c6512e72fc5422e929be300e7ab35fe351c3",
+      "generated_manifest_sha256": "5337473148ae85e96578fe1de035b750a631e7ea6310399e5bf9abcb6897382a"
+    },
+    {
+      "crate": "npyz-0.8.4",
+      "status": "original_source",
+      "original_manifest_sha256": "c533a373f2542af1dc1841a2f93c4b76732ff1fe6b77a36921cb7395aee4d28d"
+    },
+    {
+      "crate": "ntapi-0.4.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "712b07f03fa2c3836d9b33632ffb477bf65b8f502d43c2a894e20035cf8e4193",
+      "generated_manifest_sha256": "ac2892493772811d5febbd0c9accb827d6b1f10ab0cd053ac08d25cc0eb428c3"
+    },
+    {
+      "crate": "num-bigint-0.4.6",
+      "status": "original_source",
+      "original_manifest_sha256": "a6042603541ecb91ec1f5c158679c0b47090462434e2a53e65f78395994f223f"
+    },
+    {
+      "crate": "num-complex-0.4.6",
+      "status": "original_source",
+      "original_manifest_sha256": "c3eb0628759922920b1ad0c233f2977ac6fd609876e27d88f6088400887aa937"
+    },
+    {
+      "crate": "num-conv-0.1.0",
+      "status": "original_source",
+      "original_manifest_sha256": "c1d8999190f493d43b84b07eaffd2a9144e16be197bb3ef13eb69305e2f23047"
+    },
+    {
+      "crate": "num-derive-0.4.2",
+      "status": "original_source",
+      "original_manifest_sha256": "659a3cf18a53cb7bcf017efaf2e498494e854f91ebb56c9acb067e94f076f43a"
+    },
+    {
+      "crate": "num-integer-0.1.46",
+      "status": "original_source",
+      "original_manifest_sha256": "f5e54fe018d780d7320b47a3fdae3b1ec3f6d04ac5adab3a8ddf207531aecef8"
+    },
+    {
+      "crate": "num-traits-0.2.19",
+      "status": "original_source",
+      "original_manifest_sha256": "dd701a0da6cce7e6e047cc944b2330f3c5e48cd64329e10942ea7d9299d435be"
+    },
+    {
+      "crate": "num_enum-0.7.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "082e79c61709d357721349f4b713895e3667adf1b9700875a7051386d0f7ac5b",
+      "generated_manifest_sha256": "a7b89bb3e56809110eca3ab31659ff8ebf5337f1b6f4a2f2d0aeaebf59e77172"
+    },
+    {
+      "crate": "num_enum_derive-0.7.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "ac84593a71b70db708e92d6034ce541e835bbbad03d2adb575f8bc10c7c27ade",
+      "generated_manifest_sha256": "29a7711394592c833a71c1b4a6f8875e1ecb4d65a88a7277112350fa281657ef"
+    },
+    {
+      "crate": "num_threads-0.1.7",
+      "status": "original_source",
+      "original_manifest_sha256": "e186d21c906422467056c0bbdf9c306b18392b4f070967127bf78b4fea31ac4c"
+    },
+    {
+      "crate": "oci-spec-0.6.8",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "de8c295e68ff56c43cf44d7dbd11daaa492ff1ee038f57a8bc89309d6a5fc8cc",
+      "generated_manifest_sha256": "da3d75556dd55ed4a2028562b5820e63a09faa23ca01bfa57c8bffca5168d6c8"
+    },
+    {
+      "crate": "ocipkg-0.2.9",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "701f4ce28daea0daccf7da3731d3ce3482ca2f8a5dea7df293a0c2b8f1f5498a",
+      "generated_manifest_sha256": "6318060295bd99a1981bbc6b54bcc4dc5c15847c55b51a407415199367d9fa59"
+    },
+    {
+      "crate": "once_cell-1.19.0",
+      "status": "original_source",
+      "original_manifest_sha256": "b0c4dcab027bb78093c9cd0e643b778303bb113fed7f3ab251252141d2b6735d"
+    },
+    {
+      "crate": "openblas-build-0.10.11",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a3ca55c5a4f018f5357bdf43cfd6e52f71a5b5114ebafe0eeb6c16c6f34ae4ff",
+      "generated_manifest_sha256": "1d8c84f4e693e35681e559a41c4feed9f31a8e8c2dfd1f777e338e1971b5ef4b"
+    },
+    {
+      "crate": "openblas-src-0.10.11",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "4e457fe119bbf0d70159756631c41f750156436c130fda6d3b051ae48df52412",
+      "generated_manifest_sha256": "3147963eb3de1ef6671e538fd14acfa133ccdcdc64c899b78efcdc23f5525222"
+    },
+    {
+      "crate": "openssl-0.10.73",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "5c9c1937399944f99877367f820676a26d928c84bb230e5cbd9caa9c386c9f7c",
+      "generated_manifest_sha256": "f76ecf6b885ee5e5a6c30897522b922c947fff23798f0e14d18cd8dd95b3cbf7"
+    },
+    {
+      "crate": "openssl-macros-0.1.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a0f4f5f613ead670c0512bf5f42c0426c8c3ab119f3737c6119190a5a34b657d",
+      "generated_manifest_sha256": "68ecba2010e46d2cf60e85303f26f74571ecf473f29d6b293b40682d3479d1b5"
+    },
+    {
+      "crate": "openssl-probe-0.1.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "95dbc5ddc9b18a570032a0048c2a2167fc18ff6ed8afd7c987d8028b838aee1b",
+      "generated_manifest_sha256": "129e1292bde5f7c370ace5835c72e7db55be13ff171d82c61e12b79594332095"
+    },
+    {
+      "crate": "openssl-sys-0.9.109",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "c89c4eaf07ab8093eabc22c851fdfe693303f927cfbd843dafa40a04c2ac8f9a",
+      "generated_manifest_sha256": "1ff0ac26f1b086e3a65bb4d63deb6686cfee0e8ad7be4214d7c8bfa057eec87f"
+    },
+    {
+      "crate": "option-ext-0.2.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "ecd67cb17a0586f1406b7d494ef93191ed8ebf149db46667a7778052d94e1e6c",
+      "generated_manifest_sha256": "44c94c76ebc1aed90a2f84df39e8d61246ec521a275d0b418b97ab3422b62f05"
+    },
+    {
+      "crate": "pardiso-wrapper-0.1.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "f200f2683bcec77a7b377d54de51fc4e5b2f26b3d7b7a2666d31415acbec1436",
+      "generated_manifest_sha256": "f4d8664e3b392475727516460ecac07a918d302bf74df07457a6f8caa8c2d065"
+    },
+    {
+      "crate": "paste-1.0.15",
+      "status": "original_source",
+      "original_manifest_sha256": "b639e399e32159609ed573ffdb1a4edf06fba8aee208d9259e9dba031834aaaa"
+    },
+    {
+      "crate": "percent-encoding-2.3.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "5ec334dea682150e380cf2321fa326bd97a1752314ee5cdb3a6202318cbc7ab0",
+      "generated_manifest_sha256": "1f33adccd829f73b5b61b48a21ae8c6a5eb4abf2e5a7b563ca9106249234a3cf"
+    },
+    {
+      "crate": "pest-2.8.0",
+      "status": "original_source",
+      "original_manifest_sha256": "40cc35593b2d050e05e02c2b583ac030ad7f987a034f653734b4c40d5f80e73e"
+    },
+    {
+      "crate": "pest_derive-2.8.0",
+      "status": "original_source",
+      "original_manifest_sha256": "c21e8a85b33bec238902995b9ad22b8897e31ba1d4443706794fba1e25eabbc5"
+    },
+    {
+      "crate": "pest_generator-2.8.0",
+      "status": "original_source",
+      "original_manifest_sha256": "c70ec23a0af22edd2890dae13c4ee279826344fc62baf1c3b52315e708e5ca0e"
+    },
+    {
+      "crate": "pest_meta-2.8.0",
+      "status": "original_source",
+      "original_manifest_sha256": "76020b3c4bfee077b1ce771c145494ede48842133ac0a8cc2ff8dd7a416b48fd"
+    },
+    {
+      "crate": "pkg-config-0.3.32",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "19b7808a36b6f42c812ba154cdd7b48347511158a7f69f52bcf2c4d073ee4a37",
+      "generated_manifest_sha256": "f55451f5b44bca2d1eab24729ff0a237b3199e33b9bef3eff20ce89bf087c650"
+    },
+    {
+      "crate": "portable-atomic-1.11.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "31920572c04b7c977f227a9061ecd9e91d7c723afe1ee0a0e159d0af630505cb",
+      "generated_manifest_sha256": "d7d9a0b9272cec7e3551194d7da4488dfacd8a60acdbb72e043c3f8b1e671874"
+    },
+    {
+      "crate": "potential_utf-0.1.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "82fd80e6633b773f2c8c72016c7966f4dec32f36a27c6ae634490cfec34e0445",
+      "generated_manifest_sha256": "4c2f3b0841bed32fba4c7f44dc88ec66859a4c685069b6358d689e5de99f3932"
+    },
+    {
+      "crate": "powerfmt-0.2.0",
+      "status": "original_source",
+      "original_manifest_sha256": "59fa10abb1a34f70e61c97022938b02ec77ea0b161524f4a2599440bd3190c3b"
+    },
+    {
+      "crate": "ppv-lite86-0.2.21",
+      "status": "original_source",
+      "original_manifest_sha256": "aa9337145bd03a6e76fd42c2ee5f07c5c23ff6b2eb73cfc35c3070d76c5bacb8"
+    },
+    {
+      "crate": "proc-macro-crate-3.3.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "4c723b24d21a10acab4ad16f249bcb8ffb30d769afada2e90c8e6bcc31b30620",
+      "generated_manifest_sha256": "ab22b772211ec2621e6f0a67e60616333430936386cb36b24a1915b4f7fcd73f"
+    },
+    {
+      "crate": "proc-macro-error-attr2-2.0.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "8584e30fb2d9e38659e27d3b7b7e9e69c093b8f84de0bc1d7ff96735de8be22d",
+      "generated_manifest_sha256": "33bae2c6dfa31a2525c12ba55ed560191e51ccc5dd5533e5fa0c2f68c353aa04"
+    },
+    {
+      "crate": "proc-macro-error2-2.0.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "9419aea8db386d6d06fabe4b2b808b853e233e84df0484d598b81a1836d64ae8",
+      "generated_manifest_sha256": "fa87a6a801ae8cf597b8a490294d46991fa839cf2f6967670ea119bfbcf4e246"
+    },
+    {
+      "crate": "proc-macro2-1.0.95",
+      "status": "original_source",
+      "original_manifest_sha256": "277a6ffb50768523faca5089df941e0d1baf2a7f91792beef3d30667bce985c8"
+    },
+    {
+      "crate": "pulp-0.21.5",
+      "status": "original_source",
+      "original_manifest_sha256": "4069fc1c1401d01dbea9e895982c3162328b2de4997c925c171f56a3a3116843"
+    },
+    {
+      "crate": "py_literal-0.4.0",
+      "status": "original_source",
+      "original_manifest_sha256": "6b4c9e51649f73be5eca9b843421167a2c40bf8d7bd67de327d4406bb4b4ad65"
+    },
+    {
+      "crate": "pyo3-0.25.0",
+      "status": "original_source",
+      "original_manifest_sha256": "556a22d54fa23885c33ff6ece138e762b26830466331909760fa72868e1c27f7"
+    },
+    {
+      "crate": "pyo3-build-config-0.25.0",
+      "status": "original_source",
+      "original_manifest_sha256": "8d9fbcd1107fec82b4900bf935a25d9c8c1455a33a9c4e0b20f196f1df07e47a"
+    },
+    {
+      "crate": "pyo3-ffi-0.25.0",
+      "status": "original_source",
+      "original_manifest_sha256": "28b1209d0d9a78afbb0fbfb9961ea3d771ab20d9cbd3c488b2f50939dc5c2b32"
+    },
+    {
+      "crate": "pyo3-macros-0.25.0",
+      "status": "original_source",
+      "original_manifest_sha256": "71902399cb576e26b841ccacca70d6aa8dd0929aaf147880220403f38ae706d0"
+    },
+    {
+      "crate": "pyo3-macros-backend-0.25.0",
+      "status": "original_source",
+      "original_manifest_sha256": "1f66f75c489aa1eb2add05712631d95e9bd9100efe0549783f58753154e2243a"
+    },
+    {
+      "crate": "quote-1.0.40",
+      "status": "original_source",
+      "original_manifest_sha256": "80803a72c608208f928eaaf3ca4ca06e0705afac3d0d79ca4342b6266cd053ef"
+    },
+    {
+      "crate": "r-efi-5.2.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "694ce9bcb148cb9ec2e6850cf3bc3121b5f46b585327aa33c2626ecdf1ff55f2",
+      "generated_manifest_sha256": "dd527be3368bc61f9d08656bc086e9cdfd5404343bec7131ea924576ae51a0de"
+    },
+    {
+      "crate": "r-src-0.2.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "e63d5d6b0bd71d9ae3a8a4a88ebaee05979989244276e01bfd815faeb3720bfb",
+      "generated_manifest_sha256": "7124f028bdac10359fba36add88593505c90912255e97890118c03e91c79b94b"
+    },
+    {
+      "crate": "rand-0.8.5",
+      "status": "original_source",
+      "original_manifest_sha256": "9bb028fb3b697653beb433ddcf4c1292b3db10ea5ed27a695df6e4e604ba6d4b"
+    },
+    {
+      "crate": "rand_chacha-0.3.1",
+      "status": "original_source",
+      "original_manifest_sha256": "e2ef45f3c9d6f013da266b76ca1e1f664ad5fa1d526b46580a77fb311c659fd8"
+    },
+    {
+      "crate": "rand_core-0.6.4",
+      "status": "original_source",
+      "original_manifest_sha256": "4a6762f8364d1a60f1436f4ba7d710de22465722340d2028101fcbd68e89396f"
+    },
+    {
+      "crate": "rand_distr-0.4.3",
+      "status": "original_source",
+      "original_manifest_sha256": "de7ba89ed55ad8ff0256372e909588449ce8bb1f131b615c3e978792ead79e1b"
+    },
+    {
+      "crate": "raw-cpuid-11.5.0",
+      "status": "original_source",
+      "original_manifest_sha256": "d667fa0d94ac372898978c2a49bf4390c5255a6361fc0d3adfc8d162d988c490"
+    },
+    {
+      "crate": "rayon-1.10.0",
+      "status": "original_source",
+      "original_manifest_sha256": "5c786211c556fd7f0a58c16d034d70bafe221c8c084d7af1d601c85053cec6ee"
+    },
+    {
+      "crate": "rayon-core-1.12.1",
+      "status": "original_source",
+      "original_manifest_sha256": "60f04aab82c6489c779cf19535fddf0ec1a673edc07f523c66c10996806d2fbe"
+    },
+    {
+      "crate": "reborrow-0.5.5",
+      "status": "original_source",
+      "original_manifest_sha256": "6f4b36de71f0becc8ee0b34f9fb1c6771991e6666a1d6ce25f3b0d77f59c9b3e"
+    },
+    {
+      "crate": "redox_syscall-0.5.12",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "2f31d3f0783b3e70367811f40a9b1b89ba34d0f7f5faf9d1353b997355ac147c",
+      "generated_manifest_sha256": "ccb144944ed4d59e27bfe3bb081c32e36b76239cae170dbdf565caf64e36cebf"
+    },
+    {
+      "crate": "redox_users-0.4.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "5ff1929351528d4fa6a2fdc09cec44449fece845eafb547d3251622bcd9d07e5",
+      "generated_manifest_sha256": "765d9a8a1703b83faf95824ec5d6eab0622566d469284e1330757ff9d679fa10"
+    },
+    {
+      "crate": "regex-1.10.6",
+      "status": "original_source",
+      "original_manifest_sha256": "f23e78c268a6845defbf0dcb49a872b5279130d6c50c44fea9761b3655a384c2"
+    },
+    {
+      "crate": "regex-automata-0.4.9",
+      "status": "original_source",
+      "original_manifest_sha256": "038ce4e833886b9b26da07d9f3eb5c545c8f91ad02dd028589c2a3562b048fdd"
+    },
+    {
+      "crate": "regex-syntax-0.8.5",
+      "status": "original_source",
+      "original_manifest_sha256": "362cfcf492ed93948ca374491d8dc3b688da0f90d00c2bb9a3892ec2ac27e276"
+    },
+    {
+      "crate": "ring-0.17.14",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b81a19b27cc744410b056eb1d1195ecd41e25a163acadfca3c6457e96b797d3f",
+      "generated_manifest_sha256": "0480687e4026196726a6a9903a882352e2a9f50bdcbc1757bed83971de702dc5"
+    },
+    {
+      "crate": "rustc_version-0.4.1",
+      "status": "original_source",
+      "original_manifest_sha256": "c7d1d07fcb4f604eac7c2f9ad1262f93c81f2e45c6be6031de2d83da5ab59ccb"
+    },
+    {
+      "crate": "rustix-1.0.7",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "8509b360fef79bbe7a8155f812c70e0110decf5c8278e0b1373f255a25484f77",
+      "generated_manifest_sha256": "9c29c119f0cbe83478d74edde7ebca2d8f97664e5d89f85ad008854f319a0ead"
+    },
+    {
+      "crate": "rustls-0.23.27",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "908199d2f2170a91e912a0f5948a9fc5f47f482cb62c4b3cfb6599ebb3e55240",
+      "generated_manifest_sha256": "ce11ceef4ea30b7ebf766ff08a787ff88d98870f32b2c30650b22e9975cbf0f8"
+    },
+    {
+      "crate": "rustls-native-certs-0.7.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "4d364e4feb8461e62b9486244a83f809ffd816d5f20e095a01556e2ab532163b",
+      "generated_manifest_sha256": "3e84ead384caf4c52ca9886ae06de86f8f19990b6a623779aa064c07a05bb58f"
+    },
+    {
+      "crate": "rustls-pemfile-2.2.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "dca1daa971351a4b9936615a4f854247a379fce6f29a266084c8b352e713d400",
+      "generated_manifest_sha256": "fa679996697d41586ffc5e432f820557dfcb4fc86aca3ec698e7c4f5f8eb6dc3"
+    },
+    {
+      "crate": "rustls-pki-types-1.12.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "60428ba98de358db3cc6990a4e1b3dc5186d0ff14329702722d25527dc0ad411",
+      "generated_manifest_sha256": "b504c770cbb4c14156deda22f66b0fc86684a9809bcda87cc96e6d64b336c610"
+    },
+    {
+      "crate": "rustls-webpki-0.103.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b7e0208a2d1191de1f9a1caf0ce82c1464687f1b709883ee10861313908e5e54",
+      "generated_manifest_sha256": "0332461e274d828c70d91262de553961ddcca1022cecaec8de409dd9f05b9f71"
+    },
+    {
+      "crate": "rustversion-1.0.21",
+      "status": "original_source",
+      "original_manifest_sha256": "beb729c68a9d11aa44333449ca9062c376430bd390806958c7b2c95f95b11ba6"
+    },
+    {
+      "crate": "ryu-1.0.20",
+      "status": "original_source",
+      "original_manifest_sha256": "e524f009fc014c8553ae7f6e0517e555ee25fd4fe20d4acd1d0d7397abdfb163"
+    },
+    {
+      "crate": "same-file-1.0.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "991f8df8fa5a259801900a56908cf21a66c5cf7b238bc81ba9bdf348e233252e",
+      "generated_manifest_sha256": "a6a5a5e7817d9e4d244f6bdaafc2436da315ef740fe2aa5d1b5ea181ef10d481"
+    },
+    {
+      "crate": "schannel-0.1.27",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b8eb014ecd3042b4977faa787fe0b20a043d90a5ac6b4af52ecc4d72efcbcd0f",
+      "generated_manifest_sha256": "fae745ef41eba8738cade7cef16eb62bfeae66cc479c906bdb4ba3a737c6eb8c"
+    },
+    {
+      "crate": "security-framework-2.11.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "96a684776f6ab35074bb253762c6af929dcf848468dbac604f1058a517fdc6ba",
+      "generated_manifest_sha256": "3273a3d2b33a9ec4a7a98a3486d0e5f19cb3570e275cba1d0f3b28279e101a5c"
+    },
+    {
+      "crate": "security-framework-sys-2.14.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "bf93948847509e287019c26d5175bede5f0b9390668f4a1b4f109218d7be7dbc",
+      "generated_manifest_sha256": "0a9767c475b97cd62856c85773c1ecf547e8ff1acea24e235031a05f7761a9c1"
+    },
+    {
+      "crate": "semver-1.0.26",
+      "status": "original_source",
+      "original_manifest_sha256": "e5489ccd7064eb23fe07413ddb67dbb82f4eb03845d80c01d83741374d83d4c4"
+    },
+    {
+      "crate": "seq-macro-0.3.6",
+      "status": "original_source",
+      "original_manifest_sha256": "f5eba9db2eb619a616a3fd1bec4a02bc2cd3acaa88cf0f549c645606bdcca39e"
+    },
+    {
+      "crate": "serde-1.0.219",
+      "status": "original_source",
+      "original_manifest_sha256": "b1f51ec5dbcb19613d6fabb9c021cebcc5a0f296a70bac81eb3c7207b65782f9"
+    },
+    {
+      "crate": "serde-big-array-0.5.1",
+      "status": "original_source",
+      "original_manifest_sha256": "0999957c027380fb7d12261b03c1bae4910d98e616ef60e46a6311bb2b68282d"
+    },
+    {
+      "crate": "serde_derive-1.0.219",
+      "status": "original_source",
+      "original_manifest_sha256": "e3146884595654ff934208c0d9f99e2f8f388d07e4d893a62e0bc792f006002c"
+    },
+    {
+      "crate": "serde_json-1.0.140",
+      "status": "original_source",
+      "original_manifest_sha256": "8c33d09b1e66dbf36089f17d0fae69d865ad86f2bf28c0397130a714fb5f6844"
+    },
+    {
+      "crate": "serde_spanned-0.6.9",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "010fa9474b150d28d8a8a7d05305cf74a490959ed5a682ff929cb0da8b641830",
+      "generated_manifest_sha256": "6e6e5057352e6196a7cf554efce5f4feda57f6a5b81d83ded5e3c3574b099d5c"
+    },
+    {
+      "crate": "sha2-0.10.9",
+      "status": "original_source",
+      "original_manifest_sha256": "f5b86209df69360114aaee67a66c3fcd31d8c840b8f34b9ad383aacd63cd15da"
+    },
+    {
+      "crate": "shlex-1.3.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "d7eb8c4bce681b4dd1dfc2c98c649754390775f38f4796d491948ddbb53aa2ef",
+      "generated_manifest_sha256": "036dddee484c77798160ea193ca6f0a0c78228a5c7e87c75f0f1fa333f70ee64"
+    },
+    {
+      "crate": "smallvec-1.15.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "23b775d343d15c7c212134c69a791d75fcdfb4527224b20daf401b494dd4f0c9",
+      "generated_manifest_sha256": "d41e83a6cbd5a9e82f3ac53be0f1f463f784f09edc9c385adbb3b9134a236a1e"
+    },
+    {
+      "crate": "stable_deref_trait-1.2.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "5a8352eba01791ecee28b37cfe1324fa48db52e35023b23a4f07ca84267abfd6",
+      "generated_manifest_sha256": "3963ef8334e24ba5d624be42350be951baa9641ec11f7e484b2ada7c83ec2f34"
+    },
+    {
+      "crate": "strsim-0.10.0",
+      "status": "original_source",
+      "original_manifest_sha256": "3f0f1737ecbf9c7595b52585d54507f217e66b2b8dfa337934ca427022d810c8"
+    },
+    {
+      "crate": "strsim-0.11.1",
+      "status": "original_source",
+      "original_manifest_sha256": "e74cc8f9ab1f8680c26aebab519e3fbda7521eebd1e8fdcebdfc2e1bf138a875"
+    },
+    {
+      "crate": "strum-0.26.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "d42134f7fdb99557a91eb2baf346dceb46e50d09edf17fe1da588b6856a93e54",
+      "generated_manifest_sha256": "4964d8f194b8e366ba405381bd76aa8565885b1eac9f29f4b168705901153381"
+    },
+    {
+      "crate": "strum_macros-0.26.4",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "8ec1aea0236e97817ede93c32ac56fcd04bf9cc561fa8a553ea329fa0fa639e2",
+      "generated_manifest_sha256": "8c25df5a27f1fed307954cfad3242a34fa1950ad4dd072fdd3fbf2b3d410c30e"
+    },
+    {
+      "crate": "subtle-2.6.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a3b9aefa358b0cd742de62e880ea080414ead838847a95892acaa58575dfc4cf",
+      "generated_manifest_sha256": "b640905ced1ad7fc2c2b0ce60d44bd552ff87429531133f15f87039def0a699f"
+    },
+    {
+      "crate": "syn-1.0.109",
+      "status": "original_source",
+      "original_manifest_sha256": "139a7e42e4c95f9730d4dfe05dd5e09ee59f713eacc310921a61d9fdfc0bdce0"
+    },
+    {
+      "crate": "syn-2.0.102",
+      "status": "original_source",
+      "original_manifest_sha256": "f35e60ab972adac1c37410f5920d60a96396f9f544e789ba43fb734d076634a5"
+    },
+    {
+      "crate": "synstructure-0.13.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a1cc9f5d8a95afc23a3e514e52bc5e2d3f59e30f28c0803eb084e3f2f16dfd3c",
+      "generated_manifest_sha256": "cdf5a9e72397b644ed72e8a3532442388de82c74452331887c493842ab51392f"
+    },
+    {
+      "crate": "sysctl-0.6.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "d938225cb9fd2de0ce7b782e93d7cf7581b8414f83576a081d5f2179e0ccffbe",
+      "generated_manifest_sha256": "6bc97517a312185f38a8fed788939e035f4db77b7993bbfc397da165eca5d10a"
+    },
+    {
+      "crate": "sysinfo-0.31.4",
+      "status": "original_source",
+      "original_manifest_sha256": "1e983a8e67f71ab7f319a2c98bfc01fa166c4dc1572ee66676ad66ef716fa7ac"
+    },
+    {
+      "crate": "tar-0.4.44",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b3822faba576e8faef11ab664ff71adcf46dc547c21684e7ddf502b321ca9004",
+      "generated_manifest_sha256": "9b42770aa984cf57995f927ba56f7c652654697bbb608ed7fc52179e73b42619"
+    },
+    {
+      "crate": "target-lexicon-0.13.2",
+      "status": "original_source",
+      "original_manifest_sha256": "bf199559d8465cbe72e56f23849c154e5ee6eb153be049ef39f43a7a500c4729"
+    },
+    {
+      "crate": "tempfile-3.20.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "be7e6ec5a1956929598226f3793aee9876646b0a6c04003b97d6f2dccc3b22bd",
+      "generated_manifest_sha256": "aec1551da093e6967d61edda93119a942a5f3655c18d02c7d8363573f4a5f6a4"
+    },
+    {
+      "crate": "thiserror-1.0.69",
+      "status": "original_source",
+      "original_manifest_sha256": "d169d8e8b0ec46a191410fbaa6bac609204a411d770a22cb7afbaf71facef6a9"
+    },
+    {
+      "crate": "thiserror-2.0.12",
+      "status": "original_source",
+      "original_manifest_sha256": "ee2c50c5cc5bf9690ce99d8c5c9ff7b7f8171ca4ffa208b2a6fe44770f4a26ef"
+    },
+    {
+      "crate": "thiserror-impl-1.0.69",
+      "status": "original_source",
+      "original_manifest_sha256": "bffd948b1f0555744e242e035597a6c706a4f795986e2650a4bb193df5bf840d"
+    },
+    {
+      "crate": "thiserror-impl-2.0.12",
+      "status": "original_source",
+      "original_manifest_sha256": "4cdb56333675df024c3c9980713aff1aa76f50aafb72dc87357c43a531058496"
+    },
+    {
+      "crate": "time-0.3.41",
+      "status": "original_source",
+      "original_manifest_sha256": "266015f9745494d625f3ebfd148d72c282a1ec2bb5a34c88012b3c2c31f87f04"
+    },
+    {
+      "crate": "time-core-0.1.4",
+      "status": "original_source",
+      "original_manifest_sha256": "18532275b3786bc114a2d43dd982829f425d147c2e72a03a9142b60bdd2cd5f4"
+    },
+    {
+      "crate": "time-macros-0.2.22",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "61967275631a38f1f88b8e44ae408b059a06407ba193e7d466b70076f81f1062",
+      "generated_manifest_sha256": "425d7480404958990e204f7e9ae5cd5378c443112826d3c539b31bd863d201c5"
+    },
+    {
+      "crate": "tinystr-0.8.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "3d9722213fe432999bc943056f9c51eefa21023b6b069122ae7e3890a4d0e76f",
+      "generated_manifest_sha256": "fc526c2f7d7e0befe57c4b269dd820216bfcdb53708acc3ea6c68c19db228ebf"
+    },
+    {
+      "crate": "toml-0.8.23",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "32140fa952977c75b638e7560d33700ef9fa8ecda48323fdb1ca35ac65f0d05b",
+      "generated_manifest_sha256": "144f7de917520ae7a8f8188add511c06bd91de0d63b95148abff57a985244628"
+    },
+    {
+      "crate": "toml_datetime-0.6.11",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "d68d745dc4408861eacb6cd38f5fcb2441db11d945d0476ab5fb97c882e87a9a",
+      "generated_manifest_sha256": "a5fc3b8e34dcc8eed103fb48525e91f5ca7ed011a095f0da1bdf9f3af3686f43"
+    },
+    {
+      "crate": "toml_edit-0.22.27",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "58fbce212c22e56a096a000ec10af471f77aa616ed9fa2a75894cee41e848287",
+      "generated_manifest_sha256": "c30cb9c6d09fe93171009fcb38d50fdeaa928206648d9fbae3de32fe7ae7c3ee"
+    },
+    {
+      "crate": "toml_write-0.1.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "9e153d497c0bd6fa5d5fbd29e56d86c9c3c9cc7bade9b2f7f321858462b6f014",
+      "generated_manifest_sha256": "0c3ce5a35ba4be9a5a5c44781a5718a28521b62a503010bd0479dc9229d095ed"
+    },
+    {
+      "crate": "typenum-1.18.0",
+      "status": "original_source",
+      "original_manifest_sha256": "844dc4929d3245191969f3e0f7776731fac9b6182e21232b649324049cf26c16"
+    },
+    {
+      "crate": "ucd-trie-0.1.7",
+      "status": "original_source",
+      "original_manifest_sha256": "0d8c74a0a809e12a6ee3e3f89bb0016b978a5951e3605f8a6eb81d60ce3b1bca"
+    },
+    {
+      "crate": "unicode-ident-1.0.18",
+      "status": "original_source",
+      "original_manifest_sha256": "de3bb475aecd050be587a953d31a2a827f571ab9e06507625f831614008ce01f"
+    },
+    {
+      "crate": "unicode-xid-0.2.6",
+      "status": "original_source",
+      "original_manifest_sha256": "030ed8e60fcd73b831f174ab2df10e0f913d5d1476909c92aee26849323370f3"
+    },
+    {
+      "crate": "unindent-0.2.4",
+      "status": "original_source",
+      "original_manifest_sha256": "907be49a72f86845b687e24d6dd81d3f5ea27907005fbb14b5383876d28420f2"
+    },
+    {
+      "crate": "untrusted-0.9.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "25efda62e6e0a7e3cf463ff88bd9d9321befb22de7660cd63b2a0a195d70aed6",
+      "generated_manifest_sha256": "8e546266530419f78fa333d7c09d1bbec01a863041dc79d96ebd6009b2065442"
+    },
+    {
+      "crate": "ureq-2.12.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "bb66981a6456a855a13a4fa7a4c4821f79cd5fe8b1e4939c7e59c6516437b1f0",
+      "generated_manifest_sha256": "287ffb5f459ab4c7a024c795b61d8983cce0f951e4c9b1e013af3df948d3c10e"
+    },
+    {
+      "crate": "url-2.5.4",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "5255267c4f9539e97a3a68ed03de5c218652f1e665f9fae885620d252b7dd34e",
+      "generated_manifest_sha256": "9bddcb2b3cfe6008fbe37159188a2bfd65cb6edbcddb65f513257cc3a653b077"
+    },
+    {
+      "crate": "utf8_iter-1.0.4",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "df82c17a094e56a7c66d9aba1f68a1c3647518694c25326f09c5634a9012f21e",
+      "generated_manifest_sha256": "e1a897de471b458e346a8698713e73c9031abd3a33f089a66310589e64707fbc"
+    },
+    {
+      "crate": "uuid-1.17.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "c9a83e5f977e1ceb375b8bb07829654df014282c75fcb00736bb9d0750aee8d8",
+      "generated_manifest_sha256": "7dc376eae01285d3db3164e5b3123d1cc2706522ca427e2962c2f799ee5ccb8f"
+    },
+    {
+      "crate": "vcpkg-0.2.15",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "033f71986b9ec8b8d1fcef7fa8c2c02abafb5655e10b1bbe405b9465e80108b4",
+      "generated_manifest_sha256": "0ebcb01fca2f004487bb22ef5f16f39fd27b0276c3d380ce0b595800370c5d46"
+    },
+    {
+      "crate": "vergen-9.0.1",
+      "status": "original_source",
+      "original_manifest_sha256": "d1d7c3bbdfc07c5befddb61bdd9316f0ed6969c3438d8b6659f9f7c54ade06b9"
+    },
+    {
+      "crate": "vergen-lib-0.1.6",
+      "status": "original_source",
+      "original_manifest_sha256": "c690d4e1fc72d3f0eee15a3f40671ac6ca180dc6e540503790ba93ddec30caa8"
+    },
+    {
+      "crate": "version_check-0.9.5",
+      "status": "original_source",
+      "original_manifest_sha256": "399ea74400a173c02eabe91cb9487d0cf351117857a5d2ebc6231f0efde67681"
+    },
+    {
+      "crate": "walkdir-2.5.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "425547c73a8eae93c39110869fd5ecac3a99a984c715ad7ab1d6a40b7efb0ee5",
+      "generated_manifest_sha256": "cd761f81da020919e63dc6d7e5a8f5384d8ba347641ce6387a05a519d0df3c23"
+    },
+    {
+      "crate": "wasi-0.11.1+wasi-snapshot-preview1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "25915be68a3057b798a4a6d4e5ceef36047e03bf0353d3f2a99236cd23e410db",
+      "generated_manifest_sha256": "db319afe6a81b998bf352fdaf20fe99348e9adf10f74862554523872c3a691a4"
+    },
+    {
+      "crate": "wasi-0.14.2+wasi-0.2.4",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "f43ee004589d9330d76d998fe7d9dd88ffd2a3daf5872b60fcaa495f47b02583",
+      "generated_manifest_sha256": "7fc5ba5643dc9af4425bd4e7b0716c1ed1bd3b75c7127f02427d879c9f67f074"
+    },
+    {
+      "crate": "wasm-bindgen-0.2.100",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "ae469393a9ea0c0b265f6171f26a3c91a93a5e7cc83968f76ba8a4b4c1cdcb28",
+      "generated_manifest_sha256": "c8d3a64de172c2b039465451a560ba6b49455689b803a7c8aa65af99fd3a380d"
+    },
+    {
+      "crate": "wasm-bindgen-backend-0.2.100",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b0eda410d0be0b5e6c28eac37692af650ad9763d4f55f9b263e5c1edb5f14fe9",
+      "generated_manifest_sha256": "27cfc0955f9d969d8d9fcac9d8f89eb6705f17d8cab1914f45a8f49539d19aaa"
+    },
+    {
+      "crate": "wasm-bindgen-futures-0.4.50",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "d71a6affd1bec619af7a670fa49980c5622c90d005c83e98f89dbc7192748003",
+      "generated_manifest_sha256": "eea6e4fcd80521cc858089ecdc26ba0123e5a85e9ae7123b313370a120543819"
+    },
+    {
+      "crate": "wasm-bindgen-macro-0.2.100",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "3953bbe14f4c99f9a07756364e028f6b75225a07617e0892e9d06e3480408534",
+      "generated_manifest_sha256": "0b1e97b9d0738b370f3df34bc03ea30d451a36fdbb3d4e94691e06ec7af70c8b"
+    },
+    {
+      "crate": "wasm-bindgen-macro-support-0.2.100",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "91d642858419a994d726a10fef714f9ce95d42d5c3a1e76aad9addce34dcb0b3",
+      "generated_manifest_sha256": "8e8f3e1f9a9a959a8376d24d3291417ac3a58871f08dfdf4d99af8ee980807b8"
+    },
+    {
+      "crate": "wasm-bindgen-shared-0.2.100",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "5bcd44eccc91a1595ca3f0438333edb53018328c4146922a65f64e274690cc26",
+      "generated_manifest_sha256": "599f0cd7e1320140db971ce89f5d1a869ab724c76f4ec1e4466f929c42a74013"
+    },
+    {
+      "crate": "wasm-bindgen-test-0.3.50",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "9d43fcef4d82a2cfcd0057d5ff1aea2a254754ca92d978ef1cfd08bb96c091eb",
+      "generated_manifest_sha256": "4a5ae83406b45ba90838f10b38d8ab84807f6bc4cf05be205f3a4f4e2f046a10"
+    },
+    {
+      "crate": "wasm-bindgen-test-macro-0.3.50",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b4c927985c5b0ffe0aefa03d086b5eb531bb3ba0d355f611dd13d71ca5d4137b",
+      "generated_manifest_sha256": "ee3c28eadd8239660a06d6ebd97304c443f45fad801a90f63ce2c12b78b3b8da"
+    },
+    {
+      "crate": "web-sys-0.3.77",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "18d6cec674c839c6e95b48e1890da9ac6081d294f6075e367d972239c5bf1d41",
+      "generated_manifest_sha256": "ad7b568216861d0fed40f07f25cbdfaeaafde9e57b5da3fcf026cce5c30c3b35"
+    },
+    {
+      "crate": "web-time-0.2.4",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "3c57670bb58a577e67de219969bfa858b686eb286ca222ed9c9a627daf99a8a4",
+      "generated_manifest_sha256": "0efde3bcc21669ebfae04ee417f3118481f004e58ecca92c719f97370fdc6a9b"
+    },
+    {
+      "crate": "webpki-roots-0.26.11",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "1687325f5ca2c3a60880800096e6a2e5902658b5b460ee76e06a45777fd737f8",
+      "generated_manifest_sha256": "cbd8e8d501baa6804bf6c250081401406033c1abeb016485c28efe79a43a9806"
+    },
+    {
+      "crate": "webpki-roots-1.0.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "81a8f34932d9fc0180deed9f4928f0d4f10e4e021159d44b3b56a87ec435a890",
+      "generated_manifest_sha256": "6c777958fba2417e6ee5e17492504d9a33cb7235e8efb2771dd2a98e26a40801"
+    },
+    {
+      "crate": "which-7.0.3",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "6c39b1a1865b31286fc1476882ec08643c00f2a87ea3e487a6b89af8e3cb6888",
+      "generated_manifest_sha256": "115e492334ac3d8ae74dbe33b15d97d6a7d7552c073c572fc5228a3460c6c9fe"
+    },
+    {
+      "crate": "winapi-0.3.9",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "d25b7c71c515a1869c75b3ff957bf845386bec03bcb407532e3726919f0b36c7",
+      "generated_manifest_sha256": "42422619ea4741272bb48f1a1bf22e128e35992a4797ff0c166cfd79d88dfab8"
+    },
+    {
+      "crate": "winapi-i686-pc-windows-gnu-0.4.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "9652222664ffc7e2a26fdcdebdce0917a455b39d8fbcbf451bf0b011a3067bf7",
+      "generated_manifest_sha256": "89a01fe9644386ca44ac6528d9ca1e13fed5143f850d4d092246aadb0d15d142"
+    },
+    {
+      "crate": "winapi-util-0.1.9",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b9d4197841980b956399ad9455cc5e009c0b662d4cc9e9039483af7012a18a59",
+      "generated_manifest_sha256": "6073545b24ac69859f98836cf8796443861328c6442844f6e07a64228594d506"
+    },
+    {
+      "crate": "winapi-x86_64-pc-windows-gnu-0.4.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a88605a11db5def9b6cf73398e83b3edb72228cb43ea935729fac5cd33cec22c",
+      "generated_manifest_sha256": "17c9d484d05f22c1220a2c9df03c1893bcab53848e947c55815502ccea4a694b"
+    },
+    {
+      "crate": "windows-0.57.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "14d7757ca0c46ce82b7dae2e7c3ba132bc168e9797234fb20e19288774aa784c",
+      "generated_manifest_sha256": "70cd6efe25c860b1a0d4e1035dbcdd90de557c0a1da3773ebaf682a2aa8ee546"
+    },
+    {
+      "crate": "windows-core-0.57.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "2e83268d97f74f748659dd819cff376687ea4bcd22894ffadab816b4845ba105",
+      "generated_manifest_sha256": "f787180e0f94a4b72582295660abd0f9c232539fe1cedc814299ff007b900fb6"
+    },
+    {
+      "crate": "windows-core-0.61.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "456dc07cec06c3e91d1bb7b109e24148db18a7d68671eb0f8c66bf67c1857284",
+      "generated_manifest_sha256": "0ae57bef5798312b5a355e790fc0bedde693cf7f0bb37f7924a7e1ac5e61c59f"
+    },
+    {
+      "crate": "windows-implement-0.57.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b3e230facc67c1a778fca2930c3d78c13aeaeafdb3561e4e53e30fbfebc50387",
+      "generated_manifest_sha256": "c5e05778bd0b49ddbaf7100f61cfdcd0f58e84f20e8f692fed045c1e2bcecc7f"
+    },
+    {
+      "crate": "windows-implement-0.60.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "4dab9cdda3e2a5cf3b4212f42b3ddcba34ecb766ffc0bd3449264289165aa73f",
+      "generated_manifest_sha256": "1faa5c255acd18d9db20331a0297bf737c68b0c88631be14a12329e395939c26"
+    },
+    {
+      "crate": "windows-interface-0.57.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a18ba193dab0e6519317de85105f90922aed0c753c1a3517192b262813c697f5",
+      "generated_manifest_sha256": "b4bba62393cdc65a0d7d0bcb7931165c1a1bcbd9bc8ae81aaa00d30f89676023"
+    },
+    {
+      "crate": "windows-interface-0.59.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "744f3033320d71ddbd8c260605dc161b856e29abcf4a7ea8751f2d5ffb1df75e",
+      "generated_manifest_sha256": "980dfb7fcc12589aa65ab4eec306d849c514de22f394abf386b5d3f284c2d142"
+    },
+    {
+      "crate": "windows-link-0.1.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "bff03cd2cb573427f5db58e0553ef8291fba08c9dda06b4a3bff8d0488fe4526",
+      "generated_manifest_sha256": "e937359a03c5e85defdaea58185100b2c2f02bb8cff6e7a97014ed9e17a13d2a"
+    },
+    {
+      "crate": "windows-result-0.1.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "7c387344a01ed416ce6b5e83ba87a0c32fe0c5507bcc44143932ab686c281732",
+      "generated_manifest_sha256": "dc296501e6bda2b442ca5cac81808b80aedc5cec55712ac7665d06501e67297f"
+    },
+    {
+      "crate": "windows-result-0.3.4",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "7f11a5d3c8caba1677f50b00571a44969b1099744c16199baad15c1a15cd2ad1",
+      "generated_manifest_sha256": "fbc653088adb791fee0c4118ccb7c0959e726bb639a92d7eff89d4db7c961ebe"
+    },
+    {
+      "crate": "windows-strings-0.4.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "22709084fde58a11249eeae779b2708377a49958b65180020d712a8c5aafb5a9",
+      "generated_manifest_sha256": "04bb069229092865597810898e7fbcb8acb7a78fee83cb242ea1e3eb9d35e1d0"
+    },
+    {
+      "crate": "windows-sys-0.48.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "785d826140f7c52e4631ae761517fd32390f332a705a87b6ca71623c4d7997a2",
+      "generated_manifest_sha256": "5feb22060ed08cf0bd5c00c6fdbf43795d02e1a28aed4283805e0495008bbbce"
+    },
+    {
+      "crate": "windows-sys-0.52.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "ff53899cc9a441f18f66fd21c4784716a0aab5020a21cba5764ac8ee1e1f34cd",
+      "generated_manifest_sha256": "f8451504d5cc766ecb8edd4b6aa3a95a03308961d30385b9b01f52a0cb52ca4e"
+    },
+    {
+      "crate": "windows-sys-0.59.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "07576ed48257647854834ec9a8cde3bb55ffb59296a0a0efa28a9f2f141800d7",
+      "generated_manifest_sha256": "65b83a6496ebf1af9ecd53300a2e96873017b2f4f2f5cb2421332b2fa8d85d9f"
+    },
+    {
+      "crate": "windows-targets-0.48.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "93ac4dab0542eb56e36fd608b4b53bf6424aa1301aa2ba4b4619f038bb65f839",
+      "generated_manifest_sha256": "cc2d91f5b8906ca8610529698615267502ec89fb0c730acc7ec4dd7f6c3abe96"
+    },
+    {
+      "crate": "windows-targets-0.52.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "315c2609b517bc97f1ddb62ecdadfc66f44f03f6bceb74adcdc3cec26f2126b6",
+      "generated_manifest_sha256": "efdd96e4efbb9c0f8005a1a556a8adaf1b1a7db556583ea8a410dfd67fbc2248"
+    },
+    {
+      "crate": "windows-targets-0.53.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "4af1fe1df875336ef1a676d62b5b8ba06dcad3c1d4cf9ef5e878ab4c28b59ef8",
+      "generated_manifest_sha256": "4cb03b22590a94f3e076f60d6ea28f834283a326ec66131927b966699b73b9bb"
+    },
+    {
+      "crate": "windows_aarch64_gnullvm-0.48.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "00179999ef14d8b04c6e0f7e73f73bf7f2399c506131aa949bbb0bb94827b7d2",
+      "generated_manifest_sha256": "a8f2106e47d70d738b089b6c3c4f2f30bb48391eed794cb3c23167bf602e470d"
+    },
+    {
+      "crate": "windows_aarch64_gnullvm-0.52.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "7535a631f6950dae31847b64f09469b499bc00fc492374fbb37589cfb9f2d02e",
+      "generated_manifest_sha256": "218f292798ac3318a53e03a9e17f497d3875199387cd015dd5a2f40be9a866fb"
+    },
+    {
+      "crate": "windows_aarch64_gnullvm-0.53.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "df4887f030ad48dba0f0c2dbe0f06fb8c75959262f6b06180b678f7b5ea8e1e3",
+      "generated_manifest_sha256": "e007611266ed624b8b05e90ce79e78c4be6fe7a98e87eb5a0afcc7361b6245ba"
+    },
+    {
+      "crate": "windows_aarch64_msvc-0.48.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "8b36b4927aaaf3cbec161986a224296a51294bb955534fe57e27009c4687dee8",
+      "generated_manifest_sha256": "e4302631f367e553da5a226c11366fcaf5881bed33f9c1cb7727195120726c73"
+    },
+    {
+      "crate": "windows_aarch64_msvc-0.52.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "36a94f20ae8c86cfc38b0489dc9c4a9d0607d5f8e1e3216c866eae9e5bd2d5a5",
+      "generated_manifest_sha256": "0c75d2dec0075949d24965e9ca95b2218984e643a7bdc8bf73b5a3c33699df8f"
+    },
+    {
+      "crate": "windows_aarch64_msvc-0.53.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "909ad3bbdab02ec1a88e7c7a019843afdd8fc57826493663c7dc03cc4e7f153a",
+      "generated_manifest_sha256": "b1359b702d7ee68bbe04214fd6a0b6a0629ca080a70c925064bf523f71ebe41d"
+    },
+    {
+      "crate": "windows_i686_gnu-0.48.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "1c0389f891c27af0e3cb34c38e4308b0177012ae188c99729dcff69116e6f6a6",
+      "generated_manifest_sha256": "a28e28fcda86812c05aeae12d53dd8e88eb2b12a0fef0488b791e5aa509327c3"
+    },
+    {
+      "crate": "windows_i686_gnu-0.52.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "bd9f2440820141c9a41c21b48a9d98c4c14f41936afe10e911ba963aa2c35809",
+      "generated_manifest_sha256": "d57c188e8752bc737f679e9ba69e45db6f463d1b2fc41a9ae8d361cd3b3daf63"
+    },
+    {
+      "crate": "windows_i686_gnu-0.53.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "fb58d56871bc727fdd4b4392cee52c6f59206df36227cc777397b6d98ba2c51f",
+      "generated_manifest_sha256": "333e29c98cc0b23b9a41ff8e1b795e764181d46666932dd0fd98800c5c9f2bf7"
+    },
+    {
+      "crate": "windows_i686_gnullvm-0.52.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "ab3340805fce89252fa7d9c7e38fcdc2d8f5aa114dfdaa4d7926c7265ea54f38",
+      "generated_manifest_sha256": "787f87daf17b24541d669ec9253f1bf3f92ab3208ae0c7d3058b02960f54dacf"
+    },
+    {
+      "crate": "windows_i686_gnullvm-0.53.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "2b4f478ff4e3b1e61d2b5f13ec4b04367b332191e98a046e3c35f2181fa9c3ee",
+      "generated_manifest_sha256": "e4cbca9d41dfedfff3655daedd1aa8d00029032170f5fb7ab3426648b7d7f920"
+    },
+    {
+      "crate": "windows_i686_msvc-0.48.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "a35fd9001d4be05bb3b661df76986deb4e7f81a41bda59d81b415ddfd4f795a2",
+      "generated_manifest_sha256": "2de14f541cbd884b32a7883372b106095ec6cb061439bc283e6fc0d91c950b91"
+    },
+    {
+      "crate": "windows_i686_msvc-0.52.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "30419314e9cb467e2ddfe347f1626a9b59f030041bcdc9cb563cbc5a39fc4a5f",
+      "generated_manifest_sha256": "bba6d6177cd7b8e43d37aa0fb077a7bf07af467527c75bc5ea522d3bdef1bd83"
+    },
+    {
+      "crate": "windows_i686_msvc-0.53.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "58524909c54732dca2e7016e6f985f646e47969148ce806e3d44b145b02c44cb",
+      "generated_manifest_sha256": "9fed789570c60d8b7c855472f5d7507cd75427833ba48a45966e74d0f0f53244"
+    },
+    {
+      "crate": "windows_x86_64_gnu-0.48.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "07d82446d9957667a6a137de519e94544a19302391b4e33de6e6d26cab981d77",
+      "generated_manifest_sha256": "c0b275353930ef8890b5fab94e1787d4bc8fddb62762c4f71fae368702795eeb"
+    },
+    {
+      "crate": "windows_x86_64_gnu-0.52.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "7bd069878ae02213cb113a56b15a1eac497a697de64ec0006bb0930c49b65386",
+      "generated_manifest_sha256": "eb1cc58d5375badbd9803b62c6427a27959a23de1e4b76a7ce748899b50fd433"
+    },
+    {
+      "crate": "windows_x86_64_gnu-0.53.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "f453eb3fb4643982423425793ce9da134d4820676c28edc3ee55d1989e3ac34a",
+      "generated_manifest_sha256": "99b89f231f0ee33150fd1274f40fbfb5542b0a9b0c9d9f0275c23cca8d7caf16"
+    },
+    {
+      "crate": "windows_x86_64_gnullvm-0.48.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "9197179a8767a782571f4764ab4413940020a4a155de0c4378c9681dc0891333",
+      "generated_manifest_sha256": "4f3d3224b588ef01480708d5f972b948bb71eb0b29b4572ca8ceac21825b57d0"
+    },
+    {
+      "crate": "windows_x86_64_gnullvm-0.52.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b4e30fa8303981a233886a54ab98a180041adf2815f4a0d45e34484e5fb20585",
+      "generated_manifest_sha256": "e83e73639947a21a0e216cfad0b220476ec4994a5ac93bd045a14e59d35af212"
+    },
+    {
+      "crate": "windows_x86_64_gnullvm-0.53.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b09409f9fe1ce97372595d31ecddd81a948cef6f6977dae80743952e3860bd6f",
+      "generated_manifest_sha256": "3f9302db441a2bc1de4fbc1f305efdf4f46090136f65f98aa5fc8b10d46ee016"
+    },
+    {
+      "crate": "windows_x86_64_msvc-0.48.5",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "31fc0613dd41a20ea6963ace966c06a11afe06cc62465a7eb2e706667f6d6d02",
+      "generated_manifest_sha256": "f2a5d3f59839b16ba9d280af0ffdf43f2f9a2c5af081b9eeb5c66153eef0e22c"
+    },
+    {
+      "crate": "windows_x86_64_msvc-0.52.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "cebfc4eefe4d2c0da8ab97e31e3f5a518fc9db453a131d31d84dcdb5c16acb26",
+      "generated_manifest_sha256": "0a75ab783f1362f9bc7c3ca0ce8e24ad4497269b917594f7ec8bae13daab0aeb"
+    },
+    {
+      "crate": "windows_x86_64_msvc-0.53.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "6b80c1b474b1fcd4111485a5caf304953b72c474c0aefa05e1df9064865db96d",
+      "generated_manifest_sha256": "ae84af5c81400344457d1a5888abdecf412445454ae321297b8de0532901df2c"
+    },
+    {
+      "crate": "winnow-0.7.11",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "92313b412b8800f5e8b437b8260184b051532b5bf2811fcdc17ce4c6f990c4fd",
+      "generated_manifest_sha256": "704d6f9e40f3415fa68ba46e7986b5f6bc6a8fde95198c5ed7b85bfe07d4b6b1"
+    },
+    {
+      "crate": "winsafe-0.0.19",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "b4f7686d1aa1010a6306568b4df90ae87ce45c72338be639c5f36c5db880fafc",
+      "generated_manifest_sha256": "36357bd9ee56a6b436e57c41e30d55ae2c2cb7ffab617fe381ee156b7fa0457d"
+    },
+    {
+      "crate": "wit-bindgen-rt-0.39.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "3afc3d79b7c8dc63f0c9bc2c795f4f7dbca85807618636a4b594524ed20d53ed",
+      "generated_manifest_sha256": "59a7624553b3d7dca10156ee4dcd6908644b083d20f3e05437f4db3ab487cf28"
+    },
+    {
+      "crate": "writeable-0.6.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "298a52da95aa60f0c4f1e774f923fa4dfca0f444ac85ed39dbb0040b2d0cc45a",
+      "generated_manifest_sha256": "ff8ef15ebc579c941ff22769fe7e07c5f1a3b58a35386addfc347e0ab98a3b68"
+    },
+    {
+      "crate": "xattr-1.5.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "2b7aa2825d16ec74b280c86eff067e3a5dba8fdcdec6c636bb77a3afa89f5712",
+      "generated_manifest_sha256": "4341ae27a06b2109bda7df53448a2bd9be816c972d0634c40d8fddeaf1b8ec5b"
+    },
+    {
+      "crate": "yoke-0.8.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "f9a5a54c78aed49176658f805e96a6a96add1e10e79a7cff0d6ebe7efc36267a",
+      "generated_manifest_sha256": "dfa7f9e6628ed368fed13a21f20c0c90df589faeec9b012940084729869d6c4b"
+    },
+    {
+      "crate": "yoke-derive-0.8.0",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "72441bd7e852f3174204382615ca6d32fb737ff7aafb455f75b1102c5ab9fe3f",
+      "generated_manifest_sha256": "6aac2f0ec38dd8527097e96cf64187dc699f31b52d95c41a0404ac3f05cfe2f1"
+    },
+    {
+      "crate": "zerocopy-0.8.25",
+      "status": "original_source",
+      "original_manifest_sha256": "c96180e1b5be3ac422c3beb240936c140e2b8b944f78649032e075d973a426d8"
+    },
+    {
+      "crate": "zerocopy-derive-0.8.25",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "4fa076ccd9552f77e4039db9933ee94a4a06853f8bd9a709903436fbdf786928",
+      "generated_manifest_sha256": "42f9ea7f0ce089c436d960cf9f9c9dbeed8ffd9cf01f453ff43d17e15d0990f8"
+    },
+    {
+      "crate": "zerofrom-0.1.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "83a794ae5d54368a14328428b87d7dfbacedfce5af37cd8f6ef7486db492916b",
+      "generated_manifest_sha256": "81bd99a9d61dc985831e6df366bc47a2ca863197a5caaadd21889052f2af8cfc"
+    },
+    {
+      "crate": "zerofrom-derive-0.1.6",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "f40baba6038bc2ebbbe173d602be2679db6ce248590cfd01a136ce42005965d4",
+      "generated_manifest_sha256": "a96cc91eb6d4b605170c827b9b2f6b9fd2dc72ae75268802e70972cdcfc237d0"
+    },
+    {
+      "crate": "zeroize-1.8.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "5ef1741913fd7ade98e1f1960f24dacacfc69947bc14a8247c2e22c7d8f44465",
+      "generated_manifest_sha256": "e51b92feca073b43a79670a43d0d91483c8551e7f03aafee04406adbe8cf8336"
+    },
+    {
+      "crate": "zerotrie-0.2.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "51b4e43e670ff1a0552f6973efdf26eba7063a2f5e91e3b734501e41b2bcd6cb",
+      "generated_manifest_sha256": "7cce3cb4c5beb630505ba63c5a49e1a435b6aa8a8ee837d1e59ce564a052c3b8"
+    },
+    {
+      "crate": "zerovec-0.11.2",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "7cddacf719cf4af3c16e8992bd6dd631759a86638097033b5750160cfee3b90e",
+      "generated_manifest_sha256": "1adfa26752f6ea73726adf5b1aa8abcd896bb93ed065bdc246cfb06f958d834a"
+    },
+    {
+      "crate": "zerovec-derive-0.11.1",
+      "status": "generated_resolution_stub",
+      "original_manifest_sha256": "d772679a28dfb795f9ff0d398de47a94194e05d69fcef29a6f99cab60a1a464a",
+      "generated_manifest_sha256": "f0cf6c375404450aa0b63c3aa2a7df1cdf4de6bdc3a306255490bac654784086"
+    }
+  ],
+  "arm_build_status": "not tested",
+  "reference": "https://github.com/coreos/cargo-vendor-filterer (same resolution-stub principle; this is independent implementation, not execution of that tool)"
+}

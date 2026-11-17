@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>trilayer_l1_core</name><version>0.1.0</version>
+  <description>Frozen P6 map-only L1 grid guide search subset.</description>
+  <maintainer email="doribelove@gmail.com">Doribelove</maintainer>
+  <license>Apache-2.0</license>
+  
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+  <exec_depend>python3-opencv</exec_depend><exec_depend>python3-numpy</exec_depend><exec_depend>python3-scipy</exec_depend>
+  <url type="repository">https://github.com/Doribelove/pudu_robot_ws</url>
+<url type="bugtracker">https://github.com/Doribelove/pudu_robot_ws/issues</url>
+<!-- Direct test imports and exercised integration dependencies; not build exports. -->
+<test_depend>python3-numpy</test_depend>
+<test_depend>python3-scipy</test_depend>
+<test_depend>python3-opencv</test_depend>
+<export><build_type>ament_cmake</build_type></export>
+</package>

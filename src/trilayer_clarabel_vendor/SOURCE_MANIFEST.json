@@ -1,0 +1,21 @@
+{
+  "source_archive": "clarabel-0.11.1-filtered-python-linux.tar.gz",
+  "sha256": "adcaeb8f091909cc2926c18093ffb91af687957bf81b603f1960c14ff0478e73",
+  "clarabel_version": "0.11.1",
+  "cargo_lock_sha256": "6cdbeb288c854412867cc59262881236c34608d3eae42d22f481dffd8820c0f4",
+  "features": [
+    "python",
+    "default"
+  ],
+  "targets_retained": [
+    "x86_64-unknown-linux-gnu",
+    "aarch64-unknown-linux-gnu"
+  ],
+  "tested_target": "x86_64-unknown-linux-gnu",
+  "source_crates": 144,
+  "resolution_stubs": 189,
+  "release_status": "BLOCKED: distribution/legal review, new rustc-1.85/cargo-1.85 rosdep mappings, actual ROS buildfarm validation, ARM untested",
+  "root_source": "https://pypi.org/project/clarabel/0.11.1/",
+  "filter_method": "Original active sources, generated fail-closed inactive resolution-only stubs; see provenance/FILTER_MANIFEST.json",
+  "jammy_toolchain_test": "Official Jammy universe 1.85.1 debs SHA-verified and extracted without installation; clean isolated ament build and 4-case parity passed on amd64"
+}

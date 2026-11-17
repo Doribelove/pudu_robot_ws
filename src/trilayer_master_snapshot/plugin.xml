@@ -1,0 +1,5 @@
+<library path="trilayer_master_snapshot">
+  <class name="trilayer_master_snapshot::MasterSnapshotLayer" type="trilayer_master_snapshot::MasterSnapshotLayer" base_class_type="nav2_costmap_2d::Layer">
+    <description>Read-only mutex-bound master snapshot service; no costmap writes.</description>
+  </class>
+</library>

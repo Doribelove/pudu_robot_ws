@@ -1,0 +1,9 @@
+{
+  "profile": "p6",
+  "arm": "H-I",
+  "frame": "map",
+  "vehicle": {"half_length_m": 0.265, "half_width_m": 0.225, "minimum_turning_radius_m": 0.4},
+  "whole_worker_timeout_s": 60,
+  "master_service": "/global_costmap/trilayer_get_costmap",
+  "note": "The original vehicle and P6 configuration are fixed in this entry. This file documents, rather than overrides, algorithm settings."
+}

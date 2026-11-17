@@ -1,0 +1,14 @@
+# CI-only local mappings. NOT accepted upstream rosdep rules.
+# Register only on the disposable GitHub-hosted Jammy runner.
+python3-setuptools-scm:
+  ubuntu:
+    jammy: [python3-setuptools-scm]
+python3-pybind11:
+  ubuntu:
+    jammy: [python3-pybind11]
+rustc-1.85:
+  ubuntu:
+    jammy: [rustc-1.85]
+cargo-1.85:
+  ubuntu:
+    jammy: [cargo-1.85]

@@ -1,0 +1,124 @@
+[
+  {
+    "file": "arena_evaluation/semantic_map.py",
+    "symbol": "canonical_hash",
+    "lines": [
+      28,
+      34
+    ],
+    "sha256": "54f181cce4b63264fcc998076a45222d214c22ab33b2c45596d6d5bcc768f6aa"
+  },
+  {
+    "file": "arena_evaluation/semantic_rasterizer.py",
+    "symbol": "_world_polygon_cells",
+    "lines": [
+      35,
+      45
+    ],
+    "sha256": "080c52d3581f63ae6c8e82ad207b22327e3a2cb5123bb4202c3dc15b57140650"
+  },
+  {
+    "file": "arena_evaluation/semantic_rasterizer.py",
+    "symbol": "rasterize_feature",
+    "lines": [
+      48,
+      57
+    ],
+    "sha256": "9ce00a5653dcb4a86eda5f19b913e51b4d80df270ccf7aaa0d95bce64267175b"
+  },
+  {
+    "file": "arena_3d_v1/multires_topology.py",
+    "symbol": "TopologyRoute",
+    "lines": [
+      12,
+      21
+    ],
+    "sha256": "9cda3995dec4bcd6df7d12245feca3b7f2e7ee10c85861a2e916ad9d9b7a5bf0"
+  },
+  {
+    "file": "arena_3d_v1/semantic_world.py",
+    "symbol": "json_write",
+    "lines": [
+      18,
+      20
+    ],
+    "sha256": "725fd4f40c585f932ce1c5b33ed9ced2008bbb30e397a5429290094bce146a1e"
+  },
+  {
+    "file": "base/src/three_yd_v4/r5_guidance.py",
+    "symbol": "cross_section",
+    "lines": [
+      11,
+      20
+    ],
+    "sha256": "1718586c77aa27f2e3327c18c3e89cdc851929118fbc5ad6b4d533cedeb40cea"
+  },
+  {
+    "file": "base/src/three_yd_v4/r5_topology.py",
+    "symbol": "R5Topology.endpoint_options",
+    "lines": [
+      42,
+      52
+    ],
+    "sha256": "5e3e9e01e7d8fdd3f263a8285b4cbf13433f4cb3c91498db9e7d84624c46aff5"
+  },
+  {
+    "file": "base/src/three_yd_v4/r5_topology.py",
+    "symbol": "R5Topology._allowed_direction",
+    "lines": [
+      53,
+      59
+    ],
+    "sha256": "2c558903d0150e1673f5045472a319d4dad550253e44ffddc2050a530d702ff3"
+  },
+  {
+    "file": "base/src/three_yd_v5/topology.py",
+    "whole_source_sha256": "c68518344716d9a270595530d391bed5d30375a16a41ada3ac8b24298c6051fd",
+    "import_rewrites": [
+      [
+        "from arena_evaluation.semantic_map import canonical_hash",
+        "from .semantic_support import canonical_hash"
+      ],
+      [
+        "from arena_evaluation.semantic_rasterizer import rasterize_feature, _world_polygon_cells",
+        "from .semantic_support import rasterize_feature, _world_polygon_cells"
+      ],
+      [
+        "from arena_3d_v1.multires_topology import TopologyRoute",
+        "from .semantic_support import TopologyRoute"
+      ],
+      [
+        "from arena_3d_v1.semantic_world import json_write",
+        "from .semantic_support import json_write"
+      ],
+      [
+        "from three_yd_v4.r5_guidance import cross_section",
+        "from .semantic_support import cross_section"
+      ],
+      [
+        "from three_yd_v4.r5_topology import R5Topology",
+        "from .semantic_support import R5EndpointRules as R5Topology"
+      ]
+    ],
+    "algorithm_changes": false
+  },
+  {
+    "file": "base/src/three_yd_v5/topology_astar.py",
+    "whole_source_sha256": "29fef4e691a6f54ecea7980eafd080c0c80bc0e7b243a2cbf2f373374ed0f2e2",
+    "import_rewrites": [
+      [
+        "from arena_evaluation.semantic_map import canonical_hash",
+        "from .semantic_support import canonical_hash"
+      ],
+      [
+        "from arena_3d_v1.multires_topology import TopologyRoute",
+        "from .semantic_support import TopologyRoute"
+      ],
+      [
+        "from .topology import V5Topology, join_selected_road_lines, right_line",
+        "from .semantic_topology import V5Topology, join_selected_road_lines, right_line"
+      ]
+    ],
+    "algorithm_changes": false
+  }
+]

@@ -1,0 +1,41 @@
+name: "Setup ROS environment"
+description: |
+  Install system dependencies required to build ROS and ROS 2 packages
+author: "ROS Tooling Working Group"
+branding:
+  icon: "box"
+  color: "gray-dark"
+inputs:
+  use-ros2-testing:
+    description: |
+      Enable use of the ROS2 pre-release testing debs.
+    required: false
+    default: "false"
+  install-connext:
+    description: |
+      Install RTI Connext (and by default accept non-commercial license).
+    required: false
+    default: "false"
+  required-ros-distributions:
+    description: |
+      List of binary ROS distributions to be installed.
+
+      On Ubuntu, this installs the desktop variant for the given distribution.
+      On Windows, this downloads and extracts the binaries for the given distribution.
+      This parameter is ignored on macOS.
+
+      Allowed ROS distributions
+      - "" (no value) - no ROS binary installation
+      - humble
+      - jazzy
+      - kilted
+      - lyrical
+      - rolling
+
+      Multiple values can be passed using a whitespace delimited list
+      "noetic humble".
+    required: false
+    default: ""
+runs:
+  using: "node24"
+  main: "dist/index.js"

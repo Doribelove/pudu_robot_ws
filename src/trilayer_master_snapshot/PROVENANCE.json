@@ -1,0 +1,9 @@
+{
+  "delta_snapshot.hpp": {
+    "sha256": "7715d95339251e27f43acb51f3b15be60d6c65c8638965f3b746b7d9f489e0c9",
+    "source": "3YDL3-V13-P6-delivery/runtime/3YDL3-V13-L2/base/runtime/base/native/delta_snapshot.hpp",
+    "commit": "a98a639a8ac9b7b50c14f8a69c393706db4cc3ae",
+    "modified": false
+  },
+  "master_snapshot.cpp": "New source using original valid-request wire behavior; stock Nav2 layer API, no costmap writes"
+}

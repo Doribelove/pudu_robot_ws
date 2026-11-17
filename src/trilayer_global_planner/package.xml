@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>trilayer_global_planner</name><version>0.1.0</version>
+  <description>TriLayer P6 entry with CLI, persistent service and Nav2 planner integration dependencies.</description>
+  <maintainer email="doribelove@gmail.com">Doribelove</maintainer>
+  <license>Apache-2.0</license>
+  <buildtool_depend>ament_cmake</buildtool_depend><buildtool_depend>ament_cmake_python</buildtool_depend>
+  <exec_depend>trilayer_p6_runtime</exec_depend><exec_depend>trilayer_nav2_planner</exec_depend><exec_depend>trilayer_osqp_vendor</exec_depend>
+  <exec_depend>python3-psutil</exec_depend><exec_depend>python3</exec_depend>
+  <url type="repository">https://github.com/Doribelove/pudu_robot_ws</url>
+<url type="bugtracker">https://github.com/Doribelove/pudu_robot_ws/issues</url>
+<!-- Direct test imports and exercised integration dependencies; not build exports. -->
+<test_depend>python3-psutil</test_depend>
+<test_depend>trilayer_p6_runtime</test_depend>
+<export><build_type>ament_cmake</build_type></export>
+</package>
