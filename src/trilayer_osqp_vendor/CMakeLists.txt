@@ -5,12 +5,17 @@ find_package(ament_cmake_python REQUIRED)
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
 ament_get_python_install_dir(PYTHON_INSTALL_DIR)
 set(TRILAYER_OSQP_BUILD_PYTHONPATH "" CACHE PATH "Explicit offline build-only Python dependency directory, e.g. extracted Jammy setuptools-scm")
+option(TRILAYER_OSQP_EXPERIMENTAL_ARM64 "Explicitly allow unvalidated Linux aarch64 source build" OFF)
+set(osqp_arch_args "")
+if(TRILAYER_OSQP_EXPERIMENTAL_ARM64)
+  list(APPEND osqp_arch_args --allow-experimental-arm64)
+endif()
 set(vendor_work "${CMAKE_CURRENT_BINARY_DIR}/vendor_work")
 add_custom_command(OUTPUT "${vendor_work}/complete.json"
   COMMAND ${CMAKE_COMMAND} -E env PYTHONNOUSERSITE=1
     "PYTHONPATH=${TRILAYER_OSQP_BUILD_PYTHONPATH}"
     ${Python3_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_vendor.py"
-    --source-root "${CMAKE_CURRENT_SOURCE_DIR}" --work "${vendor_work}"
+    --source-root "${CMAKE_CURRENT_SOURCE_DIR}" --work "${vendor_work}" ${osqp_arch_args}
   DEPENDS scripts/build_vendor.py SOURCES_AND_LICENSES.json
     sources/osqp-0.6.7.post3.tar.gz sources/qdldl-0.1.7.post5.tar.gz
   VERBATIM)

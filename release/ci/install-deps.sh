@@ -6,7 +6,7 @@ set -euo pipefail
 }
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
 source /etc/os-release
-[[ "$ID" == ubuntu && "$VERSION_ID" == 22.04 && "$(uname -m)" == x86_64 ]] || exit 2
+[[ "$ID" == ubuntu && "$VERSION_ID" == 22.04 && ( "$(uname -m)" == x86_64 || ( "$(uname -m)" == aarch64 && "${TRILAYER_EXPERIMENTAL_ARM64:-}" == 1 ) ) ]] || exit 2
 mkdir -p "$root/.ci_ws/evidence"
 exec > >(tee "$root/.ci_ws/evidence/dependency-install.log") 2>&1
 sudo apt-get update

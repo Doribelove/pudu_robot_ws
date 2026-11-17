@@ -1,3 +1,5 @@
+> Experimental ARM validation branch. ARM support is not claimed until the native runner completes its full source build and tests. The OSQP opt-in is OFF by default. This branch is separate from `trilayer-humble-source` and the original `main`.
+
 # TriLayer Global Planner
 
 Source packages for ROS 2 Humble on Ubuntu 22.04. This is a release-preparation branch, **not an available ROS apt release**. The current verified architecture is amd64; ARM64 is not yet enabled in the OSQP vendor.

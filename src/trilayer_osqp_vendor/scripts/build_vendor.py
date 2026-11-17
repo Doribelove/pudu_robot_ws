@@ -20,8 +20,10 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--source-root',type=Path,required=True)
     parser.add_argument('--work',type=Path,required=True)
+    parser.add_argument("--allow-experimental-arm64",action="store_true",help="Unvalidated Linux aarch64 build, explicit test-only opt-in")
     args=parser.parse_args();root=args.source_root.resolve();work=args.work.resolve()
-    if platform.system()!='Linux' or platform.machine()!='x86_64':
+    experimental_arm64=platform.machine()=='aarch64' and args.allow_experimental_arm64
+    if platform.system()!='Linux' or not (platform.machine()=='x86_64' or experimental_arm64):
         raise RuntimeError('This prototype vendor is validated only on Linux amd64; ARM is not enabled')
     if work==root or root.is_relative_to(work):raise RuntimeError('work must not contain sources')
     marker=work/'.trilayer_osqp_owned'
@@ -70,6 +72,8 @@ def main():
     native=sorted(str(p.relative_to(stage)) for p in stage.rglob('*.so'))
     if len(native)!=2:raise RuntimeError('expected exactly two solver native extensions: '+repr(native))
     record={'schema':'trilayer-osqp-vendor-source-build-v1','architecture':platform.machine(),
+            'experimental_arm64_opt_in':args.allow_experimental_arm64,
+            'architecture_validation':'ARM UNVALIDATED' if experimental_arm64 else 'amd64 source build',
             'python':platform.python_version(),'build_packages':packages,'sources':sources,
             'built':built,'native_modules':native,'network_used_during_compile':False,
             'build_method':'original setup.py bdist_wheel; distribution-targeted NumPy ABI; fixed SCM version'}

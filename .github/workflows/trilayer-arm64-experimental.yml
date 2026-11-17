@@ -1,0 +1,64 @@
+# Explicit experimental branch: native ARM validation, not a release claim.
+name: TriLayer EXPERIMENTAL Humble ARM64
+on:
+  push:
+    branches: [trilayer-humble-arm-validation]
+  workflow_dispatch:
+    inputs:
+      experimental_arm64:
+        description: 'Explicit unvalidated ARM64 full build and test'
+        required: true
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: trilayer-arm64-experimental-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  humble-arm64-experimental:
+    if: ${{ !github.event.repository.private && ((github.event_name == 'push' && github.ref == 'refs/heads/trilayer-humble-arm-validation') || inputs.experimental_arm64) }}
+    runs-on: ubuntu-22.04-arm
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash
+    env:
+      TRILAYER_EXPERIMENTAL_ARM64: '1'
+      DEBIAN_FRONTEND: noninteractive
+      PYTHONNOUSERSITE: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - name: Checkout without persistent credentials
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          submodules: false
+          lfs: false
+      - name: Confirm native ARM64 and fresh build roots
+        run: |
+          test "$(uname -m)" = aarch64
+          test "$(dpkg --print-architecture)" = arm64
+          test ! -e .ci_ws
+          python3 -c 'import platform,struct; assert platform.machine()=="aarch64"; assert struct.calcsize("P")==8'
+      - name: Set up official ROS Humble packages
+        uses: ros-tooling/setup-ros@649ef6bcd696da05bc27ceb3fab69d810c0daeab # 0.7.19
+        with:
+          required-ros-distributions: humble
+          use-ros2-testing: false
+          install-connext: false
+      - name: Install manifest dependencies with explicit CI-only rosdep rules
+        run: bash release/ci/install-deps.sh
+      - name: Build solvers from source and build/test all independent packages
+        run: bash release/ci/build-and-test.sh
+      - name: Preserve build, source provenance and test logs
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: experimental-humble-arm64-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci_ws/evidence/
+          if-no-files-found: warn
+          include-hidden-files: false
+          retention-days: 14

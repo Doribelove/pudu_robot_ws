@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
-[[ "$(uname -m)" == x86_64 ]] || { echo 'ARM runtime/vendor support is not validated or enabled.' >&2; exit 2; }
+[[ "$(uname -m)" == x86_64 || ( "$(uname -m)" == aarch64 && "${TRILAYER_EXPERIMENTAL_ARM64:-}" == 1 ) ]] || { echo 'ARM runtime/vendor support is not validated or enabled.' >&2; exit 2; }
 [[ -f /opt/ros/humble/setup.bash ]] || { echo 'Stock ROS Humble is required.' >&2; exit 2; }
 work="$root/.ci_ws"
 mkdir -p "$work/evidence"
@@ -40,6 +40,7 @@ colcon --log-base "$work/log" build --base-paths "$root/src" \
   --executor sequential --packages-select trilayer_osqp_vendor trilayer_clarabel_vendor \
   --event-handlers console_direct+ --cmake-args -DBUILD_TESTING=ON \
   -DPython3_EXECUTABLE=/usr/bin/python3 \
+  -DTRILAYER_OSQP_EXPERIMENTAL_ARM64="${TRILAYER_EXPERIMENTAL_ARM64:-OFF}" \
   -DTRILAYER_CLARABEL_CARGO=/usr/bin/cargo-1.85 \
   -DTRILAYER_CLARABEL_RUSTC=/usr/bin/rustc-1.85 -DTRILAYER_CLARABEL_JOBS=2
 set +u
