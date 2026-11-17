@@ -1,7 +1,7 @@
 # TriLayer OSQP vendor
 
 Offline source build of **OSQP 0.6.7.post3 + QDLDL 0.1.7.post5** for Python3 on
-Ubuntu22.04/amd64. Original PyPI sdists, SHA256 and all source license notices are
+Ubuntu22.04 on Linux x86_64 and aarch64. Original PyPI sdists, SHA256 and all source license notices are
 included. No solver wheel/shared library is included in this source package.
 
 CMake builds from the hash-pinned sources in its binary directory, extracts the
@@ -27,9 +27,13 @@ The installed-space test checks imported OSQP/QDLDL paths are inside this prefix
 then solves two constrained QPs, an infeasible QP and a QDLDL linear system.
 Earlier source builds matched frozen P6 results on runtime NumPy1.21.5 and1.24.4.
 
+## Native architecture validation
+
+Native Ubuntu 22.04/Humble amd64 and aarch64 source builds plus all 47 synthetic CTests passed on GitHub Actions. ARM evidence: [run 44069917303](https://github.com/Doribelove/pudu_robot_ws/actions/runs/44069917303), commit `322401744b079e11ced8bf54f69785147d0b6d5a`; the runner reported `uname=aarch64`, `dpkg=arm64`. This is native CI coverage, not Jetson/Orin, Horizon J6M/BPU, or real-robot validation. The new dual-architecture workflow revision still requires its own subsequent CI.
+
 ## Release gates
 
-- Only amd64 was verified; this prototype explicitly rejects unvalidated ARM.
+- Linux x86_64/aarch64 are supported for the validated native CI source-build/test scope; no experimental ARM opt-in is required. Other OS/architectures remain rejected.
 - Jammy apt provides python3-setuptools-scm and python3-pybind11, but current
   rosdep lacks matching keys. `rosdep/proposed.yaml` is a proposal, not installed
   or submitted. Resolve upstream dependency rules before Bloom.

@@ -6,7 +6,8 @@ set -euo pipefail
 }
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
 source /etc/os-release
-[[ "$ID" == ubuntu && "$VERSION_ID" == 22.04 && "$(uname -m)" == x86_64 ]] || exit 2
+[[ "$ID" == ubuntu && "$VERSION_ID" == 22.04 ]] || exit 2
+case "$(uname -m)" in x86_64|aarch64) ;; *) echo 'Supported runner architectures: x86_64/aarch64 only.' >&2; exit 2 ;; esac
 mkdir -p "$root/.ci_ws/evidence"
 exec > >(tee "$root/.ci_ws/evidence/dependency-install.log") 2>&1
 sudo apt-get update

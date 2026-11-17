@@ -11,11 +11,22 @@
     "x86_64-unknown-linux-gnu",
     "aarch64-unknown-linux-gnu"
   ],
-  "tested_target": "x86_64-unknown-linux-gnu",
   "source_crates": 144,
   "resolution_stubs": 189,
-  "release_status": "BLOCKED: distribution/legal review, new rustc-1.85/cargo-1.85 rosdep mappings, actual ROS buildfarm validation, ARM untested",
+  "release_status": "BLOCKED: distribution/legal review, new rustc-1.85/cargo-1.85 rosdep mappings, actual ROS buildfarm validation",
   "root_source": "https://pypi.org/project/clarabel/0.11.1/",
   "filter_method": "Original active sources, generated fail-closed inactive resolution-only stubs; see provenance/FILTER_MANIFEST.json",
-  "jammy_toolchain_test": "Official Jammy universe 1.85.1 debs SHA-verified and extracted without installation; clean isolated ament build and 4-case parity passed on amd64"
+  "jammy_toolchain_test": "Official Jammy universe 1.85.1 debs SHA-verified and extracted without installation; clean isolated ament build and 4-case parity passed on amd64",
+  "tested_targets": [
+    "x86_64-unknown-linux-gnu",
+    "aarch64-unknown-linux-gnu"
+  ],
+  "architecture_validation": {
+    "scope": "Ubuntu 22.04 ROS Humble native GitHub Actions source builds and 47 synthetic CTests across 12 packages, including both solver vendors",
+    "arm64_run_url": "https://github.com/Doribelove/pudu_robot_ws/actions/runs/44069917303",
+    "arm64_commit": "322401744b079e11ced8bf54f69785147d0b6d5a",
+    "amd64_run_url": "https://github.com/Doribelove/pudu_robot_ws/actions/runs/44068616506",
+    "amd64_commit": "6efcf157ff618d01028f0725377bd51d49fafbb2",
+    "hardware_scope": "Native CI hosts only; not Jetson/Orin, J6M/BPU or robot hardware"
+  }
 }

@@ -3,7 +3,8 @@
 set -euo pipefail
 [[ ${TRILAYER_DEB_VALIDATION_REVIEWED:-} == yes && ${GITHUB_ACTIONS:-} == true && ${RUNNER_OS:-} == Linux ]] || { echo 'Requires reviewed disposable GitHub Linux runner'; exit 2; }
 source /etc/os-release
-[[ $ID == ubuntu && $VERSION_ID == 22.04 && $(uname -m) == x86_64 ]] || exit 2
+[[ $ID == ubuntu && $VERSION_ID == 22.04 ]] || exit 2
+case "$(uname -m)" in x86_64|aarch64) ;; *) exit 2 ;; esac
 src=$(realpath "${1:?source checkout root}")
 out=$(realpath -m "${2:?NEW output directory outside source checkout}")
 [[ ! -e $out && $out != "$src"/* ]] || { echo 'Refuse existing output or source modification'; exit 2; }
@@ -52,7 +53,7 @@ while IFS= read -r name; do
  parent="$out/build/$name"; mkdir -p "$parent"; cp -a "$src/src/$name" "$parent/source"; pkg="$parent/source"
  (
   cd "$pkg"
-  bloom-generate rosdebian --os-name ubuntu --os-version jammy --ros-distro humble -i 0localvalidation1
+  bloom-generate rosdebian --os-name ubuntu --os-version jammy --ros-distro humble -i 0localvalidation2
   version=$(dpkg-parsechangelog -S Version)
   dpkg --validate-version "$version"
   printf '%s\n' "$version" > "$out/evidence/$name.deb-version.txt"

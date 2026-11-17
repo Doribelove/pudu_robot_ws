@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
-[[ "$(uname -m)" == x86_64 ]] || { echo 'ARM runtime/vendor support is not validated or enabled.' >&2; exit 2; }
+case "$(uname -m)" in x86_64|aarch64) ;; *) echo 'Supported CI architectures: Linux x86_64/aarch64 only.' >&2; exit 2 ;; esac
+[[ "$(uname -s)" == Linux ]] || exit 2
 [[ -f /opt/ros/humble/setup.bash ]] || { echo 'Stock ROS Humble is required.' >&2; exit 2; }
 work="$root/.ci_ws"
 mkdir -p "$work/evidence"
@@ -28,8 +29,10 @@ collect() {
 }
 trap collect EXIT
 /usr/bin/python3 "$root/release/ci/check-layout.py" "$root"
+/usr/bin/python3 "$root/release/ci/test_architecture_support.py"
 df -h "$work"
 uname -a
+dpkg --print-architecture
 /usr/bin/python3 --version
 /usr/bin/rustc-1.85 --version
 /usr/bin/cargo-1.85 --version

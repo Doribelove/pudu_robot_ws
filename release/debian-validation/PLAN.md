@@ -134,3 +134,7 @@ of an artifact or a nonzero exit is not a passing validation. `<output>/debs`
 may be retained separately only as experimental binaries, not apt releases.
 The guard/platform/output-creation checks run before the trap: failures there
 are visible only in the Actions job log, with no artifact promised.
+
+## Native dual-architecture follow-up
+
+The workflow now validates native Ubuntu 22.04 amd64 and arm64 independently, based on the consolidated supported source revision. It uses increment `0localvalidation2`, distinct from the earlier amd64-only preview. It still uses explicit local rosdep rules and strict local test rules, not an official apt release. No cross-compiled or cached amd64 binary is reused on ARM.

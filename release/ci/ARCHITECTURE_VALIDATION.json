@@ -1,0 +1,30 @@
+{
+  "schema": "trilayer-architecture-ci-validation-v1",
+  "scope": "Ubuntu 22.04 ROS Humble native GitHub Actions source builds and 47 synthetic CTests across 12 packages, including both solver vendors",
+  "arm64": {
+    "run_url": "https://github.com/Doribelove/pudu_robot_ws/actions/runs/44069917303",
+    "commit": "322401744b079e11ced8bf54f69785147d0b6d5a",
+    "job_id": 133993242567,
+    "conclusion": "success",
+    "uname_machine": "aarch64",
+    "dpkg_architecture": "arm64",
+    "tests_passed": 47,
+    "artifact_id": 14323780740,
+    "artifact_sha256": "d04a49c7fd0d3d697febaed1dc2673b89c7df2d503dd642a863aed2963ea2ec5"
+  },
+  "amd64": {
+    "run_url": "https://github.com/Doribelove/pudu_robot_ws/actions/runs/44068616506",
+    "commit": "6efcf157ff618d01028f0725377bd51d49fafbb2",
+    "conclusion": "success",
+    "tests_passed": 47
+  },
+  "verification_source": "Coordinating release task inspected ARM job log and full47-test evidence; references supplied to this revision task",
+  "limits": [
+    "Not Jetson/Orin hardware validation",
+    "Not Horizon J6M/BPU validation",
+    "Not a real robot safety test",
+    "Not ROS buildfarm/apt publication",
+    "The new dual-architecture matrix revision must pass its own subsequent CI; prior runs validate the exact commits above"
+  ],
+  "build_provenance_rule": "A vendor build alone records compilation, never claims it executed runtime tests"
+}

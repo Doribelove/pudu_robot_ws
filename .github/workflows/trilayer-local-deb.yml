@@ -8,8 +8,16 @@ concurrency:
   group: trilayer-local-deb-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  local-deb-amd64:
-    runs-on: ubuntu-22.04
+  local-deb:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - architecture: amd64
+            runner: ubuntu-22.04
+          - architecture: arm64
+            runner: ubuntu-22.04-arm
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 90
     defaults:
       run:
@@ -28,6 +36,10 @@ jobs:
           fetch-depth: 1
           submodules: false
           lfs: false
+      - name: Verify native Debian architecture
+        run: |
+          test "$(dpkg --print-architecture)" = "${{ matrix.architecture }}"
+          uname -a
       - name: Set up official ROS Humble packages
         uses: ros-tooling/setup-ros@649ef6bcd696da05bc27ceb3fab69d810c0daeab
         with:
@@ -40,7 +52,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
-          name: local-deb-validation-amd64-${{ github.run_id }}-${{ github.run_attempt }}
+          name: local-deb-validation-${{ matrix.architecture }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             ${{ runner.temp }}/trilayer-local-deb-${{ github.run_id }}/evidence/
             ${{ runner.temp }}/trilayer-local-deb-${{ github.run_id }}/debs/
