@@ -18,7 +18,8 @@ def verify(package):
  return registry
 
 def environment(package):
- env={k:v for k,v in os.environ.items() if not k.startswith(('THREEYD_','V13_'))}
+ env={k:v for k,v in os.environ.items()
+      if k == 'V13_RUNTIME_ENV' or not k.startswith(('THREEYD_','V13_'))}
  env.update(THREEYD_BENCH_CPU='14',PYTHONDONTWRITEBYTECODE='1',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',
   THREEYD_BENCH_SOURCE=str(B),V13_CLOSEOUT_PACKAGE=str(package),V13_PROFILE='p6',V13_P6_HINT_MODE='local',V13_P7_OBSTACLE_L1='0',
   V13_FORMAL='1',V13_CAPTURE_TRACE='0',THREEYD_L3_BACKEND='independent',

@@ -1057,7 +1057,7 @@
     "tools/p6_static_harness.py": "6bde62ae8e94f60cb6bcaef735907bbd91ca9b28c09c74ec273bd505e43e3d64",
     "tools/plot_regression.py": "a807ecc81a85e7326ebb283e9d15c1031a1cf80c719f29560a522c029be51af5",
     "tools/prepare_runtime.py": "1409540b6a41aed127940be5f5f417bfb7141f15f5c86a5d6971150cabde636d",
-    "tools/run_static_regression.py": "7b0ab91f9b8baea864b4e90efddc55936029c250ce8a139b78c70b5ade2eb6d5",
+    "tools/run_static_regression.py": "9dd482712aa8736c43461591c1cddb1f95981912e717d857eab21ef8309a42e2",
     "verify_delivery.py": "be9051d7c2b0fd1f0860ddf6fb8647ae4d5b7d3bc40dc61d50dff2daefb689c5"
   }
 }
